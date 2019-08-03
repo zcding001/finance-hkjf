@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.contract.model.CarInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_CarInfo" type="com.hongkun.finance.contract.model.CarInfo">
+		<result property="id" column="id"/>
+		<result property="carBrand" column="car_brand"/>
+		<result property="carType" column="car_type"/>
+		<result property="frameNum" column="frame_num"/>
+		<result property="carColor" column="car_color"/>
+		<result property="keyNum" column="key_num"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,car_brand,car_type,frame_num,car_color,key_num,remark,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO car_info ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="carBrand != null and carBrand != ''">
+				car_brand ,
+			</if>
+			<if test="carType != null and carType != ''">
+				car_type ,
+			</if>
+			<if test="frameNum != null and frameNum != ''">
+				frame_num ,
+			</if>
+			<if test="carColor != null and carColor != ''">
+				car_color ,
+			</if>
+			<if test="keyNum != null">
+				key_num ,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="carBrand != null and carBrand != ''">
+				#{carBrand} ,
+			</if>
+			<if test="carType != null and carType != ''">
+				#{carType} ,
+			</if>
+			<if test="frameNum != null and frameNum != ''">
+				#{frameNum} ,
+			</if>
+			<if test="carColor != null and carColor != ''">
+				#{carColor} ,
+			</if>
+			<if test="keyNum != null">
+				#{keyNum} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO car_info (
+	       	id ,
+	       	car_brand ,
+	       	car_type ,
+	       	frame_num ,
+	       	car_color ,
+	       	key_num ,
+	       	remark ,
+	       	create_time ,
+	       	modify_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.carBrand != null and item.carBrand != ''">
+					#{item.carBrand} ,
+				</if>
+				<if test="item.carBrand == null or item.carBrand == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.carType != null and item.carType != ''">
+					#{item.carType} ,
+				</if>
+				<if test="item.carType == null or item.carType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.frameNum != null and item.frameNum != ''">
+					#{item.frameNum} ,
+				</if>
+				<if test="item.frameNum == null or item.frameNum == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.carColor != null and item.carColor != ''">
+					#{item.carColor} ,
+				</if>
+				<if test="item.carColor == null or item.carColor == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.keyNum != null">
+					#{item.keyNum} ,
+				</if>
+				<if test="item.keyNum == null">
+					DEFAULT ,
+				</if>
+				<if test="item.remark != null and item.remark != ''">
+					#{item.remark} ,
+				</if>
+				<if test="item.remark == null or item.remark == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="carBrand != null and carBrand != ''">
+				car_brand = #{carBrand} ,
+			</if>
+			<if test="carType != null and carType != ''">
+				car_type = #{carType} ,
+			</if>
+			<if test="frameNum != null and frameNum != ''">
+				frame_num = #{frameNum} ,
+			</if>
+			<if test="carColor != null and carColor != ''">
+				car_color = #{carColor} ,
+			</if>
+			<if test="keyNum != null">
+			key_num = #{keyNum} ,
+		   </if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  car_info
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM car_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_CarInfo">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM car_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="carBrand != null and carBrand !=''">
+			AND car_brand = #{carBrand}
+			</if>
+			<if test="carType != null and carType !=''">
+			AND car_type = #{carType}
+			</if>
+			<if test="frameNum != null and frameNum !=''">
+			AND frame_num = #{frameNum}
+			</if>
+			<if test="carColor != null and carColor !=''">
+			AND car_color = #{carColor}
+			</if>
+			<if test="keyNum != null">
+			AND key_num = #{keyNum}
+			</if>
+			<if test="remark != null and remark !=''">
+			AND remark = #{remark}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM car_info 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_CarInfo">
+		SELECT <include refid="columns" />
+		FROM car_info 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

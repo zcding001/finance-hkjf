@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>海外基金填写信息</title>
+</head>
+
+<body style=" background: #f7f7f7;">
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-606-0229</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40 hide loginShow">
+                            <a href="javascript:void(0)" id="headInforms" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng totalNum"></i>条未读消息</a>
+                        </div>
+                        <div class="fr pr0 loginHide">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide loginShow">
+                            <span>欢迎您 , <i class="nickName"></i></span>
+                            <a href="#" class="logoutBtn" style="color:#ed5345;">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="nav">
+			<div class="container" style="border:none;">
+				<div class="nav_c" style="padding: 10px 0 10px 0">
+					<a class="" href="javascript:void(0)" onclick="commonUtil.jump('/fund/overseasFund.html')">
+						<img src="${project_base_path}/src/img/guquan/logo2.png" onclick="commonUtil.jump('/fund/overseasFund.html')" alt="海外基金" style="margin-top:13px;">
+					</a>
+				</div>
+			</div>
+		</div>
+    </header>
+    <!-- 头部结束 -->
+
+    <!-- 海外基金填写信息开始 -->
+    <div class="proinfo_box">
+	   <div class="container proinfo_box_main">
+	      <img src="${project_base_path}/src/img/guquan/icon_stepa.png">
+	      <h3>签署认购协议</h3>
+		   <form id="agreementForm">
+		      <div class="proinfo_form">
+		         <ul>
+		         	<li><p class="Validform_wrong"></p></li>
+					 <input type="text" name="fundInfoId" value="" hidden>
+		            <li id="userNameAll">
+		            	<label>投资者姓名：</label>
+		            	<input type="text" name="userName"  value="" onblur="protocolInfo.checkNullValue('userName' , '实名信息中的名' ,'userNameAll')" placeholder="请输入名" class="inputform mr-20">
+		            	<input type="text" name="userSurname" value="" onblur="protocolInfo.checkNullValue('userSurname' , '实名信息中的姓' ,'userNameAll')" placeholder="请输入姓" class="inputform">
+		            </li>
+		            <!--<p class="noticeword">请填写正确姓名</p>-->
+		            <li>
+		            	<label>出生日期：</label>
+		            	<span class="fontweight" id="birthday">06/21/1987</span>
+						<input type="text" name="birthday" value="" hidden>
+		           	<li id="nationality">
+		            	<label>国籍：</label><input type="text" name="nationality"  onblur="protocolInfo.checkNullValue('nationality' , '国籍')" maxlength="18" value="中国" class="inputform" placeholder="请输入国籍,例如中国" nullmsg="请填写国籍！" errormsg="请填写正确国籍！" altercss="gray">
+		            </li>
+		            <li id="birthPlace"><label>出生地：</label><input type="text" name="birthPlace"  onblur="protocolInfo.checkNullValue('birthPlace' , '出生地')" value="" placeholder="需和护照出生地一致,例：湖北" maxlength="18" class="inputform"></li>
+		            <li id="investAmount"><label>认购金额(<span id="lowestAmountUnitId"></span>)</label>
+		             	<input type="text"  name="investAmount" value="" onblur="protocolInfo.checkNullValue('investAmount' , '认购金额(数字类型)');protocolInfo.checkInvestAmount('investAmount');" placeholder="10000美元起投，0美元递增" maxlength="18" class="inputform">
+		            </li>            
+		            <li id="addressAll"><label>联系地址：</label>
+		                <input type="text" name="streetNumber" value="" onblur="protocolInfo.checkNullValue('streetNumber' , '街道门牌号' , 'addressAll')" maxLength="25" placeholder="街道门牌号(例：海淀大街3号，7号楼，25楼A)" class="inputform mr-20">
+		                <input type="text" name="region" value="" onblur="protocolInfo.checkNullValue('region' , '行政区' , 'addressAll')" maxLength="25" placeholder="行政区(例：北京市海淀区)" class="inputform">
+		                <input type="text" name="province" value="" onblur="protocolInfo.checkNullValue('province' , '省份、州' ,'addressAll')" maxLength="18" placeholder="省份/州(例：北京)"  class="inputforma mr-20 mt-8">
+		                <input type="text" name="country" value="" onblur="protocolInfo.checkNullValue('country' , '国家' ,'addressAll')" maxLength="18" placeholder="国家(例：中国)" class="inputforma mr-20 mt-8">
+		                <input type="text" name="postCode" value="" onblur="protocolInfo.checkNullValue('postCode' , '数字类型邮编' ,'addressAll')" maxLength="15" placeholder="邮编(例：100070)" class="inputforma mt-8">
+		            </li>
+		            <li id="tel">
+		            	<label>联系电话：</label>
+		            	<input type="text" name="tel"  value="" onblur="protocolInfo.checkNullValue('tel' , '联系电话')" maxLength="15" placeholder="例：+86 18512345567"  class="inputform">
+		            </li> 
+		            <li id="email">
+		            	<label>联系邮箱：</label>
+		            	<input type="text" name="email"  value="" onblur="protocolInfo.checkNullValue('email' , '联系邮箱')" placeholder="例：zhangsanfeng@gmail.com" class="inputform">
+		            </li> 
+		            <li id="profession">
+		            	<label>职业：</label>
+		            	<input type="text" name="profession"  value="" onblur="protocolInfo.checkNullValue('profession' , '职业')" maxLength="18" placeholder="例：律师"  class="inputform">
+		            </li>
+		            <li id="passportNo">
+		            	<label>护照号：</label>
+		            	<input type="text" name="passportNo"  value="" onblur="protocolInfo.checkNullValue('passportNo' , '护照号')"  placeholder="例：G######" maxLength="18" class="inputform">
+		            </li>
+		            <li id="bankName">
+		            	<label>收款银行名称：</label>
+		            	<input type="text" name="bankName"  value="" onblur="protocolInfo.checkNullValue('bankName' , '收款银行名称')" placeholder="例：JP MORGAN CHASE BANK NA" maxLength="25" class="inputform">
+		            </li>
+		            <li id="bankAll">
+		                <label>收款银行地址：</label>
+		                <input type="text" name="bankStreetNumber" value="" onblur="protocolInfo.checkNullValue('bankStreetNumber' , '银行所在地街道门牌号' ,'bankAll')" maxLength="25" placeholder="街道门牌号(例：111 POLARIS PARKWAY)" class="inputform mr-20">
+		                <input type="text" name="bankRegion" value="" onblur="protocolInfo.checkNullValue('bankRegion' , '银行所在地行政区' ,'bankAll')" maxLength="25" placeholder="银行所在地行政区(例：COLUMBUS)" class="inputform">
+		                <input type="text" name="bankProvince" value="" onblur="protocolInfo.checkNullValue('bankProvince' , '银行所在地省份/州' ,'bankAll')" maxLength="18"  placeholder="银行所在地省份/州(例：OH)" class="inputforma mr-20 mt-8">
+		                <input type="text" name="bankCountry" value="" onblur="protocolInfo.checkNullValue('bankCountry' , '银行所在地国家' ,'bankAll')" maxLength="18" placeholder="银行所在地国家(例：USA)"  class="inputforma mr-20 mt-8">
+		                <input type="text" name="bankPost" value="" onblur="protocolInfo.checkNullValue('bankPost' , '银行所在地数字类型邮编' ,'bankAll')" maxLength="15"  placeholder="银行所在地邮编(例：43240)"  class="inputforma mt-8">
+		            </li> 
+		            <li id="seiftCode">
+		                <label>收款银行SWIFT编码：</label>
+		                <input type="text" name="seiftCode" value="" onblur="protocolInfo.checkNullValue('seiftCode' , '收款银行SWIFT编码')" maxLength="25" placeholder="例：CHUSAS33" class="inputform">
+		            </li>  
+		            <li id="abaCode">
+		                <label>(选填)收款银行ABA编码：</label>
+		                <input type="text" name="abaCode" value="" maxLength="25" placeholder="例：234342243" class="inputform">
+		            </li>
+		            <li id="recipientAccountCode">
+		                <label>收款账号号码：</label>
+		                <input type="text" name="recipientAccountCode" value="" onblur="protocolInfo.checkNullValue('recipientAccountCode' , '收款账号号码(数字类型)')" maxLength="20" placeholder="例：611283944323423555" class="inputform">
+		            </li>  
+		            <li>投资者的电汇付款是否来自上述投资者姓名本人的银行账户？</li>
+		            <li>
+		               <ul class="jiangpli clearfix">
+		                  <li class="fl" style="margin-right:90px;"><span class="danxuanbtn proinfo_xz" value="1"></span>是</li>
+		                  <li class="fl"><span class="danxuanbtn" value="0"></span>否</li>
+						   <input id="payFlag" type="text" name="payFlag" value="1" hidden/>
+					   </ul>
+		            </li>
+		            <br>
+		            <li>(选填)永久地址<font style="color:#999;">（身份证或官方证件上的地址，如果和联系地址相同则可跳过）:</font></li>
+		            <li>
+		                <input type="text" name="permanentStreetNumber"  value="" placeholder="街道门牌号(例：海淀大街3号，7号楼，25楼A)" maxLength="20" class="inputform mr-20" style="margin-left:180px;">
+		                <input type="text" name="permanentRegion"  value="" placeholder="行政区(例：北京市海淀区)" maxLength="20" class="inputform">
+		                <input type="text" name="permanentProvince" value=""  placeholder="省份/州(例：北京)" maxLength="20" class="inputforma mr-20 mt-8" style="margin-left:180px;">
+		                <input type="text" name="permanentCountry"   value="" placeholder="国家(例：中国)" maxLength="20" class="inputforma mr-20 mt-8">
+		                <input type="text" name="permanentPostCode"  value="" placeholder="邮编(例：100070)" maxLength="20" class="inputforma mt-8">
+		            </li>
+		            <br>
+		            <li>(选填)中间行<font style="color:#999;">（如有中间行，请填写以下中间行信息）：</font></li>
+		            <li id="midBankName"><label>中间行名称：</label><input type="text" name="midBankName"  value="" placeholder="请填写大写英文字母，例：BANK OF AMERICA" class="inputform"></li>
+		            <li id="midBankAll">
+		                <label>中间行地址：</label>
+		                <input type="text" name="midBankStreetNumber" value=""  placeholder="街道门牌号(例：600 ANTON BOULEVARD,SUITE 150)" maxLength="50" class="inputform mr-20">
+		                <input type="text" name="midBankRegion" value=""  placeholder="中间行所在地行政区(例：COSTA MESA)" maxLength="50" class="inputform">
+		                <input type="text" name="midBankProvince" value=""  placeholder="中间行所在地省份/州(例：CA)" maxLength="18" class="inputforma mr-20 mt-8">
+		                <input type="text" name="midBankCountry" value=""  placeholder="中间行所在地国家(例：USA)" maxLength="18" class="inputforma mr-20 mt-8">
+		                <input type="text" name="midBankPostCode" value=""  placeholder="中间行所在地邮编(例：43240)" maxLength="15" class="inputforma mt-8">
+		            </li> 
+		            <li id="seiftCode">
+		                <label>中间行SWIFT编码：</label>
+		                <input type="text" name="midBankSwiftCode" value="" maxLength="25" placeholder="例：CHUSAS33" class="inputform">
+		            </li>  
+		            <li id="abaCode">
+		                <label>中间行ABA编码：</label>
+		                <input type="text" name="midBankAbaCode" value="" maxLength="25" placeholder="例：234342243" class="inputform">
+		            </li>
+		            
+		            <li style="margin-top:50px;" id="signature">
+		              上传客户签名：
+		              <font style="color:#999;">（请上传和护照签名一致的白底黑色签名图片）</font>
+		            </li>		            
+		             <li id="signatureLi">
+		              	<input type="hidden" id="signatureBytes" name="signature" value="">
+                        <div id="preview" style="float:left;border:#cdcdcd 1px dashed;width:120px;height:120px;">
+                        <img id="imghead" border="0" src="${project_base_path}/src/img/guquan/icon_photoimg.png" style="margin:15px;" width="90" height="90" onClick="$('#previewImg').click();">
+                        </div>
+                        <input type="file" name="file" onChange="previewImage(this)" style="display: none;" id="previewImg">
+		            </li>
+		            
+		            <li style="margin-top:20px;">
+		              <label>签名示意图如下：</label>
+		            </li>
+		            <li>
+		               <div style="border:#cdcdcd 1px solid;width:200px;"><img src="${project_base_path}/src/img/guquan/sign_demo.jpg" style="display:block;margin:0 auto;width:100%"></div>
+		            </li>		            
+		            <li><a href="javascript:void(0);" class="reg_tjbtn" style="text-decoration:none;color:white !important;">下一步</a></li>
+		          </ul>
+		      </div>
+		   </form>
+	   </div>
+	</div>
+    <!-- 海外基金填写信息结束 -->
+    
+    <!-- 底部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_footer.html"></div>
+    <!-- 底部结束 -->
+    
+    
+    <!-- 弹窗开始 -->
+    <div id="btnChoose" class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+	    <div class="modal-dialog modal-sm" role="document">
+	        <div class="modal-content">
+	            <div class="modal-body tac pb-30 pt-30">
+	                <!-- 所要添加的内容start -->
+	                <div class="fhb_tc">
+	                    <h1 class="fhb_text pl-10 pr-10 blh-25">如果更换选项，会导致认购失败，是否要继续选择？</h1>
+	                    <div class="sign_btn">
+	                        <button id="continue" class="">继续</button>
+	                        <button id="giveup" class="" data-dismiss="modal">放弃</button>
+	                    </div>
+	                </div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 正在加载 -->
+	<div id="loading" class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+	    <div class="modal-dialog modal-sm" role="document">
+	        <div class="">
+	            <div class="modal-body tac pb-30 pt-30">
+	                <!-- 所要添加的内容start -->
+						<img src="${project_base_path}/src/img/guquan/loading.gif" alt="正在加载">
+						<p class="mt-15 colr-white">请求处理中，请稍后。。。。</p>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+    
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<!-- 签署协议第一步需要的js -->
+	<script type="text/javascript" src="${project_base_path}/lib/imgUtils/imgFileupload.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/protocol/protocolInfo.js?v=1232"></script>
+<script>
+
+	$(function(){
+		//初始化设置隐藏域默认值
+		$("input[name='payFlag']").attr("value" , "1").val("1");
+
+		var continueFlag = false;
+		$("#continue").click(function () {
+			continueFlag = true;
+			$("#btnChoose").modal('hide');
+		});
+
+		$("#giveup").click(function () {
+			continueFlag = false;
+			$("#btnChoose").modal('hide');
+		});
+
+		//中间三组
+		$('.jiangpli li span').click(function(){
+			redio = $(this);
+			if(!$(this).hasClass("xz")){
+				//点击时不是选中状态才需要提示
+				if($(this).attr("value") == '1'){
+					//重新选择默认选项不用提示
+					$(this).removeClass('danxuanbtn').addClass('proinfo_xz').parent().siblings().children().removeClass('proinfo_xz').addClass('danxuanbtn');
+					//更新隐藏域值
+					//$(this).parent().siblings().last().val($(this).attr("value"));
+					$("input[name='payFlag']").attr("value" , "1").val("1");
+				}else{
+					$("#btnChoose").modal('show');
+				}
+			}
+		});
+
+		//模态框隐藏事件触发
+		$("#btnChoose").on("hide.bs.modal",function(){
+			if(continueFlag){
+				//继续执行操作  放在继续按钮点击事件中也可
+				var redioValue = redio.attr("value");
+				redio.removeClass('danxuanbtn').addClass('proinfo_xz').parent().siblings().children().removeClass('proinfo_xz').addClass('danxuanbtn');
+				//更新隐藏域值
+				//redio.parent().siblings().last().val(redioValue);
+				$("input[name='payFlag']").attr("value" , "0").val("0");
+				continueFlag = false;
+			}
+		});
+
+	})
+
+function previewImage(file)
+{
+  var MAXWIDTH  = 90;
+  var MAXHEIGHT = 90;
+  var div = document.getElementById('preview');
+  if (file.files && file.files[0])
+  {
+      div.innerHTML ='<img id=imghead onclick=$("#previewImg").click()>';
+      var img = document.getElementById('imghead');
+      img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width  =  rect.width;
+        img.height =  rect.height;
+      }
+      var reader = new FileReader();
+      reader.onload = function(evt){img.src = evt.target.result;}
+      reader.readAsDataURL(file.files[0]);
+  }
+  else //兼容IE
+  {
+    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+    file.select();
+    var src = document.selection.createRange().text;
+    div.innerHTML = '<img id=imghead>';
+    var img = document.getElementById('imghead');
+    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+  }
+}
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight ){
+        rateWidth = width / maxWidth;
+        rateHeight = height / maxHeight;
+
+        if( rateWidth > rateHeight ){
+            param.width =  maxWidth;
+            param.height = Math.round(height / rateWidth);
+        }else{
+            param.width = Math.round(width / rateHeight);
+            param.height = maxHeight;
+        }
+    }
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+}
+
+
+ 	
+    		
+    	
+    	
+      
+</script>
+</html>

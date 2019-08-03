@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.AppMoreServe">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_AppMoreServe" type="com.hongkun.finance.user.model.AppMoreServe">
+		<result property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="serviceName" column="service_name"/>
+		<result property="serviceUrl" column="service_url"/>
+		<result property="icoUrl" column="ico_url"/>
+		<result property="isShow" column="is_show"/>
+		<result property="seq" column="seq"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,type,service_name,service_url,ico_url,is_show,seq
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO app_more_serve ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				service_name ,
+			</if>
+			<if test="serviceUrl != null and serviceUrl != ''">
+				service_url ,
+			</if>
+			<if test="icoUrl != null and icoUrl != ''">
+				ico_url ,
+			</if>
+			<if test="isShow != null">
+				is_show ,
+			</if>
+			<if test="seq != null">
+				seq
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				#{serviceName} ,
+			</if>
+			<if test="serviceUrl != null and serviceUrl != ''">
+				#{serviceUrl} ,
+			</if>
+			<if test="icoUrl != null and icoUrl != ''">
+				#{icoUrl} ,
+			</if>
+			<if test="isShow != null">
+				#{isShow} ,
+			</if>
+			<if test="seq != null">
+				#{seq}
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO app_more_serve (
+	       	id ,
+	       	type_name ,
+	       	type ,
+	       	service_name ,
+	       	service_url ,
+	       	ico_url ,
+	       	is_show ,
+	       	seq
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.serviceName != null and item.serviceName != ''">
+					#{item.serviceName} ,
+				</if>
+				<if test="item.serviceName == null or item.serviceName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.serviceUrl != null and item.serviceUrl != ''">
+					#{item.serviceUrl} ,
+				</if>
+				<if test="item.serviceUrl == null or item.serviceUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.icoUrl != null and item.icoUrl != ''">
+					#{item.icoUrl} ,
+				</if>
+				<if test="item.icoUrl == null or item.icoUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.isShow != null">
+					#{item.isShow} ,
+				</if>
+				<if test="item.isShow == null">
+					DEFAULT 
+				</if>
+				<if test="item.seq != null">
+					#{item.seq} ,
+				</if>
+				<if test="item.seq == null">
+					DEFAULT
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="serviceName != null and serviceName != ''">
+				service_name = #{serviceName} ,
+			</if>
+			<if test="serviceUrl != null and serviceUrl != ''">
+				service_url = #{serviceUrl} ,
+			</if>
+			<if test="icoUrl != null and icoUrl != ''">
+				ico_url = #{icoUrl} ,
+			</if>
+			<if test="isShow != null">
+			is_show = #{isShow} ,
+		   </if>
+			<if test="seq != null">
+			seq = #{seq}
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  app_more_serve
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM app_more_serve 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_AppMoreServe">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM app_more_serve 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="serviceName != null and serviceName !=''">
+			AND service_name = #{serviceName}
+			</if>
+			<if test="serviceUrl != null and serviceUrl !=''">
+			AND service_url = #{serviceUrl}
+			</if>
+			<if test="icoUrl != null and icoUrl !=''">
+			AND ico_url = #{icoUrl}
+			</if>
+			<if test="isShow != null">
+			AND is_show = #{isShow}
+			</if>
+			<if test="seq != null">
+			AND seq = #{seq}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM app_more_serve 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_AppMoreServe">
+		SELECT <include refid="columns" />
+		FROM app_more_serve 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<select id="findOtherServe" resultMap="_AppMoreServe">
+		SELECT <include refid="columns" />
+		FROM app_more_serve
+		<include refid="findPage_where"/>
+		<if test="serveIds != null">
+			AND id not in
+			<foreach collection="serveIds" open="(" separator="," close=")" item="serveId">
+				${serveId}
+			</foreach>
+		</if>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+</mapper>

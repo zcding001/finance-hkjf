@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <form name="dataForm" id="dataForm" novalidate>
+                <div class="panel-body">
+                    <div class="well">
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>产品类型:</label>
+                            <select name="type" ng-model="data.type" ng-init="data.type = types[0].value" ng-options="x.value as x.name for x in types" class="form-control ng-pristine ng-valid ng-touched textstyle"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>产品名称:</label>
+                            <input name="bidName" ng-model="data.name" validator="required" type="text"
+                                   placeholder="请输入产品名称"
+                                   error-message="请输入产品名称!" valid-method="blur" message-id="nameError" class="form-control ng-pristine ng-valid ng-touched textstyle">
+                            <span class="bid-info show-span" id="nameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>适应人群:</label>
+                            <input name="adaptcrowd" ng-model="data.adaptcrowd" validator="required" type="text"
+                                   placeholder="请输入适应人群"
+                                   error-message="请输入适应人群!" valid-method="blur" message-id="adaptcrowdError" class="form-control ng-pristine ng-valid ng-touched textstyle">
+                            <span class="bid-info show-span" id="adaptcrowdError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>额度范围(元):</label>
+                            <input name="amountMin" ng-model="data.amountMin"
+                                   placeholder="请输入大于100的正整数"
+                                   min="0" max="{{data.amountMax}}"
+                                   validator="required,range,integertext,minValueHundred" type="text"
+                                   error-message="请输入最小金额!"
+                                   range-error-message="请输入0到{{data.amountMax}}范围的值"
+                                   valid-method="blur"
+                                   message-id="amountError"
+                                   class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            -
+                            <input name="amountMax" ng-model="data.amountMax" validator="required,range,integertext,moneyMaxValue" type="text"
+                                   min="{{data.amountMin}}"
+                                   placeholder="请输入大于100的正整数"
+                                   error-message="请输入最大金额!" valid-method="blur"
+                                   range-error-message="上限最低输入{{data.amountMin}}的值"
+                                   message-id="amountError"
+                                   class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            <span class="bid-info show-span" id="amountError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>年化率范围(%):</label>
+                            <input name="rateMin" ng-model="data.rateMin" type="text"
+                                   min="0" max="{{data.rateMax}}"
+                                   placeholder="请输入整数或者至多两位小数"
+                                   error-message="请输入最小年化率!" valid-method="blur"
+                                   range-error-message="请输入0到{{data.rateMax}}范围的值"
+                                   message-id="rateError"
+                                   validator="required,range,rateOrInteger,smallint"
+                                   class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            -
+                            <input name="rateMax" ng-model="data.rateMax" type="text"
+                                   min="{{data.rateMin}}" max="100"
+                                   placeholder="请输入整数或者至多两位小数"
+                                   range-error-message="上限最低输入{{data.rateMin}}的值"
+                                   error-message="请输入最大年化率!" valid-method="blur"
+                                   message-id="rateError"  validator="required,range,rateOrInteger,smallint"
+                                   class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            <span class="bid-info show-span" id="rateError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>最大满标期限:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle"  name="bidDeadline" ng-model="data.bidDeadline" type="text"
+                                   placeholder="请输入正整数"
+                                   validator="required,range,smallint,integertext"
+                                   min="1" max="365"
+                                   range-error-message="请输入介于1至365的整数值!"
+                                   range-success-message="" valid-method="blur" message-id="bidLimitError">天
+                            <span style="color:#F00" class="bid-info" id="bidLimitError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款期限:</label>
+                            <input name="termValueMin" ng-model="data.termValueMin" validator="required,range,integertext,smallint" type="text"
+                                   min="0" max="{{data.termValueMax}}"
+                                   placeholder="请输入正整数"
+                                   range-error-message="请输入0到{{data.termValueMax}}的值"
+                                   valid-method="blur" message-id="termValueError" class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            -
+                            <input name="termValueMax" ng-model="data.termValueMax" validator="required,range, integertext,smallint " type="text"
+                                   min="{{data.termValueMin}}"
+                                   range-error-message="上限不能低于{{data.termValueMin}}的值"
+                                   placeholder="请输入正整数"
+                                   valid-method="blur" message-id="termValueError" class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+                            <!--modify:暂时性的隐藏年的选项-->
+                            <select name="termUnit"
+                                    ng-model="data.termUnit"
+                                    ng-init="data.termUnit = (termUnits | filter: {value:'!1'})[0].value"
+                                    ng-options="x.value as x.name for x in (termUnits | filter: {value:'!1'})"
+                                    class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 6%;"></select>
+                            <span class="bid-info show-span" id="termValueError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright" style="float:left"><span class="font-red">*&nbsp;</span>招标方案:</label>
+                            <input type="radio" ng-model="data.bidScheme" value="1" ng-change="bidSchemeChg()">最低金额招标&nbsp;&nbsp;
+                            <input type="radio" ng-model="data.bidScheme" value="0" ng-change="bidSchemeChg()">平均金额招标
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span><span id="bidSchemeValueLabel">最低投标金额</span>(元):</label>
+                            <input name="bidSchemeValue" ng-model="data.bidSchemeValue" validator="required,integertext,number,hundredMultiple,smallint" type="text"
+                                   placeholder="请输入100的整数倍"
+                                   valid-method="blur" message-id="bidSchemeValueError" class="form-control ng-pristine ng-valid ng-touched textstyle">
+                            <span class="bid-info show-span" id="bidSchemeValueError"></span>
+                        </div>
+                        <div class="form-group" style="max-width: 1100px;margin-bottom: 0px;padding-bottom: 16px;height: auto;overflow: hidden;">
+                            <label class="textright" style="float:left"><span class="font-red">*&nbsp;</span>还款方式:</label>
+                            <div style="float:left;width: 897px;height: auto;">
+                                <div ng-repeat="tmp in repaymentways" style="float:left;margin-left:5px;margin-top: 0px;">
+                                    <!--<input type="radio" ng-model="data.repaymentway" value="{{tmp.value}}">{{tmp.name}}&nbsp;&nbsp;-->
+                                    <input type="checkbox" value="{{tmp.value}}" name="repaymentway{{tmp.value}}" ng-model="tmp.checked" validator="required" validation-group="repaymentwayError">{{tmp.name}}&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <span class="bid-info show-span" id="repaymentwayError" style="margin-left: 130px;"></span>
+                        </div>
+                        <div class="form-group" style="max-width: 1100px;margin-bottom: 0px;padding-bottom: 16px;height: auto;overflow: hidden;">
+                            <label class="textright" style="float:left"><span class="font-red">*&nbsp;</span>合同:</label>
+                            <input type="hidden" name="contract" ng-model="data.contract">
+                            <div style="float:left;width: 897px;height: auto;">
+                                <div ng-repeat="tmp in contracts" style="float:left;margin-left:5px;margin-top: 0px;">
+                                    <input type="checkbox" value="{{tmp.type}}" name="contract{{tmp.type}}" ng-model="tmp.checked" validator="required" validation-group="contractError">{{tmp.name}}&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <span class="bid-info show-span" id="contractError" style="margin-left: 130px;"></span>
+                        </div>
+                        <div class="form-group" style="max-width: 1100px;margin-bottom: 0px;padding-bottom: 16px;height: auto;overflow: hidden;">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>产品描述:</label>
+                            <textarea name="description" ng-model="data.description" class="textstyle" validator="required" valid-method="blur" message-id="descriptionError"></textarea>
+                            <span style="color:#F00" class="bid-info" id="descriptionError"></span>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline btn-success"
+                                    ng-click="submit(dataForm)" validator-submit="dataForm">保存</button>
+                            <button type="button" class="btn btn-outline btn-success" onclick="window.history.go(-1)">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

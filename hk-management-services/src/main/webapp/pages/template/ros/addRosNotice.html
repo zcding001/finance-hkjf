@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px; margin-bottom: 20px;">
+                <span style="float:left; font-size: 18px;">添加系统通知</span>
+            </div>
+            <form name="rosNoticeForm" id="rosNoticeForm" enctype="multipart/form-data">
+                <div class="panel-body">
+                    <div class="well">
+
+                        <div class="form-group">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>功能模块:</label>
+                            <select  class="form-control ng-pristine ng-valid ng-touched textstyle" ng-model="rosNotice.type" ng-init="rosNotice.type = types[0].value" ng-options="x.value as x.name for x in types">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>提醒方式:</label>
+                            <select id="changeNoticeWay"  class="form-control ng-pristine ng-valid ng-touched textstyle" ng-model="rosNotice.noticeWay"
+                                     ng-init="rosNotice.noticeWay = 1" ng-options="x.value as x.name for x in noticeWays" ng-change="showTelOrEmail()">
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="showPage">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>接收手机号:</label>
+                            <input id="receTel" class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                   ng-model="rosNotice.receiveTel" validator="required,tel" type="text"
+                                    valid-method="blur" message-id="telError">
+                            <span style="color:#F00" id="telError"></span>
+                        </div>
+                        <div class="form-group" ng-if="showPage2">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>接收邮箱:</label>
+                            <input id="receEmail" class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                   ng-model="rosNotice.receiveEmail" validator="required,email" type="text"
+                                   valid-method="blur" message-id="emailError">
+                            <span style="color:#F00" id="emailError"></span>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline btn-success"
+                                    ng-click="submit(rosNoticeForm)" validator-submit="rosNoticeForm">保存</button>
+                            <button type="button" class="btn btn-outline btn-success" onclick="window.history.go(-1)">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

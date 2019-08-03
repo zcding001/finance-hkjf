@@ -1,0 +1,85 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+</head>
+<title></title>
+<link type="text/css" rel="stylesheet" media="all" href="${project_base_path}/src/css/yibaozf.css"/>
+ <style>
+        body{background-color: #f5f5f5;!important; }
+        .zongrto{background-color: #f9f9f9;;width: 100%;border: 1px solid #ececec;border-bottom:5px solid #ececec;border-radius: 20px 20px 0 0;overflow: hidden;height: 70px;font-size: 18px;color: #333333;padding:0;line-height: 70px;padding-left: 52px;}
+        .xuanxiangad1{background-color: white;width: 100%;padding: 0;border: 1px solid #ececec;border-top: none;height: 592px;padding-top: 187px;}
+        .chenggong{display: block;margin: 0 auto;}
+        .chenggonpls,.chenggdiv{font-size: 16px;color: #333333;font-weight: bold;text-align: center;}
+        .chenggonpls{margin-top: 30px;}
+        .chenggdiv{margin-top: 5px;}
+        .lijifanh{font-size: 14px;color: #00a0e9;display: block;width: 60px;margin: 0 auto;text-align: center;margin-top: 17px;cursor: pointer}
+        #fanhuio5{color: #f39200;}
+    </style>
+<body>
+<div class="yibaozftop">
+    <div>
+        <img src="${project_base_path}/src/img/account/yibolg1.png" alt="" class="yiblog">
+    </div>
+</div>
+<!--付款成功-->
+<div style="background-color: #f5f5f5;padding: 92px 0 120px;">
+    <div class="zonrongqia">
+        <ul class="zongrto">
+            您已成功付款
+        </ul>
+        <div class="xuanxiangad1">
+            <img src="${project_base_path}/src/img/account/chenggong.png" alt="" class="chenggong">
+            <p class="chenggonpls">[<span>000</span>]<span id ="result_msg">交易成功</span></p>
+            <div class="chenggdiv"><span id="fanhuio5">5 </span> 秒后返回商户平台</div>
+            <div class="lijifanh">立即返回</div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js?version=1.0"></script>
+<script>
+	debugger;
+	var return_url = "${project_base_path}";
+	var payResult = containerUtil.take("payResult");
+	if (payResult != '000000'){
+		$(".chenggong").attr("src","${project_base_path}/src/img/account/cuowua.png");
+		$("#result_msg").html("交易失败");
+		$(".lijifanh").html("重新支付");
+	}
+   <!--交易成功-->
+    var fanhuio5=document.getElementById('fanhuio5');
+    var lijifanh=document.getElementsByClassName('lijifanh')[0];
+    var countdown=5;
+    var setflg=null;
+	
+    lijifanh.onclick=function () {//立即返回
+        clearInterval(setflg)
+        gettourl(return_url);
+    }
+	
+    settime(fanhuio5)
+    function settime(val) {  //倒计时
+        function daojishill(countdown) {
+            val.innerHTML=countdown
+        }
+        setflg=setInterval(function() {
+            if(--countdown<=-1){
+                clearInterval(setflg)
+                gettourl(return_url)
+            }else{
+                daojishill(countdown)
+            }
+
+        },1000);
+    }
+
+    function gettourl(url) {//跳转url函数
+        window.location.href=url;
+    }
+
+</script>
+</body>
+</html>

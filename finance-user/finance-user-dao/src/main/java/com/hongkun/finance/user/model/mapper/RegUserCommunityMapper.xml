@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserCommunity">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserCommunity" type="com.hongkun.finance.user.model.RegUserCommunity">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="communityName" column="community_name"/>
+		<result property="communityType" column="community_type"/>
+		<result property="pid" column="p_id"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+			<![CDATA[
+		       id,reg_user_id,community_name,community_type,p_id,state
+		    ]]>
+	</sql>
+
+	<!-- 使用queryColumnId管理的列 -->
+	<sql id="queryColumns">
+		<if test="queryColumnId==null or queryColumnId==''">
+			<![CDATA[
+		      id,reg_user_id,community_name,community_type,p_id,state
+		    ]]>
+		</if>
+		<if test="queryColumnId=='id'">
+			<![CDATA[
+		      id
+		    ]]>
+		</if>
+		<if test="queryColumnId=='idAndName'">
+			<![CDATA[
+		      id,community_name
+		    ]]>
+		</if>
+		<if test="queryColumnId=='queryCommunityVO'">
+			ruc.id AS id,ruc.community_name AS communityName,ru.nick_name AS nickName,ruc.community_type AS communityType, ruc.p_id AS pid,other_ruc.community_name AS parentCommunityName
+		</if>
+
+	</sql>
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_community ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="communityName != null and communityName != ''">
+				community_name ,
+			</if>
+			<if test="communityType != null">
+				community_type ,
+			</if>
+		     p_id
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="communityName != null and communityName != ''">
+				#{communityName} ,
+			</if>
+			<if test="communityType != null">
+				#{communityType} ,
+			</if>
+			<if test="pid == null">
+				0
+			</if>
+			<if test="pid != null">
+				#{pid}
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO reg_user_community (
+        	id ,
+        	reg_user_id ,
+        	community_name ,
+        	community_type ,
+        	p_id 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.communityName != null and item.communityName != ''">
+					#{item.communityName} ,
+				</if>
+				<if test="item.communityName == null or item.communityName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.communityType != null">
+					#{item.communityType} ,
+				</if>
+				<if test="item.communityType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.pid != null">
+					#{item.pid} 
+				</if>
+				<if test="item.pid == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="communityName != null and communityName != ''">
+				community_name = #{communityName} ,
+			</if>
+			<if test="communityType != null">
+			community_type = #{communityType} ,
+		   </if>
+			<if test="pid != null">
+			p_id = #{pid} 
+		   </if>
+			<if test="state != null">
+				state = #{state}
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_user_community
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_community 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserCommunity">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_user_community 
+		WHERE state != 0 AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			state != 0
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="communityName != null and communityName !=''">
+			AND community_name = #{communityName}
+			</if>
+			<if test="communityType != null">
+			AND community_type = #{communityType}
+			</if>
+			<if test="pid != null">
+			AND p_id = #{pid}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where_alias">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+            ruc.state != 0
+			<if test="id != null">
+				AND ruc.id = #{id}
+			</if>
+			<if test="regUserId != null">
+				AND ruc.reg_user_id = #{regUserId}
+			</if>
+			<if test="communityName != null and communityName !=''">
+				AND ruc.community_name LIKE  CONCAT('%',#{communityName},'%')
+			</if>
+			<if test="communityType != null">
+				AND ruc.community_type = #{communityType}
+			</if>
+			<if test="pid != null">
+				AND ruc.p_id = #{pid}
+			</if>
+			<if test="state != null">
+				AND ruc.state = #{state}
+			</if>
+		</where>
+	</sql>
+
+	<sql id="findPage_where_with_limitIds">
+		<include refid="findPage_where_alias"/>
+		<if test="limitIds!=null and limitIds.size>0">
+			AND ruc.reg_user_id IN
+			<foreach collection="limitIds" open="(" separator="," close=")" item="cid">
+				#{cid}
+			</foreach>
+		</if>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_community 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserCommunity">
+		SELECT <include refid="queryColumns" />
+		FROM reg_user_community 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<select id="findCommunityDicDataList" resultType="java.util.Map" parameterType="java.lang.Integer">
+		SELECT id as value,community_name as name  
+		FROM reg_user_community 
+		WHERE p_id = 0 
+		<if test="_parameter != null and _parameter != -999">
+			AND reg_user_id = #{_parameter}
+		</if>
+	</select>
+
+	<!--加载线下门店的地址-->
+	<select id="loadOfflineStoreAddress" resultType="com.hongkun.finance.user.model.vo.RegUserCommunityVO"  >
+		SELECT ru.nick_name AS nickName,ruc.community_name AS communityName
+		FROM reg_user ru
+		LEFT JOIN reg_user_community ruc
+		ON ru.id=ruc.reg_user_id
+		WHERE ru.type=3 AND ruc.community_type=1 AND  ruc.state != 0
+	</select>
+
+	<sql id="findCommunityListCommSQL">
+		FROM
+		reg_user_community ruc
+		LEFT JOIN reg_user ru
+		ON ruc.reg_user_id=ru.id
+		LEFT JOIN reg_user_community other_ruc
+		ON ruc.p_id=other_ruc.id
+		<include refid="findPage_where_with_limitIds"/>
+	</sql>
+
+	<!-- 查询物业门店数量 -->
+	<select id="findCommunityListCount" resultType="long">
+		SELECT COUNT(ruc.ID)
+		<include refid="findCommunityListCommSQL"/>
+	</select>
+
+	<!-- 查询物业门店分页 -->
+	<select id="findCommunityList" resultType="com.hongkun.finance.user.model.vo.RegUserCommunityVO">
+		SELECT
+		<include refid="queryColumns"/>
+		<include refid="findCommunityListCommSQL"/>
+	</select>
+
+	<!--级联删除小区-->
+	<delete id="delectCommunityOnCascade">
+		UPDATE reg_user_community
+	    SET  state=0
+		WHERE
+		id =#{id} or p_id =#{id}
+	</delete>
+
+	<!--找到目前可用的小区 reguserId为null的-->
+	<select id="findCommunityAvailable" resultMap="_RegUserCommunity">
+       SELECT
+	   <include refid="queryColumns"/>
+		FROM
+		reg_user_community
+		WHERE reg_user_id is NULL AND state != 0
+	</select>
+
+	<!--解绑小区与物业的关系-->
+	<update id="communityRelShouldDelete">
+		UPDATE  reg_user_community
+		SET  reg_user_id=NULL
+		WHERE id IN
+		<foreach collection="list" open="(" separator="," close=")" item="did">
+			${did}
+		</foreach>
+	</update>
+
+	<!--绑定小区与物业的关系-->
+	<update id="bindCommunityToTenument">
+		UPDATE  reg_user_community
+		SET  reg_user_id=#{regUserId}
+		WHERE id IN
+		<foreach collection="communitiesIdsNew" open="(" separator="," close=")" item="did">
+			${did}
+		</foreach>
+	</update>
+	
+	<select id="findAllCommunityList" resultType="com.hongkun.finance.user.model.RegUserCommunity">
+       SELECT ruc.id as id,ruc.reg_user_id as regUserId,ruc.community_name as communityName,ru.real_name as proName 
+		FROM
+		reg_user_community ruc left join reg_user_detail ru on ruc.reg_user_id = ru.reg_user_id 
+		WHERE ruc.reg_user_id is not NULL AND ruc.state =1 and ruc.p_id=0
+	</select>
+
+
+</mapper>

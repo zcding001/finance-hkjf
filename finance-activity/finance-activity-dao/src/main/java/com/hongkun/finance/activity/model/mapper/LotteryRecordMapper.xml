@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.activity.model.LotteryRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_LotteryRecord" type="com.hongkun.finance.activity.model.LotteryRecord">
+		<result property="id" column="id"/>
+		<result property="lotteryActivityId" column="lottery_activity_id"/>
+		<result property="lotteryItemId" column="lottery_item_id"/>
+		<result property="state" column="state"/>
+		<result property="tel" column="tel"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="userName" column="user_name"/>
+		<result property="verfication" column="verfication"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="source" column="source"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,lottery_activity_id,lottery_item_id,state,tel,reg_user_id,user_name,verfication,create_time,modify_time,source
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO lottery_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="lotteryActivityId != null">
+				lottery_activity_id ,
+			</if>
+			<if test="lotteryItemId != null">
+				lottery_item_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="tel != null">
+				tel ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name ,
+			</if>
+			<if test="verfication != null and verfication != ''">
+				verfication ,
+			</if>
+				create_time ,
+			<if test="source != null and source != ''">
+				source ,
+			</if>
+			modify_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="lotteryActivityId != null">
+				#{lotteryActivityId} ,
+			</if>
+			<if test="lotteryItemId != null">
+				#{lotteryItemId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="tel != null">
+				#{tel} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="userName != null and userName != ''">
+				#{userName} ,
+			</if>
+			<if test="verfication != null and verfication != ''">
+				#{verfication} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="source != null and source != ''">
+				#{source} ,
+			</if>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO lottery_record (
+	       	id ,
+	       	lottery_activity_id ,
+	       	lottery_item_id ,
+	       	state ,
+	       	tel ,
+	       	reg_user_id ,
+	       	user_name ,
+	       	verfication ,
+	       	create_time ,
+	       	modify_time ,
+	       	source 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.lotteryActivityId != null">
+					#{item.lotteryActivityId} ,
+				</if>
+				<if test="item.lotteryActivityId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.lotteryItemId != null">
+					#{item.lotteryItemId} ,
+				</if>
+				<if test="item.lotteryItemId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.tel != null">
+					#{item.tel} ,
+				</if>
+				<if test="item.tel == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.userName != null and item.userName != ''">
+					#{item.userName} ,
+				</if>
+				<if test="item.userName == null or item.userName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.verfication != null and item.verfication != ''">
+					#{item.verfication} ,
+				</if>
+				<if test="item.verfication == null or item.verfication == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.source != null and item.source != ''">
+					#{item.source} 
+				</if>
+				<if test="item.source == null or item.source == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="lotteryActivityId != null">
+			lottery_activity_id = #{lotteryActivityId} ,
+		   </if>
+			<if test="lotteryItemId != null">
+			lottery_item_id = #{lotteryItemId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="tel != null">
+			tel = #{tel} ,
+		   </if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName} ,
+			</if>
+			<if test="verfication != null and verfication != ''">
+				verfication = #{verfication} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="source != null and source != ''">
+				source = #{source} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  lottery_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM lottery_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_LotteryRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM lottery_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="lotteryActivityId != null">
+			AND lottery_activity_id = #{lotteryActivityId}
+			</if>
+			<if test="lotteryItemId != null">
+			AND lottery_item_id = #{lotteryItemId}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="tel != null">
+			AND tel = #{tel}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="userName != null and userName !=''">
+			AND user_name = #{userName}
+			</if>
+			<if test="verfication != null and verfication !=''">
+			AND verfication = #{verfication}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="source != null and source !=''">
+			AND source = #{source}
+			</if>
+		</where>
+	</sql>
+
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM lottery_record
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_LotteryRecord">
+		SELECT <include refid="columns" />
+		FROM lottery_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+
+	<!--抽奖页面获取抽奖记录-->
+	<select id="getRandomList" resultType="com.hongkun.finance.activity.model.LotteryRecord">
+		SELECT
+			l1.id as id,
+			l1.lottery_activity_id as lotteryActivityId,
+			l1.lottery_item_id as lotteryItemId,
+			l1.state as state,
+			l1.tel AS tel,
+			l1.reg_user_id as regUserId,
+			l1.user_name as userName,
+			l1.verfication as verfication,
+			l1.create_time as createTime,
+			l1.modify_time as modifyTime,
+			l1.source as source
+		 FROM lottery_record AS l1
+			JOIN (SELECT ROUND(RAND() * (SELECT MAX(id) FROM lottery_record)) AS id) AS l2
+			INNER JOIN lottery_item AS l3
+			ON l1.lottery_item_id = l3.id
+			WHERE l1.id >= l2.id
+				AND l3.state = 1
+				AND l1.lottery_item_id = l3.id
+				<if test="lotteryActivityId != null">
+					AND l1.lottery_activity_id = #{lotteryActivityId}
+				</if>
+				<if test="lotteryItemId != null">
+					AND l1.lottery_item_id = #{lotteryItemId}
+				</if>
+				<if test="state != null">
+					AND l1.state = #{state}
+				</if>
+				<if test="tel != null">
+					AND l1.tel = #{tel}
+				</if>
+	</select>
+
+	<!--查询每日/每个活动个人抽奖记录数-->
+	<select id="getDayAndTotalCount" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM lottery_record
+		WHERE 1 = 1
+		<if test="lotteryActivityId != null">
+			AND lottery_activity_id = #{lotteryActivityId}
+		</if>
+		<if test="lotteryItemId != null">
+			AND lottery_item_id = #{lotteryItemId}
+		</if>
+		<if test="state != null">
+			AND state = #{state}
+		</if>
+		<if test="tel != null">
+			AND tel = #{tel}
+		</if>
+		<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+		</if>
+		<if test="createTimeEnd != null">
+			AND <![CDATA[ create_time <= #{createTimeEnd} ]]>
+		</if>
+	</select>
+
+
+	<!--获取活动详情中奖列表-->
+	<select id="findLotteryRecordDetailList" resultType="com.hongkun.finance.activity.model.vo.LotteryRecordVo">
+		SELECT
+			lr.id as id,
+			lr.lottery_activity_id as lotteryActivityId,
+			lr.lottery_item_id as lotteryItemId,
+			lr.state as state,
+			lr.tel AS tel,
+			lr.reg_user_id as regUserId,
+			lr.user_name as userName,
+			lr.verfication as verfication,
+			lr.create_time as createTime,
+			lr.modify_time as modifyTime,
+			lr.source as source,
+			la.name as name,
+			la.start_time as startTime,
+			la.end_time as endTime,
+			la.activity_rule as activityRule,
+			la.introduction as introduction,
+			li.item_name as itemName,
+			li.item_type as itemType,
+			li.item_rate as itemRate
+		FROM lottery_record AS lr
+		INNER JOIN lottery_activity la
+		ON lr.lottery_activity_id = la.id
+		INNER JOIN lottery_item li
+		ON lr.lottery_item_id = li.id
+
+		WHERE 1 = 1
+		<if test="lotteryActivityId != null">
+			AND lr.lottery_activity_id = #{lotteryActivityId}
+		</if>
+		<if test="lotteryItemId != null">
+			AND lr.lottery_item_id = #{lotteryItemId}
+		</if>
+		<if test="state != null">
+			AND lr.state = #{state}
+		</if>
+		<if test="tel != null">
+			AND lr.tel = #{tel}
+		</if>
+	</select>
+
+
+	<!-- 查询条件 -->
+	<sql id="findRecordPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="state != null">
+				AND lr.state = #{state}
+			</if>
+			<if test="tel != null and tel !=''">
+				AND lr.tel like concat ('%',#{tel},'%')
+			</if>
+			<if test="name != null and name !=''">
+				AND la.name like concat ('%',#{name},'%')
+			</if>
+			<if test="itemType != null and itemType !=''">
+				AND li.item_type = #{itemType}
+			</if>
+		</where>
+	</sql>
+
+
+	<!-- 查询数量 -->
+	<select id="findLotteryRecordWithConditionCount" resultType="long">
+		SELECT COUNT(lr.id)
+		FROM lottery_record AS lr
+		INNER JOIN lottery_activity la
+		ON lr.lottery_activity_id = la.id
+		INNER JOIN lottery_item li
+		ON lr.lottery_item_id = li.id
+		<include refid="findRecordPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findLotteryRecordWithCondition" resultType="com.hongkun.finance.activity.model.vo.LotteryRecordVo">
+		SELECT
+			lr.id as id,
+			lr.lottery_activity_id as lotteryActivityId,
+			lr.lottery_item_id as lotteryItemId,
+			lr.state as state,
+			lr.tel AS tel,
+			lr.reg_user_id as regUserId,
+			lr.user_name as userName,
+			lr.verfication as verfication,
+			lr.create_time as createTime,
+			lr.modify_time as modifyTime,
+			lr.source as source,
+			la.name as name,
+			la.start_time as startTime,
+			la.end_time as endTime,
+			li.item_name as itemName,
+			li.item_type as itemType,
+			li.item_rate as itemRate
+		FROM lottery_record AS lr
+		INNER JOIN lottery_activity la
+		ON lr.lottery_activity_id = la.id
+		INNER JOIN lottery_item li
+		ON lr.lottery_item_id = li.id
+		<include refid="findRecordPage_where"/>
+		ORDER BY lr.create_time desc
+	</select>
+
+</mapper>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="pragma" content="no-cache"> 
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css?version=1.0">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css?version=1.0" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css?version=1.0">
+</head>
+
+<body>
+<input type="hidden" name="cardNo" id="cardNo" value=""/>
+<div class="cz_ts">
+  <span class="fl"><i class="iconfont icon-jinggao mr-30"></i>如果您要充值的金额在50万以上，请通过“网银支付”来完成充值。</span>
+  <img src="${project_base_path}/src/img/account/xc_03.png" class="fr img_close">
+</div>
+<div class="n_txbox">
+  <!-- 账户充值 -->
+  <div class="bank_txje tx_bt">
+      <div class="fl">账户充值</div>
+      <div class="fr">
+          <a href="#" target="_blank"><img src="${project_base_path}/src/img/account/tb_cz_1.jpg"></a>
+      </div>
+  </div>
+  <!-- 支付方式 -->
+  <div class="method_title clearfix">
+      <span class="fl">支付方式：</span>
+      <div class="fl" id="payChannel">
+
+      </div>
+  </div>
+  <!-- 快捷支付和网银支付 -->
+  <div class="payBox" >
+      <!-- 支付方式 -->
+      <ul class="zffs_tab clearfix" id="payStyle">
+      </ul>
+
+      <!-- 快捷支付 -->
+      <div id="con_bt_1" class="zf-kjzf card_box hide show">
+          <!-- 快捷支付绑定卡状态 -->
+          <div class="inm_bd">
+
+          </div>
+          <!-- 快捷支付未绑定卡状态 -->
+          <div class="weibk" style="display:none;">
+              <div class="zf-yhkh">
+                  <span>银行卡号：</span>
+                  <input type="text" class="kjzfyhkh" name="input_card_no" id="input_card_no" maxlength="20">
+                  <i class="otshixx" style="color:red;"></i>
+              </div>
+              <div class="zf-xzyhk">
+                  <span>选择银行：</span>
+                  <div class="zf-yhlist" id="weibk">
+                  </div>
+              </div>
+              <img src="${project_base_path}/src/img/account/yhzk.png" alt="" class="zhankaicz" id="showCard">
+              <div class="banklimit clearfix" id="banksLimit" style="display:none; width:670px;margin-left:85px;">
+
+              </div>
+          </div>
+      </div>
+      <!-- 网银支付开始 -->
+      <div class="zf-wyzf card_box hide"  id="wypay">
+          <div class="zf-xzyhk">
+              <span>选择银行：</span>
+              <div class="zf-yhlist" id="wyzfxr">
+              </div>
+          </div>
+          <img src="${project_base_path}/src/img/account/yhzk.png" alt="" class="zhankaicz" id="showMore">
+          <!-- 网银限额开始 -->
+          <div class="wangy_c" style="display:none;">
+              <div class="wangy_name">
+                  <p class="wang-jets">请关注您的充值金额</p>
+                  <p class="wang-rexian"></p>
+              </div>
+              <table width="100%" class="wangy_limit">
+                  <thead>
+                  <tr>
+                      <th>客户类型</th>
+                      <th>单笔限额</th>
+                      <th>单日限额</th>
+                  </tr>
+                  </thead>
+                  <tbody class="zf-wangyinxe">
+                  </tbody>
+              </table>
+          </div>
+          <!-- 网银限额结束 -->
+      </div>
+      <!-- 网银支付结束 -->
+      <!-- 企业网银支付开始 -->
+      <div class="zf-qywyzf card_box"  id="qywypay"  style="display:none;">
+          <div class="zf-xzyhk">
+              <span>选择银行：</span>
+              <div class="zf-yhlist" id="qywyzfxr">
+              </div>
+          </div>
+          <img src="${project_base_path}/src/img/account/yhzk.png" alt="" class="zhankaicz" id="showMoreqywy">
+      </div>
+      <!-- 企业网银支付结束 -->
+      <!-- 提交模块开始 -->
+      <div>
+          <ul class="available_c">
+              <li class="f-16">可用余额：<span class="c_f54" id="useableMoney"></span>元</li>
+              <li class="mt-20">
+                  <span class="f-18">充值金额：</span>
+                  <input name="tranAmt" id="tranAmt" type="text" onkeypress="keyPress(this)" onkeyup="keyUp(this)" />元&nbsp;
+                  <span class="Validform_checktip colr-red" id="errorMsg"></span>
+              </li>
+          </ul>
+          <div class="bt_cz f-16 "><a href="javascript:void(0);"  id="toRecharge" >去充值</a></div>
+      </div>
+      <!-- 提交模块结束 -->
+  </div>
+
+  <!-- 充值提醒 -->
+  <div class="zc_gz">
+      <div class="gz_title rel">
+          <i class="iconfont icon-iconfontlaba1 mr-30"></i>充值提醒
+      </div>
+      <div class="gz_cont">
+          1、如未操作过充值，建议先核实银行网银充值限额，再进行充值操作，查看各大银行网银限额。
+          <br> 2、请注意您的银行卡充值限制，以免造成不便。
+          <br> 3、如当前支付方式无法正常充值，请选择另一种支付方式。
+          <br> 4、鸿坤金服客服电话：400-900-9630/400-099-0229。
+          <br>
+      </div>
+  </div>
+</div>
+
+<!-- 充值提示弹窗 -->
+<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="background:rgba(0,0,0,.4)">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header border-radius disabled  pt-10 pb-10">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">系统提示</h4>
+          </div>
+          <div class="modal-body tac pb-30 pt-30">
+              <!-- 所要添加的内容start -->
+              <div class="fhb_tc">
+                  <h1 class="fhb_text">
+                      <p class="f-weight mb-10">请您在新打开的网银或第三方支付页面完成支付</p>
+                      <p class="mb-5">支付完成前请不要关闭窗口，</p>
+                      <p>完成支付后请根据您的支付情况点击下面的按钮。</p>
+                  </h1>
+                  <div class="fhb_button">
+                      <button class="fs_button" id="finish">已完成付款</button>
+                      <button class="fs_button bor_33" data-dismiss="modal" id="payFail">付款遇到问题，重新发起支付</button>
+                  </div>
+              </div>
+              <!-- 所要添加的内容end-->
+          </div>
+      </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="${project_base_path}/jslib/payment/bankLimit.js?version=1.0"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/payment/recharge.js?version=1.0"></script>
+<script>
+function keyPress(ob) {
+	if (!ob.value.match(/^[\+\-]?\d*?\.?\d*?$/)) ob.value = ob.t_value; else ob.t_value = ob.value; if (ob.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/)) ob.o_value = ob.value;
+}
+function keyUp(ob) {
+	if (!ob.value.match(/^[\+\-]?\d*?\.?\d*?$/)) ob.value = ob.t_value; else ob.t_value = ob.value; if (ob.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/)) ob.o_value = ob.value;
+}
+$(".img_close").on("click",function(){
+	$(".cz_ts").hide();
+	
+})
+</script>
+</html>

@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hongkun.finance</groupId>
+		<artifactId>finance-user</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>finance-user-api</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+
+	<!-- jar libs import -->
+	<dependencies>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-user-model</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+        <dependency>
+            <groupId>com.hongkun.finance</groupId>
+            <artifactId>finance-payment-model</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 需要提供给其它应用调用的，引入此插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

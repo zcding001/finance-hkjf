@@ -1,0 +1,243 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+             已匹配标的查询
+            </div>
+            <!-- /.panel-heading -->
+            <form name="matchBidForm" id="matchBidForm" enctype="multipart/form-data" >
+            <div class="panel-body" >
+            	<div>
+	                <div class="well">
+		                <table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+								<tr>
+									<td>
+										<div class="form-group">
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">优选标</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">散标</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">项目编码</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.bidCode}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.bidCode}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">借款标题</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.title}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.title}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">借款金额</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.totalAmount}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.totalAmount}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">借款产品</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.productName}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.productName}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">借款用途</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.loanUse}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.loanUse}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">借款期限</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.termValue}}（{{goodBid.termUnit}}）</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.termValue}}（{{commonBid.termUnit}}）</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">招标方案</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.bidScheme}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.bidScheme}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">年化率</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.interestRate}}%</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.interestRate}}%</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">还款方式</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.biddRepaymentWay}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{commonBid.biddRepaymentWay}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">信用等级</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">{{goodBid.creditLevel}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">{{commonBid.creditLevel}}</label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">风控方式</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright"> {{goodBid.assureType}}</label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">{{commonBid.assureType}} </label>
+						              	 </div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+										<label class="textright">总付利息</label>
+					              	   </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">{{goodBid.interestAmount}} </label>
+						              	 </div>
+									</td>
+									<td>
+										 <div class="form-group">
+						       			      <label class="textright">{{commonBid.interestAmount}} </label>
+						              	 </div>
+									</td>
+								</tr>
+						</table>
+					</div>
+				</div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>

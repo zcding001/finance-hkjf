@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>质押合同</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="亿润投资 鸿坤集团 基金 私募" />
+    <meta name="description" content="亿润投资是鸿坤控股旗下公司，成立于2007年。公司定位于中国行业新一代的综合金融服务商；拥有优秀的资产管理能力，行业内领先的独立财富管理机构。" />
+    <style>
+        body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+        body{font:12px"微软雅黑","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;}
+        a{color:#2d374b;text-decoration:none;}
+        em{font-style:normal}
+        li{list-style:none}
+        img{border:0;vertical-align:middle}
+        table{border-collapse:collapse;border-spacing:0}
+        .fl{float:left;}
+        .fr{float:right;}
+        .ds{display:block;}
+        .pta{margin-top:30px;}
+        .contact_main{
+            width:800px;
+            height:auto;
+            margin:0 auto;
+            padding:50px 0;
+        }
+        .content_title{
+            height:50px;
+            line-height:50px;
+            text-align:center;
+            font-size:28px;
+                  font-family: "黑体";
+            color:black;
+        }
+        .content_infor{
+            width:100%;
+            height:auto;
+            font-size:16px;
+        }
+        .content_infor_top{
+            width:100%;
+            height:auto;
+        }
+        .content_infor_top > p{
+            height:32px;
+            font-size:16px;
+            line-height: 32px;
+            font-family:"宋体";
+            color:black;
+        }
+        .content_infor_top > p > font{
+            font-weight:bold;
+        }
+        .content_infor_mid{
+            margin-top:30px;
+            width:100%;
+            height:auto;
+            font-family:"宋体";
+        }
+        .content_infor_top p u{
+
+            padding:0 10px;
+        }
+        .tkc u{
+
+            padding:0 10px;
+        }
+        .wt_qx{
+            width:100%;
+            height:30px;
+            line-height:30px;
+            font-family:"宋体";
+        }
+        .content_infor_midin{
+            width:100%;
+            height: auto;
+            font-size:16px;
+            line-height:32px;
+            overflow: hidden;
+            font-family:"宋体";
+            color:black;
+        }
+        .content_infor_midin >u{
+
+            padding:0 10px;
+        }
+        .content_infor_botin{
+            text-indent: 32px;
+            line-height:32px;
+            font-size:16px;
+            font-family:"宋体";
+        }
+        .content_infor_botin h3{
+            /*height:50px;*/
+            line-height: 50px;
+            font-family:"宋体";
+            font-size:18px;
+        }
+        .content_infor_botin u{
+
+            padding:0 10px;
+        }
+        .content_infor_botina{
+            text-indent: 32px;
+            line-height:28px;
+            font-family:"宋体";
+            font-size:16px;
+        }
+        .wb{
+            padding:0 30px;
+            font-size:16px;
+            margin-top:50px;
+            font-family:"宋体";
+        }
+        .signname{
+            width:100%;
+            height:auto;
+            line-height: 30px;
+            margin-top:30px;
+            font-family:"宋体";
+        }
+        .signname ul{
+            width:100%;
+            height:auto;
+            overflow:hidden;
+        }
+        .signname ul div{
+            width:50%;
+            float: left;
+            height:32px;
+            line-height: 36px;
+            font-size: 16px;
+            font-family:"宋体";
+        }
+        .signname ul div u{
+
+            padding:0 10px;
+        }
+        .qsdata{
+            height:30px;
+            line-height: 30px;
+            margin-top:10px;
+        }
+        .qsdata u{
+
+            padding:0 10px;
+        }
+        .tablediv{
+            padding:0 30px;
+            height:auto;
+            margin-top:50px;
+        }
+        .tablediv p{
+            height:30px;
+            line-height:30px;
+        }
+        .a_tab{
+            width: 100%;
+            height:auto;
+        }
+        .a_tr{
+            line-height:24px;
+            text-align:center;
+        }
+        .b_tr{
+            height:24px;
+        }
+        .jkuse{
+            font-weight: bold;;
+            font-size:16px;
+            color:black;
+            display: block;
+            width: 10%;
+            font-family:"宋体";
+        }
+        .tkc{
+            font-style:normal;
+            display: block;
+            width: 90%;
+        }
+        .tkc font{
+            font-weight:bold;
+        }
+        .content_infor_midin h3{
+            font-size:14px;
+            font-family:"宋体";
+        }
+        .yazhitik{
+            text-align: center;
+            font-size: 14px;
+            height:30px;
+            line-height: 30px;
+            font-weight:bold;
+            font-family:"宋体";
+        }
+        .important_ts{
+            font-weight:bold;
+            font-size:14px;
+            padding-left:24px;
+            line-height:24px;
+            font-family:"宋体";
+        }
+        .luokuan{
+            text-align: center;
+            height:30px;
+            line-height: 30px;
+            margin-top: 50px;
+            font-size:14px;
+            font-family:"宋体";
+        }
+        .content_infor_botina u{
+
+            padding:0 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="contact_main">
+    <div style="font-size:14px;text-align:right;height:40px;line-height:40px;">合同编号：CL-CLZY-2018-___________________</div>
+    <h3 class="content_title">质押合同</h3>
+    <div class="content_infor">
+
+        <div class="content_infor_top">
+            <p><font style="font-weight:800;">甲方（质押权人）：</font><u class="partyAname"></u></p>
+            <p>身份证号码：<u class="idCardA"></u> </p>
+            <p>住  所：<u class="userAddressA"></u>  </p>
+            <p>联系电话：<u class="userTelA"></u> </p>
+            <br/>
+            <p><font style="font-weight:800;">乙方（质押人）：</font><u class="partyBname"></u></p>
+            <p>法定代表人：<u class="corporateB"></u></p>
+            <p>住  所：<u class="userAddressB"></u></p>
+            <p>联系电话：<u class="userTelB"></u></p>
+        </div>
+        <div class="content_infor_mid">
+            <div class="content_infor_midin">
+                <h3>鉴于：</h3>
+            </div>
+            <div class="content_infor_botin">
+                借款人<u class="partyBname"></u>（以下称“债务人”）与<u class="partyAname"></u>签署了编号为CL-JKHT-2018-_________________的《借款合同》（下称 “主合同”），为担保主合同项下债务人的义务得以切实履行，乙方自愿以本合同约定的质押物为债务人本次借款向质押权人提供质押担保。为明确甲、乙双方的权利义务，依照《中华人民共和国合同法》、《中华人民共和国担保法》、《中华人民共和国物权法》及相关法律法规，特订立本合同，以便共同遵守。
+            </div>
+            <p class="yazhitik">1.第一条 质押物</p>
+            <div class="content_infor_botin">
+                1.1本合同项下质押的质押物交接清单见附件一。
+            </div>
+            <div class="content_infor_botin">
+                1.2 甲方质押权的效力及于质押物的从物、从权利、附属物、添附物、天然及法定孳息、代位物，及因质物毁损、灭失或被征收而产生的保险金、赔偿金、补偿金等。
+            </div>
+            <div class="content_infor_botin">
+                1.3甲方有权收取质押物的孳息。
+            </div>
+            <p class="yazhitik">第二条 被担保的主债权</p>
+            <div class="content_infor_botin">
+                2.1本合同担保的主债权为根据主合同约定享有的要求债务人履行在主合同项下的全部义务、责任、陈述、保证，其中仅担保借款金额为人民币<u id="amount"></u>元（大写：人民币<u id="bigAmt"></u>）。
+            </div>
+            <div class="content_infor_botin">
+                2.2若本合同项下的主合同被认定无效的，乙方的质押担保仍旧独立有效，届时乙方质押物担保范围为主合同无效时债务人应付的全部款项。
+            </div>
+            <div class="content_infor_botin">
+                2.3债务人违反其在主合同项下陈述与保证时所应当承担的义务与责任。
+            </div>
+            <div class="content_infor_botin">
+                2.4债务人根据主合同所负有的其他义务。
+            </div>
+            <p class="yazhitik">第三条 质押担保的范围</p>
+            <div class="content_infor_botin">
+                3.1本合同项下质押担保的范围为主合同项下的主债权及债务人因违反主合同而产生的逾期违约金、复利、违约金、损害赔偿金、应向甲方支付的其他款项（包括但不限于有关手续费、电讯费、杂费等）以及甲方因实现债权、实现质押权而发生的律师费、诉讼费及其它全部费用（包括但不限于审计费、评估费、鉴定费、变（拍）卖费、公证费、执行费、差旅费等）。
+            </div>
+            <div class="content_infor_botin">
+                3.2主合同项下还存在其他担保的，乙方在本合同项下对债权人承担的担保责任不受任何其他担保的影响，也不因此而免除或减少。甲方有权选择优先行使本合同项下的担保权利，乙方不得要求甲方先行行使任何其他担保权利或基于此向其他各方提出抗辩权。
+            </div>
+            <p class="yazhitik">第四条 质押期间</p>
+            <div class="content_infor_botin">
+                4.1本合同项下质押权以质押物移交至质权人时设立。
+            </div>
+            <div class="content_infor_botin">4.2债务人履行债务的期限以主合同的约定为准。</div>
+            <div class="content_infor_botin">4.3质押期间自被担保的主合同成立之日起至债务履行期限届满之日后两年；若主合同项下债务全部提前到期的，以其宣布的提前到期日之日起两年；若主合同被解除的，自解除之日起两年。</div>
+            <p class="yazhitik">第五条 质押物移交</p>
+            <div class="content_infor_botin">
+                5.1 质押物移交时乙方需将质押物配套的车辆钥匙、合格证、入库单、购车发票、保险单等全部证件及物品一并移交质押权人，质押物移交至质押权人指定的保管方时视为交付。
+            </div>
+            <div class="content_infor_botin">
+                5.2 质押物在质押期间发生的因任何原因导致的毁损、灭失的，质押权人不承担任何责任，质押物毁损、灭失的责任由质押人自行承担。
+            </div>
+            <p class="yazhitik">第六条  本合同的独立性</p>
+            <div class="content_infor_botin">
+                6.1本合同的效力独立于主合同。主合同不成立、不生效、无效、部分无效或被撤销、被解除并不影响本合同的效力，乙方仍应以其提供的质押财产对债务人因返还财产或赔偿损失而形成的债务或责任承担担保责任。
+            </div>
+            <p class="yazhitik">第七条 质押物的保险</p>
+            <div class="content_infor_botin">
+                7.1 乙方有义务为质押物购买盗抢、火灾等保险。本合同签订之日起，乙方应按甲方要求办妥质押物的保险手续。如果因保险机构的原因无法一次性办理质押物保险的，则乙方应及时办理续保手续，确保质押期内质押物的保险不间断且持续有效。同时，保单中应当注明：甲方为保险金的第一受益人；变更保单应经过甲方的书面同意；一旦发生保险事故，保险人应直接将保险金支付给甲方。保单中不应有任何限制甲方权益的条款。质押期间，乙方不得以任何理由中断或撤销保险。如保险中断，甲方有权代为办理保险手续，一切费用由乙方承担。如果保险期限届满，甲方未能实现在主合同项下全部权益的，乙方应当无条件续保，对保险期限作相应延长。
+            </div>
+            <p class="yazhitik">第八条 费用</p>
+            <div class="content_infor_botin">
+                8.1本合同项下与质押有关的登记、评估、公证、保险、相关财产的保管、维修、所涉税费等一切相关费用均由乙方承担。
+            </div>
+            <p  class="yazhitik">第九条 质押权的行使</p>
+            <div class="content_infor_botin">
+                9.1 发生下列情况之一时，甲方有权行使质押权：<br/>
+                <div class="content_infor_botin">&nbsp;&nbsp;9.1.1 主合同约定的各项义务履行期限届满债务人未全面、及时地履行相应义务；或债务人违反主合同项下任何义务的：</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;9.1.2乙方或债务人被申请破产、歇业、解散、停业整顿、被吊销营业执照、被撤销；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;9.1.3 发生危及甲方权益的其他事件。</div>
+            </div>
+            <div class="content_infor_botin">
+                9.2 乙方不得以任何方式（包括作为或不作为）妨碍甲方质押权的行使。
+            </div>
+            <p class="yazhitik">第十条 乙方的陈述与保证</p>
+            <div class="content_infor_botin">
+                10.1乙方已就本次质押行为经过了其相应的审批程序，取得了所有必需的授权或批准。签署和履行本合同不会损害质押人的任何债权人的利益，也不会有任何债权人提出涉及本合同的任何权利主张或异议；因乙方无权签署本合同而产生的一切责任均由乙方承担，包括但不限于全额赔偿甲方因此遭受的损失。
+            </div>
+            <div class="content_infor_botin">
+                10.2乙方对质押物享有的所有权或处分权是合法、完全、有效的，并已对质押物的权属争议、权利瑕疵或法定限制向甲方作出书面充分、合理的说明；
+            </div>
+            <div class="content_infor_botin">
+                10.3 乙方向甲方提交的文件资料是真实、有效、完整的且无任何重大遗漏或隐瞒。
+            </div>
+            <div class="content_infor_botin">
+                10.4 发生下列情况时，无需另经乙方同意，乙方仍继续按本合同的约定履行担保责任：
+                <div class="content_infor_botin">&nbsp;&nbsp;10.4.1 主合同变更（包括但不限于变更偿还币种、还款方式、付款账号、还款账号、用款计划、还款计划、付款日、支付日、付息日、延长债务履行期限或增加主债权金额）；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;10.4.2 主合同项下债权人变更的。此时，乙方还应协助甲方及新债权人尽快办理完毕质押变更登记手续。</div>
+            </div>
+            <div class="content_infor_botin">
+                10.5 乙方应积极配合甲方实现质押权。发生下列情形之一的，应在3日内通知甲方：
+                <div class="content_infor_botin">&nbsp;&nbsp;10.5.1质押物变动；</div>
+                <div class="content_infor_botin"> &nbsp;&nbsp;10.5.2质押物出现权利瑕疵或争议的 ；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;10.5.3 涉及或可能涉及重大经济纠纷、诉讼、仲裁、或财产依法被查封、扣押或监管。</div>
+            </div>
+            <div class="content_infor_botin">
+                10.6无论甲方对主合同项下的债权是否拥有其他担保（包括但不限于保证、质押、保函、备用信用证等担保方式），不论上述其他担保何时成立、是否有效、甲方是否向其他担保人提出权利主张，也不论是否有第三方同意承担主合同项下的全部或部分债务，也不论其他担保是否由债务人自己所提供，乙方在本合同项下的担保责任均不因此减免，甲方均可直接要求乙方依照本合同约定承担担保责任，并且同意甲方在各项担保中自主选择实现担保的顺序与额度。无论甲方过去、现在或将来是否已经、将要或可能放弃（包括但不限于放弃质押权或其他担保权利、放弃质押权或其他担保权利的顺位）、变更（包括但不限于变更质押权或其他担保权利的顺位、担保金额或范围）、减免债务人或任何第三方过去、现在或将来已经、将要或可能提供的任何质押权、质权或保证或其他任何形式的担保，乙方的担保责任均不因此而减少或免除，乙方承诺仍然按照本合同的规定提供担保。
+            </div>
+            <div class="content_infor_botin">
+                10.7乙方确认自己对债务人的资产、债务、经营、信用、信誉等情况、是否具备签订主合同的主体资格和权限以及主合同的所有内容已经充分了解。乙方为主合同债务人提供质押担保完全出于自愿，其在本合同项下的全部意思表示真实。
+            </div>
+            <div class="content_infor_botin">
+                10.8因乙方原因导致本合同不成立、不生效、无效、部分无效或被撤销、被解除的，乙方仍在本合同约定的担保范围内对担保的债务与债务人承担连带责任。
+            </div>
+            <div class="content_infor_botin">
+                10.9未经甲方书面同意，乙方不得以任何方式处分质押物的全部或部分。</div>
+            <div class="content_infor_botin">
+                10.10质押期间内，因乙方或第三方的任何行为或其他任何原因可能使质押物价值减少的，乙方应于该事件或事故发生之日起五日内书面通知甲方，甲方有权要求乙方或通知第三方停止其行为，同时有权要求乙方恢复质押物的价值或者提供甲方书面认可的新的担保。
+            </div>
+            <div class="content_infor_botin">
+                10.11乙方同意甲方向中国人民银行及信贷征信主管部门批准建立的信用数据库或有关单位、部门查询乙方的信用状况，并同意甲方将乙方信息提供给中国人民银行及信贷征信主管部门批准建立的信用数据库。
+            </div>
+            <div class="content_infor_botin">
+                10.12根据质物价值与主债权的比率，本合同项下质物设定下列警戒线和处置线：<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;警戒线＝质物价值/主债权本息=【120】%<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;处置线＝质物价值/主债权本息=【110】%
+            </div>
+            <div class="content_infor_botin">
+                质物价值下降到警戒线时，出质人应当在质权人要求的期限内追加担保以补足因质物价值下降造成的质押价值缺口；质物价值下降到处置线时，质权人有权处置质物并以所得价款优先受偿。
+            </div>
+        </div>
+        <p class="yazhitik">第十一条 违约责任</p>
+        <div class="content_infor_botin">
+            11.1 本合同生效后，任何一方不履行其在本合同项下的任何义务，或违背其在本合同项下所作的任何陈述、保证或承诺的，即构成违约。一方违约给对方造成损失的，应承担相应的违约责任。
+        </div>
+        <div class="content_infor_botin">
+            11.2 乙方有下列情形之一的，即构成乙方违约：<br/>
+            <div class="content_infor_botin">&nbsp;&nbsp;11.2.1 乙方未按甲方的要求提供有关质押财产的完备手续和真实资料，或者隐瞒质押财产存在共有、争议、被查封、被扣押、被监管、被限制流通等情形；</div>
+            <div class="content_infor_botin">&nbsp;&nbsp;11.2.2因乙方的原因导致质押无效；</div>
+            <div class="content_infor_botin">&nbsp;&nbsp;11.2.3 乙方以任何方式（作为或不作为）妨碍甲方根据本合同有关约定处分质押财产；</div>
+            <div class="content_infor_botin">&nbsp;&nbsp;11.2.4违反本合同项下乙方的任何陈述、保证及义务。</div>
+            <div class="content_infor_botin">
+                11.3乙方发生上述违约事件的情况下，甲方有权采取以下一项或多项措施：
+                <div class="content_infor_botin">&nbsp;&nbsp;11.3.1 限期纠正；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;11.3.2 宣布主债权履行期限届满，要求债务人偿还全部债务、担保人立即履行担保责任；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;11.3.3 要求乙方按天支付主债权金额万分之五的违约金；</div>
+                <div class="content_infor_botin">&nbsp;&nbsp;11.3.4要求乙方赔偿由此给甲方造成的一切损失。</div>
+            </div>
+            <p class="yazhitik">第十二条 合同的生效、变更、解除</p>
+            <div class="content_infor_botin">
+                12.1本合同由甲、乙双方签字或盖章后生效。在有关登记机关办理完毕质押登记手续后质押权生效(登记仅适用于根据法律规定应当登记的质押物)。 </div>
+            <div class="content_infor_botin">
+                12.2 如果主合同未生效、不成立、无效、部分无效或被撤销、被解除，则乙方在本合同约定的担保范围内对债务人因返还财产或赔偿损失等而形成的债务与债务人承担连带责任。 </div>
+            <div class="content_infor_botin">
+                12.3 除非本合同另有规定，本合同签署后，非经双方协商一致，任何一方不得单方解除本合同。 </div>
+            <div class="content_infor_botin">
+                12.4本合同生效后，如需要对本合同补充、修改或完善，双方应签订补充合同。本合同附件、补充合同为本合同不可分割的组成部分。 </div>
+            <div class="content_infor_botin">
+                12.5本合同任何条款无效，不影响本合同其他条款的合法性、有效性；在保证甲方债权安全的前提下，甲、乙双方应及时商签补充合同予以完善。 </div>
+            <p class="yazhitik">第十三条 法律适用与争议的解决</p>
+            <div class="content_infor_botin">
+                13.1 本合同的订立、生效、履行、解释、修改、终止及争议等均适用中华人民共和国法律（为本合同之目的，此处不包括香港、澳门、台湾地区的法律）。 </div>
+            <div class="content_infor_botin">
+                13.2因本合同产生的任何争议，由甲、乙双方协商解决。协商不成的，应当向本合同签署地有管辖权的人民法院起诉。 </div>
+            <div class="content_infor_botin">
+                13.3除非生效判决另有规定，双方为诉讼而实际支付的费用（包括但不限于诉讼费和合理的律师费）由乙方承担。在诉讼期间，本合同中不涉及争议的条款仍须履行，双方均不得以解决争议为由拒不履行其在本合同项下的任何义务。 </div>
+            <div class="content_infor_botin">
+                13.4 本合同部分条款无效,不影响其他条款的效力,其他条款应继续履行。 </div>
+            <p class="yazhitik">第十四条 其他</p>
+            <div class="content_infor_botin">
+                14.1甲乙双方确认，本合同项下的一切通知均须以书面形式或非书面形式做出，并以传真、电子邮件、挂号信等形式发送至对方。 </div>
+            <div class="content_infor_botin">
+                14.2通知在下列日期视为送达被通知方： </div>
+            <div class="content_infor_botin">&nbsp;&nbsp;14.2.1专人送达：通知方取得的被通知方签收单据上所示日； </div>
+            <div class="content_infor_botin">&nbsp;&nbsp;14.2.2挂号信邮递：发出通知方持有的国内挂号函件收据所示日后第【5】日； </div>
+            <div class="content_infor_botin">&nbsp;&nbsp;14.2.3传真：通知方收到成功发送确认后的第【1】个工作日。 </div>
+            <div class="content_infor_botin">&nbsp;&nbsp;14.2.4特快专递：通知方持有的发送凭证上邮戳日起第【4】日。 </div>
+            <div class="content_infor_botin">14.3一方通讯地址或联络方式发生变化，应自发生变化之日当天以书面形式通知其他方。任何一方违反前述规定，除非法律另有规定，变动一方应对由此而造成的影响和损失承担责任。 </div>
+            <div class="content_infor_botin">14.4本合同一式【 肆 】份，每份合同具有同等法律效力。甲、乙双方各执【 壹 】份，其余【 贰 】份用于办理各项手续。 </div>
+        </div>
+        <div class="important_ts pta">
+            重要提示：本合同系各方根据相关法律法规，在平等自愿的基础上协商订立而成，所有合同条款均是各方意思的真实表示。为充分维护质押人的合法权益，质押权人和债务人特提请质押人在签订本合同前仔细阅读本合同和主合同条款。质押人签署本合同的行为表明其已充分理解本合同和主合同条款的含义并自愿接受相应的法律后果。
+        </div>
+
+        <div class="wb pta">
+            <p>(以下无正文)</p>
+            <div class="signname">
+                甲方（签字或盖章）：<br/><br/>乙方（签字或盖章）：
+            </div>
+            <div class="qsdata">合同签署地：北京市大兴区鸿坤广场写字楼B座
+            </div>
+            <div class="qsdata">合同签署时间：________年_____月_____日</div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+<script type="text/javascript">
+
+    var optType='${optType}';
+    if(optType=='printPage'){
+        window.print();
+    }
+
+    var carContractStr = containerUtil.take("carContract");
+    var partyAStr = containerUtil.take("partyA");
+    var partyBStr = containerUtil.take("partyB");
+
+    var carContract = JSON.parse(carContractStr);
+    var partyA = JSON.parse(partyAStr);
+    var partyB = JSON.parse(partyBStr);
+
+    $(".partyBname").html(carContract.partyBname);
+    $(".partyAname").html(carContract.partyAname);
+    $("#amount").html(carContract.amount);
+    $("#bigAmt").html(carContract.bigAmt);
+    $("#duration").html(carContract.duration);
+    $("#rate").html(carContract.rate);
+
+    $(".idCardA").html(partyA.idCard);
+    $(".bankAddressA").html(partyA.bankAdress);
+    $(".bankCardA").html(partyA.bankCardNo);
+    $(".userAddressA").html(partyA.userAdress);
+    $(".userTelA").html(partyA.userTel);
+    $(".bankCardA").html(partyA.bankCard);
+
+    $(".corporateB").html(partyB.corporate);
+    $(".idCardB").html(partyB.idCard);
+    $(".userTelB").html(partyB.userTel);
+    $(".bankAddressB").html(partyB.bankAdress);
+    $(".bankCardB").html(partyB.bankCardNo);
+    $(".userAddressB").html(partyB.userAdress);
+
+    var optType=containerUtil.take("optType");
+    if(optType=='printPage'){
+        window.print();
+    }
+</script>
+</html>

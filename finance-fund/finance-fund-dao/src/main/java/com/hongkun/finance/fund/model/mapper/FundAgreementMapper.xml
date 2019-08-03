@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.FundAgreement">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FundAgreement" type="com.hongkun.finance.fund.model.FundAgreement">
+		<result property="id" column="id"/>
+		<result property="fundAdvisoryId" column="fund_advisory_id"/>
+		<result property="fundInfoId" column="fund_info_id"/>
+		<result property="state" column="state"/>
+		<result property="reason" column="reason"/>
+		<result property="investAmount" column="invest_amount"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="userSurname" column="user_surname"/>
+		<result property="userName" column="user_name"/>
+		<result property="birthday" column="birthday"/>
+		<result property="nationality" column="nationality"/>
+		<result property="birthPlace" column="birth_place"/>
+		<result property="streetNumber" column="street_number"/>
+		<result property="region" column="region"/>
+		<result property="province" column="province"/>
+		<result property="country" column="country"/>
+		<result property="postCode" column="post_code"/>
+		<result property="tel" column="tel"/>
+		<result property="email" column="email"/>
+		<result property="permanentStreetNumber" column="permanent_street_number"/>
+		<result property="permanentRegion" column="permanent_region"/>
+		<result property="permanentProvince" column="permanent_province"/>
+		<result property="permanentCountry" column="permanent_country"/>
+		<result property="permanentPostCode" column="permanent_post_code"/>
+		<result property="profession" column="profession"/>
+		<result property="passportNo" column="passport_no"/>
+		<result property="bankName" column="bank_name"/>
+		<result property="bankStreetNumber" column="bank_street_number"/>
+		<result property="bankRegion" column="bank_region"/>
+		<result property="bankCountry" column="bank_country"/>
+		<result property="bankProvince" column="bank_province"/>
+		<result property="bankPost" column="bank_post"/>
+		<result property="seiftCode" column="seift_code"/>
+		<result property="abaCode" column="aba_code"/>
+		<result property="recipientAccountCode" column="recipient_account_code"/>
+		<result property="payFlag" column="pay_flag"/>
+		<result property="signature" column="signature"/>
+		<result property="investStatementFlag" column="invest_statement_flag"/>
+		<result property="controlStatementFlag" column="control_statement_flag"/>
+		<result property="investAwareFlag" column="invest_aware_flag"/>
+		<result property="signedSwapFlag" column="signed_swap_flag"/>
+		<result property="proxyFlag" column="proxy_flag"/>
+		<result property="americanTaxFlag" column="american_tax_flag"/>
+		<result property="contractUrl" column="contract_url"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="midBankName" column="mid_bank_name"/>
+		<result property="midBankStreetNumber" column="mid_bank_street_number"/>
+		<result property="midBankRegion" column="mid_bank_region"/>
+		<result property="midBankProvince" column="mid_bank_province"/>
+		<result property="midBankCountry" column="mid_bank_country"/>
+		<result property="midBankPostCode" column="mid_bank_post_code"/>
+		<result property="midBankSwiftCode" column="mid_bank_swift_code"/>
+		<result property="midBankAbaCode" column="mid_bank_aba_code"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,fund_advisory_id,fund_info_id,state,reason,invest_amount,reg_user_id,user_surname,user_name,birthday,nationality,birth_place,street_number,region,province,country,post_code,tel,email,permanent_street_number,permanent_region,permanent_province,permanent_country,permanent_post_code,profession,passport_no,bank_name,bank_street_number,bank_region,bank_country,bank_province,bank_post,seift_code,aba_code,recipient_account_code,pay_flag,signature,invest_statement_flag,control_statement_flag,invest_aware_flag,signed_swap_flag,proxy_flag,american_tax_flag,contract_url,create_time,modify_time,mid_bank_name,mid_bank_street_number,mid_bank_region,mid_bank_province,mid_bank_country,mid_bank_post_code,mid_bank_swift_code,mid_bank_aba_code
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fund_agreement (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="fundAdvisoryId != null">
+			fund_advisory_id ,
+		</if>
+		<if test="fundInfoId != null">
+			fund_info_id ,
+		</if>
+		<if test="state != null">
+			state ,
+		</if>
+		<if test="reason != null and reason != ''">
+			reason ,
+		</if>
+		<if test="investAmount != null">
+			invest_amount ,
+		</if>
+		<if test="regUserId != null">
+			reg_user_id ,
+		</if>
+		<if test="userSurname != null and userSurname != ''">
+			user_surname ,
+		</if>
+		<if test="userName != null and userName != ''">
+			user_name ,
+		</if>
+		<if test="birthday != null and birthday != ''">
+			birthday ,
+		</if>
+		<if test="nationality != null and nationality != ''">
+			nationality ,
+		</if>
+		<if test="birthPlace != null and birthPlace != ''">
+			birth_place ,
+		</if>
+		<if test="streetNumber != null and streetNumber != ''">
+			street_number ,
+		</if>
+		<if test="region != null and region != ''">
+			region ,
+		</if>
+		<if test="province != null and province != ''">
+			province ,
+		</if>
+		<if test="country != null and country != ''">
+			country ,
+		</if>
+		<if test="postCode != null and postCode != ''">
+			post_code ,
+		</if>
+		<if test="tel != null and tel != ''">
+			tel ,
+		</if>
+		<if test="email != null and email != ''">
+			email ,
+		</if>
+		<if test="permanentStreetNumber != null and permanentStreetNumber != ''">
+			permanent_street_number ,
+		</if>
+		<if test="permanentRegion != null and permanentRegion != ''">
+			permanent_region ,
+		</if>
+		<if test="permanentProvince != null and permanentProvince != ''">
+			permanent_province ,
+		</if>
+		<if test="permanentCountry != null and permanentCountry != ''">
+			permanent_country ,
+		</if>
+		<if test="permanentPostCode != null and permanentPostCode != ''">
+			permanent_post_code ,
+		</if>
+		<if test="profession != null and profession != ''">
+			profession ,
+		</if>
+		<if test="passportNo != null and passportNo != ''">
+			passport_no ,
+		</if>
+		<if test="bankName != null and bankName != ''">
+			bank_name ,
+		</if>
+		<if test="bankStreetNumber != null and bankStreetNumber != ''">
+			bank_street_number ,
+		</if>
+		<if test="bankRegion != null and bankRegion != ''">
+			bank_region ,
+		</if>
+		<if test="bankCountry != null and bankCountry != ''">
+			bank_country ,
+		</if>
+		<if test="bankProvince != null and bankProvince != ''">
+			bank_province ,
+		</if>
+		<if test="bankPost != null and bankPost != ''">
+			bank_post ,
+		</if>
+		<if test="seiftCode != null and seiftCode != ''">
+			seift_code ,
+		</if>
+		<if test="abaCode != null and abaCode != ''">
+			aba_code ,
+		</if>
+		<if test="recipientAccountCode != null and recipientAccountCode != ''">
+			recipient_account_code ,
+		</if>
+		<if test="payFlag != null">
+			pay_flag ,
+		</if>
+		<if test="signature != null and signature != ''">
+			signature ,
+		</if>
+		<if test="investStatementFlag != null and investStatementFlag != ''">
+			invest_statement_flag ,
+		</if>
+		<if test="controlStatementFlag != null">
+			control_statement_flag ,
+		</if>
+		<if test="investAwareFlag != null">
+			invest_aware_flag ,
+		</if>
+		<if test="signedSwapFlag != null">
+			signed_swap_flag ,
+		</if>
+		<if test="proxyFlag != null">
+			proxy_flag ,
+		</if>
+		<if test="americanTaxFlag != null">
+			american_tax_flag ,
+		</if>
+		<if test="contractUrl != null and contractUrl != ''">
+			contract_url ,
+		</if>
+		create_time ,
+		<if test="midBankName != null and midBankName != ''">
+			mid_bank_name ,
+		</if>
+		<if test="midBankStreetNumber != null and midBankStreetNumber != ''">
+			mid_bank_street_number ,
+		</if>
+		<if test="midBankRegion != null and midBankRegion != ''">
+			mid_bank_region ,
+		</if>
+		<if test="midBankProvince != null and midBankProvince != ''">
+			mid_bank_province ,
+		</if>
+		<if test="midBankCountry != null and midBankCountry != ''">
+			mid_bank_country ,
+		</if>
+		<if test="midBankPostCode != null and midBankPostCode != ''">
+			mid_bank_post_code ,
+		</if>
+		<if test="midBankSwiftCode != null and midBankSwiftCode != ''">
+			mid_bank_swift_code ,
+		</if>
+		<if test="midBankAbaCode != null and midBankAbaCode != ''">
+			mid_bank_aba_code,
+		</if>
+		modify_time
+		) VALUES (
+		<if test="id != null">
+			#{id} ,
+		</if>
+		<if test="fundAdvisoryId != null">
+			#{fundAdvisoryId} ,
+		</if>
+		<if test="fundInfoId != null">
+			#{fundInfoId} ,
+		</if>
+		<if test="state != null">
+			#{state} ,
+		</if>
+		<if test="reason != null and reason != ''">
+			#{reason} ,
+		</if>
+		<if test="investAmount != null">
+			#{investAmount} ,
+		</if>
+		<if test="regUserId != null">
+			#{regUserId} ,
+		</if>
+		<if test="userSurname != null and userSurname != ''">
+			#{userSurname} ,
+		</if>
+		<if test="userName != null and userName != ''">
+			#{userName} ,
+		</if>
+		<if test="birthday != null and birthday != ''">
+			#{birthday} ,
+		</if>
+		<if test="nationality != null and nationality != ''">
+			#{nationality} ,
+		</if>
+		<if test="birthPlace != null and birthPlace != ''">
+			#{birthPlace} ,
+		</if>
+		<if test="streetNumber != null and streetNumber != ''">
+			#{streetNumber} ,
+		</if>
+		<if test="region != null and region != ''">
+			#{region} ,
+		</if>
+		<if test="province != null and province != ''">
+			#{province} ,
+		</if>
+		<if test="country != null and country != ''">
+			#{country} ,
+		</if>
+		<if test="postCode != null and postCode != ''">
+			#{postCode} ,
+		</if>
+		<if test="tel != null and tel != ''">
+			#{tel} ,
+		</if>
+		<if test="email != null and email != ''">
+			#{email} ,
+		</if>
+		<if test="permanentStreetNumber != null and permanentStreetNumber != ''">
+			#{permanentStreetNumber} ,
+		</if>
+		<if test="permanentRegion != null and permanentRegion != ''">
+			#{permanentRegion} ,
+		</if>
+		<if test="permanentProvince != null and permanentProvince != ''">
+			#{permanentProvince} ,
+		</if>
+		<if test="permanentCountry != null and permanentCountry != ''">
+			#{permanentCountry} ,
+		</if>
+		<if test="permanentPostCode != null and permanentPostCode != ''">
+			#{permanentPostCode} ,
+		</if>
+		<if test="profession != null and profession != ''">
+			#{profession} ,
+		</if>
+		<if test="passportNo != null and passportNo != ''">
+			#{passportNo} ,
+		</if>
+		<if test="bankName != null and bankName != ''">
+			#{bankName} ,
+		</if>
+		<if test="bankStreetNumber != null and bankStreetNumber != ''">
+			#{bankStreetNumber} ,
+		</if>
+		<if test="bankRegion != null and bankRegion != ''">
+			#{bankRegion} ,
+		</if>
+		<if test="bankCountry != null and bankCountry != ''">
+			#{bankCountry} ,
+		</if>
+		<if test="bankProvince != null and bankProvince != ''">
+			#{bankProvince} ,
+		</if>
+		<if test="bankPost != null and bankPost != ''">
+			#{bankPost} ,
+		</if>
+		<if test="seiftCode != null and seiftCode != ''">
+			#{seiftCode} ,
+		</if>
+		<if test="abaCode != null and abaCode != ''">
+			#{abaCode} ,
+		</if>
+		<if test="recipientAccountCode != null and recipientAccountCode != ''">
+			#{recipientAccountCode} ,
+		</if>
+		<if test="payFlag != null">
+			#{payFlag} ,
+		</if>
+		<if test="signature != null and signature != ''">
+			#{signature} ,
+		</if>
+		<if test="investStatementFlag != null and investStatementFlag != ''">
+			#{investStatementFlag} ,
+		</if>
+		<if test="controlStatementFlag != null">
+			#{controlStatementFlag} ,
+		</if>
+		<if test="investAwareFlag != null">
+			#{investAwareFlag} ,
+		</if>
+		<if test="signedSwapFlag != null">
+			#{signedSwapFlag} ,
+		</if>
+		<if test="proxyFlag != null">
+			#{proxyFlag} ,
+		</if>
+		<if test="americanTaxFlag != null">
+			#{americanTaxFlag} ,
+		</if>
+		<if test="contractUrl != null and contractUrl != ''">
+			#{contractUrl} ,
+		</if>
+		<choose>
+			<when test="createTime != null">
+				#{createTime} ,
+			</when>
+			<otherwise>
+				NOW() ,
+			</otherwise>
+		</choose>
+
+		<if test="midBankName != null and midBankName != ''">
+			#{midBankName} ,
+		</if>
+		<if test="midBankStreetNumber != null and midBankStreetNumber != ''">
+			#{midBankStreetNumber} ,
+		</if>
+		<if test="midBankRegion != null and midBankRegion != ''">
+			#{midBankRegion} ,
+		</if>
+		<if test="midBankProvince != null and midBankProvince != ''">
+			#{midBankProvince} ,
+		</if>
+		<if test="midBankCountry != null and midBankCountry != ''">
+			#{midBankCountry} ,
+		</if>
+		<if test="midBankPostCode != null and midBankPostCode != ''">
+			#{midBankPostCode} ,
+		</if>
+		<if test="midBankSwiftCode != null and midBankSwiftCode != ''">
+			#{midBankSwiftCode} ,
+		</if>
+		<if test="midBankAbaCode != null and midBankAbaCode != ''">
+			#{midBankAbaCode},
+		</if>
+		<choose>
+			<when test="modifyTime != null">
+				#{modifyTime}
+			</when>
+			<otherwise>
+				NOW()
+			</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO fund_agreement (
+	       	id ,
+	       	fund_advisory_id ,
+	       	fund_info_id ,
+	       	state ,
+	       	reason ,
+	       	invest_amount ,
+	       	reg_user_id ,
+	       	user_surname ,
+	       	user_name ,
+	       	birthday ,
+	       	nationality ,
+	       	birth_place ,
+	       	street_number ,
+	       	region ,
+	       	province ,
+	       	country ,
+	       	post_code ,
+	       	tel ,
+	       	email ,
+	       	permanent_street_number ,
+	       	permanent_region ,
+	       	permanent_province ,
+	       	permanent_country ,
+	       	permanent_post_code ,
+	       	profession ,
+	       	passport_no ,
+	       	bank_name ,
+	       	bank_street_number ,
+	       	bank_region ,
+	       	bank_country ,
+	       	bank_province ,
+	       	bank_post ,
+	       	seift_code ,
+	       	aba_code ,
+	       	recipient_account_code ,
+	       	pay_flag ,
+	       	signature ,
+	       	invest_statement_flag ,
+	       	control_statement_flag ,
+	       	invest_aware_flag ,
+	       	signed_swap_flag ,
+	       	proxy_flag ,
+	       	american_tax_flag ,
+	       	contract_url ,
+	       	create_time ,
+	       	modify_time ,
+	       	mid_bank_name ,
+	       	mid_bank_street_number ,
+	       	mid_bank_region ,
+	       	mid_bank_province ,
+	       	mid_bank_country ,
+	       	mid_bank_post_code ,
+	       	mid_bank_swift_code ,
+	       	mid_bank_aba_code
+        ) VALUES
+        ]]>
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="item.id != null">
+				#{item.id} ,
+			</if>
+			<if test="item.id == null">
+				DEFAULT ,
+			</if>
+			<if test="item.fundAdvisoryId != null">
+				#{item.fundAdvisoryId} ,
+			</if>
+			<if test="item.fundAdvisoryId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.fundInfoId != null">
+				#{item.fundInfoId} ,
+			</if>
+			<if test="item.fundInfoId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.state != null">
+				#{item.state} ,
+			</if>
+			<if test="item.state == null">
+				DEFAULT ,
+			</if>
+			<if test="item.reason != null and item.reason != ''">
+				#{item.reason} ,
+			</if>
+			<if test="item.reason == null or item.reason == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.investAmount != null">
+				#{item.investAmount} ,
+			</if>
+			<if test="item.investAmount == null">
+				DEFAULT ,
+			</if>
+			<if test="item.regUserId != null">
+				#{item.regUserId} ,
+			</if>
+			<if test="item.regUserId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.userSurname != null and item.userSurname != ''">
+				#{item.userSurname} ,
+			</if>
+			<if test="item.userSurname == null or item.userSurname == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.userName != null and item.userName != ''">
+				#{item.userName} ,
+			</if>
+			<if test="item.userName == null or item.userName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.birthday != null and item.birthday != ''">
+				#{item.birthday} ,
+			</if>
+			<if test="item.birthday == null or item.birthday == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.nationality != null and item.nationality != ''">
+				#{item.nationality} ,
+			</if>
+			<if test="item.nationality == null or item.nationality == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.birthPlace != null and item.birthPlace != ''">
+				#{item.birthPlace} ,
+			</if>
+			<if test="item.birthPlace == null or item.birthPlace == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.streetNumber != null and item.streetNumber != ''">
+				#{item.streetNumber} ,
+			</if>
+			<if test="item.streetNumber == null or item.streetNumber == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.region != null and item.region != ''">
+				#{item.region} ,
+			</if>
+			<if test="item.region == null or item.region == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.province != null and item.province != ''">
+				#{item.province} ,
+			</if>
+			<if test="item.province == null or item.province == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.country != null and item.country != ''">
+				#{item.country} ,
+			</if>
+			<if test="item.country == null or item.country == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.postCode != null and item.postCode != ''">
+				#{item.postCode} ,
+			</if>
+			<if test="item.postCode == null or item.postCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.tel != null and item.tel != ''">
+				#{item.tel} ,
+			</if>
+			<if test="item.tel == null or item.tel == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.email != null and item.email != ''">
+				#{item.email} ,
+			</if>
+			<if test="item.email == null or item.email == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.permanentStreetNumber != null and item.permanentStreetNumber != ''">
+				#{item.permanentStreetNumber} ,
+			</if>
+			<if test="item.permanentStreetNumber == null or item.permanentStreetNumber == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.permanentRegion != null and item.permanentRegion != ''">
+				#{item.permanentRegion} ,
+			</if>
+			<if test="item.permanentRegion == null or item.permanentRegion == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.permanentProvince != null and item.permanentProvince != ''">
+				#{item.permanentProvince} ,
+			</if>
+			<if test="item.permanentProvince == null or item.permanentProvince == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.permanentCountry != null and item.permanentCountry != ''">
+				#{item.permanentCountry} ,
+			</if>
+			<if test="item.permanentCountry == null or item.permanentCountry == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.permanentPostCode != null and item.permanentPostCode != ''">
+				#{item.permanentPostCode} ,
+			</if>
+			<if test="item.permanentPostCode == null or item.permanentPostCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.profession != null and item.profession != ''">
+				#{item.profession} ,
+			</if>
+			<if test="item.profession == null or item.profession == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.passportNo != null and item.passportNo != ''">
+				#{item.passportNo} ,
+			</if>
+			<if test="item.passportNo == null or item.passportNo == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankName != null and item.bankName != ''">
+				#{item.bankName} ,
+			</if>
+			<if test="item.bankName == null or item.bankName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankStreetNumber != null and item.bankStreetNumber != ''">
+				#{item.bankStreetNumber} ,
+			</if>
+			<if test="item.bankStreetNumber == null or item.bankStreetNumber == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankRegion != null and item.bankRegion != ''">
+				#{item.bankRegion} ,
+			</if>
+			<if test="item.bankRegion == null or item.bankRegion == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankCountry != null and item.bankCountry != ''">
+				#{item.bankCountry} ,
+			</if>
+			<if test="item.bankCountry == null or item.bankCountry == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankProvince != null and item.bankProvince != ''">
+				#{item.bankProvince} ,
+			</if>
+			<if test="item.bankProvince == null or item.bankProvince == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.bankPost != null and item.bankPost != ''">
+				#{item.bankPost} ,
+			</if>
+			<if test="item.bankPost == null or item.bankPost == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.seiftCode != null and item.seiftCode != ''">
+				#{item.seiftCode} ,
+			</if>
+			<if test="item.seiftCode == null or item.seiftCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.abaCode != null and item.abaCode != ''">
+				#{item.abaCode} ,
+			</if>
+			<if test="item.abaCode == null or item.abaCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.recipientAccountCode != null and item.recipientAccountCode != ''">
+				#{item.recipientAccountCode} ,
+			</if>
+			<if test="item.recipientAccountCode == null or item.recipientAccountCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.payFlag != null">
+				#{item.payFlag} ,
+			</if>
+			<if test="item.payFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.signature != null and item.signature != ''">
+				#{item.signature} ,
+			</if>
+			<if test="item.signature == null or item.signature == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.investStatementFlag != null and item.investStatementFlag != ''">
+				#{item.investStatementFlag} ,
+			</if>
+			<if test="item.investStatementFlag == null or item.investStatementFlag == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.controlStatementFlag != null">
+				#{item.controlStatementFlag} ,
+			</if>
+			<if test="item.controlStatementFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.investAwareFlag != null">
+				#{item.investAwareFlag} ,
+			</if>
+			<if test="item.investAwareFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.signedSwapFlag != null">
+				#{item.signedSwapFlag} ,
+			</if>
+			<if test="item.signedSwapFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.proxyFlag != null">
+				#{item.proxyFlag} ,
+			</if>
+			<if test="item.proxyFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.americanTaxFlag != null">
+				#{item.americanTaxFlag} ,
+			</if>
+			<if test="item.americanTaxFlag == null">
+				DEFAULT ,
+			</if>
+			<if test="item.contractUrl != null and item.contractUrl != ''">
+				#{item.contractUrl} ,
+			</if>
+			<if test="item.contractUrl == null or item.contractUrl == ''">
+				DEFAULT ,
+			</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="item.midBankName != null and item.midBankName != ''">
+				#{item.midBankName} ,
+			</if>
+			<if test="item.midBankName == null or item.midBankName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankStreetNumber != null and item.midBankStreetNumber != ''">
+				#{item.midBankStreetNumber} ,
+			</if>
+			<if test="item.midBankStreetNumber == null or item.midBankStreetNumber == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankRegion != null and item.midBankRegion != ''">
+				#{item.midBankRegion} ,
+			</if>
+			<if test="item.midBankRegion == null or item.midBankRegion == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankProvince != null and item.midBankProvince != ''">
+				#{item.midBankProvince} ,
+			</if>
+			<if test="item.midBankProvince == null or item.midBankProvince == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankCountry != null and item.midBankCountry != ''">
+				#{item.midBankCountry} ,
+			</if>
+			<if test="item.midBankCountry == null or item.midBankCountry == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankPostCode != null and item.midBankPostCode != ''">
+				#{item.midBankPostCode} ,
+			</if>
+			<if test="item.midBankPostCode == null or item.midBankPostCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankSwiftCode != null and item.midBankSwiftCode != ''">
+				#{item.midBankSwiftCode} ,
+			</if>
+			<if test="item.midBankSwiftCode == null or item.midBankSwiftCode == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.midBankAbaCode != null and item.midBankAbaCode != ''">
+				#{item.midBankAbaCode}
+			</if>
+			<if test="item.midBankAbaCode == null or item.midBankAbaCode == ''">
+				DEFAULT
+			</if>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="fundAdvisoryId != null">
+				fund_advisory_id = #{fundAdvisoryId} ,
+			</if>
+			<if test="fundInfoId != null">
+				fund_info_id = #{fundInfoId} ,
+			</if>
+			<if test="state != null">
+				state = #{state} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason = #{reason} ,
+			</if>
+			<if test="investAmount != null ">
+				invest_amount = #{investAmount} ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+			</if>
+			<if test="userSurname != null and userSurname != ''">
+				user_surname = #{userSurname} ,
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName} ,
+			</if>
+			<if test="birthday != null and birthday != ''">
+				birthday = #{birthday} ,
+			</if>
+			<if test="nationality != null and nationality != ''">
+				nationality = #{nationality} ,
+			</if>
+			<if test="birthPlace != null and birthPlace != ''">
+				birth_place = #{birthPlace} ,
+			</if>
+			<if test="streetNumber != null and streetNumber != ''">
+				street_number = #{streetNumber} ,
+			</if>
+			<if test="region != null and region != ''">
+				region = #{region} ,
+			</if>
+			<if test="province != null and province != ''">
+				province = #{province} ,
+			</if>
+			<if test="country != null and country != ''">
+				country = #{country} ,
+			</if>
+			<if test="postCode != null and postCode != ''">
+				post_code = #{postCode} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel = #{tel} ,
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email} ,
+			</if>
+			<if test="permanentStreetNumber != null and permanentStreetNumber != ''">
+				permanent_street_number = #{permanentStreetNumber} ,
+			</if>
+			<if test="permanentRegion != null and permanentRegion != ''">
+				permanent_region = #{permanentRegion} ,
+			</if>
+			<if test="permanentProvince != null and permanentProvince != ''">
+				permanent_province = #{permanentProvince} ,
+			</if>
+			<if test="permanentCountry != null and permanentCountry != ''">
+				permanent_country = #{permanentCountry} ,
+			</if>
+			<if test="permanentPostCode != null and permanentPostCode != ''">
+				permanent_post_code = #{permanentPostCode} ,
+			</if>
+			<if test="profession != null and profession != ''">
+				profession = #{profession} ,
+			</if>
+			<if test="passportNo != null and passportNo != ''">
+				passport_no = #{passportNo} ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				bank_name = #{bankName} ,
+			</if>
+			<if test="bankStreetNumber != null and bankStreetNumber != ''">
+				bank_street_number = #{bankStreetNumber} ,
+			</if>
+			<if test="bankRegion != null and bankRegion != ''">
+				bank_region = #{bankRegion} ,
+			</if>
+			<if test="bankCountry != null and bankCountry != ''">
+				bank_country = #{bankCountry} ,
+			</if>
+			<if test="bankProvince != null and bankProvince != ''">
+				bank_province = #{bankProvince} ,
+			</if>
+			<if test="bankPost != null and bankPost != ''">
+				bank_post = #{bankPost} ,
+			</if>
+			<if test="seiftCode != null and seiftCode != ''">
+				seift_code = #{seiftCode} ,
+			</if>
+			<if test="abaCode != null and abaCode != ''">
+				aba_code = #{abaCode} ,
+			</if>
+			<if test="recipientAccountCode != null and recipientAccountCode != ''">
+				recipient_account_code = #{recipientAccountCode} ,
+			</if>
+			<if test="payFlag != null">
+				pay_flag = #{payFlag} ,
+			</if>
+			<if test="signature != null and signature != ''">
+				signature = #{signature} ,
+			</if>
+			<if test="investStatementFlag != null and investStatementFlag != ''">
+				invest_statement_flag = #{investStatementFlag} ,
+			</if>
+			<if test="controlStatementFlag != null">
+				control_statement_flag = #{controlStatementFlag} ,
+			</if>
+			<if test="investAwareFlag != null">
+				invest_aware_flag = #{investAwareFlag} ,
+			</if>
+			<if test="signedSwapFlag != null">
+				signed_swap_flag = #{signedSwapFlag} ,
+			</if>
+			<if test="proxyFlag != null">
+				proxy_flag = #{proxyFlag} ,
+			</if>
+			<if test="americanTaxFlag != null">
+				american_tax_flag = #{americanTaxFlag} ,
+			</if>
+			<if test="contractUrl != null and contractUrl != ''">
+				contract_url = #{contractUrl} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="midBankName != null and midBankName != ''">
+				mid_bank_name = #{midBankName} ,
+			</if>
+			<if test="midBankStreetNumber != null and midBankStreetNumber != ''">
+				mid_bank_street_number = #{midBankStreetNumber} ,
+			</if>
+			<if test="midBankRegion != null and midBankRegion != ''">
+				mid_bank_region = #{midBankRegion} ,
+			</if>
+			<if test="midBankProvince != null and midBankProvince != ''">
+				mid_bank_province = #{midBankProvince} ,
+			</if>
+			<if test="midBankCountry != null and midBankCountry != ''">
+				mid_bank_country = #{midBankCountry} ,
+			</if>
+			<if test="midBankPostCode != null and midBankPostCode != ''">
+				mid_bank_post_code = #{midBankPostCode} ,
+			</if>
+			<if test="midBankSwiftCode != null and midBankSwiftCode != ''">
+				mid_bank_swift_code = #{midBankSwiftCode} ,
+			</if>
+			<if test="midBankAbaCode != null and midBankAbaCode != ''">
+				mid_bank_aba_code = #{midBankAbaCode},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fund_agreement
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE
+			id = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fund_agreement
+		WHERE
+			id = #{id}
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FundAgreement">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fund_agreement
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="fundAdvisoryId != null">
+				AND fund_advisory_id = #{fundAdvisoryId}
+			</if>
+			<if test="fundInfoId != null">
+				AND fund_info_id = #{fundInfoId}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="reason != null and reason !=''">
+				AND reason = #{reason}
+			</if>
+			<if test="investAmount != null">
+				AND invest_amount = #{investAmount}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="userSurname != null and userSurname !=''">
+				AND user_surname = #{userSurname}
+			</if>
+			<if test="userName != null and userName !=''">
+				AND user_name = #{userName}
+			</if>
+			<if test="birthday != null and birthday !=''">
+				AND birthday = #{birthday}
+			</if>
+			<if test="nationality != null and nationality !=''">
+				AND nationality = #{nationality}
+			</if>
+			<if test="birthPlace != null and birthPlace !=''">
+				AND birth_place = #{birthPlace}
+			</if>
+			<if test="streetNumber != null and streetNumber !=''">
+				AND street_number = #{streetNumber}
+			</if>
+			<if test="region != null and region !=''">
+				AND region = #{region}
+			</if>
+			<if test="province != null and province !=''">
+				AND province = #{province}
+			</if>
+			<if test="country != null and country !=''">
+				AND country = #{country}
+			</if>
+			<if test="postCode != null and postCode !=''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="tel != null and tel !=''">
+				AND tel = #{tel}
+			</if>
+			<if test="email != null and email !=''">
+				AND email = #{email}
+			</if>
+			<if test="permanentStreetNumber != null and permanentStreetNumber !=''">
+				AND permanent_street_number = #{permanentStreetNumber}
+			</if>
+			<if test="permanentRegion != null and permanentRegion !=''">
+				AND permanent_region = #{permanentRegion}
+			</if>
+			<if test="permanentProvince != null and permanentProvince !=''">
+				AND permanent_province = #{permanentProvince}
+			</if>
+			<if test="permanentCountry != null and permanentCountry !=''">
+				AND permanent_country = #{permanentCountry}
+			</if>
+			<if test="permanentPostCode != null and permanentPostCode !=''">
+				AND permanent_post_code = #{permanentPostCode}
+			</if>
+			<if test="profession != null and profession !=''">
+				AND profession = #{profession}
+			</if>
+			<if test="passportNo != null and passportNo !=''">
+				AND passport_no = #{passportNo}
+			</if>
+			<if test="bankName != null and bankName !=''">
+				AND bank_name = #{bankName}
+			</if>
+			<if test="bankStreetNumber != null and bankStreetNumber !=''">
+				AND bank_street_number = #{bankStreetNumber}
+			</if>
+			<if test="bankRegion != null and bankRegion !=''">
+				AND bank_region = #{bankRegion}
+			</if>
+			<if test="bankCountry != null and bankCountry !=''">
+				AND bank_country = #{bankCountry}
+			</if>
+			<if test="bankProvince != null and bankProvince !=''">
+				AND bank_province = #{bankProvince}
+			</if>
+			<if test="bankPost != null and bankPost !=''">
+				AND bank_post = #{bankPost}
+			</if>
+			<if test="seiftCode != null and seiftCode !=''">
+				AND seift_code = #{seiftCode}
+			</if>
+			<if test="abaCode != null and abaCode !=''">
+				AND aba_code = #{abaCode}
+			</if>
+			<if test="recipientAccountCode != null and recipientAccountCode !=''">
+				AND recipient_account_code = #{recipientAccountCode}
+			</if>
+			<if test="payFlag != null">
+				AND pay_flag = #{payFlag}
+			</if>
+			<if test="signature != null and signature !=''">
+				AND signature = #{signature}
+			</if>
+			<if test="investStatementFlag != null and investStatementFlag !=''">
+				AND invest_statement_flag = #{investStatementFlag}
+			</if>
+			<if test="controlStatementFlag != null">
+				AND control_statement_flag = #{controlStatementFlag}
+			</if>
+			<if test="investAwareFlag != null">
+				AND invest_aware_flag = #{investAwareFlag}
+			</if>
+			<if test="signedSwapFlag != null">
+				AND signed_swap_flag = #{signedSwapFlag}
+			</if>
+			<if test="proxyFlag != null">
+				AND proxy_flag = #{proxyFlag}
+			</if>
+			<if test="americanTaxFlag != null">
+				AND american_tax_flag = #{americanTaxFlag}
+			</if>
+			<if test="contractUrl != null and contractUrl !=''">
+				AND contract_url = #{contractUrl}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="midBankName != null and midBankName !=''">
+				AND mid_bank_name = #{midBankName}
+			</if>
+			<if test="midBankStreetNumber != null and midBankStreetNumber !=''">
+				AND mid_bank_street_number = #{midBankStreetNumber}
+			</if>
+			<if test="midBankRegion != null and midBankRegion !=''">
+				AND mid_bank_region = #{midBankRegion}
+			</if>
+			<if test="midBankProvince != null and midBankProvince !=''">
+				AND mid_bank_province = #{midBankProvince}
+			</if>
+			<if test="midBankCountry != null and midBankCountry !=''">
+				AND mid_bank_country = #{midBankCountry}
+			</if>
+			<if test="midBankPostCode != null and midBankPostCode !=''">
+				AND mid_bank_post_code = #{midBankPostCode}
+			</if>
+			<if test="midBankSwiftCode != null and midBankSwiftCode !=''">
+				AND mid_bank_swift_code = #{midBankSwiftCode}
+			</if>
+			<if test="midBankAbaCode != null and midBankAbaCode !=''">
+				AND mid_bank_aba_code = #{midBankAbaCode}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fund_agreement
+		<include refid="findPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FundAgreement">
+		SELECT <include refid="columns" />
+		FROM fund_agreement
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

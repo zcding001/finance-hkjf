@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">标的产品信息</span>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addBidProduct')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				<div>
+							标的产品名称：<input name="name" class="form-control" style="width: 200px;display:inline-block;">
+            				<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">
+								搜索</a>
+            				<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">
+								清空</a>
+						</div>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+	var columns = [
+		{title: "产品名称", data: "name", className: "dt-simple"},
+		{
+			title: "产品类型", data: "type", className: "dt-simple",
+			render: function (value, type, row) {
+				return DIC_CONSTANT.getName("invest", "product_type", value);
+			}
+		},
+		{
+			title: "年利率范围(%)", data: "idCard", className: "dt-simple",
+			render: function (value, type, row) {
+				return row.rateMin + "-" + row.rateMax;
+			}
+		},
+		{
+			title: "借款期限", data: "termValueMin", className: "dt-simple",
+			render: function (value, type, row) {
+			    var unitName=DIC_CONSTANT.getName('invest','bid_term_unit',row.termUnit);
+				return value + "-" + row.termValueMax +unitName;
+			}
+		},
+		{
+			title: "额度范围(元)", data: "bidName", className: "dt-simple",
+			render: function (value, type, row) {
+				return commonUtil.toFormatFixed(row.amountMin) + "-" + commonUtil.toFormatFixed(row.amountMax);
+			}
+		},
+		{title: "满标期限(天)", data: "bidDeadline", className: "dt-simple",
+			render: function (value, type, row) {
+				return value;
+			}
+		},
+        {title: "创建时间", data: "createTime", className: "dt-simple",
+            render: function (value, type, row) {
+                return dateUtil.date(value);
+            }
+        },
+		{
+			title: "状态", data: "state", className: "dt-simple",
+			render: function (value, type, row) {
+				if (value == 1) {
+					return "上架";
+				}
+				return "下架";
+			}
+		},
+		{
+			title: "操作",
+			data: null,
+			className: "dt-operate",
+			render: function (data, type, row) {
+				//详情按钮
+				var btn =
+					commonUtil.createDirectRequestBtn({id:row.id,ope:'detail',target:'bidProductDetail'},"详细信息","fa-list",1);
+				if (row.state == 1) {
+					btn = btn + commonUtil.createConfirmRequestBtn({
+								id: row.id,
+								state: 2,
+								ajaxUrl: "bidProductController/turnOffBidProduct"
+							}, "下架", "产品操作(下架)", "确定下架产品?", "fa-long-arrow-down");
+				}
+				if (row.state == 2) {
+					btn = btn + commonUtil.createConfirmRequestBtn({
+								id: row.id,
+								state: 1,
+								ajaxUrl: "bidProductController/turnOnBidProduct"
+							}, "上架", "产品操作(上架)", "确定上架产品?", "fa-long-arrow-up");
+                    //只有下架状态的产品有修改按钮
+                    btn = btn + commonUtil.createDirectRequestBtn({id:row.id,row:row,target:'addBidProduct'},"修改","fa-edit");
+				}
+				return btn;
+			}
+		}
+	];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.bidProductList, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+</script>

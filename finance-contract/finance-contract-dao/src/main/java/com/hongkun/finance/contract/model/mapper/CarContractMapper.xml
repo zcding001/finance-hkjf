@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.contract.model.CarContract">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_CarContract" type="com.hongkun.finance.contract.model.CarContract">
+		<result property="id" column="id"/>
+		<result property="partyAid" column="party_a_id"/>
+		<result property="partyBid" column="party_b_id"/>
+		<result property="title" column="title"/>
+		<result property="no" column="no"/>
+		<result property="amount" column="amount"/>
+		<result property="duration" column="duration"/>
+		<result property="rate" column="rate"/>
+		<result property="loanStartTime" column="loan_start_time"/>
+		<result property="loanEndTime" column="loan_end_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="printNum" column="print_num"/>
+		<result property="downloadNum" column="download_num"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="partyAname" column="partyA_name"/>
+		<result property="partyBname" column="partyB_name"/>
+		<result property="partyAtel" column="partyA_tel"/>
+		<result property="partyBtel" column="partyB_tel"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,party_a_id,party_b_id,title,no,amount,duration,rate,loan_start_time,loan_end_time,end_time,print_num,download_num,create_time,modify_time,partyA_name,partyB_name,partyA_tel,partyB_tel
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO car_contract ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="partyAid != null">
+				party_a_id ,
+			</if>
+			<if test="partyBid != null">
+				party_b_id ,
+			</if>
+			<if test="title != null and title != ''">
+				title ,
+			</if>
+			<if test="no != null and no != ''">
+				no ,
+			</if>
+			<if test="amount != null">
+				amount ,
+			</if>
+			<if test="duration != null">
+				duration ,
+			</if>
+			<if test="rate != null">
+				rate ,
+			</if>
+				loan_start_time ,
+				loan_end_time ,
+				end_time ,
+			<if test="printNum != null">
+				print_num ,
+			</if>
+			<if test="downloadNum != null">
+				download_num ,
+			</if>
+				create_time ,
+				modify_time ,
+			<if test="partyAname != null and partyAname != ''">
+				partyA_name ,
+			</if>
+			<if test="partyBname != null and partyBname != ''">
+				partyB_name ,
+			</if>
+			<if test="partyAtel != null and partyAtel != ''">
+				partyA_tel ,
+			</if>
+			<if test="partyBtel != null and partyBtel != ''">
+				partyB_tel 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="partyAid != null">
+				#{partyAid} ,
+			</if>
+			<if test="partyBid != null">
+				#{partyBid} ,
+			</if>
+			<if test="title != null and title != ''">
+				#{title} ,
+			</if>
+			<if test="no != null and no != ''">
+				#{no} ,
+			</if>
+			<if test="amount != null">
+				#{amount} ,
+			</if>
+			<if test="duration != null">
+				#{duration} ,
+			</if>
+			<if test="rate != null">
+				#{rate} ,
+			</if>
+			<choose>
+				<when test="loanStartTime != null">
+					#{loanStartTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="loanEndTime != null">
+					#{loanEndTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="endTime != null">
+					#{endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="printNum != null">
+				#{printNum} ,
+			</if>
+			<if test="downloadNum != null">
+				#{downloadNum} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="partyAname != null and partyAname != ''">
+				#{partyAname} ,
+			</if>
+			<if test="partyBname != null and partyBname != ''">
+				#{partyBname} ,
+			</if>
+			<if test="partyAtel != null and partyAtel != ''">
+				#{partyAtel} ,
+			</if>
+			<if test="partyBtel != null and partyBtel != ''">
+				#{partyBtel} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO car_contract (
+	       	id ,
+	       	party_a_id ,
+	       	party_b_id ,
+	       	title ,
+	       	no ,
+	       	amount ,
+	       	duration ,
+	       	rate ,
+	       	loan_start_time ,
+	       	loan_end_time ,
+	       	end_time ,
+	       	print_num ,
+	       	download_num ,
+	       	create_time ,
+	       	modify_time ,
+	       	partyA_name ,
+	       	partyB_name ,
+	       	partyA_tel ,
+	       	partyB_tel 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.partyAid != null">
+					#{item.partyAid} ,
+				</if>
+				<if test="item.partyAid == null">
+					DEFAULT ,
+				</if>
+				<if test="item.partyBid != null">
+					#{item.partyBid} ,
+				</if>
+				<if test="item.partyBid == null">
+					DEFAULT ,
+				</if>
+				<if test="item.title != null and item.title != ''">
+					#{item.title} ,
+				</if>
+				<if test="item.title == null or item.title == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.no != null and item.no != ''">
+					#{item.no} ,
+				</if>
+				<if test="item.no == null or item.no == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.amount != null">
+					#{item.amount} ,
+				</if>
+				<if test="item.amount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.duration != null">
+					#{item.duration} ,
+				</if>
+				<if test="item.duration == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rate != null">
+					#{item.rate} ,
+				</if>
+				<if test="item.rate == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.loanStartTime != null">
+					#{item.loanStartTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.loanEndTime != null">
+					#{item.loanEndTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">
+					#{item.endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.printNum != null">
+					#{item.printNum} ,
+				</if>
+				<if test="item.printNum == null">
+					DEFAULT ,
+				</if>
+				<if test="item.downloadNum != null">
+					#{item.downloadNum} ,
+				</if>
+				<if test="item.downloadNum == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.partyAname != null and item.partyAname != ''">
+					#{item.partyAname} ,
+				</if>
+				<if test="item.partyAname == null or item.partyAname == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.partyBname != null and item.partyBname != ''">
+					#{item.partyBname} ,
+				</if>
+				<if test="item.partyBname == null or item.partyBname == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.partyAtel != null and item.partyAtel != ''">
+					#{item.partyAtel} ,
+				</if>
+				<if test="item.partyAtel == null or item.partyAtel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.partyBtel != null and item.partyBtel != ''">
+					#{item.partyBtel} 
+				</if>
+				<if test="item.partyBtel == null or item.partyBtel == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="partyAid != null">
+			party_a_id = #{partyAid} ,
+		   </if>
+			<if test="partyBid != null">
+			party_b_id = #{partyBid} ,
+		   </if>
+			<if test="title != null and title != ''">
+				title = #{title} ,
+			</if>
+			<if test="no != null and no != ''">
+				no = #{no} ,
+			</if>
+			<if test="amount != null">
+			amount = #{amount} ,
+		   </if>
+			<if test="duration != null">
+			duration = #{duration} ,
+		   </if>
+			<if test="rate != null">
+			rate = #{rate} ,
+		   </if>
+			<if test="loanStartTime != null">
+				loan_start_time = #{loanStartTime} ,
+			</if>
+			<if test="loanEndTime != null">
+				loan_end_time = #{loanEndTime} ,
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime} ,
+			</if>
+			<if test="printNum != null">
+			print_num = #{printNum} ,
+		   </if>
+			<if test="downloadNum != null">
+			download_num = #{downloadNum} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="partyAname != null and partyAname != ''">
+				partyA_name = #{partyAname} ,
+			</if>
+			<if test="partyBname != null and partyBname != ''">
+				partyB_name = #{partyBname} ,
+			</if>
+			<if test="partyAtel != null and partyAtel != ''">
+				partyA_tel = #{partyAtel} ,
+			</if>
+			<if test="partyBtel != null and partyBtel != ''">
+				partyB_tel = #{partyBtel} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  car_contract
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM car_contract 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_CarContract">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM car_contract 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="partyAid != null">
+			AND party_a_id = #{partyAid}
+			</if>
+			<if test="partyBid != null">
+			AND party_b_id = #{partyBid}
+			</if>
+			<if test="title != null and title !=''">
+			AND title = #{title}
+			</if>
+			<if test="no != null and no !=''">
+			AND no = #{no}
+			</if>
+			<if test="amount != null">
+			AND amount = #{amount}
+			</if>
+			<if test="duration != null">
+			AND duration = #{duration}
+			</if>
+			<if test="rate != null">
+			AND rate = #{rate}
+			</if>
+			<if test="loanStartTimeBegin != null">
+			AND loan_start_time >= #{loanStartTimeBegin}
+			</if>
+			<if test="loanStartTimeEnd != null">
+			AND loan_start_time &lt;= #{loanStartTimeEnd}
+			</if>
+			<if test="loanEndTimeBegin != null">
+			AND loan_end_time >= #{loanEndTimeBegin}
+			</if>
+			<if test="loanEndTimeEnd != null">
+			AND loan_end_time &lt;= #{loanEndTimeEnd}
+			</if>
+			<if test="endTimeBegin != null">
+			AND end_time >= #{endTimeBegin}
+			</if>
+			<if test="endTimeEnd != null">
+			AND end_time &lt;= #{endTimeEnd}
+			</if>
+			<if test="printNum != null">
+			AND print_num = #{printNum}
+			</if>
+			<if test="downloadNum != null">
+			AND download_num = #{downloadNum}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="partyAname != null and partyAname !=''">
+			AND partyA_name = #{partyAname}
+			</if>
+			<if test="partyBname != null and partyBname !=''">
+			AND partyB_name = #{partyBname}
+			</if>
+			<if test="partyAtel != null and partyAtel !=''">
+			AND partyA_tel = #{partyAtel}
+			</if>
+			<if test="partyBtel != null and partyBtel !=''">
+			AND partyB_tel = #{partyBtel}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM car_contract 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_CarContract">
+		SELECT <include refid="columns" />
+		FROM car_contract 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

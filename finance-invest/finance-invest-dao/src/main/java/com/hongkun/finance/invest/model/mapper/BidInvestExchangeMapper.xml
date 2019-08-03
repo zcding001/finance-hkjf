@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.invest.model.BidInvestExchange">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_BidInvestExchange" type="com.hongkun.finance.invest.model.BidInvestExchange">
+		<result property="id" column="ID"/>
+		<result property="investId" column="INVEST_ID"/>
+		<result property="bidId" column="BID_ID"/>
+		<result property="investUserId" column="INVEST_USER_ID"/>
+		<result property="investUserName" column="INVEST_USER_NAME"/>
+		<result property="investShowName" column="INVEST_SHOW_NAME"/>
+		<result property="investAtm" column="INVEST_ATM"/>
+		<result property="state" column="STATE"/>
+		<result property="createdTime" column="CREATED_TIME"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		ID,INVEST_ID,BID_ID,INVEST_USER_ID,INVEST_USER_NAME,INVEST_SHOW_NAME,INVEST_ATM,STATE,CREATED_TIME
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bid_invest_exchange (
+		<if test="id != null">
+			ID ,
+		</if>
+		<if test="investId != null">
+			INVEST_ID ,
+		</if>
+		<if test="bidId != null">
+			BID_ID ,
+		</if>
+		<if test="investUserId != null ">
+			INVEST_USER_ID ,
+		</if>
+		<if test="investUserName != null and investUserName != ''">
+			INVEST_USER_NAME ,
+		</if>
+		<if test="investShowName != null and investShowName != ''">
+			INVEST_SHOW_NAME ,
+		</if>
+		<if test="investAtm != null">
+			INVEST_ATM ,
+		</if>
+		<if test="state != null">
+			STATE ,
+		</if>
+		CREATED_TIME
+		) VALUES (
+		<if test="id != null">
+			#{id} ,
+		</if>
+		<if test="investId != null">
+			#{investId} ,
+		</if>
+		<if test="bidId != null">
+			#{bidId} ,
+		</if>
+		<if test="investUserId != null ">
+			#{investUserId} ,
+		</if>
+		<if test="investUserName != null and investUserName != ''">
+			#{investUserName} ,
+		</if>
+		<if test="investShowName != null and investShowName != ''">
+			#{investShowName} ,
+		</if>
+		<if test="investAtm != null">
+			#{investAtm} ,
+		</if>
+		<if test="state != null">
+			#{state} ,
+		</if>
+		<choose>
+			<when test="createdTime != null">
+				#{createdTime}
+			</when>
+			<otherwise>
+				NOW()
+			</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO bid_invest_exchange (
+	       	ID ,
+	       	INVEST_ID ,
+	       	BID_ID ,
+	       	INVEST_USER_ID ,
+	       	INVEST_USER_NAME ,
+	       	INVEST_SHOW_NAME ,
+	       	INVEST_ATM ,
+	       	STATE ,
+	       	CREATED_TIME
+        ) VALUES
+        ]]>
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="item.id != null">
+				#{item.id} ,
+			</if>
+			<if test="item.id == null">
+				DEFAULT ,
+			</if>
+			<if test="item.investId != null">
+				#{item.investId} ,
+			</if>
+			<if test="item.investId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.bidId != null">
+				#{item.bidId} ,
+			</if>
+			<if test="item.bidId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.investUserId != null">
+				#{item.investUserId} ,
+			</if>
+			<if test="item.investUserId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.investUserName != null and item.investUserName != ''">
+				#{item.investUserName} ,
+			</if>
+			<if test="item.investUserName == null or item.investUserName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.investShowName != null and item.investShowName != ''">
+				#{item.investShowName} ,
+			</if>
+			<if test="item.investShowName == null or item.investShowName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.investAtm != null">
+				#{item.investAtm} ,
+			</if>
+			<if test="item.investAtm == null">
+				DEFAULT ,
+			</if>
+			<if test="item.state != null">
+				#{item.state} ,
+			</if>
+			<if test="item.state == null">
+				DEFAULT ,
+			</if>
+			<choose>
+				<when test="item.createdTime != null">
+					#{item.createdTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="investId != null">
+				INVEST_ID = #{investId} ,
+			</if>
+			<if test="bidId != null">
+				BID_ID = #{bidId} ,
+			</if>
+			<if test="investUserId != null ">
+				INVEST_USER_ID = #{investUserId} ,
+			</if>
+			<if test="investUserName != null and investUserName != ''">
+				INVEST_USER_NAME = #{investUserName} ,
+			</if>
+			<if test="investShowName != null and investShowName != ''">
+				INVEST_SHOW_NAME = #{investShowName} ,
+			</if>
+			<if test="investAtm != null ">
+				INVEST_ATM =INVEST_ATM + #{investAtm} ,
+			</if>
+			<if test="state != null">
+				STATE = #{state} ,
+			</if>
+			<if test="createdTime != null">
+				CREATED_TIME = #{createdTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  bid_invest_exchange
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE
+			ID = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM bid_invest_exchange
+		WHERE
+			ID = #{id}
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_BidInvestExchange">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bid_invest_exchange
+		WHERE 1 = 1
+			AND ID = #{id}
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND ID = #{id}
+			</if>
+			<if test="investId != null">
+				AND INVEST_ID = #{investId}
+			</if>
+			<if test="bidId != null">
+				AND BID_ID = #{bidId}
+			</if>
+			<if test="investUserId != null ">
+				AND INVEST_USER_ID = #{investUserId}
+			</if>
+			<if test="investUserName != null and investUserName !=''">
+				AND INVEST_USER_NAME = #{investUserName}
+			</if>
+			<if test="investShowName != null and investShowName !=''">
+				AND INVEST_SHOW_NAME = #{investShowName}
+			</if>
+			<if test="investAtm != null">
+				AND INVEST_ATM = #{investAtm}
+			</if>
+			<if test="state != null">
+				AND STATE = #{state}
+			</if>
+			<if test="createdTimeBegin != null">
+				AND CREATED_TIME >= #{createdTimeBegin}
+			</if>
+			<if test="createdTimeEnd != null">
+				AND CREATED_TIME &lt;= #{createdTimeEnd}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM bid_invest_exchange
+		<include refid="findPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_BidInvestExchange">
+		SELECT <include refid="columns" />
+		FROM bid_invest_exchange
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+
+
+	<select id="findInvestWating"  resultType="com.hongkun.finance.invest.model.BidInvestExchange">
+		SELECT
+			bi.ID AS investId,
+			bi.BID_INFO_ID AS bidId,
+			bi.REG_USER_ID AS investUserId,
+			bi.real_name AS investUserName,
+			bi.invest_amount AS investAtm,
+			bi.STATE AS state,
+			bi.create_time AS createdTime
+		FROM
+			bid_invest bi
+		WHERE
+			bi.invest_amount >= 250000
+		  AND bi.REG_USER_ID NOT IN (1)
+		  AND bi.state IN (1, 5)
+		  AND bi.id not in (SELECT invest_id from bid_invest_exchange where state =1 )
+		order by bi.create_time desc,bi.invest_amount desc  limit 1000
+	</select>
+
+	<select id="findInvestSubWating"  resultType="com.hongkun.finance.invest.model.BidInvestExchange">
+		SELECT
+			bi.ID AS investId,
+			bi.BID_INFO_ID AS bidId,
+			bi.REG_USER_ID AS investUserId,
+			bi.real_name AS investUserName,
+			bi.invest_amount AS investAtm,
+			bi.STATE AS state,
+			bi.create_time AS createdTime
+		FROM
+			bid_invest bi
+		WHERE
+			DATEDIFF(bi.create_time,NOW()) >= -3
+		  AND bi.invest_amount &lt;=  #{investAtm}
+		  AND bi.reg_user_id NOT IN (1)
+		  AND bi.state IN (1, 5)
+		  AND bi.id not in (SELECT invest_id from bid_invest_exchange where state =1 and invest_amount &lt;= #{investAtm} )
+		order by bi.invest_amount desc
+	</select>
+</mapper>

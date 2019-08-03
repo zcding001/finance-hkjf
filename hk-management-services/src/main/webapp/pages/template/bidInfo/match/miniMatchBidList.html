@@ -1,0 +1,37 @@
+<!-- 匹配选择待匹配标的列表弹窗 -->
+<div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="matchHeader" aria-hidden="true" >
+	<input type="hidden" id="modalUri">
+	<input type="hidden" id="modalData">
+	<input type="hidden" id="sucTarget">
+	<div class="modal-dialog" style="width:900px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="matchHeader"></h4>
+			</div>
+			<div class="modal-body" id="matchBody">
+				<div id="showSelectBid" class="clearfix">
+				</div>
+				
+				<hr>
+           			<form id="searchForm">
+           				标题：<input name="title" class="form-control" style="width: 120px;display:inline-block;">
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            		<font color="red" id="errorMsg"></font>
+				<div style="overflow-y:scroll; height: 500px; overflow-x:hidden ">
+				<table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+				</div>
+			</div>
+			<input type="hidden" name="selectMoneySum" id="selectMonySum"  value="0"/>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" onClick='cancelSelect();'>取消</button>
+				<button type="button" class="btn btn-primary" id="matchBtn" onClick='confirmSelect();'>确认</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+

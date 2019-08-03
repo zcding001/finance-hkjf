@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaRepay">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaRepay" type="com.hongkun.finance.bi.model.StaRepay">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="proType" column="pro_type"/>
+		<result property="planRepayAmount" column="plan_repay_amount"/>
+		<result property="planRepaycaptail" column="plan_repay_captail"/>
+		<result property="planRepayInterest" column="plan_repay_interest"/>
+		<result property="planRepayServiceCharge" column="plan_repay_service_charge"/>
+		<result property="planRepayUserCou" column="plan_repay_user_cou"/>
+		<result property="planRepayTimes" column="plan_repay_times"/>
+		<result property="repayedAmount" column="repayed_amount"/>
+		<result property="repayedCapital" column="repayed_capital"/>
+		<result property="repayedInterest" column="repayed_interest"/>
+		<result property="repayedServiceCharge" column="repayed_service_charge"/>
+		<result property="repayedPunish" column="repayed_punish"/>
+		<result property="repayedUserCou" column="repayed_user_cou"/>
+		<result property="repayedTimes" column="repayed_times"/>
+		<result property="currRepayedAmount" column="curr_repayed_amount"/>
+		<result property="currRepayedcaptail" column="curr_repayed_captail"/>
+		<result property="currRepayedInterest" column="curr_repayed_interest"/>
+		<result property="currRepayedServiceCharge" column="curr_repayed_service_charge"/>
+		<result property="currRepayedUserCou" column="curr_repayed_user_cou"/>
+		<result property="currRepayedTimes" column="curr_repayed_times"/>
+		<result property="beforeRepayedAmount" column="before_repayed_amount"/>
+		<result property="beforeRepayedcaptail" column="before_repayed_captail"/>
+		<result property="beforeRepayedInterest" column="before_repayed_interest"/>
+		<result property="beforeRepayedServiceCharge" column="before_repayed_service_charge"/>
+		<result property="beforeRepayedUserCou" column="before_repayed_user_cou"/>
+		<result property="beforeRepayedTimes" column="before_repayed_times"/>
+		<result property="advanceRepayedAmount" column="advance_repayed_amount"/>
+		<result property="advanceRepayedcaptail" column="advance_repayed_captail"/>
+		<result property="advanceRepayedInterest" column="advance_repayed_interest"/>
+		<result property="advanceRepayedServiceCharge" column="advance_repayed_service_charge"/>
+		<result property="advanceRepayedUserCou" column="advance_repayed_user_cou"/>
+		<result property="advanceRepayedTimes" column="advance_repayed_times"/>
+		<result property="repayingAmount" column="repaying_amount"/>
+		<result property="repayingCapital" column="repaying_capital"/>
+		<result property="repayingInterest" column="repaying_interest"/>
+		<result property="repayingServiceCharge" column="repaying_service_charge"/>
+		<result property="repayingUserCou" column="repaying_user_cou"/>
+		<result property="repayingTimes" column="repaying_times"/>
+		<result property="repayingMoney30" column="repaying_money_30"/>
+		<result property="repayingTimes30" column="repaying_times_30"/>
+		<result property="repayingMoney60" column="repaying_money_60"/>
+		<result property="repayingTimes60" column="repaying_times_60"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,pro_type,plan_repay_amount,plan_repay_captail,plan_repay_interest,plan_repay_service_charge,plan_repay_user_cou,plan_repay_times,repayed_amount,repayed_capital,repayed_interest,repayed_service_charge,repayed_punish,repayed_user_cou,repayed_times,curr_repayed_amount,curr_repayed_captail,curr_repayed_interest,curr_repayed_service_charge,curr_repayed_user_cou,curr_repayed_times,before_repayed_amount,before_repayed_captail,before_repayed_interest,before_repayed_service_charge,before_repayed_user_cou,before_repayed_times,advance_repayed_amount,advance_repayed_captail,advance_repayed_interest,advance_repayed_service_charge,advance_repayed_user_cou,advance_repayed_times,repaying_amount,repaying_capital,repaying_interest,repaying_service_charge,repaying_user_cou,repaying_times,repaying_money_30,repaying_times_30,repaying_money_60,repaying_times_60
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_repay ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="proType != null">
+				pro_type ,
+			</if>
+			<if test="planRepayAmount != null">
+				plan_repay_amount ,
+			</if>
+			<if test="planRepaycaptail != null">
+				plan_repay_captail ,
+			</if>
+			<if test="planRepayInterest != null">
+				plan_repay_interest ,
+			</if>
+			<if test="planRepayServiceCharge != null">
+				plan_repay_service_charge ,
+			</if>
+			<if test="planRepayUserCou != null">
+				plan_repay_user_cou ,
+			</if>
+			<if test="planRepayTimes != null">
+				plan_repay_times ,
+			</if>
+			<if test="repayedAmount != null">
+				repayed_amount ,
+			</if>
+			<if test="repayedCapital != null">
+				repayed_capital ,
+			</if>
+			<if test="repayedInterest != null">
+				repayed_interest ,
+			</if>
+			<if test="repayedServiceCharge != null">
+				repayed_service_charge ,
+			</if>
+			<if test="repayedPunish != null">
+				repayed_punish ,
+			</if>
+			<if test="repayedUserCou != null">
+				repayed_user_cou ,
+			</if>
+			<if test="repayedTimes != null">
+				repayed_times ,
+			</if>
+			<if test="currRepayedAmount != null">
+				curr_repayed_amount ,
+			</if>
+			<if test="currRepayedcaptail != null">
+				curr_repayed_captail ,
+			</if>
+			<if test="currRepayedInterest != null">
+				curr_repayed_interest ,
+			</if>
+			<if test="currRepayedServiceCharge != null">
+				curr_repayed_service_charge ,
+			</if>
+			<if test="currRepayedUserCou != null">
+				curr_repayed_user_cou ,
+			</if>
+			<if test="currRepayedTimes != null">
+				curr_repayed_times ,
+			</if>
+			<if test="beforeRepayedAmount != null">
+				before_repayed_amount ,
+			</if>
+			<if test="beforeRepayedcaptail != null">
+				before_repayed_captail ,
+			</if>
+			<if test="beforeRepayedInterest != null">
+				before_repayed_interest ,
+			</if>
+			<if test="beforeRepayedServiceCharge != null">
+				before_repayed_service_charge ,
+			</if>
+			<if test="beforeRepayedUserCou != null">
+				before_repayed_user_cou ,
+			</if>
+			<if test="beforeRepayedTimes != null">
+				before_repayed_times ,
+			</if>
+			<if test="advanceRepayedAmount != null">
+				advance_repayed_amount ,
+			</if>
+			<if test="advanceRepayedcaptail != null">
+				advance_repayed_captail ,
+			</if>
+			<if test="advanceRepayedInterest != null">
+				advance_repayed_interest ,
+			</if>
+			<if test="advanceRepayedServiceCharge != null">
+				advance_repayed_service_charge ,
+			</if>
+			<if test="advanceRepayedUserCou != null">
+				advance_repayed_user_cou ,
+			</if>
+			<if test="advanceRepayedTimes != null">
+				advance_repayed_times ,
+			</if>
+			<if test="repayingAmount != null">
+				repaying_amount ,
+			</if>
+			<if test="repayingCapital != null">
+				repaying_capital ,
+			</if>
+			<if test="repayingInterest != null">
+				repaying_interest ,
+			</if>
+			<if test="repayingServiceCharge != null">
+				repaying_service_charge ,
+			</if>
+			<if test="repayingUserCou != null">
+				repaying_user_cou ,
+			</if>
+			<if test="repayingTimes != null">
+				repaying_times ,
+			</if>
+			<if test="repayingMoney30 != null">
+				repaying_money_30 ,
+			</if>
+			<if test="repayingTimes30 != null">
+				repaying_times_30 ,
+			</if>
+			<if test="repayingMoney60 != null">
+				repaying_money_60 ,
+			</if>
+			<if test="repayingTimes60 != null">
+				repaying_times_60 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="proType != null">
+				#{proType} ,
+			</if>
+			<if test="planRepayAmount != null">
+				#{planRepayAmount} ,
+			</if>
+			<if test="planRepaycaptail != null">
+				#{planRepaycaptail} ,
+			</if>
+			<if test="planRepayInterest != null">
+				#{planRepayInterest} ,
+			</if>
+			<if test="planRepayServiceCharge != null">
+				#{planRepayServiceCharge} ,
+			</if>
+			<if test="planRepayUserCou != null">
+				#{planRepayUserCou} ,
+			</if>
+			<if test="planRepayTimes != null">
+				#{planRepayTimes} ,
+			</if>
+			<if test="repayedAmount != null">
+				#{repayedAmount} ,
+			</if>
+			<if test="repayedCapital != null">
+				#{repayedCapital} ,
+			</if>
+			<if test="repayedInterest != null">
+				#{repayedInterest} ,
+			</if>
+			<if test="repayedServiceCharge != null">
+				#{repayedServiceCharge} ,
+			</if>
+			<if test="repayedPunish != null">
+				#{repayedPunish} ,
+			</if>
+			<if test="repayedUserCou != null">
+				#{repayedUserCou} ,
+			</if>
+			<if test="repayedTimes != null">
+				#{repayedTimes} ,
+			</if>
+			<if test="currRepayedAmount != null">
+				#{currRepayedAmount} ,
+			</if>
+			<if test="currRepayedcaptail != null">
+				#{currRepayedcaptail} ,
+			</if>
+			<if test="currRepayedInterest != null">
+				#{currRepayedInterest} ,
+			</if>
+			<if test="currRepayedServiceCharge != null">
+				#{currRepayedServiceCharge} ,
+			</if>
+			<if test="currRepayedUserCou != null">
+				#{currRepayedUserCou} ,
+			</if>
+			<if test="currRepayedTimes != null">
+				#{currRepayedTimes} ,
+			</if>
+			<if test="beforeRepayedAmount != null">
+				#{beforeRepayedAmount} ,
+			</if>
+			<if test="beforeRepayedcaptail != null">
+				#{beforeRepayedcaptail} ,
+			</if>
+			<if test="beforeRepayedInterest != null">
+				#{beforeRepayedInterest} ,
+			</if>
+			<if test="beforeRepayedServiceCharge != null">
+				#{beforeRepayedServiceCharge} ,
+			</if>
+			<if test="beforeRepayedUserCou != null">
+				#{beforeRepayedUserCou} ,
+			</if>
+			<if test="beforeRepayedTimes != null">
+				#{beforeRepayedTimes} ,
+			</if>
+			<if test="advanceRepayedAmount != null">
+				#{advanceRepayedAmount} ,
+			</if>
+			<if test="advanceRepayedcaptail != null">
+				#{advanceRepayedcaptail} ,
+			</if>
+			<if test="advanceRepayedInterest != null">
+				#{advanceRepayedInterest} ,
+			</if>
+			<if test="advanceRepayedServiceCharge != null">
+				#{advanceRepayedServiceCharge} ,
+			</if>
+			<if test="advanceRepayedUserCou != null">
+				#{advanceRepayedUserCou} ,
+			</if>
+			<if test="advanceRepayedTimes != null">
+				#{advanceRepayedTimes} ,
+			</if>
+			<if test="repayingAmount != null">
+				#{repayingAmount} ,
+			</if>
+			<if test="repayingCapital != null">
+				#{repayingCapital} ,
+			</if>
+			<if test="repayingInterest != null">
+				#{repayingInterest} ,
+			</if>
+			<if test="repayingServiceCharge != null">
+				#{repayingServiceCharge} ,
+			</if>
+			<if test="repayingUserCou != null">
+				#{repayingUserCou} ,
+			</if>
+			<if test="repayingTimes != null">
+				#{repayingTimes} ,
+			</if>
+			<if test="repayingMoney30 != null">
+				#{repayingMoney30} ,
+			</if>
+			<if test="repayingTimes30 != null">
+				#{repayingTimes30} ,
+			</if>
+			<if test="repayingMoney60 != null">
+				#{repayingMoney60} ,
+			</if>
+			<if test="repayingTimes60 != null">
+				#{repayingTimes60} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sta_repay (
+	       	id ,
+	       	da ,
+	       	pro_type ,
+	       	plan_repay_amount ,
+	       	plan_repay_captail ,
+	       	plan_repay_interest ,
+	       	plan_repay_service_charge ,
+	       	plan_repay_user_cou ,
+	       	plan_repay_times ,
+	       	repayed_amount ,
+	       	repayed_capital ,
+	       	repayed_interest ,
+	       	repayed_service_charge ,
+	       	repayed_punish ,
+	       	repayed_user_cou ,
+	       	repayed_times ,
+	       	curr_repayed_amount ,
+	       	curr_repayed_captail ,
+	       	curr_repayed_interest ,
+	       	curr_repayed_service_charge ,
+	       	curr_repayed_user_cou ,
+	       	curr_repayed_times ,
+	       	before_repayed_amount ,
+	       	before_repayed_captail ,
+	       	before_repayed_interest ,
+	       	before_repayed_service_charge ,
+	       	before_repayed_user_cou ,
+	       	before_repayed_times ,
+	       	advance_repayed_amount ,
+	       	advance_repayed_captail ,
+	       	advance_repayed_interest ,
+	       	advance_repayed_service_charge ,
+	       	advance_repayed_user_cou ,
+	       	advance_repayed_times ,
+	       	repaying_amount ,
+	       	repaying_capital ,
+	       	repaying_interest ,
+	       	repaying_service_charge ,
+	       	repaying_user_cou ,
+	       	repaying_times ,
+	       	repaying_money_30 ,
+	       	repaying_times_30 ,
+	       	repaying_money_60 ,
+	       	repaying_times_60 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.proType != null">
+					#{item.proType} ,
+				</if>
+				<if test="item.proType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepayAmount != null">
+					#{item.planRepayAmount} ,
+				</if>
+				<if test="item.planRepayAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepaycaptail != null">
+					#{item.planRepaycaptail} ,
+				</if>
+				<if test="item.planRepaycaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepayInterest != null">
+					#{item.planRepayInterest} ,
+				</if>
+				<if test="item.planRepayInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepayServiceCharge != null">
+					#{item.planRepayServiceCharge} ,
+				</if>
+				<if test="item.planRepayServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepayUserCou != null">
+					#{item.planRepayUserCou} ,
+				</if>
+				<if test="item.planRepayUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planRepayTimes != null">
+					#{item.planRepayTimes} ,
+				</if>
+				<if test="item.planRepayTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedAmount != null">
+					#{item.repayedAmount} ,
+				</if>
+				<if test="item.repayedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedCapital != null">
+					#{item.repayedCapital} ,
+				</if>
+				<if test="item.repayedCapital == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedInterest != null">
+					#{item.repayedInterest} ,
+				</if>
+				<if test="item.repayedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedServiceCharge != null">
+					#{item.repayedServiceCharge} ,
+				</if>
+				<if test="item.repayedServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedPunish != null">
+					#{item.repayedPunish} ,
+				</if>
+				<if test="item.repayedPunish == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedUserCou != null">
+					#{item.repayedUserCou} ,
+				</if>
+				<if test="item.repayedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedTimes != null">
+					#{item.repayedTimes} ,
+				</if>
+				<if test="item.repayedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedAmount != null">
+					#{item.currRepayedAmount} ,
+				</if>
+				<if test="item.currRepayedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedcaptail != null">
+					#{item.currRepayedcaptail} ,
+				</if>
+				<if test="item.currRepayedcaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedInterest != null">
+					#{item.currRepayedInterest} ,
+				</if>
+				<if test="item.currRepayedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedServiceCharge != null">
+					#{item.currRepayedServiceCharge} ,
+				</if>
+				<if test="item.currRepayedServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedUserCou != null">
+					#{item.currRepayedUserCou} ,
+				</if>
+				<if test="item.currRepayedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currRepayedTimes != null">
+					#{item.currRepayedTimes} ,
+				</if>
+				<if test="item.currRepayedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedAmount != null">
+					#{item.beforeRepayedAmount} ,
+				</if>
+				<if test="item.beforeRepayedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedcaptail != null">
+					#{item.beforeRepayedcaptail} ,
+				</if>
+				<if test="item.beforeRepayedcaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedInterest != null">
+					#{item.beforeRepayedInterest} ,
+				</if>
+				<if test="item.beforeRepayedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedServiceCharge != null">
+					#{item.beforeRepayedServiceCharge} ,
+				</if>
+				<if test="item.beforeRepayedServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedUserCou != null">
+					#{item.beforeRepayedUserCou} ,
+				</if>
+				<if test="item.beforeRepayedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeRepayedTimes != null">
+					#{item.beforeRepayedTimes} ,
+				</if>
+				<if test="item.beforeRepayedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedAmount != null">
+					#{item.advanceRepayedAmount} ,
+				</if>
+				<if test="item.advanceRepayedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedcaptail != null">
+					#{item.advanceRepayedcaptail} ,
+				</if>
+				<if test="item.advanceRepayedcaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedInterest != null">
+					#{item.advanceRepayedInterest} ,
+				</if>
+				<if test="item.advanceRepayedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedServiceCharge != null">
+					#{item.advanceRepayedServiceCharge} ,
+				</if>
+				<if test="item.advanceRepayedServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedUserCou != null">
+					#{item.advanceRepayedUserCou} ,
+				</if>
+				<if test="item.advanceRepayedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayedTimes != null">
+					#{item.advanceRepayedTimes} ,
+				</if>
+				<if test="item.advanceRepayedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingAmount != null">
+					#{item.repayingAmount} ,
+				</if>
+				<if test="item.repayingAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingCapital != null">
+					#{item.repayingCapital} ,
+				</if>
+				<if test="item.repayingCapital == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingInterest != null">
+					#{item.repayingInterest} ,
+				</if>
+				<if test="item.repayingInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingServiceCharge != null">
+					#{item.repayingServiceCharge} ,
+				</if>
+				<if test="item.repayingServiceCharge == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingUserCou != null">
+					#{item.repayingUserCou} ,
+				</if>
+				<if test="item.repayingUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingTimes != null">
+					#{item.repayingTimes} ,
+				</if>
+				<if test="item.repayingTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingMoney30 != null">
+					#{item.repayingMoney30} ,
+				</if>
+				<if test="item.repayingMoney30 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingTimes30 != null">
+					#{item.repayingTimes30} ,
+				</if>
+				<if test="item.repayingTimes30 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingMoney60 != null">
+					#{item.repayingMoney60} ,
+				</if>
+				<if test="item.repayingMoney60 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingTimes60 != null">
+					#{item.repayingTimes60} 
+				</if>
+				<if test="item.repayingTimes60 == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="proType != null">
+			pro_type = #{proType} ,
+		   </if>
+			<if test="planRepayAmount != null ">
+				plan_repay_amount =plan_repay_amount + #{planRepayAmount} ,
+			</if>
+			<if test="planRepaycaptail != null ">
+				plan_repay_captail =plan_repay_captail + #{planRepaycaptail} ,
+			</if>
+			<if test="planRepayInterest != null ">
+				plan_repay_interest =plan_repay_interest + #{planRepayInterest} ,
+			</if>
+			<if test="planRepayServiceCharge != null ">
+				plan_repay_service_charge =plan_repay_service_charge + #{planRepayServiceCharge} ,
+			</if>
+			<if test="planRepayUserCou != null">
+			plan_repay_user_cou = #{planRepayUserCou} ,
+		   </if>
+			<if test="planRepayTimes != null">
+			plan_repay_times = #{planRepayTimes} ,
+		   </if>
+			<if test="repayedAmount != null ">
+				repayed_amount =repayed_amount + #{repayedAmount} ,
+			</if>
+			<if test="repayedCapital != null ">
+				repayed_capital =repayed_capital + #{repayedCapital} ,
+			</if>
+			<if test="repayedInterest != null ">
+				repayed_interest =repayed_interest + #{repayedInterest} ,
+			</if>
+			<if test="repayedServiceCharge != null ">
+				repayed_service_charge =repayed_service_charge + #{repayedServiceCharge} ,
+			</if>
+			<if test="repayedPunish != null ">
+				repayed_punish =repayed_punish + #{repayedPunish} ,
+			</if>
+			<if test="repayedUserCou != null">
+			repayed_user_cou = #{repayedUserCou} ,
+		   </if>
+			<if test="repayedTimes != null">
+			repayed_times = #{repayedTimes} ,
+		   </if>
+			<if test="currRepayedAmount != null ">
+				curr_repayed_amount =curr_repayed_amount + #{currRepayedAmount} ,
+			</if>
+			<if test="currRepayedcaptail != null ">
+				curr_repayed_captail =curr_repayed_captail + #{currRepayedcaptail} ,
+			</if>
+			<if test="currRepayedInterest != null ">
+				curr_repayed_interest =curr_repayed_interest + #{currRepayedInterest} ,
+			</if>
+			<if test="currRepayedServiceCharge != null ">
+				curr_repayed_service_charge =curr_repayed_service_charge + #{currRepayedServiceCharge} ,
+			</if>
+			<if test="currRepayedUserCou != null">
+			curr_repayed_user_cou = #{currRepayedUserCou} ,
+		   </if>
+			<if test="currRepayedTimes != null">
+			curr_repayed_times = #{currRepayedTimes} ,
+		   </if>
+			<if test="beforeRepayedAmount != null ">
+				before_repayed_amount =before_repayed_amount + #{beforeRepayedAmount} ,
+			</if>
+			<if test="beforeRepayedcaptail != null ">
+				before_repayed_captail =before_repayed_captail + #{beforeRepayedcaptail} ,
+			</if>
+			<if test="beforeRepayedInterest != null ">
+				before_repayed_interest =before_repayed_interest + #{beforeRepayedInterest} ,
+			</if>
+			<if test="beforeRepayedServiceCharge != null ">
+				before_repayed_service_charge =before_repayed_service_charge + #{beforeRepayedServiceCharge} ,
+			</if>
+			<if test="beforeRepayedUserCou != null">
+			before_repayed_user_cou = #{beforeRepayedUserCou} ,
+		   </if>
+			<if test="beforeRepayedTimes != null">
+			before_repayed_times = #{beforeRepayedTimes} ,
+		   </if>
+			<if test="advanceRepayedAmount != null ">
+				advance_repayed_amount =advance_repayed_amount + #{advanceRepayedAmount} ,
+			</if>
+			<if test="advanceRepayedcaptail != null ">
+				advance_repayed_captail =advance_repayed_captail + #{advanceRepayedcaptail} ,
+			</if>
+			<if test="advanceRepayedInterest != null ">
+				advance_repayed_interest =advance_repayed_interest + #{advanceRepayedInterest} ,
+			</if>
+			<if test="advanceRepayedServiceCharge != null ">
+				advance_repayed_service_charge =advance_repayed_service_charge + #{advanceRepayedServiceCharge} ,
+			</if>
+			<if test="advanceRepayedUserCou != null">
+			advance_repayed_user_cou = #{advanceRepayedUserCou} ,
+		   </if>
+			<if test="advanceRepayedTimes != null">
+			advance_repayed_times = #{advanceRepayedTimes} ,
+		   </if>
+			<if test="repayingAmount != null ">
+				repaying_amount =repaying_amount + #{repayingAmount} ,
+			</if>
+			<if test="repayingCapital != null ">
+				repaying_capital =repaying_capital + #{repayingCapital} ,
+			</if>
+			<if test="repayingInterest != null ">
+				repaying_interest =repaying_interest + #{repayingInterest} ,
+			</if>
+			<if test="repayingServiceCharge != null ">
+				repaying_service_charge =repaying_service_charge + #{repayingServiceCharge} ,
+			</if>
+			<if test="repayingUserCou != null">
+			repaying_user_cou = #{repayingUserCou} ,
+		   </if>
+			<if test="repayingTimes != null">
+			repaying_times = #{repayingTimes} ,
+		   </if>
+			<if test="repayingMoney30 != null ">
+				repaying_money_30 =repaying_money_30 + #{repayingMoney30} ,
+			</if>
+			<if test="repayingTimes30 != null">
+			repaying_times_30 = #{repayingTimes30} ,
+		   </if>
+			<if test="repayingMoney60 != null ">
+				repaying_money_60 =repaying_money_60 + #{repayingMoney60} ,
+			</if>
+			<if test="repayingTimes60 != null">
+			repaying_times_60 = #{repayingTimes60} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_repay
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_repay 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaRepay">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_repay 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="proType != null">
+			AND pro_type = #{proType}
+			</if>
+			<if test="planRepayAmount != null">
+			AND plan_repay_amount = #{planRepayAmount}
+			</if>
+			<if test="planRepaycaptail != null">
+			AND plan_repay_captail = #{planRepaycaptail}
+			</if>
+			<if test="planRepayInterest != null">
+			AND plan_repay_interest = #{planRepayInterest}
+			</if>
+			<if test="planRepayServiceCharge != null">
+			AND plan_repay_service_charge = #{planRepayServiceCharge}
+			</if>
+			<if test="planRepayUserCou != null">
+			AND plan_repay_user_cou = #{planRepayUserCou}
+			</if>
+			<if test="planRepayTimes != null">
+			AND plan_repay_times = #{planRepayTimes}
+			</if>
+			<if test="repayedAmount != null">
+			AND repayed_amount = #{repayedAmount}
+			</if>
+			<if test="repayedCapital != null">
+			AND repayed_capital = #{repayedCapital}
+			</if>
+			<if test="repayedInterest != null">
+			AND repayed_interest = #{repayedInterest}
+			</if>
+			<if test="repayedServiceCharge != null">
+			AND repayed_service_charge = #{repayedServiceCharge}
+			</if>
+			<if test="repayedPunish != null">
+			AND repayed_punish = #{repayedPunish}
+			</if>
+			<if test="repayedUserCou != null">
+			AND repayed_user_cou = #{repayedUserCou}
+			</if>
+			<if test="repayedTimes != null">
+			AND repayed_times = #{repayedTimes}
+			</if>
+			<if test="currRepayedAmount != null">
+			AND curr_repayed_amount = #{currRepayedAmount}
+			</if>
+			<if test="currRepayedcaptail != null">
+			AND curr_repayed_captail = #{currRepayedcaptail}
+			</if>
+			<if test="currRepayedInterest != null">
+			AND curr_repayed_interest = #{currRepayedInterest}
+			</if>
+			<if test="currRepayedServiceCharge != null">
+			AND curr_repayed_service_charge = #{currRepayedServiceCharge}
+			</if>
+			<if test="currRepayedUserCou != null">
+			AND curr_repayed_user_cou = #{currRepayedUserCou}
+			</if>
+			<if test="currRepayedTimes != null">
+			AND curr_repayed_times = #{currRepayedTimes}
+			</if>
+			<if test="beforeRepayedAmount != null">
+			AND before_repayed_amount = #{beforeRepayedAmount}
+			</if>
+			<if test="beforeRepayedcaptail != null">
+			AND before_repayed_captail = #{beforeRepayedcaptail}
+			</if>
+			<if test="beforeRepayedInterest != null">
+			AND before_repayed_interest = #{beforeRepayedInterest}
+			</if>
+			<if test="beforeRepayedServiceCharge != null">
+			AND before_repayed_service_charge = #{beforeRepayedServiceCharge}
+			</if>
+			<if test="beforeRepayedUserCou != null">
+			AND before_repayed_user_cou = #{beforeRepayedUserCou}
+			</if>
+			<if test="beforeRepayedTimes != null">
+			AND before_repayed_times = #{beforeRepayedTimes}
+			</if>
+			<if test="advanceRepayedAmount != null">
+			AND advance_repayed_amount = #{advanceRepayedAmount}
+			</if>
+			<if test="advanceRepayedcaptail != null">
+			AND advance_repayed_captail = #{advanceRepayedcaptail}
+			</if>
+			<if test="advanceRepayedInterest != null">
+			AND advance_repayed_interest = #{advanceRepayedInterest}
+			</if>
+			<if test="advanceRepayedServiceCharge != null">
+			AND advance_repayed_service_charge = #{advanceRepayedServiceCharge}
+			</if>
+			<if test="advanceRepayedUserCou != null">
+			AND advance_repayed_user_cou = #{advanceRepayedUserCou}
+			</if>
+			<if test="advanceRepayedTimes != null">
+			AND advance_repayed_times = #{advanceRepayedTimes}
+			</if>
+			<if test="repayingAmount != null">
+			AND repaying_amount = #{repayingAmount}
+			</if>
+			<if test="repayingCapital != null">
+			AND repaying_capital = #{repayingCapital}
+			</if>
+			<if test="repayingInterest != null">
+			AND repaying_interest = #{repayingInterest}
+			</if>
+			<if test="repayingServiceCharge != null">
+			AND repaying_service_charge = #{repayingServiceCharge}
+			</if>
+			<if test="repayingUserCou != null">
+			AND repaying_user_cou = #{repayingUserCou}
+			</if>
+			<if test="repayingTimes != null">
+			AND repaying_times = #{repayingTimes}
+			</if>
+			<if test="repayingMoney30 != null">
+			AND repaying_money_30 = #{repayingMoney30}
+			</if>
+			<if test="repayingTimes30 != null">
+			AND repaying_times_30 = #{repayingTimes30}
+			</if>
+			<if test="repayingMoney60 != null">
+			AND repaying_money_60 = #{repayingMoney60}
+			</if>
+			<if test="repayingTimes60 != null">
+			AND repaying_times_60 = #{repayingTimes60}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_repay 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaRepay">
+		SELECT <include refid="columns" />
+		FROM sta_repay 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+    
+    <!-- 检索累计还款金额 -->
+	<select id="findStaRepayAddup" resultMap="_StaRepay">
+		SELECT
+            IFNULL(SUM(repayed_amount), 0) AS repayed_amount,
+            IFNULL(SUM(repayed_capital), 0) AS repayed_capital,
+            IFNULL(SUM(repayed_interest), 0) AS repayed_interest,
+            IFNULL(
+                SUM(repayed_service_charge),
+                0
+            ) AS repayed_service_charge,
+            IFNULL(SUM(repayed_punish), 0) AS repayed_punish,
+            IFNULL(SUM(repayed_times), 0) AS repayed_times,
+            IFNULL(SUM(repaying_amount), 0) AS repaying_amount,
+            IFNULL(SUM(repaying_times), 0) AS repaying_times
+        FROM
+	      sta_repay
+	    WHERE
+	      1=1
+        <if test="daBegin != null">
+            AND da >= #{daBegin}
+        </if>
+        <if test="daEnd != null">
+            AND da &lt;= #{daEnd}
+        </if>
+	</select>
+
+    <select id="findStaRepayFuture" resultMap="_StaRepay">
+        SELECT
+            SUM(repaying_money_30) AS repaying_money_30,
+            SUM(repaying_times_30) AS repaying_times_30,
+            SUM(repaying_money_60) AS repaying_money_60,
+            SUM(repaying_times_60) AS repaying_times_60
+        FROM
+            sta_repay 
+        WHERE
+            da = DATE( DATE_ADD( NOW( ), INTERVAL - 1 DAY ) )
+    </select>
+
+</mapper>

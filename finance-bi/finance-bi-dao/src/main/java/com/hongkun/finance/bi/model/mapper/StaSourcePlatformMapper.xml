@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaSourcePlatform">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaSourcePlatform" type="com.hongkun.finance.bi.model.StaSourcePlatform">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="regUserCou" column="reg_user_cou"/>
+		<result property="realUserCou" column="real_user_cou"/>
+		<result property="rechangeUserCou" column="rechange_user_cou"/>
+		<result property="rechangeAmount" column="rechange_amount"/>
+		<result property="rechangeTimes" column="rechange_times"/>
+		<result property="withdrawUserCou" column="withdraw_user_cou"/>
+		<result property="withdrawAmount" column="withdraw_amount"/>
+		<result property="withdrawTimes" column="withdraw_times"/>
+		<result property="investUserCou" column="invest_user_cou"/>
+		<result property="investAmount" column="invest_amount"/>
+		<result property="investTimes" column="invest_times"/>
+		<result property="borrowerCou" column="borrower_cou"/>
+		<result property="receiptingUserCou" column="receipting_user_cou"/>
+		<result property="receiptingAmount" column="receipting_amount"/>
+		<result property="receiptedUserCou" column="receipted_user_cou"/>
+		<result property="receiptedAmount" column="receipted_amount"/>
+		<result property="repayingUserCou" column="repaying_user_cou"/>
+		<result property="repayingAmount" column="repaying_amount"/>
+		<result property="repayedUserCou" column="repayed_user_cou"/>
+		<result property="repayedAmount" column="repayed_amount"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,reg_user_cou,real_user_cou,rechange_user_cou,rechange_amount,rechange_times,withdraw_user_cou,withdraw_amount,withdraw_times,invest_user_cou,invest_amount,invest_times,borrower_cou,receipting_user_cou,receipting_amount,receipted_user_cou,receipted_amount,repaying_user_cou,repaying_amount,repayed_user_cou,repayed_amount
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_source_platform ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="regUserCou != null">
+				reg_user_cou ,
+			</if>
+			<if test="realUserCou != null">
+				real_user_cou ,
+			</if>
+			<if test="rechangeUserCou != null">
+				rechange_user_cou ,
+			</if>
+			<if test="rechangeAmount != null">
+				rechange_amount ,
+			</if>
+			<if test="rechangeTimes != null">
+				rechange_times ,
+			</if>
+			<if test="withdrawUserCou != null">
+				withdraw_user_cou ,
+			</if>
+			<if test="withdrawAmount != null">
+				withdraw_amount ,
+			</if>
+			<if test="withdrawTimes != null">
+				withdraw_times ,
+			</if>
+			<if test="investUserCou != null">
+				invest_user_cou ,
+			</if>
+			<if test="investAmount != null">
+				invest_amount ,
+			</if>
+			<if test="investTimes != null">
+				invest_times ,
+			</if>
+			<if test="borrowerCou != null">
+				borrower_cou ,
+			</if>
+			<if test="receiptingUserCou != null">
+				receipting_user_cou ,
+			</if>
+			<if test="receiptingAmount != null">
+				receipting_amount ,
+			</if>
+			<if test="receiptedUserCou != null">
+				receipted_user_cou ,
+			</if>
+			<if test="receiptedAmount != null">
+				receipted_amount ,
+			</if>
+			<if test="repayingUserCou != null">
+				repaying_user_cou ,
+			</if>
+			<if test="repayingAmount != null">
+				repaying_amount ,
+			</if>
+			<if test="repayedUserCou != null">
+				repayed_user_cou ,
+			</if>
+			<if test="repayedAmount != null">
+				repayed_amount 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="regUserCou != null">
+				#{regUserCou} ,
+			</if>
+			<if test="realUserCou != null">
+				#{realUserCou} ,
+			</if>
+			<if test="rechangeUserCou != null">
+				#{rechangeUserCou} ,
+			</if>
+			<if test="rechangeAmount != null">
+				#{rechangeAmount} ,
+			</if>
+			<if test="rechangeTimes != null">
+				#{rechangeTimes} ,
+			</if>
+			<if test="withdrawUserCou != null">
+				#{withdrawUserCou} ,
+			</if>
+			<if test="withdrawAmount != null">
+				#{withdrawAmount} ,
+			</if>
+			<if test="withdrawTimes != null">
+				#{withdrawTimes} ,
+			</if>
+			<if test="investUserCou != null">
+				#{investUserCou} ,
+			</if>
+			<if test="investAmount != null">
+				#{investAmount} ,
+			</if>
+			<if test="investTimes != null">
+				#{investTimes} ,
+			</if>
+			<if test="borrowerCou != null">
+				#{borrowerCou} ,
+			</if>
+			<if test="receiptingUserCou != null">
+				#{receiptingUserCou} ,
+			</if>
+			<if test="receiptingAmount != null">
+				#{receiptingAmount} ,
+			</if>
+			<if test="receiptedUserCou != null">
+				#{receiptedUserCou} ,
+			</if>
+			<if test="receiptedAmount != null">
+				#{receiptedAmount} ,
+			</if>
+			<if test="repayingUserCou != null">
+				#{repayingUserCou} ,
+			</if>
+			<if test="repayingAmount != null">
+				#{repayingAmount} ,
+			</if>
+			<if test="repayedUserCou != null">
+				#{repayedUserCou} ,
+			</if>
+			<if test="repayedAmount != null">
+				#{repayedAmount} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO sta_source_platform (
+        	id ,
+        	da ,
+        	reg_user_cou ,
+        	real_user_cou ,
+        	rechange_user_cou ,
+        	rechange_amount ,
+        	rechange_times ,
+        	withdraw_user_cou ,
+        	withdraw_amount ,
+        	withdraw_times ,
+        	invest_user_cou ,
+        	invest_amount ,
+        	invest_times ,
+        	borrower_cou ,
+        	receipting_user_cou ,
+        	receipting_amount ,
+        	receipted_user_cou ,
+        	receipted_amount ,
+        	repaying_user_cou ,
+        	repaying_amount ,
+        	repayed_user_cou ,
+        	repayed_amount 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.regUserCou != null">
+					#{item.regUserCou} ,
+				</if>
+				<if test="item.regUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.realUserCou != null">
+					#{item.realUserCou} ,
+				</if>
+				<if test="item.realUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechangeUserCou != null">
+					#{item.rechangeUserCou} ,
+				</if>
+				<if test="item.rechangeUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechangeAmount != null">
+					#{item.rechangeAmount} ,
+				</if>
+				<if test="item.rechangeAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechangeTimes != null">
+					#{item.rechangeTimes} ,
+				</if>
+				<if test="item.rechangeTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.withdrawUserCou != null">
+					#{item.withdrawUserCou} ,
+				</if>
+				<if test="item.withdrawUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.withdrawAmount != null">
+					#{item.withdrawAmount} ,
+				</if>
+				<if test="item.withdrawAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.withdrawTimes != null">
+					#{item.withdrawTimes} ,
+				</if>
+				<if test="item.withdrawTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investUserCou != null">
+					#{item.investUserCou} ,
+				</if>
+				<if test="item.investUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investAmount != null">
+					#{item.investAmount} ,
+				</if>
+				<if test="item.investAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investTimes != null">
+					#{item.investTimes} ,
+				</if>
+				<if test="item.investTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.borrowerCou != null">
+					#{item.borrowerCou} ,
+				</if>
+				<if test="item.borrowerCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingUserCou != null">
+					#{item.receiptingUserCou} ,
+				</if>
+				<if test="item.receiptingUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingAmount != null">
+					#{item.receiptingAmount} ,
+				</if>
+				<if test="item.receiptingAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedUserCou != null">
+					#{item.receiptedUserCou} ,
+				</if>
+				<if test="item.receiptedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedAmount != null">
+					#{item.receiptedAmount} ,
+				</if>
+				<if test="item.receiptedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingUserCou != null">
+					#{item.repayingUserCou} ,
+				</if>
+				<if test="item.repayingUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayingAmount != null">
+					#{item.repayingAmount} ,
+				</if>
+				<if test="item.repayingAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedUserCou != null">
+					#{item.repayedUserCou} ,
+				</if>
+				<if test="item.repayedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayedAmount != null">
+					#{item.repayedAmount} 
+				</if>
+				<if test="item.repayedAmount == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="regUserCou != null">
+			reg_user_cou = #{regUserCou} ,
+		   </if>
+			<if test="realUserCou != null">
+			real_user_cou = #{realUserCou} ,
+		   </if>
+			<if test="rechangeUserCou != null">
+			rechange_user_cou = #{rechangeUserCou} ,
+		   </if>
+			<if test="rechangeAmount != null ">
+				rechange_amount =rechange_amount + #{rechangeAmount} ,
+			</if>
+			<if test="rechangeTimes != null">
+			rechange_times = #{rechangeTimes} ,
+		   </if>
+			<if test="withdrawUserCou != null">
+			withdraw_user_cou = #{withdrawUserCou} ,
+		   </if>
+			<if test="withdrawAmount != null ">
+				withdraw_amount =withdraw_amount + #{withdrawAmount} ,
+			</if>
+			<if test="withdrawTimes != null">
+			withdraw_times = #{withdrawTimes} ,
+		   </if>
+			<if test="investUserCou != null">
+			invest_user_cou = #{investUserCou} ,
+		   </if>
+			<if test="investAmount != null ">
+				invest_amount =invest_amount + #{investAmount} ,
+			</if>
+			<if test="investTimes != null">
+			invest_times = #{investTimes} ,
+		   </if>
+			<if test="borrowerCou != null">
+			borrower_cou = #{borrowerCou} ,
+		   </if>
+			<if test="receiptingUserCou != null">
+			receipting_user_cou = #{receiptingUserCou} ,
+		   </if>
+			<if test="receiptingAmount != null ">
+				receipting_amount =receipting_amount + #{receiptingAmount} ,
+			</if>
+			<if test="receiptedUserCou != null">
+			receipted_user_cou = #{receiptedUserCou} ,
+		   </if>
+			<if test="receiptedAmount != null ">
+				receipted_amount =receipted_amount + #{receiptedAmount} ,
+			</if>
+			<if test="repayingUserCou != null">
+			repaying_user_cou = #{repayingUserCou} ,
+		   </if>
+			<if test="repayingAmount != null ">
+				repaying_amount =repaying_amount + #{repayingAmount} ,
+			</if>
+			<if test="repayedUserCou != null">
+			repayed_user_cou = #{repayedUserCou} ,
+		   </if>
+			<if test="repayedAmount != null ">
+				repayed_amount =repayed_amount + #{repayedAmount} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_source_platform
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_source_platform 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaSourcePlatform">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_source_platform 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="regUserCou != null">
+			AND reg_user_cou = #{regUserCou}
+			</if>
+			<if test="realUserCou != null">
+			AND real_user_cou = #{realUserCou}
+			</if>
+			<if test="rechangeUserCou != null">
+			AND rechange_user_cou = #{rechangeUserCou}
+			</if>
+			<if test="rechangeAmount != null">
+			AND rechange_amount = #{rechangeAmount}
+			</if>
+			<if test="rechangeTimes != null">
+			AND rechange_times = #{rechangeTimes}
+			</if>
+			<if test="withdrawUserCou != null">
+			AND withdraw_user_cou = #{withdrawUserCou}
+			</if>
+			<if test="withdrawAmount != null">
+			AND withdraw_amount = #{withdrawAmount}
+			</if>
+			<if test="withdrawTimes != null">
+			AND withdraw_times = #{withdrawTimes}
+			</if>
+			<if test="investUserCou != null">
+			AND invest_user_cou = #{investUserCou}
+			</if>
+			<if test="investAmount != null">
+			AND invest_amount = #{investAmount}
+			</if>
+			<if test="investTimes != null">
+			AND invest_times = #{investTimes}
+			</if>
+			<if test="borrowerCou != null">
+			AND borrower_cou = #{borrowerCou}
+			</if>
+			<if test="receiptingUserCou != null">
+			AND receipting_user_cou = #{receiptingUserCou}
+			</if>
+			<if test="receiptingAmount != null">
+			AND receipting_amount = #{receiptingAmount}
+			</if>
+			<if test="receiptedUserCou != null">
+			AND receipted_user_cou = #{receiptedUserCou}
+			</if>
+			<if test="receiptedAmount != null">
+			AND receipted_amount = #{receiptedAmount}
+			</if>
+			<if test="repayingUserCou != null">
+			AND repaying_user_cou = #{repayingUserCou}
+			</if>
+			<if test="repayingAmount != null">
+			AND repaying_amount = #{repayingAmount}
+			</if>
+			<if test="repayedUserCou != null">
+			AND repayed_user_cou = #{repayedUserCou}
+			</if>
+			<if test="repayedAmount != null">
+			AND repayed_amount = #{repayedAmount}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_source_platform 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaSourcePlatform">
+		SELECT <include refid="columns" />
+		FROM sta_source_platform 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

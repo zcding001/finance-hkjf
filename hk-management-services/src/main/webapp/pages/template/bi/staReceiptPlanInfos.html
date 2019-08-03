@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">回款计划详情</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('回款计划详情列表')" style="display:inline-block;">导出</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var regUserId = commonUtil.getRequestParamByUrl().regUserId;
+var columns =  [
+        { title:"项目名称",data: "bidName", width:140},
+        { title:"项目总额",className:"dt-simple",data: "bidAmount", width:100},
+        { title:"出借人",className:"dt-simple",data: "borrowerName", width:100},
+        { title:"回款金额(元)",className:"dt-simple",data: "amount"},
+        { title:"回款本金(元)",className:"dt-simple",data: "capitalAmount"},
+        { title:"回款利息(元)",className:"dt-simple",data: "interestAmount"},
+        { title:"加息收益(元)",className:"dt-simple",data: "increaseAmount"},
+        { title:"计划回款日期",className:"dt-simple",data: "planTime",
+            render: function (value, type, row) {
+                return dateUtil.date(value);
+            }
+        },
+        { title:"实际回款日期",className:"dt-simple",data: "actualTime",
+            render: function (value, type, row) {
+                return dateUtil.date(value);
+            }
+        },
+        { title:"期数",className:"dt-simple", data: "periods"},
+        {
+            title:"状态",
+            data: "state",
+            className:"dt-simple",
+            render: function (value, type, row, meta) {
+                return DIC_CONSTANT.getName("loan", "bid_receipt_state", value);
+            }
+        }
+
+    ];
+
+    dataTableUtil.createDTNoPageByPager(CONFIG.interface.staReceiptPlanListInfos +"?regUserId=" + regUserId, columns);
+</script>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">当前债权</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+					剩余债权小于0时，则债权不够
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+					<thead>
+					<tr role="row">
+						<th class="sorting_disabled" rowspan="1" colspan="1">第三方剩余债权</th>
+						<th class="sorting_disabled" rowspan="1" colspan="1">还款本金</th>
+						<th class="sorting_disabled dt-simple" rowspan="1" colspan="1">没有匹配债权总金额</th>
+						<th class="sorting_disabled dt-simple" rowspan="1" colspan="1">债权池限额</th>
+						<th class="sorting_disabled dt-simple" rowspan="1" colspan="1">前一天17:00至当日17:00转入总金额</th>
+						<th class="sorting_disabled dt-simple" rowspan="1" colspan="1">当天缺少债权金额</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="odd" role="row">
+						<td class=" dt-simple">
+							<span ng-bind="residueQqMoney"></span>
+						</td >
+						<td class=" dt-simple"><span ng-bind="hqWaitSumMoney"></span></td>
+						<td class=" dt-simple"><span ng-bind="transFailSumMoney"></span></td>
+						<td class=" dt-simple"><span ng-bind="currentCreditMoney"></span></td>
+						<td class=" dt-simple"><span ng-bind="transInSumMoney"></span></td>
+						<td class=" dt-simple"><span ng-bind="lackCreditorMoney"></span></td>
+					</tr>
+					</tbody>
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+

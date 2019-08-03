@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.SysMenu">
+
+    <!-- POJO类与数据库字段对应关系 -->
+    <resultMap id="_SysMenu" type="com.hongkun.finance.user.model.SysMenu">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuDesc" column="menu_desc"/>
+        <result property="menuUrl" column="menu_url"/>
+        <result property="seqNo" column="seq_no"/>
+        <result property="type" column="type"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+		<![CDATA[
+
+
+
+		id,pid,menu_name,menu_desc,menu_url,seq_no,type,state,create_time,modify_time
+
+
+
+        ]]>
+	</sql>
+
+    <!-- 用于select查询公用抽取的列[带别名]-->
+    <sql id="aliescolumns">
+        <![CDATA[
+		a.id AS id,a.pid  AS pid,a.menu_name  AS menu_name,a.menu_desc AS menu_desc,a.menu_url AS menu_url,a.seq_no AS seq_no,a.type AS type,a.state AS state,a.create_time AS create_time,a.modify_time AS modify_time
+        ]]>
+    </sql>
+
+    <!-- 用于select查询公用抽取的列[带别名]-->
+    <sql id="withParentNamealiescolumns">
+        <![CDATA[
+		a.id AS id,a.pid  AS pid,a.menu_name  AS menu_name,a.menu_desc AS menu_desc,a.menu_url AS menu_url,a.seq_no AS seq_no,a.type AS type,a.state AS state,a.create_time AS create_time,a.modify_time AS modify_time
+        ,b.menu_name as parentMenuName
+        ]]>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_menu (
+        <if test="id != null">
+            id ,
+        </if>
+        <if test="pid != null">
+            pid ,
+        </if>
+        <if test="menuName != null and menuName != ''">
+            menu_name ,
+        </if>
+        <if test="menuDesc != null and menuDesc != ''">
+            menu_desc ,
+        </if>
+        <if test="menuUrl != null and menuUrl != ''">
+            menu_url ,
+        </if>
+        <if test="seqNo != null">
+            seq_no ,
+        </if>
+        <if test="type != null">
+            type ,
+        </if>
+        <if test="state != null">
+            state ,
+        </if>
+        create_time ,
+        modify_time
+        ) VALUES (
+        <if test="id != null">
+            #{id} ,
+        </if>
+        <if test="pid != null">
+            #{pid} ,
+        </if>
+        <if test="menuName != null and menuName != ''">
+            #{menuName} ,
+        </if>
+        <if test="menuDesc != null and menuDesc != ''">
+            #{menuDesc} ,
+        </if>
+        <if test="menuUrl != null and menuUrl != ''">
+            #{menuUrl} ,
+        </if>
+        <if test="seqNo != null">
+            #{seqNo} ,
+        </if>
+        <if test="type != null">
+            #{type} ,
+        </if>
+        <if test="state != null">
+            #{state} ,
+        </if>
+        <choose>
+            <when test="createTime != null">
+                #{createTime} ,
+            </when>
+            <otherwise>
+                NOW() ,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="modifyTime != null">
+                #{modifyTime}
+            </when>
+            <otherwise>
+                NOW()
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO sys_menu (
+        <if test="id != null">
+            id ,
+        </if>
+        <if test="pid != null">
+            pid ,
+        </if>
+        <if test="menuName != null and menuName != ''">
+            menu_name ,
+        </if>
+        <if test="menuDesc != null and menuDesc != ''">
+            menu_desc ,
+        </if>
+        <if test="menuUrl != null and menuUrl != ''">
+            menu_url ,
+        </if>
+        <if test="seqNo != null">
+            seq_no ,
+        </if>
+        <if test="type != null">
+            type ,
+        </if>
+        <if test="state != null">
+            state ,
+        </if>
+        create_time ,
+        modify_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <if test="id != null">
+                #{id} ,
+            </if>
+            <if test="pid != null">
+                #{pid} ,
+            </if>
+            <if test="menuName != null and menuName != ''">
+                #{menuName} ,
+            </if>
+            <if test="menuDesc != null and menuDesc != ''">
+                #{menuDesc} ,
+            </if>
+            <if test="menuUrl != null and menuUrl != ''">
+                #{menuUrl} ,
+            </if>
+            <if test="seqNo != null">
+                #{seqNo} ,
+            </if>
+            <if test="type != null">
+                #{type} ,
+            </if>
+            <if test="state != null">
+                #{state} ,
+            </if>
+            <choose>
+                <when test="createTime != null">
+                    #{createTime} ,
+                </when>
+                <otherwise>
+                    NOW() ,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="modifyTime != null">
+                    #{modifyTime}
+                </when>
+                <otherwise>
+                    NOW()
+                </otherwise>
+            </choose>
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新字段列表 -->
+    <sql id="update_sql">
+        <set>
+            <if test="pid != null">
+                pid = #{pid} ,
+            </if>
+            <if test="menuName != null and menuName != ''">
+                menu_name = #{menuName} ,
+            </if>
+            <if test="menuDesc != null and menuDesc != ''">
+                menu_desc = #{menuDesc} ,
+            </if>
+            <if test="menuUrl != null and menuUrl != ''">
+                menu_url = #{menuUrl} ,
+            </if>
+            <if test="seqNo != null">
+                seq_no = #{seqNo} ,
+            </if>
+            <if test="type != null">
+                type = #{type} ,
+            </if>
+            <if test="state != null">
+                state = #{state} ,
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime} ,
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime}
+            </if>
+        </set>
+    </sql>
+
+    <!-- 更新 -->
+    <update id="update">
+        UPDATE sys_menu
+        <include refid="update_sql"/>
+        <![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete">
+		<![CDATA[
+
+
+
+		DELETE FROM sys_menu 
+		WHERE
+			id = #{id} 
+
+
+
+        ]]>
+	</delete>
+
+    <!-- 根据ID查询 -->
+    <select id="getById" resultMap="_SysMenu">
+        SELECT
+        <include refid="columns"/>
+        <![CDATA[
+		FROM sys_menu 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="findPage_where_with_alias">
+        <!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+        <where>
+            a.state !=0
+            <if test="id != null">
+                AND a.id = #{id}
+            </if>
+            <if test="pid != null and pid!=-999">
+                AND a.pid = #{pid}
+            </if>
+            <if test="pid == -999">
+                AND a.pid != 0
+            </if>
+            <if test="menuName != null and menuName !=''">
+                AND a.menu_name LIKE CONCAT('%',#{menuName},'%')
+            </if>
+            <if test="parentMenuName != null and parentMenuName !=''">
+                AND b.menu_name LIKE CONCAT('%',#{parentMenuName},'%')
+            </if>
+            <if test="menuDesc != null and menuDesc !=''">
+                AND a.menu_desc = #{menuDesc}
+            </if>
+            <if test="menuUrl != null and menuUrl !=''">
+                AND a.menu_url = #{menuUrl}
+            </if>
+            <if test="seqNo != null">
+                AND a.seq_no = #{seqNo}
+            </if>
+            <if test="type != null">
+                AND a.type = #{type}
+            </if>
+            <if test="state != null">
+                AND a.state = #{state}
+            </if>
+            <if test="createTimeBegin != null">
+                AND a.create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND a.create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="modifyTimeBegin != null">
+                AND a.modify_time >= #{modifyTimeBegin}
+            </if>
+            <if test="modifyTimeEnd != null">
+                AND a.modify_time &lt;= #{modifyTimeEnd}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="findPage_where">
+        <!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+        <where>
+            state !=0
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="pid != null and pid!=-999">
+                AND pid = #{pid}
+            </if>
+            <if test="pid == -999">
+                AND pid != 0
+            </if>
+            <if test="menuName != null and menuName !=''">
+                AND menu_name LIKE CONCAT('%',#{menuName},'%')
+            </if>
+            <if test="menuDesc != null and menuDesc !=''">
+                AND menu_desc = #{menuDesc}
+            </if>
+            <if test="menuUrl != null and menuUrl !=''">
+                AND menu_url = #{menuUrl}
+            </if>
+            <if test="seqNo != null">
+                AND seq_no = #{seqNo}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+            <if test="createTimeBegin != null">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="modifyTimeBegin != null">
+                AND modify_time >= #{modifyTimeBegin}
+            </if>
+            <if test="modifyTimeEnd != null">
+                AND modify_time &lt;= #{modifyTimeEnd}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询数量 -->
+    <select id="findPage_count" resultType="long">
+        SELECT COUNT(ID) FROM sys_menu
+        <include refid="findPage_where"/>
+    </select>
+
+    <!-- 查询数量 -->
+    <select id="findPageCount" resultType="long">
+        SELECT COUNT(ID) FROM sys_menu
+        <include refid="findPage_where"/>
+    </select>
+
+    <!-- 查询分页 -->
+    <select id="findPage" resultMap="_SysMenu">
+        SELECT
+        <include refid="withParentNamealiescolumns"/>
+        FROM sys_menu a
+        LEFT JOIN sys_menu b
+        ON  a.pid=b.id
+        <include refid="findPage_where_with_alias"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+</mapper>

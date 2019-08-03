@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasVipGrowRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasVipGrowRecord" type="com.hongkun.finance.vas.model.VasVipGrowRecord">
+		<result property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="growValue" column="grow_value"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="preGrowValue" column="pre_grow_value"/>
+		<result property="currentGrowValue" column="current_grow_value"/>
+		<result property="note" column="note"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+
+	<resultMap id="_VasVipGrowRecordVO" type="com.hongkun.finance.vas.model.vo.VasVipGrowRecordVO" extends="_VasVipGrowRecord"></resultMap>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,type,grow_value,reg_user_id,pre_grow_value,current_grow_value,note,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_vip_grow_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="growValue != null">
+				grow_value ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="preGrowValue != null">
+				pre_grow_value ,
+			</if>
+			<if test="currentGrowValue != null">
+				current_grow_value ,
+			</if>
+			<if test="note != null and note != ''">
+				note ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="growValue != null">
+				#{growValue} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="preGrowValue != null">
+				#{preGrowValue} ,
+			</if>
+			<if test="currentGrowValue != null">
+				#{currentGrowValue} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO vas_vip_grow_record (
+        	id ,
+        	type ,
+        	grow_value ,
+        	reg_user_id ,
+        	pre_grow_value ,
+        	current_grow_value ,
+        	note ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.growValue != null">
+					#{item.growValue} ,
+				</if>
+				<if test="item.growValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.preGrowValue != null">
+					#{item.preGrowValue} ,
+				</if>
+				<if test="item.preGrowValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currentGrowValue != null">
+					#{item.currentGrowValue} ,
+				</if>
+				<if test="item.currentGrowValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} ,
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="growValue != null">
+			grow_value = #{growValue} ,
+		   </if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="preGrowValue != null">
+			pre_grow_value = #{preGrowValue} ,
+		   </if>
+			<if test="currentGrowValue != null">
+			current_grow_value = #{currentGrowValue} ,
+		   </if>
+			<if test="note != null and note != ''">
+				note = #{note} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_vip_grow_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_vip_grow_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasVipGrowRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_vip_grow_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="growValue != null">
+			AND grow_value = #{growValue}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="preGrowValue != null">
+			AND pre_grow_value = #{preGrowValue}
+			</if>
+			<if test="currentGrowValue != null">
+			AND current_grow_value = #{currentGrowValue}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			and grow_value != 0
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_vip_grow_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasVipGrowRecord">
+		SELECT <include refid="columns" />
+		FROM vas_vip_grow_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 根据条件查询所有用户的成长值记录 -->
+	<select id="searchVipRecordByCondition" resultMap="_VasVipGrowRecordVO">
+		SELECT
+		<include refid="columns"/>
+		FROM
+		vas_vip_grow_record
+		WHERE
+		id IN (SELECT max(id) FROM vas_vip_grow_record GROUP BY reg_user_id)
+		<include refid="searchVipRecord_where_condition"/>
+	</select>
+
+	<!-- 根据条件查询所有用户的成长值记录数量 -->
+	<select id="searchVipRecordByConditionCount" resultType="java.lang.Long">
+		SELECT
+		COUNT(0)
+		FROM
+		vas_vip_grow_record
+		WHERE
+		id IN (SELECT max(id) FROM vas_vip_grow_record GROUP BY reg_user_id)
+		<include refid="searchVipRecord_where_condition"/>
+	</select>
+	<sql id="searchVipRecord_where_condition">
+		<if test="userIds != null and userIds.size != 0">
+			AND reg_user_id IN
+			<foreach collection="userIds" open="(" separator="," close=")" item="uid">
+				${uid}
+			</foreach>
+		</if>
+		<if test="growthValMin != null">
+			<![CDATA[
+			AND current_grow_value >= #{growthValMin}
+			]]>
+		</if>
+		<if test="growthValMax != null">
+			<![CDATA[
+			AND current_grow_value < #{growthValMax}
+			]]>
+		</if>
+	</sql>
+
+	<select id="findUserCurrentGrowValue" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT IFNULL((SELECT current_grow_value FROM vas_vip_grow_record WHERE reg_user_id = #{regUserId} AND state = 1
+		ORDER BY create_time DESC LIMIT 1),0)
+	</select>
+
+	<select id="findUserGrowValueMap" resultMap="_VasVipGrowRecord">
+		SELECT
+			a.reg_user_id,
+			a.current_grow_value
+		FROM
+			(SELECT
+					reg_user_id,
+					current_grow_value
+				FROM
+					vas_vip_grow_record
+				WHERE
+					reg_user_id IN
+					<foreach collection="list" open="(" separator="," close=")" item="uid">
+						${uid}
+					</foreach>
+				ORDER BY
+					id DESC) AS a GROUP BY a.reg_user_id
+	</select>
+
+	<!-- 获取会员等级大于0级的用户集合 -->
+	<select id="findUserLevelGtZero" resultMap="_VasVipGrowRecord">
+		SELECT
+			b.reg_user_id,
+			b.current_grow_value
+		FROM
+			(SELECT a.reg_user_id,a.current_grow_value FROM (SELECT reg_user_id,current_grow_value FROM
+			vas_vip_grow_record ORDER BY id DESC) AS a
+				GROUP BY
+					a.reg_user_id
+			) AS b
+		WHERE b.current_grow_value > (SELECT growth_val_max FROM vas_vip_grade_standard WHERE `level` = 0)
+	</select>
+
+	<!-- 近三个月进行过降级的用户id集合 -->
+	<select id="findUserThreeMonthHasDown" resultType="java.lang.Integer">
+		SELECT
+			DISTINCT reg_user_id
+		from
+			vas_vip_grow_record WHERE reg_user_id IN
+			<foreach collection="collection" open="(" separator="," close=")" item="uid">
+				${uid}
+			</foreach>
+			AND type = 10 AND create_time > DATE_ADD(NOW(),INTERVAL - 3 MONTH);
+	</select>
+</mapper>

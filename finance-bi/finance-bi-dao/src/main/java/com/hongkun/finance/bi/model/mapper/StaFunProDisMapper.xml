@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaFunProDis">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaFunProDis" type="com.hongkun.finance.bi.model.StaFunProDis">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="bidProType" column="bid_pro_type"/>
+		<result property="investAmount" column="invest_amount"/>
+		<result property="repayAmount" column="repay_amount"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,bid_pro_type,invest_amount,repay_amount,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_fun_pro_dis ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="bidProType != null">
+				bid_pro_type ,
+			</if>
+			<if test="investAmount != null">
+				invest_amount ,
+			</if>
+			<if test="repayAmount != null">
+				repay_amount ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="bidProType != null">
+				#{bidProType} ,
+			</if>
+			<if test="investAmount != null">
+				#{investAmount} ,
+			</if>
+			<if test="repayAmount != null">
+				#{repayAmount} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sta_fun_pro_dis (
+	       	id ,
+	       	da ,
+	       	bid_pro_type ,
+	       	invest_amount ,
+	       	repay_amount ,
+	       	create_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.bidProType != null">
+					#{item.bidProType} ,
+				</if>
+				<if test="item.bidProType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investAmount != null">
+					#{item.investAmount} ,
+				</if>
+				<if test="item.investAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayAmount != null">
+					#{item.repayAmount} ,
+				</if>
+				<if test="item.repayAmount == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="bidProType != null">
+			bid_pro_type = #{bidProType} ,
+		   </if>
+			<if test="investAmount != null ">
+				invest_amount =invest_amount + #{investAmount} ,
+			</if>
+			<if test="repayAmount != null ">
+				repay_amount =repay_amount + #{repayAmount} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_fun_pro_dis
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_fun_pro_dis 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaFunProDis">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_fun_pro_dis 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="bidProType != null">
+			AND bid_pro_type = #{bidProType}
+			</if>
+			<if test="investAmount != null">
+			AND invest_amount = #{investAmount}
+			</if>
+			<if test="repayAmount != null">
+			AND repay_amount = #{repayAmount}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_fun_pro_dis 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaFunProDis">
+		SELECT <include refid="columns" />
+		FROM sta_fun_pro_dis 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+    <!-- 产品类型分组查询投资还款金额 -->
+    <select id="findStaFunProDisListByBidProType" resultType="com.hongkun.finance.bi.model.StaFunProDis">
+        SELECT
+          bid_pro_type AS bidProType,
+          SUM(invest_amount) AS investAmount,
+          SUM(repay_amount) AS repayAmount
+        FROM
+          sta_fun_pro_dis
+        WHERE
+          1 = 1
+        <if test="daBegin != null">
+            AND da >= #{daBegin}
+        </if>
+        <if test="daEnd != null">
+            AND da &lt; #{daEnd}
+        </if>
+        GROUP BY
+          bid_pro_type;
+    </select>
+</mapper>

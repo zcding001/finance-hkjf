@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:reg="http://www.dangdang.com/schema/ddframe/reg" 
+    xmlns:job="http://www.dangdang.com/schema/ddframe/job" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd 
+                        http://www.dangdang.com/schema/ddframe/reg 
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd 
+                        http://www.dangdang.com/schema/ddframe/job 
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd 
+                        ">
+     <!--配置作业注册中心 -->
+    <reg:zookeeper id="regCenter" server-lists="${ealsticjob.zookeeper.address}" namespace="hk-timer"
+                   base-sleep-time-milliseconds="${ealsticjob.base.sleep.time.milliseconds}"
+                   max-sleep-time-milliseconds="${ealsticjob.max-sleep-time-milliseconds}"
+                   max-retries="${ealsticjob.max-retries}"/>
+    <!-- 散标客户还款提醒 -->
+      <!--收入统计-->
+    <job:simple id="staIncomeTaskTimer"
+                class="com.hongkun.finance.bi.timer.StaIncomeTaskTimer"
+                registry-center-ref="regCenter"
+                cron="0 10 0 1 * ?"
+                sharding-total-count="1"
+                description="收入统计定时"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+
+    <job:simple id="balAccountTaskTimer"
+                class="com.hongkun.finance.bi.timer.BalAccountTaskTimer"
+                registry-center-ref="regCenter"
+                cron="0 30 0 * * ?"
+                sharding-total-count="1"
+                description="平台对账定时"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+</beans>

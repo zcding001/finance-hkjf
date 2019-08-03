@@ -1,0 +1,745 @@
+    @charset "utf-8";
+    /*引入底层库;common-base.less基于less-base.css*/
+
+    @import "common-base.less";
+    /*投资列表页和投资详情页、合同less*/
+    /*投资列表页*/
+
+    .list_title {
+        width: 100%;
+        .blk-75;
+        .blh-75;
+        border-bottom: 2px solid #f39200;
+    }
+
+    .list_title {
+        .list_in {
+            .blk-75;
+            .over;
+            ul {
+                width: 100%;
+                .mt-28;
+                .over;
+                li {
+                    .fl;
+                    width: 110px;
+                    .blk-46;
+                    .cur;
+                    .blh-46;
+                    .tac;
+                    .colr-gray;
+                    .f-16;
+                }
+            }
+        }
+        .list_active {
+            .bg-org;
+            color: white !important;
+        }
+    }
+
+    .chose_tj_left {
+        width: 170px;
+        height: auto;
+        .bgColor(#f3f3f3);
+        ul>li {
+            .blk-50;
+            .blh-50;
+            .pr-20;
+            .tar;
+            border-bottom: #eee 1px solid;
+            color: #888;
+        }
+    }
+
+    .chose_tj_right {
+        width: 928px;
+        height: auto;
+        >div {
+            width: 100%;
+            li {
+                .fl;
+                .blk-50;
+                .blh-50;
+                .mr-40;
+                .tar;
+                .cur;
+                color: #888;
+                &:hover {
+                    .colr-org;
+                }
+            }
+            li:first-child {
+                width: 120px;
+                .tac;
+                .colr-org;
+                .mr0;
+            }
+        }
+        >div:first-child {
+            .bor_b;
+            border-color: #eee;
+        }
+    }
+    /*项目列表*/
+
+    .por_list {
+        height: auto;
+        .over;
+        .border;
+        .mt-30;
+        border-color: #ccc;
+    }
+
+    .pro_title {
+        .blk-50;
+        .blh-50;
+        width: 100%;
+        .bgColor(#f3f3f3);
+    }
+
+    .procont {
+        .pad(10px 0);
+        .over;
+        border-bottom: #ccc 1px solid;
+        .procont_title {
+            width: 100%;
+            .blk-70;
+            .blh-70;
+            .pl-50;
+            color: #333;
+            .f-18;
+            .sm_k {
+                .bgColor(#fbeed9);
+                .blh-30;
+                .ml-20;
+                .tac;
+                .colr-org;
+                .mt-20;
+                width: 180px;
+                .blk-30;
+                .f-14;
+            }
+        }
+    }
+.z_pro_info {
+    background: -webkit-linear-gradient(left, #ffb400, #f39200);
+    background: -o-linear-gradient(right, #ffb400, #f39200);
+    background: -moz-linear-gradient(right, #ffb400, #f39200);
+    background: linear-gradient(to right,#ffb400, #f39200);
+    border-radius: 5px;
+    display: block;
+    width: 158px;
+    height: 40px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+    margin-right: 100px;
+    margin-top: 14px;
+    cursor:pointer;
+}
+.z_pro_info:hover{color:#fff;background: #f38300;}
+    .procontent {
+        width: 100%;
+        .over;
+        .mb-10;
+        ul {
+            width: 90%;
+            margin: 0 auto;
+            li {
+                .fl;
+                width: 25%;
+                .blk-80;
+                >div {
+                    width: 100%;
+                    .blk-50;
+                    .blh-50;
+                    .f(34px);
+                    .colr-org;
+                    span {
+                        .f-16;
+                    }
+                }
+                p {
+                    .blk-30;
+                    .blh-30;
+                    .f-14;
+                    color: #888;
+                }
+                .jxing,
+                .yme {
+                    .block;
+                    width: 158px;
+                    .tac;
+                    .blk-35;
+                    .blh-35;
+                    .colr-green;
+                }
+                .yme {
+                    .colr-red;
+                }
+            }
+            li:last-child {
+                .pl-45;
+            }
+        }
+    }
+
+    .procontent .zqzr {
+        li {
+            width: 15%;
+            div {
+                .f(26px);
+            }
+        }
+        li:last-child {
+            .pl0;
+        }
+    }
+
+    .ty_question {
+        margin: 0 auto;
+        .pt-20;
+        .pb-20;
+        .mt-45;
+        border: #f79625 1px solid;
+        .border-radius(10px);
+        .rel;
+        h3 {
+            color: #333;
+            font-weight: 500;
+            .mb-20;
+            .ml-30;
+        }
+        p {
+            .ml-30;
+            color: #888;
+            .blh-24;
+        }
+    }
+
+    .no_data {
+        width: 100%;
+        height: auto;
+        .over;
+        .mb-30;
+        img {
+            .block;
+            .margin(60px auto 100px auto);
+        }
+        h3 {
+            color: #3f4143;
+            .f(24px);
+            .blk-30;
+            .blh-30;
+            .tac;
+            width: 100%;
+            font-weight: normal;
+        }
+        .js {
+            width: 80%;
+            height: auto;
+            .over;
+            .margin(30px auto 0 auto);
+            .jsleft {
+                background: url(../img/invest/hkbg_03.png) left center no-repeat;
+                width: 360px;
+                color: #999;
+                height: 250px;
+                .fl;
+                .f-16;
+                .blh-24;
+                .pad(0 20px 0 140px);
+            }
+            .jsright {
+                background: url(../img/invest/yrbg_03.png) left center no-repeat;
+                width: 360px;
+                margin-left: 150px;
+                .fr;
+                .f-16;
+                .blh-24;
+                color: #999;
+                height: 242px;
+                padding-left: 150px;
+            }
+        }
+        .aq_safe {
+            background: url(../img/invest/safeimg_03.png) right center no-repeat;
+            .f-16;
+            .blh-28;
+            .pad(41px 0);
+            .over;
+            color: #999;
+            width: 80%;
+            margin: 0 auto;
+            height: 170px;
+        }
+    }
+    /*投资详情页*/
+
+    .detail_in_title {
+        width: 100%;
+        .blk-50;
+        .blh-50;
+        border-bottom: #f39200 1px solid;
+        color: #333;
+        .f(24px);
+        span,
+        img {
+            .fl;
+        }
+        img {
+            .mt-13;
+            .ml-20;
+        }
+    }
+
+    .detail_con {
+        width: 100%;
+        .detail_con_left {
+            width: 60%;
+            .pt-30;
+            >ul {
+                >li {
+                    width: 33.3%;
+                    .fl;
+                    .tac;
+                    div {
+                        .f(44px);
+                        .colr-org;
+                        .blk-50;
+                        .blh-50;
+                        span {
+                            .f-16;
+                        }
+                    }
+                    p {
+                        .f-12;
+                        color: #999;
+                        .blk-30;
+                        .blh-30;
+                    }
+                }
+            }
+            .ygmnum {
+                padding-left: 6%;
+                .mt-10;
+                .blk-20;
+                .blh-20;
+                .f-14;
+                color: #888;
+            }
+            .jdt {
+                width: 92%;
+                padding-left: 6%;
+                height: auto;
+                .jdt_left {
+                    width: 80%;
+                    background: #eee;
+                    .blk-6;
+                    margin: 10px 0;
+                    .rel;
+                    .border-radius;
+                    .red_jdt {
+                        width: 60%;
+                        .abs;
+                        z-index: 100;
+                        .bg-org;
+                        .blk-6;
+                        top: 0;
+                        left: 0;
+                        .border-radius;
+                    }
+                }
+            }
+            .iv_yxjh {
+                margin: 0 6%;
+                .mt-10;
+                ul>li {
+                    .blk-30;
+                    .blh-30;
+                    color: #888;
+                    span {
+                        color: #333;
+                    }
+                }
+            }
+        }
+    }
+
+    .detail_con_right {
+        border-left: 1px dashed #eee;
+        .pt-30;
+        .pb-50;
+        padding-left: 5%;
+        div {
+            .f-14;
+            color: #888;
+            .blk-40;
+            .blh-40;
+            span {
+                .colr-org;
+                .f-18;
+            }
+        }
+        .iv_recharge {
+            width: 56px;
+            .tac;
+            .blh-24;
+            .cur;
+            .blk-26;
+            .colr-org;
+            .bg-white;
+            .border-radius;
+            .border;
+            .mt-7;
+            border-color: #f7931e;
+            &:hover {
+                .bg-org;
+                .colr-white;
+            }
+        }
+        .in_put,
+        .sel_btn {
+            width: 212px;
+            .blk-28;
+            .ml-5;
+            .blh-28;
+            .pl-8;
+            color: #eee;
+            .f-16;
+            color: #333;
+            .border;
+        }
+        .sel_btn {
+            .f-14;
+        }
+        .dollar {
+            .abs;
+            top: 0;
+            right: 5px;
+        }
+        .colr-red {
+            .colr-red;
+        }
+        .iv_shouyi {
+            .f-14;
+            color: #999;
+            .blk-24;
+            .blh-24;
+        }
+        .right_ljtz {
+            .block;
+            width: 290px;
+            .blk-40;
+            .f-16;
+            .blh-40;
+            .tac;
+            .gradient;
+            .colr-white;
+            .border-radius;
+        }
+    }
+
+    .infor {
+        .border;
+        .bor_t0;
+    }
+
+    .infor_title {
+        width: 100%;
+        .bgColor(#eee);
+        li {
+            .fl;
+            .cur;
+            .blk-42;
+            .blh-42;
+            .tac;
+            .f-18;
+            width: 152px;
+            color: #999;
+        }
+        .in_active {
+            .colr-org;
+            .bg-white;
+            border-top: #f39200 2px solid;
+        }
+    }
+
+    .infor_cont {
+        width: 100%;
+        height: auto;
+        .margin(47px 0);
+        .jh_table {
+            margin: 0 auto;
+            width: 70%;
+            tr>td {
+                .blk-30;
+                .blh-30;
+            }
+            tr>td:first-child {
+                width: 200px;
+                .tac;
+            }
+        }
+        .iv_bzn {
+            width: 92%;
+            margin: 0 auto;
+            .mt-30;
+            h3 {
+                .blk-30;
+                .blh-30;
+                color: #333;
+            }
+            p {
+                .blh-24;
+                color: #999;
+            }
+        }
+        .jl_table {
+            width: 90%;
+            margin: 0 auto;
+            .tac;
+            .border;
+            thead>tr {
+                .bg-block;
+            }
+            tr>th,
+            tr>td {
+                .tac;
+            }
+        }
+    }
+    /*体验金详情页*/
+    .ty_head {
+        .colr-gray;
+        .blk-20;
+        .blh-20;
+        .mb-10;
+    }
+
+    .ty_con {
+        width: 100%;
+        .mb-40;
+        .mt-30;
+    }
+
+    .ty_con_mid {
+        width: 50%;
+    }
+
+    .item_tit {
+        .f-18;
+        .f-weight;
+        .rel;
+    }
+
+    .ty_col_1 {
+        width: 100%;
+        .mt-15;
+        .pb-10;
+        .bor_b;
+        span {
+            .fl;
+            .tac;
+            width: 33.3%;
+            h3 {
+                .f-22;
+                .blk-40;
+                .blh-40;
+                .colr-org;
+            }
+            p {
+                .blk-20;
+                .blh-20;
+                .colr-gray;
+                .f-12;
+            }
+        }
+    }
+
+    .ty_col_2 {
+        .bor_b;
+        .pb-15;
+        .pt-15;
+    }
+
+    .ty_col_3 {
+        .pt-10;
+        .planbox_bg {
+            width: 70%;
+            .bg-block;
+            .blk-6;
+            .border-radius;
+            .mt-7;
+            .ml-5;
+            .rel;
+            .planbox_bg2 {
+                .abs;
+                top: 0;
+                left: 0;
+                .bg-org;
+                .blk-6;
+                .border-radius;
+            }
+        }
+        p {
+            .mt-5;
+        }
+    }
+
+    .ty_con_right {
+        width: 23%;
+        .bgColor(#f6f6f6);
+        .item_tyj_tlie {
+            .bg-org;
+            .f-20;
+            .colr-white;
+            .pad(8px 0);
+            .tac;
+        }
+        .item_kt {
+            width: 90%;
+            margin: 0 auto;
+            .tac;
+            .pt-15;
+            .pb-15;
+            .bor_b;
+            p {
+                .blk-20;
+                .blh-20;
+            }
+            h3 {
+                .colr-org;
+                .f-18;
+                .mt-15;
+            }
+        }
+        .item_ye {
+            width: 90%;
+            margin: 0 auto;
+            .mt-10;
+            div {
+                .blk-25;
+                .blh-25;
+            }
+        }
+    }
+
+    .btn-invest {
+        width: 90%;
+        margin: 0 auto;
+        .pt-15;
+        .pb-15;
+        a {
+            .bg-org;
+            .colr-white;
+            width: 100%;
+            .blk-40;
+            .blh-40;
+            .tac;
+            .f-16;
+            .block;
+        }
+    }
+    /*散标样式*/
+
+    .detail_head {
+        width: 100%;
+        .blk-40;
+        .blh-40;
+        .f-14;
+        border-bottom: #f39200 1px solid;
+        color: #333;
+    }
+
+    .detail_p {
+        .f(24px);
+        color: #333;
+        .blk-50;
+        .blh-50;
+        .pl-30;
+        .bor_b;
+    }
+
+    .jdt_san {
+        width: 100% !important;
+        border-top: 1px solid #ddd !important;
+        padding-top: 30px !important;
+    }
+    /*债权转让样式*/
+
+    .ty_col_1 {
+        .debt_sp {
+            width: 25%;
+            h3 {
+                .f-20;
+            }
+        }
+    }
+
+    .ty_col_2 {
+        .debt_info {
+            width: 50%;
+            .blh-32;
+            span {
+                .colr-org;
+            }
+        }
+    }
+
+    .debt_regit {
+        width: 56px;
+        .cur;
+        .blk-26;
+        .blh-24;
+        .tac;
+        .border-radius;
+        .border;
+        .colr-org;
+        .bg-white;
+        border-color: #f7931e;
+        &:hover {
+            .bg-org;
+            .colr-white;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 800px;
+            margin: 17% auto;
+            .row {
+                .mb-20;
+                p {
+                    .blk-26;
+                    .blh-26;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-sm {
+            width: 300px;
+        }
+    }
+/*购房宝样式*/
+.item_ye .gfb-inp{
+	width:120px;
+	.blk-25;
+	.blh-25;
+	.pl-10;
+	.border;
+	.bg-white;	
+}
+
+
+
+
+    
+    
+    

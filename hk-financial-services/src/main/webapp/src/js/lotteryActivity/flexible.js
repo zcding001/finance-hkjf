@@ -1,0 +1,1 @@
+!function(t,e){var n=t.documentElement,i="orientationchange"in window?"orientationchange":"resize",d=function(){var t=n.clientWidth,e=n.dataset.width||750;!t||t>e?(n.style.width=e+"px",n.style.fontSize="100px",n.style.margin="0 auto"):(n.style.width=t+"px",n.style.fontSize=t/e*100+"px")};e.addEventListener&&(d(),e.addEventListener(i,d,!1))}(document,window);

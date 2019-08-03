@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>房产投资详情页</title>
+	<!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/jfsc.css"/>
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/investHouse.css"/>
+    
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+	<link rel="stylesheet" href="${project_base_path}/src/css/point_product.css">
+</head>
+
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+<div style="margin-top: 60px;">
+    <div class="container">
+        <!-- 房产的详情 -->
+        <div class="shop-details clearfix">
+			<input type="hidden" value="${infoId}" id="infoId" />
+            <!--产品参数开始-->
+            <div class="fl">
+                <div id="preview" class="spec-preview"> <span class="jqzoom" style="overflow:hidden;"><img  id="previewImg" jqimg="${ccurl }" src="http://localhost:8888/hkjf/src/img/house/index_house.jpg" style="width:100%;"/></span> </div>
+                <!--缩图开始-->
+                <div class="spec-scroll"> <a class="prev" style='left: auto;top: auto;position: initial;text-indent: 0;'>&lt;</a> <a class="next" style='left: auto;top: auto;position: initial;text-indent: 0;'>&gt;</a>
+                    <div class="items">
+                        <ul id="lunbo_pics">
+                        	<li><img alt="${data.pageIndexPic.name }" bimg="${data.pageIndexPic.url}" src="http://localhost:8888/hkjf/src/img/house/index_house.jpg" onmousemove="preview(this);" /></li>
+			        		<li><img alt="${result.name }" bimg="${result.url}" src="http://localhost:8888/hkjf/src/img/house/index_house.jpg" onmousemove="preview(this);" /></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--缩图结束-->
+            </div>
+            <div class="shop-details-right fl">
+                <h3 style="font-size:24px;" class="nameString">&nbsp;&nbsp;&nbsp;<span style="font-size:16px;color:#333; "></span></h3>
+                <ul>
+                	<li><i style="color:#888;">均价：</i><span style="font-size:24px;color:#f7931e;" class="priceString"></span></li>
+                    <li id="startSaleDate"><i style="color:#888;">开盘日期：</i><span class="startSaleDateString"></span></li>
+                    <li id="roomType"><i style="color:#888;">主力户型：</i><span class="roomTypeString"></span></li>
+                    <li id="address"><i style="color:#888;">项目地址：</i><span class="addressString"></span></li>
+                  	<li id="show_confirmBtn" style="display: none;"><a onclick="showSeeNum();" href="javascript:;" class="btn btn-warning btn-duihuan" style="margin-bottom: 0;margin-top: 41px;" >预约看房</a></li>
+                	<li id="hide_confirmBtn" style="display: none;"><a class="btn btn-duihuan" style="margin-bottom: 0;margin-top: 41px;color:#fff;background-color: #c0c0c0" >已预约</a></li>
+                	<li></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 项目的简介 -->
+        <div class="jifenShop-detail-box">
+            <div class="jifenShop-nav">
+                <li type="button" class="Shop-nav-active">项目介绍</li>
+                <li type="button" class="">户型</li>
+                <li type="button" class="">项目相册</li>
+            </div>
+            <div class="hot-products clearfix">
+                <div class="hot-main hot-selected">
+                	<div style="margin: 0 20px;border-bottom:2px solid #eee;">
+                		<h3 class="h_h3">项目介绍</h3>
+                		<div class="h_contp " id="showText"></div>
+                	</div>
+                	<div style="margin: 0 20px;border-bottom:2px solid #eee;">
+                		<h3 class="h_h3" style="margin-bottom: 18px;">基本信息</h3>
+                		<ul>
+                			<li id="proType">物业类别：<span class="proTypeString"></span></li>
+                			<li id="buildType">建筑类别： <span class="buildTypeString"></span></li>
+                			<li id="proYears">产权年限：<span class="proYearsString"></span></li>
+                			<li id="feature">项目特色：<span class="featureString"></span></li>
+                			<li id="redecorate">装修状况：<span class="redecorateString"></span></li>
+                			<li id="developers">开发商：&nbsp;&nbsp;&nbsp;<span class="developersString"></span></li>
+                		</ul>
+                	</div>
+                	<div style="margin: 0 20px;border-bottom:2px solid #eee;" id="salPro">
+                		<h3 class="h_h3" style="margin-bottom: 18px;">销售信息</h3>
+                		 <ul>
+                			<li id="saleState">销售状态：<span class="saleStateString"></span></li>
+                			<li id="startSaleDate2">开盘时间： <span class="startSaleDateString"></span></li>
+                			<li id="address2">售楼地址：<span class="saleAddressString"></span></li>
+                			<li id="roomType2">主力户型： <span class="roomTypeString"></span></li>
+                			<li id="prefer">楼盘优惠：<span class="preferString"></span></li>
+                			<li id="makeHouseDate">交房时间：    <span class="makeHouseDateString"></span></li>
+                			<li id="salTel">咨询电话：<span class="salTelString"></span></li>
+                			<li class="clearfix" id="permitLi"><font class="fl" style="width:100px;">预售许可证：</font>
+	                			<div class="fl">
+		                			  <table class="dataintable">
+									        <tbody>
+									            <tr id="permitFirstTr">
+									                <th style="width:33.3%;">许可证号</th>
+									                <th style="width:33.3%;">发证时间</th>
+									                <th style="width:33.3%;">绑定楼栋</th>
+									            </tr>
+
+									        </tbody>
+		                				</table>
+		                		</div>
+	                		</li>
+                		</ul>
+                	</div> 
+                	<div style="margin: 0 20px;margin-bottom:50px;" id="detailPro">
+                		<h3 class="h_h3" style="margin-bottom: 18px;">小区规划 </h3>
+				         <ul>
+				            <li>占地面积：<span class="landAreaString"></span></li>
+				            <li id="capRate">容积率：&nbsp;&nbsp;&nbsp;<span class="capRateString"></span></li>
+				            <li id="parkSpace">停车位：&nbsp;&nbsp;&nbsp;<span class="parkSpaceString"></span></li>
+				            <li id="doorNum">总户数：&nbsp;&nbsp;&nbsp;<span class="doorNumString"></span></li>
+				            <li id="proFee">物业费：&nbsp;&nbsp;&nbsp;<span class="proFeeString"></span></li>
+				            <li id="buildArea">建筑面积：<span class="buildAreaString"></span></li>
+				            <li id="greenRate">绿化率：&nbsp;&nbsp;&nbsp;<span class="greenRateString"></span></li>
+				            <li id="floorNum">楼栋总数：<span class="floorNumString"></span></li>
+				            <li id="proCompany">物业公司：<span class="proCompanyString"></span></li>
+				         </ul>
+                	</div> 
+                </div>
+
+                <div class="hot-main" id="homePics">
+			          	<img src="" alt="户型图" style="display:block;width:500px;margin: 15px auto;" />
+                </div>
+                <div class="hot-main" id="otherPics">
+	        			<img src="" style="display:block;width:500px;margin: 15px auto;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+<!--  预约成功-->
+<div class="jfzf-tc" id="orderSuccess" style="display:none;">
+    <div class="jfzf-tc-box">
+        <p id="dataMsg" style="line-height:25px;font-size:16px;">预约成功，客服人员会在尽快与您取得联系并确认看房时间，请您保持电话畅通，谢谢！</p>
+        <a id="closeMsgBox" href="javascript:;"class="btn btn-rengou" style="margin:40px 0 0 80px;padding:0;width:140px;height:50px;line-height:50px;border-color: #f7931e; color: #f7931e;">知道了</a>
+    </div> 
+</div>
+
+<!-- 预约人数 -->
+<div class="jfzf-tc"  id="seeNum">
+    <div class="jfzf-tc-box" style="position:relative;">
+    	<span class="sp-delet0">×</span>
+		<div class="jfzf-div"><input type="text" placeholder="请输入预约报名看房人数" class="jfzf-inp" id="personNum" />人</div>
+		<div class="clearfix" style="padding-left:25px;margin-top:20px;">
+			<input id="checkbox_contract" type="checkbox" class="fl" style="width:16px;height:16px;margin:2px;" checked="checked"/>
+			<p class="fl">&nbsp;&nbsp;我已经看过并同意<span class="h_shengming">《看房活动声明》</span></p>
+		</div> 
+		<div class="clearfix" style="padding-left:25px;margin-top:20px;">
+			<p id="errorMsg" class="fl" style="color:red"></p>
+		</div> 
+        <a href="javascript:;"class="btn btn-rengou" id="btnSure" style="margin:40px 0 0 80px;padding:0;width:140px;height:50px;line-height:50px;border-color: #f7931e; color: #f7931e;">确定预约</a>
+    </div>
+</div>
+
+<!-- 看房活动声明 -->
+<div class="jfzf-tc-1" style="display: none;">
+        <div class="jxq-tc-box1" style="margin:80px auto;width: 822px;padding-bottom:55px;">
+			<div class="jf-wenda shop-kuaidi">
+				<h3>看房活动声明<span class="sp-delet">×</span></h3>
+				<div class="info_cont">
+					<div>为规范看房活动，明确每位购房网友权责，敬请购房网友仔细阅读本声明内容，自愿选择参加本次看房活动。凡参与者均示为认同并自愿遵守本声明内容。</div>
+					<div>一、本次免费看房活动均由所在项目的开发商进行组织，以参与者自愿参加、自愿退出为原则。鸿坤金服只提供线上预约看房服务。</div>
+					<div>二、活动参与者确认，免费看房活动期间的风险及责任均自行承担。但鉴于，免费看房活动存有不可预见的危险，诸如道路行驶、自身身体健康、自然灾害等等，均有可能造成对自己生命财产的伤害和损失。参加者应当先行积极主动购买保险，降低损失。一旦发生意外事故和人身伤害，均由保险公司和自己负责赔偿，鸿坤金服及任何非事故当事人将不承担事故任何责任。</div>
+					<div>三、免费看房活动都应该遵守国家相关法律、法规，一切与活动直接或间接相关的法律责任均由活动参与者自行承担，而与鸿坤金服无涉。</div>
+					<div>四、所有免费看房活动的参与者应发扬团结互助、助人为乐的精神，在力所能及的范围内尽量给予他人便利和帮助。但任何便利和帮助的给予并不构成法律上的义务，更不构成对其他参与者损失或责任在法律上分担的根据。</div>
+					<div>五、活动参与者事先对本声明条款的含义及相关法律后果已全部通晓并充分理解，凡参加本次活动者均视为接受本声明。</div>
+				</div>
+			</div>
+        </div>
+</div>
+
+
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/jqueryzoom/jquery.jqzoom.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        //图片放大镜效果
+        $(".jqzoom").jqueryzoom({xzoom: 380, yzoom: 410});
+        var infoId = containerUtil.take("infoId");
+        ajaxUtil.post("/houseController/showHouseInfoDetail.do",{"infoId":infoId},function(data){
+            if (data.resStatus == 1000){
+                var infoAndDetail = data.params.infoAndDetail;
+                var indexPic = data.params.indexPic;
+                var homeProPics = data.params.homeProPics;
+                var otherProPics = data.params.otherProPics;
+                var picList = data.params.picList;
+                var permitList = data.params.permitList;
+                var existSalPro = data.params.existSalPro;
+                var existDetailPro = data.params.existDetailPro;
+                var isReservation = data.params.isReservation;
+                if (!commonUtil.isEmpty(infoAndDetail.buildType) && infoAndDetail.buildType != 0 ){
+                    infoAndDetail['buildType'] =  dictionaryUtil.getNames('house','build_type',infoAndDetail.buildType,',');
+				}
+                if (!commonUtil.isEmpty(infoAndDetail.feature) && infoAndDetail.feature != 0 ){
+                    infoAndDetail['feature'] =  dictionaryUtil.getNames('house','feature',infoAndDetail.feature,',');
+                }
+                if (!commonUtil.isEmpty(infoAndDetail.redecorate) && infoAndDetail.redecorate != 0 ){
+                    infoAndDetail['redecorate'] =  dictionaryUtil.getNames('house','redecorate',infoAndDetail.redecorate,',');
+                }
+                if (!commonUtil.isEmpty(infoAndDetail.roomType) && infoAndDetail.roomType != 0 ){
+                    infoAndDetail['roomType'] =  dictionaryUtil.getNames('house','room_type',infoAndDetail.roomType,',');
+                }
+                if (!commonUtil.isEmpty(infoAndDetail.proType)){
+                    infoAndDetail['proType'] =  dictionaryUtil.getName('house','pro_type',infoAndDetail.proType);
+                }
+				if(infoAndDetail.prefer == '1'){
+                    infoAndDetail['prefer'] = '金服增值卡';
+				}else{
+                    infoAndDetail['prefer'] = '暂无';
+				}
+                infoAndDetail['saleState'] = dictionaryUtil.getName('house','sale_state',infoAndDetail.saleState);
+
+                $.each(infoAndDetail,function(key,value){
+                    if(value == null || value == ''){
+                        $("#"+key).hide();
+                        if(key == "address" || key == "startSaleDate" || key == "roomType" ){
+                            $("#"+key+"2").hide();
+						}
+					}
+                });
+                if(existSalPro == 0){
+                    $("#salPro").hide();
+				}
+                if(existDetailPro == 0){
+                    $("#detailPro").hide();
+                }
+                initPermitContent(permitList);
+                initPicList(indexPic,picList);
+                initHomeAndOtherPic(homeProPics,otherProPics);
+
+                $("#showText").html(infoAndDetail.showText);
+                if(isReservation == 0){
+                    $("#show_confirmBtn").show();
+                    $("#hide_confirmBtn").hide();
+				}else{
+                    $("#show_confirmBtn").hide();
+                    $("#hide_confirmBtn").show();
+				}
+                renderUtil.renderElement(infoAndDetail);
+
+                var tempLength = 0; //临时变量,当前移动的长度
+                var viewNum = 5; //设置每次显示图片的个数量
+                var moveNum = 2; //每次移动的数量
+                var moveTime = 300; //移动速度,毫秒
+                var scrollDiv = $(".spec-scroll .items ul"); //进行移动动画的容器
+                var scrollItems = $(".spec-scroll .items ul li"); //移动容器里的集合
+                var moveLength = scrollItems.eq(0).width() * moveNum; //计算每次移动的长度
+                var countLength = (scrollItems.length - viewNum) * scrollItems.eq(0).width(); //计算总长度,总个数*单个长度
+
+                //下一张
+                $(".spec-scroll .next").bind("click", function () {
+                    if (tempLength < countLength) {
+                        if ((countLength - tempLength) > moveLength) {
+                            scrollDiv.animate({left: "-=" + moveLength + "px"}, moveTime);
+                            tempLength += moveLength;
+                        } else {
+                            scrollDiv.animate({left: "-=" + (countLength - tempLength) + "px"}, moveTime);
+                            tempLength += (countLength - tempLength);
+                        }
+                    }
+                });
+                //上一张
+                $(".spec-scroll .prev").bind("click", function () {
+                    if (tempLength > 0) {
+                        if (tempLength > moveLength) {
+                            scrollDiv.animate({left: "+=" + moveLength + "px"}, moveTime);
+                            tempLength -= moveLength;
+                        } else {
+                            scrollDiv.animate({left: "+=" + tempLength + "px"}, moveTime);
+                            tempLength = 0;
+                        }
+                    }
+                });
+            }
+        });
+
+        /**
+		 * 封装预售证
+         * @param permitList
+         */
+        function initPermitContent(permitList){
+            if (!commonUtil.isEmpty(permitList)){
+                var content = "";
+                permitList.forEach(function(data){
+                    if(data!=null){
+                        content += '<tr>'+
+                            '<td>'+data.name+'</td>'+
+                            '<td>'+data.sendTime+'</td>'+
+                            '<td>'+data.floor+'</td></tr>';
+                    }
+                });
+                $("#permitFirstTr").after(content);
+            }else{
+                $("#permitLi").hide();
+			}
+		}
+
+        /**
+		 * 处理轮播图片
+         * @param indexPic
+         * @param picList
+         */
+		function initPicList(indexPic,picList){
+            var  picContent = '';
+            var projectPath = '${project_base_path}';
+            if (!commonUtil.isEmpty(indexPic) ){
+                picContent += '<li><img alt="'+indexPic.name+'" bimg="'+indexPic.url+'" ' +
+                    'src="'+indexPic.url+'" ' +
+                    'onmousemove="preview(this);" /></li>';
+                $("#previewImg").attr("src",indexPic.url);
+                $("#previewImg").attr("jqimg",indexPic.url);
+
+            }else{
+                var indexUrl = projectPath + '/hkjf/src/img/house/index_house.jpg';
+                picContent += '<li><img alt="封面图" bimg="'+indexUrl+'" ' +
+                    'src="'+indexUrl+'" ' +
+                    'onmousemove="preview(this);" /></li>';
+                $("#previewImg").attr("src",indexUrl);
+                $("#previewImg").attr("jqimg",indexUrl);
+			}
+            if (!commonUtil.isEmpty(picList)){
+                picList.forEach(function(data){
+					picContent += '<li><img alt="'+data.name+'" bimg="'+data.url+'" src="'+data.url+'" onmousemove="preview(this);" /></li>';
+                })
+            }
+            $("#lunbo_pics").html(picContent);
+
+		}
+
+		function initHomeAndOtherPic(homeProPics,otherProPics){
+		    var homeContent = '户型暂无图片';
+		    if(!commonUtil.isEmpty(homeProPics)){
+                homeContent = '';
+                homeProPics.forEach(function(data){
+                    homeContent += '<img src="'+data.url+'" alt="'+data.name+'" style="display:block;width:500px;margin: 15px auto;" />';
+				})
+			}
+			$("#homePics").html(homeContent);
+
+		    var otherContent = "相册暂无图片";
+            if(!commonUtil.isEmpty(otherProPics)){
+                otherContent = '';
+                otherProPics.forEach(function(data){
+                    otherContent += '<img src="'+data.url+'" alt="'+data.name+'" style="display:block;width:500px;margin: 15px auto;" />';
+                })
+            }
+            $("#otherPics").html(otherContent);
+		}
+
+
+        $(".jifenShop-nav li").click(function () {
+            var $this = $(this);
+            index = $this.index();
+            $this.addClass("Shop-nav-active").siblings("li").removeClass("Shop-nav-active");
+            $(".hot-products .hot-main").eq(index).addClass("hot-selected").siblings(".hot-main").removeClass("hot-selected");
+        });
+        
+        $(".sp-delet0").click(function(){
+        	$("#seeNum").hide();
+        });
+        $(".h_shengming").click(function(){
+        	$(".jfzf-tc-1").show();
+        });
+        
+        $(".sp-delet").click(function(){
+        	$(".jfzf-tc-1").hide();
+        });
+
+        $("#closeMsgBox").click(function(){
+        		$("#orderSuccess").css("display","none");
+        });
+
+
+        $("#btnSure").click(function () {
+			//校验人数
+			var personNum  = $("#personNum").val();
+            var reg = /^[1-9]\d*$/;
+            if(!reg.test(personNum)){
+                $("#errorMsg").html("人数必须是数字");
+                return false;
+			}
+            //校验是否勾选声明
+            if(!$("#checkbox_contract").prop('checked')){
+                $("#errorMsg").html("预约前请仔细阅读《看房活动声明》");
+                return false;
+			}
+            ajaxUtil.post("/houseController/reservation.do",{"infoId":infoId,"personNum":personNum},function(data){
+               	 if (data.resStatus == 1000) {
+                     $("#seeNum").hide();
+               	     $("#orderSuccess").show();
+                     $("#show_confirmBtn").hide();
+                     $("#hide_confirmBtn").show();
+				 }else{
+					alert("预约失败，请稍后再试");
+				 }
+			});
+
+        })
+
+
+
+        
+    });
+
+    function showSeeNum(){
+        $("#seeNum").show();
+    }
+
+
+
+    //=====================全局函数========================
+    //Tab控制函数
+    function tabs(tabId, tabNum) {
+        //设置点击后的切换样式
+        $(tabId + " .tab li").removeClass("curr");
+        $(tabId + " .tab li").eq(tabNum).addClass("curr");
+        //根据参数决定显示内容
+        $(tabId + " .tabcon").hide();
+        $(tabId + " .tabcon").eq(tabNum).show();
+    }
+
+    //=====================全局函数========================
+
+    //==================图片详细页函数=====================
+    //鼠标经过预览图片函数
+    function preview(img) {
+        $("#preview .jqzoom img").attr("src", $(img).attr("src"));
+        $("#preview .jqzoom img").attr("jqimg", $(img).attr("bimg"));
+    }
+
+</script>
+</body>
+</html>

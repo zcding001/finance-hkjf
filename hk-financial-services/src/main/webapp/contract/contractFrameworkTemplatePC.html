@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/navBar.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body style="background-color: rgb(247, 247, 247);">
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+<!-- PC端合同内容 -->
+<div style="width: 1100px;margin:0 auto;position:relative;margin-top:10px;">
+    <p style="font-size: 12px;font-family: 宋体;font-style: italic;margin-bottom:0px;margin-top:0px;">风险提示：</p>
+    <p style="font-family: 宋体;font-style: italic;text-indent: 48pt;font-size: 12px;border-bottom: solid 1px;margin-bottom:20px;margin-top:0px;">投资有风险，请您仔细考虑各项风险因素，并充分考虑自身的风险承受能力，谨慎做出投资决策。</p>
+</div>
+<div class="contract_box">
+    <div id="content" style="width: 1100px;margin:0 auto;position:relative;">
+    	<div id="seal"></div>
+    </div>
+</div>
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html" style="margin-top: 0;"></div>
+<!-- 底部结束 -->
+</body>
+<!-- 公共js -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script>
+    $(function () {
+        //1：获取url上的参数
+        var param = commonUtil.getRequestParamByUrl();
+        /**
+         * 1-优选计划，4-定向融资认购协议，5-收益权转让认购协议，6-债权转让协议，9-借款合同（供应链），10-借款合同（非供应链）,
+         * 11-票据贴现协议,12-债权转让-应收账款
+         * 设置公章
+         */
+        var contractArr = [1,9,10,11,12];
+        var loanArr = [9,10,11,12];
+        var _seal = $("#seal");
+        var contractType = param.contractType - 0;
+
+        //2：回调函数-渲染合同内容到content上
+        var callBack = function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS){
+                $("#content").append(result.resMsg);
+                //返回成功显示公章
+                //只有从投资记录或还款计划进入的时候才展示公章
+                if (param.location != 1){
+                    if (contractType == 2){
+                        _seal.addClass("hkjt_gz");
+                    }else if (contractArr.includes(contractType)){
+                        //判断显示深圳理想的章还是理想霍尔果斯的章
+                        if(result.resMsg.includes("鸿坤理想（深圳）科技发展有限公司")){
+                            _seal.addClass("yrtz_gz_szlx");
+                        }else {
+                            _seal.addClass("yrtz_gz");
+                        }
+                        if(loanArr.includes(contractType)){
+                            _seal.css("top","400px");
+                        }
+                    }
+                }
+            }
+        };
+        //3：请求后台获取合同内容
+        ajaxUtil.post("/contractController/getContractContent.do",param,callBack);
+    });
+</script>
+</html>

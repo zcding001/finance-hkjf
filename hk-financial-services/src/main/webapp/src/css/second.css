@@ -1,0 +1,37 @@
+.newlistcss{
+	padding-left:80px;
+}
+.newlistcss ul li{
+	line-height:36px;
+	height:36px;
+	color:#999999;
+	font-size:14px;
+	font-family:"微软雅黑";
+	/*list-style-type: disc; */
+	overflow:hidden;
+}
+.newlistcss ul li a {
+	color:#999999;
+	display:block;
+	padding-left:2%;
+	line-height:36px;
+	height:36px;
+	overflow:hidden;
+    background:url(../img/guquan/icon_cir.png) left center no-repeat;
+}
+.newlistcss ul li span{
+	float:right;
+	width:20%;
+	text-align:right;
+}
+.newlistcss ul li a div{
+	font-style:normal;
+	display:block;
+	float:left;
+	width:75%;
+	padding-left:5%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+}

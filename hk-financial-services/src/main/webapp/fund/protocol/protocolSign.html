@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>海外基金签署协议</title>
+</head>
+
+<body style=" background: #f7f7f7;">
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-606-0229</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40 hide loginShow">
+                            <a href="javascript:void(0)" id="headInforms" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng totalNum"></i>条未读消息</a>
+                        </div>
+                        <div class="fr pr0 loginHide">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide loginShow">
+                            <span>欢迎您 , <i class="nickName"></i></span>
+                            <a href="#" class="logoutBtn" style="color:#ed5345;">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="nav">
+			<div class="container" style="border:none;">
+				<div class="nav_c" style="padding: 10px 0 10px 0">
+					<a class="" href="javascript:void(0)" onclick="commonUtil.jump('/fund/overseasFund.html')">
+						<img src="${project_base_path}/src/img/guquan/logo2.png" onclick="commonUtil.jump('/fund/overseasFund.html')" alt="海外基金" style="margin-top:13px;">
+					</a>
+				</div>
+			</div>
+		</div>
+    </header>
+    <!-- 头部结束 -->
+
+    <!-- 海外基金填写信息开始 -->
+    <div class="proinfo_box">
+	   <div class="container proinfo_box_main">
+	      <img src="${project_base_path}/src/img/guquan/icon_stepb.png">
+	      <h3>签署认购协议</h3>
+		   <form id="subAgreement2" name="subAgreement2">
+			  <input type="text" name="id" value="" hidden>
+		      <div class="proinfo_form">
+		         <ul> 
+		            <li style="	font-size:16px;color:#333;">投资者代表并保证：（仅可选择一项）</li>
+					  <div class="radio_box radio_box_1" id="radio01">
+						<ul id="investRepresentative" class="redioGroup">
+							<li id="r1" value="0">担任受益人的受托人，代理人，代表人或代名人</li>
+							<li id="r2" class="selected" value="1">以实益拥有人的身份行事</li>
+							<!--隐藏表单 radioVal 的值即为选中项li的id值-->
+							<input type="hidden" value="1" class="radioVal" name="controlStatementFlag">
+						</ul>
+					</div> 	                    
+			         <li class="mtt" style="	font-size:16px;color:#333;">投资者声明并保证它是：(仅可选择一项)</li>
+					  <div class="radio_box radio_box_1" id="radio02" style="margin-bottom:40px;">
+						<ul id="investStatement" class="redioGroup">
+							<li id="r3" value="0">个人为美国人士(定义见认购协议) (包括任何此类人的信托)</li>
+							<li id="r4" class="selected" value="1">个人不是美国人人士（包括任何此类个人的信托）</li>
+							<li id="r5" value="2">经纪商</li>
+							<li id="r6" value="3">保险公司</li>					
+							<li id="r7" value="4">根据1940年证券法案在证券交易委员会登记的投资公司（定义见认购协议）</li>
+							<li id="r8" value="5">根据1940年法案第3节所界定的投资公司的发行人，除3（c）（1）或3（c）（7）之外</li>					
+							<li id="r9" value="6">非营利组织</li>					
+							<li id="r10" value="7">退休金计划（不包括政府退休金计划）</li>
+							<li id="r11" value="8">银行或储蓄机构（控股）</li>					
+							<li id="r8" style="height:auto;" value="9">任何州或州以下政治分区，包括（i）州或政治分区的任何机构，当局和部门; （ii）由州或政治分区或其任何机构，当局和部门控制的资产计划或资金; （iii）州或政治分区或其任何机构，当局和部门的任何官员，代理人或雇员，以其官方身份行事（不包括政府养老金计划）</li>					
+							<li id="r9" value="10">州或市政府的养老金计划</li>					
+							<li id="r10" value="11">主权财富基金或外国官方机构</li>
+							<li id="r11" value="12">其他（请详细说明）<input type="text" value="" class="writeinput"></li>						
+							<!--隐藏表单 radioVal 的值即为选中项li的id值-->
+							<input type="hidden" value="1" class="radioVal" name="investStatementFlag">
+						</ul>
+					</div>	                                               
+			            <li style="	font-size:16px;color:#333;">根据投资者最大知悉情况，投资者是否与该基金其他任何投资者存在控制、被控制及同一控制关系？(请勾选"否")</li>
+			            <li>
+			               <ul class="jli">
+			                  <li class="fl" style="margin-right:90px;"><span class="danxuanbtn" value="1"></span>是</li>
+			                  <li class="fl"><span class="proinfo_xz" value="0"></span>否</li>
+			                  <input type="hidden" value="0" name="investAwareFlag">
+			               </ul>
+			            </li>
+			            <li style="	font-size:16px;color:#333;">投资者是否与其他人基于本基金的整体或部分回报签订掉期，结构化票据或其他衍生工具？(请勾选"否")</li>
+			            <li>
+			               <ul class="jli">
+			                  <li class="fl" style="margin-right:90px;"><span class="danxuanbtn" value="1"></span>是</li>
+			                  <li class="fl"><span class="proinfo_xz" value="0"></span>否</li>
+			                  <input type="hidden" value="0" name="signedSwapFlag">                    
+			               </ul>
+			            </li>
+			            <li style="	font-size:16px;color:#333;">任何其他人士是否根据本协议获得的A类权益有获益权(除投资者的股东，合伙人，保单拥有人或投资者其他股权的受益人)或投资者是否作为他方的代理人，代表或提名人(请勾选"否")</li>
+			            <li>
+			               <ul class="jli">
+			                  <li class="fl" style="margin-right:90px;"><span class="danxuanbtn" value="1"></span>是</li>
+			                  <li class="fl"><span class="proinfo_xz" value="0"></span>否</li>
+			                  <input type="hidden" value="0" name="proxyFlag">                  
+			               </ul>
+			            </li> 
+			            <li class="mtt" style="	font-size:16px;color:#333;">美国税务居民（仅可选择一项）</li>
+					 <div class="radio_box radio_box_1" id="radio03">
+						<ul id="usTaxResident" class="redioGroup">
+							<li id="r12" value="3">	我是美国公民并且/或者是美国税务居民（绿卡持有人或符合实际居留标准）。我的美国联邦纳税人 </li>
+			            <div style="background:none;margin-left:30px;font-size:16px;color:#666;">               
+			              <ul class="jiangpli" style="margin-bottom:20px;">
+			                  识别号是：<input type="text" value="" class="writeinput">     
+			               </ul>
+			            </div>					
+							<li id="r13" value="2">	我出生于美国（或美属领土）但我已放弃美国国籍，证明见附件 </li>
+															
+							<li id="r14" class="selected" value="1">我不是美国公民或美国税务居民</li>
+							<!--隐藏表单 radioVal 的值即为选中项li的id值-->
+							<input type="hidden" value="1" class="radioVal" name="americanTaxFlag">
+						</ul>
+					</div> 	                                              
+		            <a href="javascript:void(0);" class="reg_tjbtn" style="text-decoration:none;color:white !important;">下一步</a>
+		          </ul>
+		      </div>
+			   </form>
+	   </div>
+	</div>
+    <!-- 海外基金填写信息结束 -->
+    
+    <!-- 底部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_footer.html"></div>
+    <!-- 底部结束 -->
+    
+    
+    <!-- 弹窗开始 -->
+    <div style="display: none" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="btnChoose">
+	    <div class="modal-dialog modal-sm" role="document">
+	        <div class="modal-content">
+	            <div class="modal-body tac pb-30 pt-30">
+	                <!-- 所要添加的内容start -->
+	                <div class="fhb_tc">
+	                    <h1 class="fhb_text pl-10 pr-10 blh-25">如果更换选项，会导致认购失败，是否要继续选择？</h1>
+	                    <div class="sign_btn">
+	                        <button id="continue">继续</button>
+	                        <button id="giveup" data-dismiss="modal">放弃</button>
+	                    </div>
+	                </div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<!-- 海外基金需要的js -->
+	<script type="text/javascript" src="${project_base_path}/lib/utils/stringUtil.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js"></script>
+<script>
+	$(function(){
+		//初始化设置隐藏域默认值
+		console.info("来到第二步");
+//		$("input[name='controlStatementFlag']").attr("value" , "1");
+//		$("input[name='investStatementFlag']").attr("value" , "1");
+//		$("input[name='investAwareFlag']").attr("value" , "0");
+//		$("input[name='signedSwapFlag']").attr("value" , "0");
+//		$("input[name='proxyFlag']").attr("value" , "0");
+//		$("input[name='americanTaxFlag']").attr("value" , "1");
+
+		//防止页面后退
+		history.pushState(null, null, document.URL);
+		window.addEventListener('popstate', function () {
+			history.pushState(null, null, document.URL);
+		});
+
+		//绑定海外基金页面的退出事件
+		$(".logoutBtn").each(function(){
+			$(this).unbind("click").click(function () {
+				fundCommon.logout(2);
+			});
+		});
+
+		//顶部登录信息切换
+		isLogin = commonUtil.isLogin();
+		if(!isLogin){
+			fundCommon.jumpIndex(2);
+		}
+
+		//获取预约页面传过来的产品id
+		var aId = commonUtil.getUrlParam("aId");//检查url中是否指定，优先级1
+		if(aId == undefined || aId == null || aId == ''){
+			//TODO 回到预约详情页
+			commonUtil.jump("/fund/advisory/pefundInfo.html?utype=2");
+		}else{
+			$("input[name='id']").val(aId);
+		}
+
+		var continueFlag = false;
+		var isCenter = false;
+		$("#continue").click(function () {
+			continueFlag = true;
+			$("#btnChoose").modal('hide');
+		});
+
+		$("#giveup").click(function () {
+			continueFlag = false;
+			$("#btnChoose").modal('hide');
+		});
+
+		//非中间三组
+		$(".redioGroup li").click(function(){
+			isCenter = false;
+			if($(this).hasClass("selected")){
+				return;
+			}
+			if($(this).attr("value") == '1'){
+				$(this).removeClass('selected').addClass('selected').siblings().removeClass('selected');
+				//更新隐藏域值
+				$(this).siblings().last().val($(this).attr("value"));
+			}else{
+				$("#btnChoose").modal('show');
+				redio = $(this);
+			}
+		})
+
+		//中间三组
+		$('.jli li span').click(function(){
+			isCenter = true;
+			redio = $(this);
+			if(!$(this).hasClass("xz")){
+				//点击时不是选中状态才需要提示
+				if($(this).attr("value") == '0'){
+					//重新选择默认选项不用提示
+					$(this).removeClass('danxuanbtn').addClass('proinfo_xz').parent().siblings().children().removeClass('proinfo_xz').addClass('danxuanbtn');
+					//更新隐藏域值
+					$(this).parent().siblings().last().val($(this).attr("value"));
+				}else{
+					$("#btnChoose").modal('show');
+				}
+			}
+		});
+
+		//模态框隐藏事件触发
+		$("#btnChoose").on("hide.bs.modal",function(){
+			if(continueFlag){
+				//继续执行操作  放在继续按钮点击事件中也可
+				var redioValue = redio.attr("value");
+				if(isCenter){
+					redio.removeClass('danxuanbtn').addClass('proinfo_xz').parent().siblings().children().removeClass('proinfo_xz').addClass('danxuanbtn');
+					//更新隐藏域值
+					redio.parent().siblings().last().val(redioValue);
+				}else{
+					redio.removeClass('selected').addClass('selected').siblings().removeClass('selected');
+					//更新隐藏域值
+					redio.siblings().last().val(redioValue);
+				}
+				continueFlag = false;
+			}
+		});
+
+		//表单提交事件注册
+		$(".reg_tjbtn").click(function () {
+			submitForm();
+		});
+		
+		function submitForm() {
+			$.ajax({
+				type : 'POST',
+				url : commonUtil.getRequestUrl("/fundAgreementController/updateUserAgreement.do"),
+				dataType : 'json',
+				data : $("#subAgreement2").serialize(),
+				cache: false,
+				async : false,
+				success : function(data) {
+					if(data.resStatus == CONSTANTS.SUCCESS){
+						console.info(data.params.agreementId);
+						commonUtil.jump("/fund/protocol/uploadData.html?utype=2&aId=" + $("input[name='id']").val());
+					}else if(data.resStatus == 201 || data.resStatus == 202){
+						$(".reg_tjbtn").click(function () {
+							submitForm();
+						});
+						alert(data.resMsg);
+					}else{
+						alert("预约失败，请重新选择要预约的产品");
+						commonUtil.jump("/fund/advisory/pefundInfo.html?utype=2");
+					}
+				},
+				error : function(request) {
+					//重新绑定点击事件
+					$(".reg_tjbtn").click(function () {
+						submitForm();
+					});
+					alert("系统繁忙，请稍后刷新页面再试~");
+				}
+			});
+		}
+
+	})
+    	
+    		
+    	
+    	
+      
+</script>
+</html>

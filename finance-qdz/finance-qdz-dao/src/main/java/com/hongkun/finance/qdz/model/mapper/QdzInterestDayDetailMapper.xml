@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.qdz.model.QdzInterestDayDetail">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_QdzInterestDayDetail" type="com.hongkun.finance.qdz.model.QdzInterestDayDetail">
+		<result property="id" column="id"/>
+		<result property="qdzInterestDayId" column="qdz_interest_day_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="bidId" column="bid_id"/>
+		<result property="thirdRegUserId" column="third_reg_user_id"/>
+		<result property="day" column="day"/>
+		<result property="interest" column="interest"/>
+		<result property="interestFee" column="interest_fee"/>
+		<result property="money" column="money"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<resultMap id="_QdzInterestDayDetailVo" type="com.hongkun.finance.qdz.vo.QdzInterestDayDetailVo">
+		<result property="id" column="id"/>
+		<result property="qdzInterestDayId" column="qdz_interest_day_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="bidId" column="bid_id"/>
+		<result property="thirdRegUserId" column="third_reg_user_id"/>
+		<result property="day" column="day"/>
+		<result property="interest" column="interest"/>
+		<result property="interestFee" column="interest_fee"/>
+		<result property="money" column="money"/>
+		<result property="createTime" column="create_time"/>
+		<result property="rate" column="rate"/>
+		<result property="dayInterest" column="day_interest"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,qdz_interest_day_id,reg_user_id,bid_id,third_reg_user_id,day,interest,interest_fee,money,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qdz_interest_day_detail ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="qdzInterestDayId != null">
+				qdz_interest_day_id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="bidId != null">
+				bid_id ,
+			</if>
+			<if test="thirdRegUserId != null">
+				third_reg_user_id ,
+			</if>
+				day ,
+			<if test="interest != null">
+				interest ,
+			</if>
+			<if test="interestFee != null">
+				interest_fee ,
+			</if>
+			<if test="money != null">
+				money ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="qdzInterestDayId != null">
+				#{qdzInterestDayId} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="bidId != null">
+				#{bidId} ,
+			</if>
+			<if test="thirdRegUserId != null">
+				#{thirdRegUserId} ,
+			</if>
+			<choose>
+				<when test="day != null">
+					#{day} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="interest != null">
+				#{interest} ,
+			</if>
+			<if test="interestFee != null">
+				#{interestFee} ,
+			</if>
+			<if test="money != null">
+				#{money} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO qdz_interest_day_detail (
+        	id ,
+        	qdz_interest_day_id ,
+        	reg_user_id ,
+        	bid_id ,
+        	third_reg_user_id ,
+        	day ,
+        	interest ,
+        	interest_fee ,
+        	money ,
+        	create_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.qdzInterestDayId != null">
+					#{item.qdzInterestDayId} ,
+				</if>
+				<if test="item.qdzInterestDayId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidId != null">
+					#{item.bidId} ,
+				</if>
+				<if test="item.bidId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.thirdRegUserId != null">
+					#{item.thirdRegUserId} ,
+				</if>
+				<if test="item.thirdRegUserId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.day != null">
+					#{item.day} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.interest != null">
+					#{item.interest} ,
+				</if>
+				<if test="item.interest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.interestFee != null">
+					#{item.interestFee} ,
+				</if>
+				<if test="item.interestFee == null">
+					DEFAULT ,
+				</if>
+				<if test="item.money != null">
+					#{item.money} ,
+				</if>
+				<if test="item.money == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="qdzInterestDayId != null">
+			qdz_interest_day_id = #{qdzInterestDayId} ,
+		   </if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="bidId != null">
+			bid_id = #{bidId} ,
+		   </if>
+			<if test="thirdRegUserId != null">
+			third_reg_user_id = #{thirdRegUserId} ,
+		   </if>
+			<if test="day != null">
+				day = #{day} ,
+			</if>
+			<if test="interest != null ">
+				interest =interest + #{interest} ,
+			</if>
+			<if test="interestFee != null ">
+				interest_fee =interest_fee + #{interestFee} ,
+			</if>
+			<if test="money != null ">
+				money =money + #{money} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  qdz_interest_day_detail
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM qdz_interest_day_detail 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_QdzInterestDayDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM qdz_interest_day_detail 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="qdzInterestDayId != null">
+			AND qdz_interest_day_id = #{qdzInterestDayId}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="bidId != null">
+			AND bid_id = #{bidId}
+			</if>
+			<if test="thirdRegUserId != null">
+			AND third_reg_user_id = #{thirdRegUserId}
+			</if>
+			<if test="dayBegin != null">
+			AND day >= #{dayBegin}
+			</if>
+			<if test="dayEnd != null">
+			AND day &lt;= #{dayEnd}
+			</if>
+			<if test="interest != null">
+			AND interest = #{interest}
+			</if>
+			<if test="interestFee != null">
+			AND interest_fee = #{interestFee}
+			</if>
+			<if test="money != null">
+			AND money = #{money}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM qdz_interest_day_detail 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_QdzInterestDayDetail">
+		SELECT <include refid="columns" />
+		FROM qdz_interest_day_detail 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 按条件查询钱袋子利息明细信息 -->
+	<select id="findQdzInterestDetailInfo" resultMap="_QdzInterestDayDetail">
+		SELECT interest,day,third_reg_user_id
+		FROM qdz_interest_day_detail 
+			<where>	  
+			1 = 1    				
+			<if test="userflag != null">
+			  <if test="userflag == 1">
+			   <![CDATA[ AND third_reg_user_id <> #{thirdRegUserId} ]]>  
+			 </if>
+			 <if test="userflag == 0">
+			   AND third_reg_user_id = #{thirdRegUserId}
+			 </if>
+			</if>
+			<if test="day != null">
+			AND day = #{day}
+			</if>
+			<if test="dayList != null">
+			AND DATE(day)  in
+			<foreach collection="dayList" item="dayDate"  open="(" separator="," close=")">
+				#{dayDate}
+			</foreach>
+			</if>	
+			<if test="dayBegin != null">
+			AND day >= #{dayBegin}
+			</if>
+			<if test="dayEnd != null">
+			AND day &lt;= #{dayEnd}
+			</if>
+		</where>
+	</select>
+	<!-- 分页查询钱袋子明细 条数 -->
+	<select id="findQdzInterestDetailsCount" resultType="long">
+		SELECT COUNT(detail.ID)
+		FROM qdz_interest_day_detail detail INNER JOIN qdz_interest_day interest_day  
+		ON detail.qdz_interest_day_id =interest_day.id 
+			<where>	  
+			1 = 1  And interest_day.state = 1   				
+			<if test="userflag != null">
+			  <if test="userflag == 1">
+			   <![CDATA[ AND detail.third_reg_user_id <> #{thirdRegUserId} ]]>  
+			 </if>
+			 <if test="userflag == 0">
+			   AND detail.third_reg_user_id = #{thirdRegUserId}
+			 </if>
+			</if>
+			<if test="day != null">
+			AND detail.day = #{day}
+			</if>
+		</where>
+		order by detail.id desc
+	</select>
+	<!-- 查询钱袋子利息明细 -->
+	<select id="findQdzInterestDetails" resultMap="_QdzInterestDayDetailVo">
+		SELECT 
+		    detail.id,
+        	detail.qdz_interest_day_id,
+        	detail.reg_user_id,
+        	detail.bid_id,
+        	detail.third_reg_user_id,
+        	detail.day,
+        	detail.interest,
+        	detail.interest_fee,
+        	detail.money,
+        	detail.create_time, 
+        	interest_day.rate,
+            interest_day.day_interest 
+		FROM qdz_interest_day_detail detail INNER JOIN qdz_interest_day interest_day  
+		ON detail.qdz_interest_day_id =interest_day.id 
+			<where>	  
+			1 = 1  And interest_day.state = 1   				
+			<if test="userflag != null">
+			  <if test="userflag == 1">
+			   <![CDATA[ AND detail.third_reg_user_id <> #{thirdRegUserId} ]]>  
+			 </if>
+			 <if test="userflag == 0">
+			   AND detail.third_reg_user_id = #{thirdRegUserId}
+			 </if>
+			</if>
+			<if test="day != null">
+			AND detail.day = #{day}
+			</if>
+		</where>
+		order by detail.id desc
+	</select>
+		<!-- 查询钱袋子成功利息明细 -->
+	<select id="findSuccQdzInterestDayDetails" resultMap="_QdzInterestDayDetail">
+		SELECT 
+		    detail.id AS id,
+        	detail.qdz_interest_day_id,
+        	detail.reg_user_id,
+        	detail.bid_id,
+        	detail.third_reg_user_id,
+        	detail.day,
+        	detail.interest,
+        	detail.interest_fee,
+        	detail.money,
+        	detail.create_time  
+		FROM qdz_interest_day_detail detail INNER JOIN qdz_interest_day interest_day  
+		ON detail.qdz_interest_day_id =interest_day.id 
+		WHERE interest_day.state = 1
+		<if test="day != null">
+			AND DATE(detail.day) = #{day}
+		</if>
+	</select>
+			<!-- 查询钱袋子成功利息明细 -->
+	<select id="findQdzInterestDayDetailsByShardingItem" resultMap="_QdzInterestDayDetail" parameterType="java.util.Map">
+		SELECT 
+		    detail.id,
+        	detail.qdz_interest_day_id,
+        	detail.reg_user_id,
+        	detail.bid_id,
+        	detail.third_reg_user_id,
+        	detail.day,
+        	detail.interest,
+        	detail.interest_fee,
+        	detail.money,
+        	detail.create_time  
+		<![CDATA[
+		FROM qdz_interest_day_detail detail INNER JOIN qdz_interest_day interest_day  
+		ON detail.qdz_interest_day_id =interest_day.id 
+		WHERE detail.day = #{day} AND interest_day.state = 1 AND detail.id%10 =  #{shardingItem} 
+		]]>
+	</select>
+	
+</mapper>

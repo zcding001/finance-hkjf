@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>鸿坤金服网站_账户管理  实名认证</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="../src/css/wap/share.css" rel="stylesheet">
+    <link href="../src/css/wap/reset.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/css/wap/loginbg.css">
+    <!-- Include the compiled Ratchet JS -->
+    <script src="../src/js/ratchet.min.js"></script>
+    <script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+      <script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+      <script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+      <script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+      <script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+      <script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+      <script type="text/javascript" src="../lib/constants.js"></script>
+      <script type="text/javascript" src="../lib/utils/containerUtil.js"></script>
+
+    <script src="../src/js/radius.js"></script>
+    <script>
+	    (function (doc, win) {
+	  var docEl = doc.documentElement,
+	    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+	    recalc = function () {
+	      var clientWidth = docEl.clientWidth;
+	      if (!clientWidth) return;
+	      docEl.style.fontSize = (clientWidth>=640 ? 100 : clientWidth/6.4) + 'px';
+	    };
+
+	  if (!doc.addEventListener) return;
+	  win.addEventListener(resizeEvt, recalc, false);
+	  doc.addEventListener('DOMContentLoaded', recalc, false);
+	})(document, window);
+    </script>
+    <style>
+    	body{background-color:#eeeeee;width: 6.4rem;margin: 0 auto;height:100%;overflow:hidden}
+		#idCard,#reallyName{width:100%;border-bottom: 1px solid #ededed;height: 0.88rem;line-height: 0.88rem;padding-left: 0.24rem;font-size: 0.24rem;color: #333333;}
+        #reallyName{margin-top: 12px}
+		#over{color: white;font-size: 0.3rem;border-radius: 4px;height: 0.78rem;text-align: center;display: block;width: 5.9rem;letter-spacing: 1px;background-color: #f39200;margin: 0.6rem auto 0.42rem;line-height: 0.75rem;}
+		.main_password{top:0.22rem;}
+    </style>
+  </head>
+<body class="relative">
+<header class="z-prompt-header" style="border-bottom: none;">
+        <a href="javascript:history.go(-1)"></a>
+        <h3>实名认证</h3>
+</header>
+<div class='resetmargin'></div>
+<!-- 表单内容开始 -->
+<div class="main_password">
+	<div>
+        <form class="input-group bor_bt bak_none">
+          <input type="text" name="reallyName" id="reallyName" class="input_password" placeholder="请输入您的真实姓名">
+          <input type="text" name="idCard" id="idCard" class="input_password" placeholder="请输入您的身份证号">
+          <div class="mlr_10"><a class="btn btn-negative btn-block bg_red " id="over"  href="javascript:void(0);">去认证</a></div>
+          
+          <div style="text-align: center;text-decoration: underline;"><a class="" id="break" style="color:#00a0e9 !important;" href="javascript:void(0);">跳过</a></div>
+         <input type="hidden" id="ucode" value="${loginUser.code}"/>
+        </form>        
+    </div>
+    
+</div>
+<!-- 遮罩层 -->
+ 	<div class="jd_win" style="display:none;">
+        <div class="jd_win_box">
+          <img src="../src/img/wap/img_jiazai_1.gif" alt="加载小圆圈">
+        </div>
+    </div>
+
+<!--气泡提示框-->
+<div id="bubbleBtn" class="animated pulse">快速注册快速快速</div>
+<script src="../src/js/zepto.min.js"></script>
+<script src="../src/js/publicMethod.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    var _idCard = $("#idCard");
+    var _reallyName = $("#reallyName");
+    //跳过直接跳转至注册成功页面
+    $("#break").click(function () {
+        window.location.href = "registerSuccess.html";
+    });
+    //身份证号校验
+    _idCard.blur(function () {
+        idCardBlur();
+    });
+    //用户名校验
+    _reallyName.blur(function () {
+        reallyNameBlur();
+    });
+
+    function idCardBlur() {
+        var idCard = _idCard.val();
+        if (commonUtil.isEmpty(idCard)){
+            showbubbleBtn("请输入身份证号!");
+            return false;
+        }else {
+            if (!validIdCard(idCard)){
+                showbubbleBtn("请输入正确的身份证号！");
+                return false;
+            }
+        }
+        return true;
+    }
+    function reallyNameBlur() {
+        var reallyName = _reallyName.val();
+        if (commonUtil.isEmpty(reallyName)){
+            showbubbleBtn("请输入真实姓名!");
+            return false;
+        }else {
+            if (reallyName.length < 2 || reallyName.length > 17){
+                showbubbleBtn("请输入正确的真实姓名!");
+                return false;
+            }
+        }
+        return true;
+    }
+    //进行实名
+    $("#over").click(function () {
+        if (!reallyNameBlur()){
+            return;
+        }
+        if (!idCardBlur()){
+            return;
+        }
+        //进行实名操作
+        ajaxUtil.post("/userController/realName.do",{"idCard":_idCard.val(),"realName":_reallyName.val()}, function(data){
+                if(data.resStatus == CONSTANTS.SUCCESS){
+                    // 跳转至注册成功页面
+                    window.location.href = "registerSuccess.html";
+                }else{
+                    showbubbleBtn(data.resMsg);
+                }
+            });
+    });
+//var questionId=186;
+//$(document).ready(function(){
+//　	$(".yzm_error").hide();
+//	$(".yzm_error_c").hide();
+//	$(".zcwc").hide();
+//	var type = '${type}';//判断认证显示，下一步还是认真，下一步是注册跳过来，
+//	if(type == 1){
+//		$("#over").html("下一步");
+//	}else{
+//		$("#breakDiv").hide();//隐藏跳过连接
+//	}
+//});
+//var regWay='${regWay}';
+//function toAccountManagePage(){
+//	var type = '${type}';//判断认证显示，下一步还是认真，下一步是注册跳过来，
+//	if(type == 1){
+//		if(regWay!=1){ //非wap网站正常注册，需要调查问卷
+//		  var ucode=$("#ucode").val();
+//		  var isExistFlag=isExistQuestion(questionId);
+//		  if(isExistFlag!=true){
+//			 window.location.href='${req.contextPath}/mobile/accountManage.do?method=toMyBankCard&type=1';
+//		  }else{
+//		  //如果是活动页，下一步直接到调查问卷页面
+//		    window.location.href='${req.contextPath}/feedActivityController.do?method=gotoQuestionnaireForRegister&userCode='+ucode+'&id='+questionId+'&qway=1';
+//		 //window.location.href='${req.contextPath}/mobile/accountManage.do?method=toMyBankCard&type=1';
+//		  }
+//		}else{
+//		   //非活动、非好友注册
+//		   window.location.href='${req.contextPath}/mobile/accountManage.do?method=toMyBankCard&type=1';
+//		}
+//	}else{
+//		window.location.href='${req.contextPath}/mobile/toMyAccount.do?method=toMyAccount';
+//	}
+//
+//}
+//
+//$(function(){
+//	$("#over").click(function(){
+//		reallyName();
+//	});
+//	$("#break").click(function(){//跳过,直接显示注册成功
+//	    if(regWay!=1){ //非wap网站正常注册，需要调查问卷
+//		  var ucode=$("#ucode").val();
+//		  var isExistFlag=isExistQuestion(questionId);
+//		  if(isExistFlag!=true){
+//			 window.location.href='${req.contextPath}/mobile/accountManage.do?method=registSuccess';
+//		  }else{
+//		  //如果是活动页，下一步直接到调查问卷页面
+//		    window.location.href='${req.contextPath}/feedActivityController.do?method=gotoQuestionnaireForRegister&userCode='+ucode+'&id='+questionId+'&qway=2';
+//		 //window.location.href='${req.contextPath}/mobile/accountManage.do?method=toMyBankCard&type=1';
+//		  }
+//		}else{
+//		   //非活动、非好友注册, 跳过调查问卷，直接显示注册成功
+//		   window.location.href='${req.contextPath}/mobile/accountManage.do?method=registSuccess';
+//		}
+//	});
+//});
+////判断调查问卷是否在线，是否存在。
+//function isExistQuestion(questionNaireId){
+//	var existResult=false;
+//	var ucode=$("#ucode").val();
+//  	$.ajax({
+//				type:'post',
+//				url:'${req.contextPath}/feedActivityController.do?method=getisExistQuestion',
+//				async:false,
+//				data:"questionNaireId="+questionNaireId+"&userCode="+ucode,
+//				dataType:'json',
+//				success : function(json){
+//					if(json.code == '1') {
+//						existResult=true;
+//					}
+//				}
+//			});
+//	return existResult;
+//}
+//
+//function timerHide(){
+//	setTimeout(function() {
+//           $(".zcwc").hide();
+//     }, 2000);
+//}
+///**获取年龄**/
+//function validIsEighteen(idCard){
+//        //获取年龄
+//        var myDate = new Date();
+//        var month = myDate.getMonth() + 1;
+//        var day = myDate.getDate();
+//        var age = myDate.getFullYear() - idCard.substring(6, 10) - 1;
+//        if (idCard.substring(10, 12) < month || idCard.substring(10, 12) == month && idCard.substring(12, 14) <= day) {
+//            age++;
+//        }
+//        return age;
+//}
+//function reallyName(){
+//	var reallyName=$.trim($("#reallyName").val());
+//	var idCard=$.trim($("#idCard").val());
+//	if("" == reallyName || null == reallyName){
+//		$(".zcwc .btn").html("请输入您的真实姓名！");
+//		$(".zcwc").show();
+//		timerHide();
+//		return;
+//	}
+//
+//	if("" == idCard || null == idCard){
+//		$(".zcwc .btn").html("请输入您的身份证号！");
+//		$(".zcwc").show();
+//		timerHide();
+//		return;
+//	}
+//	else{
+//		if (!validIdCard(idCard)) {
+// 			$("#idCard").removeClass("success");
+// 			alert("请输入正确的身份证号码");
+// 			return;
+// 		}
+// 		if(validIsEighteen(idCard)<=17){
+// 		    $("#idCard").removeClass("success");
+// 			alert("未成年人暂不能进行理财业务");
+// 			return;
+// 		}
+//
+//	}
+//	if($("#over").html()=='为您认证中...'){
+//		return false;
+//	}
+//
+//	$("#over").text('为您认证中...');
+//	//显示遮罩层
+//	$(".jd_win").show();
+//
+//	$.ajax({
+//				type:'post',
+//				url:'accountManage.do?method=openAccount',
+//				async:false,
+//				data:{idCard:idCard,reallyName:reallyName},
+//				dataType:'json',
+//				success : function(json){
+//					//$(".jd_win").hide();
+//					if(json.state == '0') {
+//						$("#over").text('去认证');
+//						$(".yzm_error_c .card  .error_text").html(json.msg);
+//						$(".yzm_error_c .card  .error_c").html("姓名："+reallyName+"\n"+"身份证号："+idCard);
+//						$(".yzm_error").show();
+//						$(".yzm_error_c").show();
+//						setTimeout(function() {
+//       						$(".yzm_error").hide();
+//							$(".yzm_error_c").hide();
+//    					}, 2000);
+//    					//$(".jd_win").hide();
+//    					setTimeout(function() {
+//							$(".jd_win").hide();
+//    					}, 2200);
+//
+//						idCardCheckFlg = false;
+//					}
+//					if(json.state == '1'){
+//						//$(".jd_win").hide();
+//						$(".zcwc .btn").html(json.msg);
+//						$(".zcwc").show();
+//						timerHide();
+//						idCardCheckFlg = true;
+//						setTimeout(function() {
+//       						toAccountManagePage();
+//    					}, 2000);
+//    					setTimeout(function() {
+//							$(".jd_win").hide();
+//    					}, 1000);
+//					}
+//				},
+//				error: function(XMLHttpRequest, textStatus, errorThrown) {
+//		            console.log(XMLHttpRequest, textStatus, errorThrown);
+//		            $(".jd_win").hide();
+//		           	alert('请求出错,请刷新页面');
+//		        }
+//			});
+//}
+function validIdCard(idCard) {
+	var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];// 加权因子;
+	var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];// 身份证验证位值，10代表X;
+
+	if (idCard.length == 15) {
+		return isValidityBrithBy15IdCard(idCard);
+	}else if (idCard.length == 18){
+		var a_idCard = idCard.split("");// 得到身份证数组
+		if (isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)) {
+			return true;
+		}
+		return false;
+	}
+	return false;
+
+	function isTrueValidateCodeBy18IdCard(a_idCard) {
+		var sum = 0; // 声明加权求和变量
+		if (a_idCard[17] == 'X') {
+			a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作
+		}
+		for ( var i = 0; i < 17; i++) {
+			sum += Wi[i] * a_idCard[i];// 加权求和
+		}
+		valCodePosition = sum % 11;// 得到验证码所位置
+		if (a_idCard[17] == ValideCode[valCodePosition]) {
+			return true;
+		}
+		return false;
+	}
+
+	function isValidityBrithBy18IdCard(idCard18){
+		var year = idCard18.substring(6,10);
+		var month = idCard18.substring(10,12);
+		var day = idCard18.substring(12,14);
+		var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+		// 这里用getFullYear()获取年份，避免千年虫问题
+		if(temp_date.getFullYear()!=parseFloat(year) || temp_date.getMonth()!=parseFloat(month)-1 || temp_date.getDate()!=parseFloat(day)){
+			return false;
+		}
+		return true;
+	}
+
+	function isValidityBrithBy15IdCard(idCard15){
+		var year =  idCard15.substring(6,8);
+		var month = idCard15.substring(8,10);
+		var day = idCard15.substring(10,12);
+		var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+		// 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
+		if(temp_date.getYear()!=parseFloat(year) || temp_date.getMonth()!=parseFloat(month)-1 || temp_date.getDate()!=parseFloat(day)){
+			return false;
+		}
+		return true;
+	}
+}
+</script>

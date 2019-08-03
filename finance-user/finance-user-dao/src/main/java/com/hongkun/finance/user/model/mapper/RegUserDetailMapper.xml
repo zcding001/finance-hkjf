@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserDetail">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserDetail" type="com.hongkun.finance.user.model.RegUserDetail">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="code" column="code"/>
+		<result property="realName" column="real_name"/>
+		<result property="idCard" column="id_card"/>
+		<result property="inviteNo" column="invite_no"/>
+		<result property="commendNo" column="commend_no"/>
+		<result property="extenSource" column="exten_source"/>
+		<result property="registSource" column="regist_source"/>
+		<result property="groupCode" column="group_code"/>
+		<result property="creditLevel" column="credit_level"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="realNameTime" column="real_name_time"/>
+        <result property="investFlag" column="invest_flag"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,code,real_name,id_card,invite_no,commend_no,exten_source,regist_source,group_code,credit_level,invest_flag,state,create_time,modify_time,real_name_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_detail ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="code != null and code != ''">
+				code ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name ,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				id_card ,
+			</if>
+			<if test="inviteNo != null and inviteNo != ''">
+				invite_no ,
+			</if>
+			<if test="commendNo != null and commendNo != ''">
+				commend_no ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+				exten_source ,
+			</if>
+			<if test="registSource != null">
+				regist_source ,
+			</if>
+			<if test="groupCode != null and groupCode != ''">
+				group_code ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				credit_level ,
+			</if>
+            <if test="investFlag != null">
+                invest_flag ,
+            </if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time ,
+				real_name_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="code != null and code != ''">
+				#{code} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				#{realName} ,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				#{idCard} ,
+			</if>
+			<if test="inviteNo != null and inviteNo != ''">
+				#{inviteNo} ,
+			</if>
+			<if test="commendNo != null and commendNo != ''">
+				#{commendNo} ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+				#{extenSource} ,
+			</if>
+			<if test="registSource != null">
+				#{registSource} ,
+			</if>
+			<if test="groupCode != null and groupCode != ''">
+				#{groupCode} ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				#{creditLevel} ,
+			</if>
+            <if test="investFlag != null">
+                #{investFlag} ,
+            </if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="realNameTime != null">
+					#{realNameTime} 
+				</when>
+				<otherwise>
+					DEFAULT 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO reg_user_detail (
+        	INSERT INTO reg_user_detail (
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="code != null and code != ''">
+				code ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name ,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				id_card ,
+			</if>
+			<if test="inviteNo != null and inviteNo != ''">
+				invite_no ,
+			</if>
+			<if test="commendNo != null and commendNo != ''">
+				commend_no ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+				exten_source ,
+			</if>
+			<if test="registSource != null">
+				regist_source ,
+			</if>
+			<if test="groupCode != null and groupCode != ''">
+				group_code ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				credit_level ,
+			</if>
+            <if test="investFlag != null">
+                invest_flag ,
+            </if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time ,
+				real_name_time
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.code != null and item.code != ''">
+					#{item.code} ,
+				</if>
+				<if test="item.code == null or item.code == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.realName != null and item.realName != ''">
+					#{item.realName} ,
+				</if>
+				<if test="item.realName == null or item.realName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.idCard != null and item.idCard != ''">
+					#{item.idCard} ,
+				</if>
+				<if test="item.idCard == null or item.idCard == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.inviteNo != null and item.inviteNo != ''">
+					#{item.inviteNo} ,
+				</if>
+				<if test="item.inviteNo == null or item.inviteNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.commendNo != null and item.commendNo != ''">
+					#{item.commendNo} ,
+				</if>
+				<if test="item.commendNo == null or item.commendNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.extenSource != null and item.extenSource != ''">
+					#{item.extenSource} ,
+				</if>
+				<if test="item.extenSource == null and item.extenSource != ''">
+					DEFAULT ,
+				</if>
+				<if test="item.registSource != null">
+					#{item.registSource} ,
+				</if>
+				<if test="item.registSource == null">
+					DEFAULT ,
+				</if>
+				<if test="item.groupCode != null and item.groupCode != ''">
+					#{item.groupCode} ,
+				</if>
+				<if test="item.groupCode == null or item.groupCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.creditLevel != null and item.creditLevel != ''">
+					#{item.creditLevel} ,
+				</if>
+				<if test="investFlag != null">
+					#{item.investFlag} ,
+				</if>
+				<if test="item.creditLevel == null or item.creditLevel == ''">
+					DEFAULT ,
+				</if>
+                <if test="item.investFlag != null">
+                    #{item.investFlag} ,
+                </if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.realNameTime != null">
+					#{item.realNameTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="code != null and code != ''">
+				code = #{code} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName} ,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				id_card = #{idCard} ,
+			</if>
+			<if test="inviteNo != null and inviteNo != ''">
+				invite_no = #{inviteNo} ,
+			</if>
+			<if test="commendNo != null and commendNo != ''">
+				commend_no = #{commendNo} ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+			exten_source = #{extenSource} ,
+		   </if>
+			<if test="registSource != null">
+			regist_source = #{registSource} ,
+		   </if>
+			<if test="groupCode != null and groupCode != ''">
+				group_code = #{groupCode} ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				credit_level = #{creditLevel} ,
+			</if>
+			<if test="investFlag != null">
+			    invest_flag = #{investFlag} ,
+		    </if>
+            <if test="state != null">
+                state = #{state} ,
+            </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="realNameTime != null">
+				real_name_time = #{realNameTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_user_detail
+		<include refid="update_sql"/>
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="regUserId == null and id == null">
+				AND 1 != 1
+			</if>
+		</where>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_detail 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_user_detail 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<where>
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="code != null and code !=''">
+			AND code = #{code}
+			</if>
+			<if test="realName != null and realName !=''">
+			AND real_name LIKE CONCAT('%',#{realName},'%')
+			</if>
+			<if test="idCard != null and idCard !=''">
+			AND id_card = #{idCard}
+			</if>
+			<if test="inviteNo != null and inviteNo !=''">
+			AND invite_no = #{inviteNo}
+			</if>
+			<if test="commendNo != null and commendNo !=''">
+			AND commend_no = #{commendNo}
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+			AND exten_source = #{extenSource}
+			</if>
+			<if test="registSource != null">
+			AND regist_source = #{registSource}
+			</if>
+			<if test="groupCode != null and groupCode !=''">
+			AND group_code = #{groupCode}
+			</if>
+			<if test="creditLevel != null and creditLevel !=''">
+			AND credit_level = #{creditLevel}
+			</if>
+            <if test="investFlag != null">
+                AND invest_flag = #{investFlag}
+            </if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="realNameTimeBegin != null">
+			AND real_name_time >= #{realNameTimeBegin}
+			</if>
+			<if test="realNameTimeEnd != null">
+			AND real_name_time &lt;= #{realNameTimeEnd}
+			</if>
+            <if test="userIds != null and userIds.size > 0">
+                AND reg_user_id IN
+                <foreach collection="userIds" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+            </if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_detail 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserDetail">
+		SELECT <include refid="columns" />
+		FROM reg_user_detail 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="getByRegUserId" resultMap="_RegUserDetail" parameterType="java.lang.Integer">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+		FROM reg_user_detail 
+		WHERE reg_user_id = #{regUserId}
+		]]>
+	</select>
+
+	<!-- 获取用户姓名 -->
+	<select id="findRegUserDetailNameByRegUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT real_name
+		FROM reg_user_detail
+		WHERE reg_user_id = #{regUserId}
+	</select>
+
+	<!-- 根据当前时间获取当天生日的用户信息 -->
+	<select id="findRegUserDetailListByBirthDay" resultType="com.hongkun.finance.user.model.RegUser">
+		SELECT
+			a.id,
+			a.create_time as createTime,
+			a.login
+		FROM
+			reg_user a
+		LEFT JOIN reg_user_detail b ON a.id = b.reg_user_id
+		WHERE
+			a.state = 1
+		AND a.type = 1
+		AND SUBSTRING(b.id_card, 11, 4) = DATE_FORMAT(#{currentDate}, "%m%d")
+	</select>
+
+
+	<update id="updateInvestFlagByRegUserIds">
+		UPDATE  reg_user_detail
+		SET invest_flag = 1
+		where invest_flag = 0
+		and reg_user_id in
+		<foreach collection="list" open="(" separator="," close=")" item="val">
+			${val}
+		</foreach>
+	</update>
+
+</mapper>

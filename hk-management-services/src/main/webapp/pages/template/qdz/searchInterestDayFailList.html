@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">每日生成利息失败查询</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				利息生成时间：<input type="text" id="start" name="startTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="endTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"用户名",data: "userName", width:140,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		},
+ 		{ title:"利息",data: "dayInterest", width:100},
+ 		{ title:"利率",data: "rate", width:140},
+ 		{ 
+ 			title:"确认金额",
+ 			data: "money",
+ 			className:"dt-simple"
+		},
+ 		{ title:"计息时间",className:"dt-simple",data: "day",
+			render: function (value, type, row, meta) {
+				return dateUtil.date(value);
+			}
+		},
+ 		{ title:"状态",className:"dt-simple",data: "state",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("qdz", "state", value);
+			}
+		},
+	    {
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row, meta) {
+ 		    	//重新发起按钮
+				var btn = commonUtil.createConfirmRequestBtn({id:row.id, state:1, ajaxUrl:"qdzController/repairCalcInterest"}, "重新发起", "钱袋子每日利息操作", "确定重新计算利息?", "fa fa-play");
+ 			    return btn;
+ 		    }
+ 		}
+ 	];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.searchInterestDayFailList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+</script>

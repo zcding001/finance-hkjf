@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinPaymentRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinPaymentRecord" type="com.hongkun.finance.payment.model.FinPaymentRecord">
+		<result property="id" column="id"/>
+		<result property="flowId" column="flow_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="transMoney" column="trans_money"/>
+		<result property="tradeSource" column="trade_source"/>
+		<result property="tradeType" column="trade_type"/>
+		<result property="payChannel" column="pay_channel"/>
+		<result property="rechargeSource" column="recharge_source"/>
+		<result property="bankCardId" column="bank_card_id"/>
+		<result property="state" column="state"/>
+		<result property="rejectInfo" column="reject_info"/>
+		<result property="reconciliationState" column="reconciliation_state"/>
+		<result property="reconciliationDesc" column="reconciliation_desc"/>
+		<result property="reconciliationTime" column="reconciliation_time"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="couponDetailId" column="coupon_detail_id"/>
+		<result property="commission" column="commission"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,flow_id,reg_user_id,trans_money,trade_source,trade_type,pay_channel,recharge_source,bank_card_id,state,reject_info,reconciliation_state,reconciliation_desc,reconciliation_time,create_time,modify_time,coupon_detail_id,commission
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_payment_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				flow_id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="transMoney != null">
+				trans_money ,
+			</if>
+			<if test="tradeSource != null">
+				trade_source ,
+			</if>
+			<if test="tradeType != null">
+				trade_type ,
+			</if>
+			<if test="payChannel != null">
+				pay_channel ,
+			</if>
+			<if test="rechargeSource != null">
+				recharge_source ,
+			</if>
+			<if test="bankCardId != null">
+				bank_card_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="rejectInfo != null and rejectInfo != ''">
+				reject_info ,
+			</if>
+			<if test="reconciliationState != null">
+				reconciliation_state ,
+			</if>
+			<if test="reconciliationDesc != null and reconciliationDesc != ''">
+				reconciliation_desc ,
+			</if>
+			<if test="couponDetailId != null">
+				coupon_detail_id ,
+			</if>
+			<if test="commission != null">
+				commission ,
+			</if>
+			<if test="reconciliationTime != null">
+				reconciliation_time ,
+			</if>
+				create_time ,
+				modify_time
+
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				#{flowId} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="transMoney != null">
+				#{transMoney} ,
+			</if>
+			<if test="tradeSource != null">
+				#{tradeSource} ,
+			</if>
+			<if test="tradeType != null">
+				#{tradeType} ,
+			</if>
+			<if test="payChannel != null">
+				#{payChannel} ,
+			</if>
+			<if test="rechargeSource != null">
+				#{rechargeSource} ,
+			</if>
+			<if test="bankCardId != null">
+				#{bankCardId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="rejectInfo != null and rejectInfo != ''">
+				#{rejectInfo} ,
+			</if>
+			<if test="reconciliationState != null">
+				#{reconciliationState} ,
+			</if>
+			<if test="reconciliationDesc != null and reconciliationDesc != ''">
+				#{reconciliationDesc} ,
+			</if>
+			<if test="couponDetailId != null">
+				#{couponDetailId} ,
+			</if>
+			<if test="commission != null">
+				#{commission} ,
+			</if>
+			<if test="reconciliationTime != null">
+				#{reconciliationTime} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	<!-- 根据FLOWID查询 -->
+	<select id="findFinPaymentRecordByFlowId" resultMap="_FinPaymentRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_payment_record 
+		WHERE 1 = 1
+			AND flow_id = #{flowId}
+		]]>
+	</select>
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_payment_record (
+        	id ,
+        	flow_id ,
+        	reg_user_id ,
+        	trans_money ,
+        	trade_source ,
+        	trade_type ,
+        	pay_channel ,
+        	recharge_source ,
+        	bank_card_id ,
+        	state ,
+        	reject_info ,
+        	reconciliation_state ,
+        	reconciliation_desc ,
+		    coupon_detail_id ,
+		    commission ,
+        	reconciliation_time ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.flowId != null and item.flowId != ''">
+					#{item.flowId} ,
+				</if>
+				<if test="item.flowId == null or item.flowId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transMoney != null">
+					#{item.transMoney} ,
+				</if>
+				<if test="item.transMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.tradeSource != null">
+					#{item.tradeSource} ,
+				</if>
+				<if test="item.tradeSource == null">
+					DEFAULT ,
+				</if>
+				<if test="item.tradeType != null">
+					#{item.tradeType} ,
+				</if>
+				<if test="item.tradeType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.payChannel != null">
+					#{item.payChannel} ,
+				</if>
+				<if test="item.payChannel == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechargeSource != null">
+					#{item.rechargeSource} ,
+				</if>
+				<if test="item.rechargeSource == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCardId != null">
+					#{item.bankCardId} ,
+				</if>
+				<if test="item.bankCardId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rejectInfo != null and item.rejectInfo != ''">
+					#{item.rejectInfo} ,
+				</if>
+				<if test="item.rejectInfo == null or item.rejectInfo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.reconciliationState != null">
+					#{item.reconciliationState} ,
+				</if>
+				<if test="item.reconciliationState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.reconciliationDesc != null and item.reconciliationDesc != ''">
+					#{item.reconciliationDesc} ,
+				</if>
+				<if test="item.reconciliationDesc == null or item.reconciliationDesc == ''">
+					DEFAULT ,
+				</if>
+				<if test="couponDetailId != null">
+					#{couponDetailId} ,
+				</if>
+				<if test="commission != null">
+					#{commission} ,
+				</if>
+			<choose>
+				<when test="item.reconciliationTime != null">
+					#{item.reconciliationTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="flowId != null and flowId != ''">
+				flow_id = #{flowId} ,
+			</if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="tradeSource != null">
+			trade_source = #{tradeSource} ,
+		   </if>
+			<if test="tradeType != null">
+			trade_type = #{tradeType} ,
+		   </if>
+			<if test="payChannel != null">
+			pay_channel = #{payChannel} ,
+		   </if>
+			<if test="rechargeSource != null">
+			recharge_source = #{rechargeSource} ,
+		   </if>
+			<if test="bankCardId != null">
+			bank_card_id = #{bankCardId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="rejectInfo != null and rejectInfo != ''">
+				reject_info = #{rejectInfo} ,
+			</if>
+			<if test="reconciliationState != null">
+			reconciliation_state = #{reconciliationState} ,
+		   </if>
+			<if test="reconciliationDesc != null and reconciliationDesc != ''">
+				reconciliation_desc = #{reconciliationDesc} ,
+			</if>
+			<if test="reconciliationTime != null">
+				reconciliation_time = #{reconciliationTime} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    <sql id="update_sql_by_flowId">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="tradeSource != null">
+			trade_source = #{tradeSource} ,
+		   </if>
+			<if test="tradeType != null">
+			trade_type = #{tradeType} ,
+		   </if>
+			<if test="payChannel != null">
+			pay_channel = #{payChannel} ,
+		   </if>
+			<if test="rechargeSource != null">
+			recharge_source = #{rechargeSource} ,
+		   </if>
+			<if test="bankCardId != null">
+			bank_card_id = #{bankCardId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="rejectInfo != null and rejectInfo != ''">
+				reject_info = #{rejectInfo} ,
+			</if>
+			<if test="reconciliationState != null">
+			reconciliation_state = #{reconciliationState} ,
+		   </if>
+			<if test="reconciliationDesc != null and reconciliationDesc != ''">
+				reconciliation_desc = #{reconciliationDesc} ,
+			</if>
+			<if test="reconciliationTime != null">
+				reconciliation_time = #{reconciliationTime} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_payment_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_payment_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinPaymentRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_payment_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="flowId != null and flowId !=''">
+			AND flow_id = #{flowId}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="transMoney != null">
+			AND trans_money = #{transMoney}
+			</if>
+			<if test="tradeSource != null">
+			AND trade_source = #{tradeSource}
+			</if>
+			<if test="tradeType != null  and tradeType !=-999">
+			AND trade_type = #{tradeType}
+			</if>
+			<if test="payChannel != null">
+			AND pay_channel = #{payChannel}
+			</if>
+			<if test="rechargeSource != null">
+			AND recharge_source = #{rechargeSource}
+			</if>
+			<if test="bankCardId != null">
+			AND bank_card_id = #{bankCardId}
+			</if>
+			<if test="state != null and state !=-999">
+			AND state = #{state}
+			</if>
+			<if test="rejectInfo != null and rejectInfo !=''">
+			AND reject_info = #{rejectInfo}
+			</if>
+			<if test="reconciliationState != null">
+			AND reconciliation_state = #{reconciliationState}
+			</if>
+			<if test="reconciliationDesc != null and reconciliationDesc !=''">
+			AND reconciliation_desc = #{reconciliationDesc}
+			</if>
+			<if test="reconciliationTimeBegin != null">
+			AND reconciliation_time >= #{reconciliationTimeBegin}
+			</if>
+			<if test="reconciliationTimeEnd != null">
+			AND reconciliation_time &lt;= #{reconciliationTimeEnd}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="minTransMoney != null">
+				AND trans_money >= #{minTransMoney}
+			</if>
+			<if test="maxTransMoney != null">
+				AND trans_money &lt;= #{maxTransMoney}
+			</if>
+			<if test="states != null">
+				AND state in
+				<foreach collection="states" item="bstate"  open="(" separator="," close=")">
+					${bstate}
+				</foreach>
+			</if>
+            <if test="regUserIdList != null">
+				AND reg_user_id in
+				<foreach collection="regUserIdList" item="userId"  open="(" separator="," close=")">
+					#{userId}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_payment_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinPaymentRecord">
+		SELECT <include refid="columns" />
+		FROM fin_payment_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+    <!-- 根据FLOWID，更新资金划转信息 -->
+    <update id="updateByFlowId">
+		UPDATE  fin_payment_record
+		<include refid="update_sql_by_flowId"/>
+		<![CDATA[
+		WHERE 
+			flow_id = #{flowId} 
+		]]>
+	</update>
+	
+	<!-- 后台功能对账分页查询 -->
+	<select id="findPayCheckPageCount" resultType="long">
+		SELECT COUNT(ID) FROM fin_payment_record 
+	    <include refid="findPayCheckPage_where"/>
+	</select>
+	<!-- 后台功能对账分页查询 -->
+	<select id="findPayCheckPage" resultMap="_FinPaymentRecord">
+		SELECT <include refid="columns" />  FROM fin_payment_record 
+	    <include refid="findPayCheckPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 支付对账查询条件 -->
+	<sql id="findPayCheckPage_where">
+		<where>	  
+			1 = 1    				
+			<if test="flowId != null and flowId !=''">
+			AND flow_id = #{flowId}
+			</if>
+	       
+			<if test="regUserIdList != null and regUserIdList.size > 0">
+			AND reg_user_id in
+			  <foreach collection="regUserIdList" open="(" separator="," close=")" item="regUserId">
+	            #{regUserId}
+	         </foreach>
+			</if>
+			<if test="tradeType != null and tradeType!=-999">
+			AND trade_type = #{tradeType}
+			</if>
+			<if test="state != null and state!=-999">
+				AND state = #{state}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="reconciliationState != null and reconciliationState!=-999">
+			    AND reconciliation_state = #{reconciliationState}
+			</if>
+			<if test="payChannel != null and payChannel!=-999">
+				AND pay_channel = #{payChannel}
+			</if>
+		</where>
+	</sql>
+	<!-- 统计充值提现总金额，总次数 -->
+	 <select id="findPaymentSum" resultType="com.hongkun.finance.payment.model.vo.PaymentVO">
+        SELECT
+          IFNULL(count(id),0) AS payTimes,
+          count(DISTINCT reg_user_id) AS payUserSum,
+          IFNULL(SUM(trans_money),0) AS transMoneySum
+        FROM
+          fin_payment_record
+       <include refid="findPage_where"/>    
+    </select>
+</mapper>

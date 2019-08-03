@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+               <span style="float:left;width:30%;">银行限额维护</span> 
+            </div>
+            <form name="payBankModelForm" id="payBankModelForm">
+                <div class="panel-body">
+                    <div class="well">
+                         <div class="form-group">
+                            <label class="textright" style="width: 160px">支付渠道:</label>
+                           	<span ng-bind="bank.thirdName">{{bank.thirdName}}
+                        </div>
+                        <div class="form-group">
+                            <label class="textright" style="width: 160px">银行名称:</label>
+                           	<span ng-bind="bank.bankThirdName">{{bank.bankThirdName}}
+                        </div>
+						<div class="form-group">
+		       			  <label class="textright" style="width: 156px;"><span class="font-red pos_r">*&nbsp;</span>单笔限额:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a single..." name="singleLimit" ng-model="bank.singleLimit"  type="text"  validator="required,integertext" integertext-error-message="请输入正整数值!" integertext-success-message="" valid-method="blur" message-id="singleLimitError">
+	      			       <span style="color:#F00" class="bid-info" id="singleLimitError"></span>
+		                </div>
+		                <div class="form-group">
+		       			  <label class="textright" style="width: 156px;"><span class="font-red pos_r">*&nbsp;</span>单日限额:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a single..." name="singleDayLimit" ng-model="bank.singleDayLimit"  type="text"  validator="required,integertext" integertext-error-message="请输入正整数值!" integertext-success-message="" valid-method="blur" message-id="singleDayLimitError">
+	      			       <span style="color:#F00" class="bid-info" id="singleDayLimitError"></span>
+		                </div>
+		                <div class="form-group">
+		       			  <label class="textright" style="width: 156px;"><span class="font-red pos_r">*&nbsp;</span>单月限额:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a single..." name="singleMonthLimit" ng-model="bank.singleMonthLimit"  type="text"  validator="required,integertext" integertext-error-message="请输入正整数值!" integertext-success-message="" valid-method="blur" message-id="singleMonthLimitError">
+	      			       <span style="color:#F00" class="bid-info" id="singleMonthLimitError"></span>
+		                </div>
+                        <div style="width:70%;padding-left:92px;">
+                        	 <button type="button" class="btn btn-outline btn-success" ng-click="submit(payBankModelForm)" validator-submit="payBankModelForm">修改</button>
+                             <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

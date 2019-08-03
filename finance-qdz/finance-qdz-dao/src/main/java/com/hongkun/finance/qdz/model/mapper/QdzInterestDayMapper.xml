@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.qdz.model.QdzInterestDay">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_QdzInterestDay" type="com.hongkun.finance.qdz.model.QdzInterestDay">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="dayInterest" column="day_interest"/>
+		<result property="day" column="day"/>
+		<result property="rate" column="rate"/>
+		<result property="money" column="money"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,day_interest,day,rate,money,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qdz_interest_day ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="dayInterest != null">
+				day_interest ,
+			</if>
+				day ,
+			<if test="rate != null">
+				rate ,
+			</if>
+			<if test="money != null">
+				money ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="dayInterest != null">
+				#{dayInterest} ,
+			</if>
+			<choose>
+				<when test="day != null">
+					#{day} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="rate != null">
+				#{rate} ,
+			</if>
+			<if test="money != null">
+				#{money} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO qdz_interest_day (
+        	id ,
+        	reg_user_id ,
+        	day_interest ,
+        	day ,
+        	rate ,
+        	money ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.dayInterest != null">
+					#{item.dayInterest} ,
+				</if>
+				<if test="item.dayInterest == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.day != null">
+					#{item.day} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.rate != null">
+					#{item.rate} ,
+				</if>
+				<if test="item.rate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.money != null">
+					#{item.money} ,
+				</if>
+				<if test="item.money == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="dayInterest != null ">
+				day_interest =day_interest + #{dayInterest} ,
+			</if>
+			<if test="day != null">
+				day = #{day} ,
+			</if>
+			<if test="rate != null ">
+				rate =rate + #{rate} ,
+			</if>
+			<if test="money != null ">
+				money =money + #{money} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  qdz_interest_day
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM qdz_interest_day 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_QdzInterestDay">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM qdz_interest_day 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="dayInterest != null">
+			AND day_interest = #{dayInterest}
+			</if>
+			<if test="dayBegin != null">
+			AND day >= #{dayBegin}
+			</if>
+			<if test="dayEnd != null">
+			AND day &lt;= #{dayEnd}
+			</if>
+			<if test="rate != null">
+			AND rate = #{rate}
+			</if>
+			<if test="money != null">
+			AND money = #{money}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM qdz_interest_day 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_QdzInterestDay">
+		SELECT <include refid="columns" />
+		FROM qdz_interest_day 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+   <!-- 钱袋子利息对账分页查询 获取分页数据-->
+	<select id="findQdzInterestDay" resultMap="_QdzInterestDay">
+		SELECT <include refid="columns" />
+		FROM qdz_interest_day 
+		<include refid="findPage_where"/>
+		group by day asc
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 钱袋子利息对账分页查询 获取总记录数-->
+	<select id="findQdzInterestDayCount" resultType="long">
+	select count(ID) from (SELECT <include refid="columns" /> FROM qdz_interest_day  group by day asc order by day desc) t
+		<include refid="findPage_where"/>  
+	</select>
+</mapper>

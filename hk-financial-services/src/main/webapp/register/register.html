@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <meta   http-equiv= "Pragma"   content= "no-cache" />
+    <meta   http-equiv= "Cache-Control"   content= "no-cache" />
+    <meta   http-equiv= "Expires"   content= "0" />
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${project_base_path}/lib/validform/css/style.css" />
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/register.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <style>
+    	.footer{margin-top:0 !important;}
+    </style>
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+<!-- 注册页面 -->
+<div style="background: #fff;box-shadow: inset 0px 3px 6px #ddd;padding-bottom: 100px;">
+    <div class="container">
+        <div class="reg_top">
+            <div class="reg_login">有账号？<span class="ml-15"><a href="./login.html" class="colr-blue">立即登录</a></span></div>
+            <div class="q_bz"><img src="${project_base_path}/src/img/register/zclc_001.gif" alt="注册页面" /></div>
+        </div>
+        <form id="dataForm">
+            <input type="hidden" name="login" id="login"/>
+            <input type="hidden" name="passwd" id="passwd"/>
+            <input type="hidden" name="extenSource" id="extenSource"/>
+            <input type="hidden" name="isByInviteUrl" id="isByInviteUrl" value=""/>
+            <!--<input class="regist" id="commendNo" name="commendNo" type="hidden">-->
+            <div class="clearfix">
+                <div class="register_left" style="border:none;margin:0 auto;">
+                    <div class="ts"></div>
+                    <ul>
+                        <li class="reg_text">
+                            <input class="regist" type="text" name="nickName" id="nickName" value="请输入一个昵称" maxlength="8" nullmsg="请输入一个昵称">
+                        </li>
+                        <li class="reg_text">
+                            <input id="loginTmp" class="regist" type="text" value="请输入您的手机号" style="color:#ccc" datatype="mobile" nullmsg="请输入您的手机号" errormsg="请填写正确的手机号码！" />
+                        </li>
+                         
+                        <li class="reg_yzm clearfix">
+                            <p class="fl">
+                                <input id="calcCode" class="rand" name="calcCode" type="text" value="请输入问号的计算结果" datatype="n1-3" nullmsg="请输入问号的计算结果" errormsg="请输入合法计算结果！">
+                            </p>
+                            <p class="fl ml-10"><img id="validCode" title="点击更换" onclick="javascript:commonUtil.loadValidateCode(this, 2);" width="92" height="38" src="" style="margin-top:6px;"/></p>
+                        </li>
+                        <li class="reg_yzm clearfix">
+                            <p class="fl">
+                                <input class="rand" id="smsCode" type="text" name="smsCode" value="请输入您的6位验证码" datatype="n6-6" nullmsg="请输入您的6位验证码" errormsg="请输入合法的验证码">
+                            </p>
+                            <p class="fl ml-10"><a href="javascript:void(0);" class="sms_btn" id="smsCodeBtn">获取验证码</a><span id="waitTime"></span></p>
+                        </li>
+                        <li class="reg_text">
+                            <input id="passwdTmp" class="regist" type="text" value="请输入登录密码(6至16位字母数字组合)" isPasswd="true" datatype="psnew6-16" nullmsg="请输入登录密码(6至16位字母数字组合)" errormsg="请输入6至16位字母数字组合!">
+                        <li class="reg_text">
+                            <input id="commendNo" name="commendNo" type="text" placeholder="请输入您的推荐码(推荐人手机号后8位)" maxlength="8" datatype="/^\d{8}|(\s){0}$/" nullmsg="请输入您的推荐码(推荐人手机号后8位)" errormsg = "请输入您的推荐码(推荐人手机号后8位)">
+                        </li>
+                        <li class="reg_text" style="padding-left:83px;margin-top: -16px;">
+                            <cite class="colr-red blh-30" id="resErrMsg"></cite>
+                        </li>
+                        <li class="reg_checkbox clearfix">
+                            <label>
+                                <input type="checkbox" value="" class="fl" id="agreeOn">
+                                <p class="fl colr-gray">我已阅读并同意
+                                    <a href="javascript:void(0)" id="hkjfAgreement" class="colr-blue">《鸿坤金服网站服务协议》</a>
+                                    <!--<br><a href="javascript:void(0)" id="toFxinvest" class="colr-blue">《定向及合格投资者认定》</a>-->
+                                    <br><a href="javascript:void(0)" id="riskNotify" class="colr-blue">《投资风险告知书》</a>
+                                </p>&nbsp;&nbsp;
+                            </label>
+                        </li>
+                        
+                        <li class="reg_btn">
+                            <a id="submitBtn" class="btn_sub" href="javascript:void(0)">立即注册</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div class="register_right fr">
+                    <div class="f-18 f-weight tac mb-20">鸿坤金服保障措施</div>
+                    <ul class="media-list pl-50 pr-50">
+                        <li class="media mb-20">
+                            <div class="media-left q_bz">
+                                <a href="javascript:void(0);">
+                                    <img class="media-object" src="${project_base_path}/src/img/register/safe_001.gif" alt="资金保障措施">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading colr-org">资金保障措施</h4>
+                                <p>投资人的每笔出借资金均在鸿坤金服的本金保障计划覆盖之内，一旦出现逾期坏账，鸿坤金服通过风险备用金向投资人垫付此笔借款的剩余出借本金或收益，实现投资人的资金安全保障。</p>
+                            </div>
+                        </li>
+                        <li class="media mb-20">
+                            <div class="media-left q_bz">
+                                <a href="javascript:void(0);">
+                                    <img class="media-object" src="${project_base_path}/src/img/register/safe_002.gif" alt="收益高门槛低">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading colr-org">收益高门槛低</h4>
+                                <p>理财"零"门槛，0手续费，最低100元起投；目前最高预期年化收益率为10%。</p>
+                            </div>
+                        </li>
+                        <li class="media mb-20">
+                            <div class="media-left q_bz">
+                                <a href="javascript:void(0);">
+                                    <img class="media-object" src="${project_base_path}/src/img/register/safe_003.gif" alt="鸿坤实力保证">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading colr-org">鸿坤实力保证</h4>
+                                <p>鸿坤金服背靠鸿坤集团，鸿坤集团成立于2002年，全国地产百强，现已发展成一家拥有地产开发、金融投资、文化旅游等业务板块的复合型控股集团。</p>
+                            </div>
+                        </li>
+                        <li class="media mb-20">
+                            <div class="media-left q_bz">
+                                <a href="javascript:void(0);">
+                                    <img class="media-object" src="${project_base_path}/src/img/register/safe_004.gif" alt="供应链金融平台">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading colr-org">供应链金融平台</h4>
+                                <p>鸿坤金服平台专注于打造供应链金融体系，为优质的供应商及客户提供便捷、稳定的融资渠道，助力实体经济发展，同时为投资者提供多元化、安全可靠的理财产品。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="registHkjfAgreement" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin:2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="registHkjfAgreementTitle">鸿坤金服网站协议</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30" style="height:600px;overflow-y:auto;">
+                <div class="include" file="${project_base_path}/contract/registHkjfAgreement.html"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="registRiskNotify" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin:2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="riskNotifyTitle">投资风险告知书</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30" style="height:600px;overflow-y:auto;">
+                <div class="include" file="${project_base_path}/contract/registRiskNotify.html"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="fxinvest" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">定向及合格投资者认定</h4>
+            </div>
+            <div class="modal-body pb-30 pt-30" style="height:520px;overflow-y:auto;">
+                <!-- 所要添加的内容start -->
+                <div class="include" file="${project_base_path}/contract/registQuestion.html"></div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel">信息提示</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30">
+                短信验证码已发送
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 公共js -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/rsaUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/jsencrypt.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/smsCodeUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/user/loginReg.js"></script>
+<script>
+$(function(){
+    loginRegController.reg();
+    $("#registerbody").removeAttr("style");
+});
+</script>
+
+</html>

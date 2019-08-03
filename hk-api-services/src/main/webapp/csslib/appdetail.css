@@ -1,0 +1,164 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*样式初始化*/
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0}
+body{font:12px"微软雅黑","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%;}
+a{color:#2d374b;text-decoration:none}
+a:hover{color:#cd0200;text-decoration:underline}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+table{border-collapse:collapse;border-spacing:0}
+/*pb*/
+.fl{float: left;}
+.fr{float: right;}
+.clear{both:none;}
+.ds{display:block;}
+/*border*/
+.bt_a{border-bottom:#ddd 1px solid;}
+.bt_b{border-bottom:1px solid #91979E;}
+/*font-size*/
+.fsa{font-size:0.32rem;}
+.fsb{font-size:0.34rem;}
+.fsc{font-size:0.26rem;}
+.fsd{font-size:0.28rem;}
+.fse{font-size:0.16rem;}
+.fsf{font-size:14px;}
+.fsfa{font-size:16px;}
+.fsg{font-size:18px;}
+.fw{font-weight:normal;}
+/*padding*/
+.pdla{padding-left:0.1rem;}
+.pdba{padding-bottom:0.1rem;}
+.pdbb{padding-bottom: 0.2rem;}
+.pdtb{padding-top:0.24rem;}
+/*margin*/
+.mta{margin-top:0.1rem;}
+.mtb{margin-top:0.2rem;}
+.mtc{margin-top:0.3rem;}
+.mtd{margin-top:0.4rem;}
+.mte{margin-top:0.5rem;}
+.mra{margin-right:0.1rem;}
+.mrb{margin-right:0.2rem;}
+.mrc{margin-right:0.3rem;}
+.mrd{margin-right:0.4rem;}
+.mre{margin-right:0.5rem;}
+/*point*/
+.circle{width:5px;height:5px;border-radius:2.5px;}
+/*color*/
+.cl_a{color:#333;}
+.cl_b{color:#f7931e;}
+.cl_c{color:#68da9f;}
+.cl_red{color:#f3756f;}
+.cl_blue{color:#2ea9ff;}
+.cl_d{color:#20262D;}
+.cl_e{color:white;}
+/*text-align*/
+.tal{text-align: left;}
+.tac{text-align:center;}
+.tar{text-align: right;}
+/*line-height*/
+.lha{line-height:24px;}
+.lhb{line-height:28px;}
+/*height line-height*/
+.ph_a{height:0.5rem;line-height:0.5rem;}
+/*line-height*/
+.lha{line-height:24px;}
+.lhb{line-height:28px;}
+/*height line-height*/
+.ph_a{height:0.5rem;line-height:0.5rem;}
+/*bg*/
+.bga{background:#ff6d02; }
+/*text-indent*/
+.ti{text-indent:24px;}
+/*公告详情页*/
+.amw{width:100%;height:100%;}
+.amwdiv{width:90%;height:auto;margin:0 auto;}
+.amwh3{padding:22px 0 16px 0;}
+.time{color:rgba(145,151,158,1);line-height:26px;}
+.ggc{color:#61676E;line-height:20px;}
+/*积分转赠详情*/
+.jfdiv{width:100%;height:auto;}
+.jfdivh3{width:100%;padding:28px 0 9px 0;}
+.jftime{color:#91979E;}
+.jfyq{width:94%;padding:0 3%;}
+/*功能指引*/
+.gulidlist{width:94%;margin:20px 3% 0 3%;}
+.gulidlist li{margin-top:10px;width:90%;padding:5%;height:auto;background:white;}
+.gltitle{width:100%;height:auto;overflow:hidden;}
+.source{color:#bbb;}
+.bt{border-left:#f39200 2px solid;color:black;width:65%;white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis;overflow: hidden;}
+.glcontent{width:100%;height:auto;line-height:24px;color:#999999;}
+.gltime{color:#ddd;width:100%;height:auto;}
+/*物业缴费说明*/ 
+.wy{width:92%;padding:0 4%;height:auto;color:#61676E;line-height: 24px;}
+.wys{color:#61676E;width:100%;line-height:24px;}
+.wy > h3{width:100%;margin:13px 0;}
+/*积分付款码介绍*/
+.sj{width:92%;padding:0 4%;height:auto;}
+.sj ul li{width: 100%;height: auto;overflow:hidden;margin-bottom: 25px;}
+.imgw{width: 84%;border-bottom:#CCCCCC 1px solid;}
+.imgw h3{font-size:14px;}
+.imgw p{color:#888888;font-size:12px;}
+.sj ul li img{width: 10%;margin-right:1%;}
+/*体验金使用说明*/
+.tyj{font-size:16px;color:#DF0615;height:24px;line-height:24px;}
+.tyjsay{width:92%;padding:0 4%;height:auto;margin-top:16px;}
+.tyjjs{margin-top:44px;width:100%;font-size:14px;height:auto;overflow:hidden;}
+.tyjuse{margin-top:51px;color:#F08300;font-size:16px;}
+.tyjrule{color:#00A0E9;font-size:16px;margin-top:51px;}
+.pbimg{width:16px;float:left;margin:3px 2px 0 0;}
+.pbp{width:6px;height:6px;border-radius:3px;display:block;margin-top:6px;}
+.pointa{background:#DF0615;}
+.wz{width:96%;}
+.pointb{background:#F08300;}
+.pointc{background:#00A0E9;}
+/*新手攻略*/
+.xs_main{width:100%;height:auto;}
+.xs_main > img {width:100%;display:block;}
+.xs_a{width:100%;height:7.24rem;background: url(../imageLib/images/ic_b.png) center top no-repeat;background-size:100% 100%;}
+.xs_rg{padding-top:4rem;width:70%;height:0.8rem;margin:0 auto;}
+.rg_btn{box-shadow:0 5px 0 #eb6604 ;-moz-box-shadow:0 5px 0 #eb6604 ;-webkit-box-shadow:0 5px 0 #eb6604;font-size:16px;color:white !important;border-radius:5px;width:100%;line-height:0.8rem;background:#f31323;width:100%;display:block;height:0.8rem;line-height:0.8rem;text-align: center;}
+.xs_wz{padding-top:1.3rem;font-size:0.27rem;color:#7b2e0e;width:75%;margin:0 auto;}
+.xs_sb{width:100%;height:6.68rem;background:url(../imageLib/images/ic_c.png) center top no-repeat;background-size:100% 100%;}
+.xs_sb ul li{float:left;font-size:0.24rem;width:33.3%;color:white;text-align:center;}
+.xs_sb ul{width:90%;margin:0 auto;padding-top:5.3rem;}
+.xs_fk{width:100%;height:8rem;background:url(../imageLib/images/ic_d.png) center top no-repeat;background-size:100% 100%;}
+.xs_fk ul{width:60%;margin:0 5% 0 35%;padding-top:1.3rem;}
+.xs_fk ul li{font-size:0.26rem;color:white;margin-top:0.3rem;}
+.xs_hkjj{width:100%;height:11rem;background:url(../imageLib/images/ic_e.png) center top no-repeat;background-size:100% 100%;}
+.xs_hkc{width:75%;margin:0 auto;color:#6f4100;padding-top:4rem;font-size:0.26rem;}
+.xs_hkc font{color:#ea321a;}
+/*钱袋子详情*/
+.line{height:.3rem;width:100%;background:#fafafa;}
+.qdz_main{width:100%;height:auto;}
+.qdz_a{width:90%;padding:5%;background: white;}
+.qdz_atitle{height:0.5rem;line-height: 0.5rem;}
+.qdz_atitle > img{width:0.3rem;}
+.q_p_a{background:#f7931e;}
+.q_p_b{background:#68da9f;}
+.q_p_c{background:#f3756f;}
+.q_p_d{background:#2ea9ff;}
+.qdz_cont{width:100%;height:auto;}
+.qdz_atitlea > img{;width:0.3rem;}
+/*安全保障页面*/
+.xs_sa_a{width:100%;height:6.6rem;background:url(../imageLib/images/ic_safeb.png) center top no-repeat;background-size:cover;}
+.xs_na{padding:2.2rem 5% 0 50%;line-height:0.4rem;text-indent: 0.52rem;}
+.xs_sa_b{width:100%;height:5.3rem;background:url(../imageLib/images/ic_safec.png) center top no-repeat;background-size:cover;}
+.xs_nb{padding:.8rem 50% 0 5%;line-height:0.4rem;text-indent: 0.52rem;}
+.xs_sa_c{width:100%;height:7.2rem;background:url(../imageLib/images/ic_safed.png) center top no-repeat;background-size:cover;}
+.xs_nc{padding:0.8rem 5% 0 50%;line-height:0.4rem;text-indent: 0.52rem;}
+.xs_sa_d{width:100%;height:4.2rem;background:url(../imageLib/images/ic_safee.png) center top no-repeat;background-size:cover;}
+.xs_nd{padding:0.8rem 48% 0 7%;line-height:0.4rem;text-indent: 0.52rem;}
+.xs_sa_e{width:100%;height:5.5rem;background:url(../imageLib/images/ic_safef.png) center top no-repeat;background-size:cover;}
+.xs_ne{padding:0.7rem 5% 0 50%;line-height:0.4rem;text-indent: 0.52rem;}
+.xs_sa_f{width:100%;height:8.5rem;background:url(../imageLib/images/ic_safeg.png) center top no-repeat;background-size:cover;}
+.xs_nf{width:86%;line-height: 0.4rem;text-indent: 0.52rem;margin:0 auto;padding-top:4.2rem;}
+.xs_sa_g{width:100%;height:9.7rem;background:url(../imageLib/images/ic_safeh.png) center top no-repeat;background-size:cover;}
+.xs_ng{width:86%;line-height: 0.4rem;text-indent: 0.52rem;margin:0 auto;padding-top:1.5rem;}
+/*鸿坤金服自动投资授权书*/
+.mainbg{width:100%;height:auto;background: url(../imageLib/images/img_xieyishuiyin.png) center top no-repeat;background-size:cover;}
+/*收益递增介绍规则*/
+.ruleimg{display: block;width: 100%;}
+.frmain{width:80%;padding:0 10%;}

@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">佣金审核</span>
+              	<a href="javascript:void(0)" class="btn btn-danger" onclick="auditing()" style="display:inline-block;float:right;">审核</a>
+            </div>
+            <div class="span12" id="div-table-container"> </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           			<span>推荐人手机号：</span><input name="recommedTel" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           			<span>被推荐人手机号：</span><input name="referraTel" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           			<span>机构码：</span><input name="groupCode" class="form-control" style="width: 120px;display:inline-block;">
+           			<br>
+           			<br>
+           			<span>投资时间：</span><input type="text" id="start" name="grantTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="grantTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					
+           			<span>状态：</span><select name="state" id="state" class="form-control" style="width: 120px;display:inline-block;">
+            			</select>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+var columns = [
+    dataTableUtil.createNoneCheckBoxByCondition("id","3,4,7","state"),
+		{title: "推荐人手机", data: "recommedTel", className: "dt-simple"},
+		{title: "推荐人", data: "recommendName", className: "dt-simple"},
+		{title: "机构码", data: "groupCode", className: "dt-simple"},
+		{title: "推荐码", data: "commendNo", className: "dt-simple"},
+		{title: "被推荐人手机", data: "referraTel", className: "dt-simple"},
+		{title: "被推荐人", data: "referraName", className: "dt-simple"},
+		{title: "好友级别", data: "friendLevel", className: "dt-simple"},
+		{title: "投资标的名称", data: "biddName", className: "dt-simple"},
+		{ title:"投资时间",className:"dt-simple",data: "investTime",
+			render: function (value, type, row, meta) {
+				return dateUtil.dateTime(value);
+			}
+		},
+		{title: "投资金额	", data: "investAmount", className: "dt-simple"},
+		{title: "奖金", data: "earnAmount", className: "dt-simple"},
+		{ title:"状态",className:"dt-simple",data: "state",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("vas", "bid_recommend_state", value);
+			}
+		},
+		{ title:"操作时间",className:"dt-simple",data: "createTime",
+			render: function (value, type, row, meta) {
+				return dateUtil.dateTime(value);
+			}
+		},
+		{title: "备注", data: "note", className: "dt-simple"}
+	];
+	//创建dataTable列表
+	dataTableUtil.createDT(CONFIG.interface.findRecommendEarnInfo+"?recommendState=0", columns);
+	//初始化查询条件form
+	dataTableUtil.initDTSearchForm();
+	$("#state").append(DIC_CONSTANT.getOption("vas", "bid_recommend_state"));
+	//好友推荐审核
+	function auditing(){
+        //获取选中的列表用户id集合,并赋值
+        if (!dataTableUtil.setCheckedValToObject("ids")){
+            commonUtil.createSimpleNotify("请至少选择一条记录!", ALERT_WARN);
+            return;
+        }
+        $("#ids").attr("name", "recommendEarnIds");
+		var textHtml = "操作类型：<select name='state'><option value='3'>审核通过</option><option value='4'>审核拒绝</option>"
+	    	+"</select><br/>审核理由：<textArea name='opinion'></textArea>";
+		//审核按钮
+        commonUtil.createCustomConfirmBox("好友推荐奖审核",textHtml,CONFIG.interface.updateRecommendEarnByIds,null,commonUtil.customConfirmStandardAfterExecuteFn);
+	}
+</script>

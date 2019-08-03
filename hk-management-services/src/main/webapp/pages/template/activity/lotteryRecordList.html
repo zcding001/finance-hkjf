@@ -1,0 +1,78 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">项目咨询信息</span>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        活动名称：<input name="name" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        用户手机：<input name="tel" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        状态：    <select name="state" class="form-control" style="width: 120px;display:inline-block;">
+                                    <option value="">全部</option>
+                                    <option value="0">未发放</option>
+                                    <option value="1">已发放</option>
+                                 </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        类型：<select id="itemType" name="itemType" class="form-control" style="width: 120px;display:inline-block;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<script>
+    var columns = [
+        { title:"活动名称",className:"dt-simple",data: "name"},
+        { title:"手机号",className:"dt-simple",data: "tel"},
+        {title:"奖品类型",data:"itemType",className:"dt-simple",
+            render: function (value) {
+                return DIC_CONSTANT.getName("activity","item_type",value);
+            }
+        },
+        {title:"奖品名称",data:"itemName",className:"dt-simple"},
+        {title:"兑换码",data:"verfication",className:"dt-simple",
+            render: function (value) {
+                var text = "--";
+                if(!commonUtil.isEmpty(value)){
+                    text = value;
+                }
+                return text;
+            }
+        },
+
+        {title:"状态",data:"state",className:"dt-simple",
+            render: function (value) {
+                var text = "--";
+                if(value === 1){
+                    text = "已发放"
+                }else if(value === 0){
+                    text = "未发放"
+                }
+                return text;
+            }
+        },
+        {title:"获奖时间",data:"createTime",className:"dt-simple",
+            render: function (value) {
+                return dateUtil.dateTime(value);
+            }
+        }
+    ];
+
+
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.lotteryRecordList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+    //初始化状态下拉框
+    $("#itemType").append(DIC_CONSTANT.getOption("activity","item_type","empty"));
+
+
+</script>

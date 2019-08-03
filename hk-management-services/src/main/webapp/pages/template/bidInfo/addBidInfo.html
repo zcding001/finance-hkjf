@@ -1,0 +1,638 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                筹款中的借款标
+            </div>
+            <!-- /.panel-heading -->
+            <form name="BidForm" id="bidForm" enctype="multipart/form-data" novalidate>
+                <div class="panel-body">
+                    <div class="well">
+                        <input type="hidden" name="bidId" id="bidId" ng-model="bidId"/>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款产品:</label>
+                            <select class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                    ng-change="change(bidInfo.bidProductId)" name="bidProductId"
+                                    ng-model="bidInfo.bidProductId">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="bidproduct in bidProducts" value={{bidproduct.id+''}}>
+                                    {{bidproduct.name}}
+                                </option>
+                            </select>
+                            <span style="color:#F00" class="bid-info" id="bidProductNameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款用途:</label>
+                            <select class="form-control ng-pristine ng-valid ng-touched textstyle" name="loanUse"
+                                    ng-model="bidInfo.loanUse" validator="required" valid-method="blur"
+                                    message-id="loanUseError">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="loanUse in loanUses" value="{{loanUse.value+''}}">{{loanUse.name}}
+                                </option>
+                            </select>
+                            <span style="color:#F00" class="bid-info" id="loanUseError"></span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款标题:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                   placeholder="请输入借款标题,不得与已有标的名称重复" name="title" ng-model="bidInfo.title" type="text"
+                                   validator="required" valid-method="blur" message-id="titleError">
+                            <span style="color:#F00;display:inline-block;" class="bid-info" id="titleError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">标签内容:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="labelText"
+                                   ng-model="bidInfo.labelText" type="text"  valid-method="blur"
+                                   message-id="labelTextError">
+                            <span style="color:#F00;display:inline-block;" class="bid-info" id="labelTextError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">标签链接:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="labelUrl"
+                                   ng-model="bidInfo.labelUrl" type="text" message-id="labelUrlError">
+                            <span style="color:#F00;display:inline-block;" class="bid-info" id="labelUrlError"></span>
+                        </div>
+                        <div class="form-group" style="overflow:hidden">
+                            <label class="textright" style="float:left"><span
+                                    class="font-red">*&nbsp;</span>显示平台:</label>
+                            <input type="hidden" name="showPosition" id="showPosition" ng-model="bidInfo.showPosition"/>
+                            <div ng-repeat="sp in showPositions" style="float:left;margin-left:5px;">
+                                <div>
+                                    <label for="checkbox{{sp.value}}">
+                                        <input type="checkbox" value="sp.value" name="showPosition{{sp.value}}"
+                                               ng-model="sp.checked" validator="required" style="margin:10px 0 0;"
+                                               validation-group="showpositionError"/>{{sp.name}}
+                                    </label>
+                                </div>
+                            </div>
+                            <span class="bid-info show-span" id="showpositionError"></span>
+                        </div>
+
+                        <div class="form-group" style="overflow:hidden">
+                            <label class="textright" style="float:left"><span
+                                    class="font-red">*&nbsp;</span>投资平台:</label>
+                            <input type="hidden" name="investPosition" id="investPosition"
+                                   ng-model="bidInfo.investPosition"/>
+                            <div ng-repeat="ipt in investpositions" style="float:left;margin-left:5px;">
+                                <div>
+                                    <label for="checkbox{{ipt.value}}">
+                                        <input type="checkbox" value="ipt.value" name="investposition{{ipt.value}}"
+                                               ng-model="ipt.checked" validator="required" style="margin:10px 0 0;"
+                                               validation-group="investpositionError"/>{{ipt.name}}
+                                    </label>
+                                </div>
+                            </div>
+                            <span class="bid-info show-span" id="investpositionError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>项目编号:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                   placeholder="请输入项目编号..." name="bidCode" ng-model="bidInfo.bidCode"
+                                   type="text" validator="required" valid-method="blur" message-id="projectNumError">
+                            <span style="color:#F00" class="bid-info" id="projectNumError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款金额:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="totalAmount"
+                                   placeholder="请输入金额范围内的整数"
+                                   ng-model="bidInfo.totalAmount" type="text"
+                                   validator="required,range,integertext,hundredMultiple" min="{{bidInfo.amountMin}}"
+                                   max="{{bidInfo.amountMax}}" valid-method="blur"
+                                   range-error-message="请输入介于 {{bidInfo.amountMin}}至{{bidInfo.amountMax}} 的整数值!"
+                                   range-success-message="" message-id="totalAmountError">
+                            <span style="color:#F00" class="bid-info" id="totalAmountError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">金额范围:</label>
+                            <span ng-model="bidInfo.amountMin">{{bidInfo.amountMin}}</span>-<span
+                                ng-model="bidInfo.amountMax">{{bidInfo.amountMax}}</span>元
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款期限:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="termValue"
+                                   placeholder="请输入期限范围内的整数"
+                                   ng-model="bidInfo.termValue" type="text" validator="required,range,integertext"
+                                   valid-method="blur" min="{{bidInfo.termValueMin}}" max="{{bidInfo.termValueMax}}"
+                                   range-error-message="请输入介于 {{bidInfo.termValueMin}}至{{bidInfo.termValueMax}} 的整数值!"
+                                   range-success-message="" message-id="termValueError"> 期限：<span
+                                ng-model="bidInfo.termValueMin">{{bidInfo.termValueMin}}</span> -<span
+                                ng-model="bidInfo.termValueMax">{{bidInfo.termValueMax}}</span><span
+                                ng-model="bidInfo.termUnit">{{termUnit}}</span>
+                            <span style="color:#F00" class="bid-info" id="termValueError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">招标方案:</label>
+                            <span ng-model="bidInfo.bidScheme">{{bidScheme}}</span><span ng-model="bidSchemeValue"> {{bidInfo.bidSchemeValue}}</span>
+                        </div>
+                        <div class="form-group" ng-show="bidInfo.bidScheme==1">
+                            <div class="form-group">
+                                <label class="textright">提示:</label>
+                                <span style="color: red">投资步长即在最低招标金额的基础上,标的投资金额每次增加的金额为此值</span>
+                            </div>
+                            <label class="textright"><span class="font-red">*&nbsp;</span>投资步长:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="stepValue"
+                                   placeholder="请输入正整数"
+                                   ng-model="bidInfo.stepValue" type="text"
+                                   validator="required,integertextIf,overZeroIf"  valid-method="blur"
+                                    message-id="stepValueError">
+                            <span style="color:#F00" class="bid-info" id="stepValueError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>年利率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="interestRate"
+                                   placeholder="请输入年利率范围内至多两位小数的数值"
+                                   ng-model="bidInfo.interestRate" validator="required,range,rate" type="text"
+                                   min="{{bidInfo.rateMin}}" max="{{bidInfo.rateMax}}"
+                                   range-error-message="请输入{{bidInfo.rateMin | number:2}}-{{bidInfo.rateMax | number:2}}的数值(两位小数)!"
+                                   range-success-message="" valid-method="blur" message-id="interestRateError">%年利率范围：{{bidInfo.rateMin
+                            | number:2}} - {{bidInfo.rateMax | number:2}}% （备注：年利率已包含加息率）
+                            <span style="color:#F00" class="bid-info" id="interestRateError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>已加息利率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="raiseRate"
+                                   placeholder="请输入不大于年利率的至多两位小数的数值"
+                                   ng-model="bidInfo.raiseRate" type="text" validator="required,range,rate" type="text"
+                                   min="0" max="{{bidInfo.interestRate}}" range-error-message="请输入非负且小于年化率的数字"
+                                   range-success-message="" valid-method="blur" message-id="raiseRateError">%
+                            <span style="color:#F00" class="bid-info" id="raiseRateError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款手续费率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="commissionRate"
+                                   placeholder="请输入至多四位小数的数值"
+                                   min="0" max="100" valid-method="blur"
+                                   ng-model="bidInfo.commissionRate" validator="required,range,rate4OrInteger"
+                                   message-id="commissionRateError">%
+                            <span style="color:#F00" class="bid-info" id="commissionRateError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">总借款服务费率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="serviceRate"
+                                   placeholder="请输入至多两位小数的数值"
+                                   min="0" max="100"
+                                   range-error-message="请输入介于 0至100的数值!"
+                                   ng-model="bidInfo.serviceRate" type="text" validator="rangeIf,rateOrIntegerIf"
+                                   valid-method="blur"
+                                   message-id="serviceRateError">%
+                            <span style="color:#F00" class="bid-info" id="serviceRateError"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>逾期罚款:</label>
+                            <input type="radio" name="punishState" ng-model="bidInfo.punishState" ng-value="1"
+                                   ng-checked="strConvertArrContains(bidInfo.punishState,1)">是
+                            <input type="radio" name="punishState" ng-model="bidInfo.punishState" ng-value="0"
+                                   ng-click="cleanPunishStateAbout()">否
+                            <span style="color:#F00" class="bid-info" id="punishstateError"></span>
+                        </div>
+
+                        <span ng-show="bidInfo.punishState==1">
+                            <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>垫付服务费率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" id="advanceServiceRate"
+                                   name="advanceServiceRate"
+                                   mustValidate="{{bidInfo.punishState==1}}"
+                                   validator="required,rateOrIntegerIf"
+                                   message-id="advanceServiceRateError"
+                                   ng-model="bidInfo.advanceServiceRate" type="text">%
+                            <span style="color:#F00" class="bid-info" id="advanceServiceRateError"></span>
+                        </div>
+                             <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>逾期违约金费率:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" id="liquidatedDamagesRate"
+                                   name="liquidatedDamagesRate"
+                                   mustValidate="{{bidInfo.punishState==1}}"
+                                   validator="required,rateOrIntegerIf"
+                                   message-id="liquidatedDamagesRateError"
+                                   ng-model="bidInfo.liquidatedDamagesRate" type="text">%
+                            <span style="color:#F00" class="bid-info" id="liquidatedDamagesRateError"></span>
+                        </div>
+                        </span>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">&nbsp;</span>信用等级:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="creditLevel"
+                                   placeholder="请输入信用等级"
+                                   ng-model="bidInfo.creditLevel" type="text" valid-method="blur"
+                                   message-id="creditLevelError">
+                            <span style="color:#F00" class="bid-info" id="creditLevelError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">&nbsp;</span>票据号:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="billNo"
+                                   placeholder="请输入票据号"
+                                   ng-model="bidInfo.billNo" type="text" valid-method="blur"
+                                   message-id="billNoError">
+                            <span style="color:#F00" class="bid-info" id="billNoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="textright">是否允许债券转让:</label>
+                            <input type="radio" name="creditorState" ng-model="creditorState" value="1">是
+                            <input type="radio" name="creditorState" ng-model="creditorState" value="0"
+                                   ng-click="cleanCreditorStateAbout()">否
+                        </div>
+
+                        <span ng-show="creditorState==1">
+                            <div class="form-group">
+                            <label class="textright">提示:</label>
+                            <span style="color: red">体验金相关标的债券转让字段填入 0 </span>
+                        </div>
+                            <div class="form-group">
+                                <label class="textright">债权到期是否提醒:</label>
+                                <input type="radio" name="maturityRemind" ng-model="bidInfo.maturityRemind"
+                                       value="1" ng-checked="strConvertArrContains(bidInfo.maturityRemind,1)">是
+                                <input type="radio" name="maturityRemind" ng-model="bidInfo.maturityRemind"
+                                       value="0" ng-checked="strConvertArrContains(bidInfo.maturityRemind,0)">否
+                            </div>
+							<div class="form-group">
+								<label class="textright"><span class="font-red">*&nbsp;</span>转让前持有债权天数:</label>
+                                <!--<input class="form-control ng-pristine ng-valid ng-touched textstyle"  name="creditorDays" ng-model="bidInfo.creditorDays" type="text" validator="required" valid-method="blur" message-id="creditorDaysError">-->
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       placeholder="请输入正整数"
+                                       name="creditorDays" ng-model="bidInfo.creditorDays"
+                                       mustValidate="{{creditorState==1}}"
+                                       validator="required,integertextIf" valid-method="blur"
+                                       message-id="creditorDaysError"
+                                       type="text">
+								<span style="color:#F00" class="bid-info" id="creditorDaysError"></span>
+							</div>
+							<div class="form-group">
+								<label class="textright"><span class="font-red">*&nbsp;</span>债权最多转让次数:</label>
+                                <!--<input class="form-control ng-pristine ng-valid ng-touched textstyle"  name="mostTransferCount" ng-model="bidInfo.mostTransferCount" type="text" validator="required" valid-method="blur" message-id="mostTransferCountError">-->
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       placeholder="请输入正整数"
+                                       name="mostTransferCount"
+                                       mustValidate="{{creditorState==1}}"
+                                       validator="required,integertextIf"
+                                       valid-method="blur" message-id="mostTransferCountError"
+                                       ng-model="bidInfo.mostTransferCount" type="text">
+								<span style="color:#F00" class="bid-info" id="mostTransferCountError"></span>
+							</div>
+							<div class="form-group">
+								<label class="textright"><span class="font-red">*&nbsp;</span>转让交易日期距下次还款日期天数:</label>
+                                <!--<input class="form-control ng-pristine ng-valid ng-touched textstyle"  name="dealRepayDays" ng-model="bidInfo.dealRepayDays" type="text" validator="required" valid-method="blur" message-id="dealRepayDaysError">-->
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="dealRepayDays"
+                                       placeholder="请输入正整数"
+                                       mustValidate="{{creditorState==1}}"
+                                       validator="required,integertextIf"
+                                       valid-method="blur" message-id="dealRepayDaysError"
+                                       ng-model="bidInfo.dealRepayDays" type="text">
+								<span style="color:#F00" class="bid-info" id="dealRepayDaysError"></span>
+							</div>
+							<div class="form-group">
+								<label class="textright"><span class="font-red">*&nbsp;</span>折价率:</label>
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       style="width: 24.6%;" name="convertRateStart" ng-model="bidInfo.convertRateStart"
+                                       placeholder="请输入整数或者至多两位小数"
+                                       min="0" max="{{bidInfo.convertRateEnd}}"
+                                       mustValidate="{{creditorState==1}}"
+                                       validator="required,rangeIf"
+                                       message-id="convertRateError"
+                                       type="text" valid-method="blur">% -
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       style="width: 24.6%;" name="convertRateEnd" ng-model="bidInfo.convertRateEnd"
+                                       placeholder="请输入整数或者至多两位小数"
+                                       mustValidate="{{creditorState==1}}"
+                                       min="{{bidInfo.convertRateStart}}"
+                                       validator="required,rangeIf"
+                                       message-id="convertRateError"
+                                       type="text" valid-method="blur">%
+								<span style="color:#F00" class="bid-info" id="convertRateError"></span>
+							</div>
+							<div class="form-group">
+								<label class="textright"><span class="font-red">*&nbsp;</span>溢价率:</label>
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       style="width: 24.6%;" name="overflowRateStart"
+                                       placeholder="请输入整数或者至多两位小数"
+                                       mustValidate="{{creditorState==1}}"
+                                       ng-model="bidInfo.overflowRateStart" type="text" valid-method="blur"
+                                       min="0" max="{{bidInfo.overflowRateEnd}}"
+                                       validator="required,rangeIf"
+                                       message-id="overflowRateError">% -
+								<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       style="width: 24.6%;" name="overflowRateEnd" ng-model="bidInfo.overflowRateEnd"
+                                       mustValidate="{{creditorState==1}}"
+                                       placeholder="请输入整数或者至多两位小数"
+                                       min="{{bidInfo.overflowRateStart}}"
+                                       validator="required,rangeIf"
+                                       type="text" valid-method="blur" message-id="overflowRateError">%
+								<span style="color:#F00" class="bid-info" id="overflowRateError"></span>
+							</div>
+						</span>
+
+                        <div class="form-group" style="overflow:hidden">
+                            <label class="textright" style="float:left"><span
+                                    class="font-red">&nbsp;</span>风控方式:</label>
+                            <input type="hidden" name="assureType" id="assureType" ng-model="bidInfo.assureType"/>
+                            <div ng-repeat="atp in assureTypes" style="float:left;margin-left:5px;">
+                                <div class="checkbox">
+                                    <label for="checkbox{{atp.value}}">
+                                        <input type="checkbox" value="atp.value" name="assureType{{atp.value}}"
+                                               ng-model="atp.checked"/>{{atp.name}}
+                                    </label>
+                                </div>
+                            </div>
+                            <!--<span class="bid-info show-span" id="assureTypeError"></span>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>还款方式:</label>
+                            <span ng-repeat="temp in biddRepaymentWays">
+								 <input type="radio" name="biddRepaymentWay" ng-model="bidInfo.biddRepaymentWay"
+                                        value="{{temp.value}}">{{temp.name}}
+							</span>
+                        </div>
+
+                        <span id="repayCapArea" class="hide">
+                        <div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>是否允许提前还本:</label>
+                            <input type="radio" name="advanceRepayState" ng-model="bidInfo.advanceRepayState" value="1"
+                                   ng-checked="strConvertArrContains(bidInfo.advanceRepayState,1)">允许
+                            <input type="radio" name="advanceRepayState" ng-model="bidInfo.advanceRepayState" value="0"
+                                   ng-checked="strConvertArrContains(bidInfo.advanceRepayState,0)"
+                                   ng-click="cleanRepayCapArea()">不允许
+						</div>
+
+                         <span ng-show="bidInfo.advanceRepayState==1">
+                        <div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>提前还本计息方式:</label>
+                            <input type="radio" name="returnCapWay" ng-model="bidInfo.returnCapWay" value="1"
+                                   ng-checked="strConvertArrContains(bidInfo.returnCapWay,1)">按日计息
+                            <input type="radio" name="returnCapWay" ng-model="bidInfo.returnCapWay" value="2"
+                                   ng-checked="strConvertArrContains(bidInfo.returnCapWay,2)">按月计息
+						</div>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款满n天后可提前结清:</label>
+                            <input class="form-control ng-pristine ng-valid ng-touched textstyle" id="returnCapDays"
+                                   name="returnCapDays"
+                                   placeholder="请输入正整数"
+                                   mustValidate="{{bidInfo.advanceRepayState==1}}"
+                                   validator="required,integertextIf"
+                                   message-id="returnCapDaysError"
+                                   ng-model="bidInfo.returnCapDays" type="text">
+                            <span style="color:#F00" class="bid-info" id="returnCapDaysError"></span>
+                        </div>
+                       </span>
+						</span>
+
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="textright"><span class="font-red">&nbsp;</span>还款来源:</label>
+
+                            <textarea id="repaymentSource" name="repaymentSource" ng-model="bidInfo.repaymentSource"
+                                      class="textstyle" style="width:300px; height: 100px;"></textarea>
+                            <!--<span style="color:#F00" class="bid-info" id="repaymentSourceError"></span>-->
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="textright"><span class="font-red">&nbsp;</span>风险控制措施:</label>
+
+                            <textarea id="assureDescription" name="assureDescription"
+                                      ng-model="bidInfo.assureDescription" class="textstyle"
+                                      style="width:300px; height: 100px;"></textarea>
+                            <!--<span style="color:#F00" class="bid-info " id="assureDescriptionError"></span>-->
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="textright"><span class="font-red">&nbsp;</span>项目信息:</label>
+                            <textarea id="projectDescription" name="projectDescription"
+                                      ng-model="bidInfo.projectDescription " class="textstyle"
+                                      style="width:300px; height: 100px;"></textarea>
+                            <!--<span style="color:#F00" class="bid-info" id="projectDescriptionError"></span>-->
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="textright"><span class="font-red">&nbsp;</span>资金用途:</label>
+                            <textarea id="fundUse" name="fundUse" ng-model="bidInfo.fundUse" class="textstyle"
+                                      style="width:300px; height: 100px;"></textarea>
+                            <!--<span style="color:#F00" class="bid-info" id="fundUseError"></span>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="borrowerId" id="borrowerId"/>
+                            <label class="textright"><span class="font-red">*&nbsp;</span>借款方详细信息:</label>
+                            <a href="javascript:void(0)" ng-click="radioChecked('borrowerId');">请选择</a>
+                            <span id="borrowName" style="color:red">{{bidInfo.borrowerName}}</span>
+                            <span style="color:#F00" class="bid-info" id="borrowerError"></span>
+                        </div>
+                        <span id="borrowerIdDetail" class="hide">
+                           <div class="form-group">
+                                <label class="textright">借款人手机号:</label>
+                                <span style="color: red" id="borrowerTel"></span>
+                           </div>
+                            <div class="form-group">
+                                <label class="textright">借款人身份证号:</label>
+                                <span style="color: red" id="borrowerIdCard"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">借款人身份证图片:</label>
+                                <span style="color: red" id="borrowerDisplayPics"></span>
+                             </div>
+                        </span>
+
+                        <div class="form-group">
+                            <label class="textright"><span class="font-red">*&nbsp;</span>标的属性:</label>
+                            <select class="form-control ng-pristine ng-valid ng-touched textstyle" name="type"
+                                    ng-model="bidInfo.type" validator="required" valid-method="blur"
+                                    message-id="typesError">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="tp in types" value="{{tp.value+''}}">{{tp.name}}</option>
+                            </select>
+                            <span style="color:#F00" class="bid-info" id="typesError"></span>
+                        <div>   <br/>
+
+                                <div class="form-group">
+                                    <label class="textright">是否赠送积分:</label>
+                                    <input type="radio" name="givingPointState" ng-model="bidInfo.givingPointState"
+                                           value="1" ng-checked="strConvertArrContains(bidInfo.givingPointState,1)">是
+                                    <input type="radio" name="givingPointState" ng-model="bidInfo.givingPointState"
+                                           value="0" ng-checked="strConvertArrContains(bidInfo.givingPointState,0)">否
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">提示:</label>
+                                    <span style="color: red">如果系统当前有启用的好友推荐规则,则可以为标的选择此项,无启用默认为否</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">是否参与好友推荐:</label>
+                                    <span id="recommendStateSpan" class="hide">
+                                         <input type="radio" name="recommendState" ng-model="bidInfo.recommendState"
+                                                value="1" ng-checked="strConvertArrContains(bidInfo.recommendState,1)">是
+                                    </span>
+                                    <input type="radio" name="recommendState" ng-model="bidInfo.recommendState"
+                                           value="0" ng-checked="strConvertArrContains(bidInfo.recommendState,0)">否
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">预留借款人利息:</label>
+                                    <input type="radio" name="reserveInterest" ng-model="bidInfo.reserveInterest"
+                                           value="1" ng-checked="strConvertArrContains(bidInfo.reserveInterest,1)">预留
+                                    <input type="radio" name="reserveInterest" ng-model="bidInfo.reserveInterest"
+                                           value="0" ng-checked="strConvertArrContains(bidInfo.reserveInterest,0)">不预留
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">是否允许使用卡券:</label>
+                                    <input type="radio" name="" ng-model="bidInfo.allowCoupon" value="1"
+                                           ng-checked="strConvertArrContains(bidInfo.allowCoupon,1)">不限制
+                                    <input type="radio" name="allowCoupon" ng-model="bidInfo.allowCoupon" value="2"
+                                           ng-checked="strConvertArrContains(bidInfo.allowCoupon,2)">仅加息券
+                                    <input type="radio" name="allowCoupon" ng-model="bidInfo.allowCoupon" value="3"
+                                           ng-checked="strConvertArrContains(bidInfo.allowCoupon,3)">仅红包
+                                    <input type="radio" name="allowCoupon" ng-model="bidInfo.allowCoupon" value="0"
+                                           ng-checked="strConvertArrContains(bidInfo.allowCoupon,0)">不支持
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">是否允许代扣:</label>
+                                    <input type="radio" name="withholdState" ng-model="bidInfo.withholdState" value="0"
+                                           ng-checked="strConvertArrContains(bidInfo.withholdState,0)">允许
+                                    <input type="radio" name="withholdState" ng-model="bidInfo.withholdState" value="2"
+                                           ng-checked="strConvertArrContains(bidInfo.withholdState,2)">不允许
+                                </div>
+                                <span id="matchTypeSpan" class="hide">
+                                  <div class="form-group">
+                                    <label class="textright">匹配类型:</label>
+                                    <input type="radio" name="matchType" ng-model="bidInfo.matchType" value="0"
+                                           ng-checked="strConvertArrContains(bidInfo.matchType,0)">直接投资
+                                    <input type="radio" name="matchType" ng-model="bidInfo.matchType" value="1"
+                                           ng-checked="strConvertArrContains(bidInfo.matchType,1)">后台匹配
+                                </div>
+                                </span>
+                                <div class="form-group">
+                                    <label class="textright">封面图片:</label>
+                                    <input file-model="imgUrl" id="Pic_imgUrl" type="file"
+                                           onchange="angular.element(this).scope().upload('Pic_imgUrl')"
+                                           style="display:inline-block;">
+                                    <span style="color:#F00" class="bid-info" id="imgUrlError"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="textright">印章图片:</label>
+                                    <input name="printImgurl" file-model="printImgurl" id="Pic_printImgurl" type="file"
+                                           onchange="angular.element(this).scope().upload('Pic_printImgurl')"
+                                           style="display:inline-block;">
+                                    <span style="color:#F00" class="bid-info" id="printImgurlError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright">相关法律文件:</label>
+                                    <input file-model="legalFiles" id="Pic_legalFiles" type="file"
+                                           onchange="angular.element(this).scope().upload('Pic_legalFiles')"
+                                           style="display:inline-block;">
+                                    <span style="color:#F00" class="bid-info" id="legalFilesError"></span>
+                                </div>
+                                <!--<div class="form-group">-->
+                                <!--<label class="textright">放标时间:</label>-->
+                                <!--<input  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate form-control" ng-model="bidInfo.lendTime" name="lendTime" readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>-->
+                                <!--</div>-->
+                                <!--<label class="textright">提示:开始时间与结束时间间隔不能超过 {{deadLine}} 天</label>-->
+                                <div class="form-group">
+                                    <label class="textright">提示:</label>
+                                    <span style="color: red">投标开始时间与结束时间相隔上限天数为： {{bidDeadline}} 天</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright"><span class="font-red">&nbsp;</span>投标开始时间:</label>
+                                    <input type="text" id="startDate"
+                                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endDate\')}'})"
+                                           class="Wdate form-control" ng-model="bidInfo.startTime" name="startTime"
+                                           readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright"><span class="font-red">&nbsp;</span>投标结束时间:</label>
+                                    <span id="kk">
+								<input type="text" id="endDate"
+                                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'#F{$dp.$D(\'startDate\',{d:'+window.bidDeadline+'})}'})"
+                                       class="Wdate form-control" ng-model="bidInfo.endTime" name="endTime"
+                                       readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>
+							</span>
+                                </div>
+                                <span id="interestAmountSpan" class="hide">
+                                    <div class="form-group">
+                                    <label class="textright">总付利息：</label>
+                                    <span>{{interestAmount}} 元</span>
+                                </div>
+                                </span>
+                                <div class="form-group">
+                                    <label class="textright">产品描述：</label>
+                                    <span>{{productDesc}}</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="textright">应审资料：</label>
+                                    <span>身份证</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="receiptUserId" id="receiptUserId"/>
+                                    <label class="textright">本金接收人:</label>
+                                    <a href="javascript:void(0)" ng-click="radioChecked('receiptUserId');">请选择</a>
+                                    <span id="receiptUserName" style="color:red">{{bidInfo.receiptUserName}}</span>
+                                    <span style="color:#F00" class="bid-info" id="receiptUserError"></span>
+                                </div>
+
+                           <span id="receiptUserDetail" class="hide">
+                               <div class="form-group">
+                                    <label class="textright">本金接收人手机号:</label>
+                                    <span style="color: red" id="receiptUserTel"></span>
+                               </div>
+                            <div class="form-group">
+                                <label class="textright">本金接收人身份证号码:</label>
+                                <span style="color: red" id="receiptUserCard"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">本金接收人身份证图片:</label>
+                                <span style="color: red" id="receiptUserDisplayPics"></span>
+                            </div>
+                          </span>
+
+                             <span id="companySpan" class="hide">
+                                  <div class="form-group">
+                                     <label class="textright"><span class="font-red">*&nbsp;</span>企业账户:</label>
+                            			<select class="form-control ng-pristine ng-valid ng-touched textstyle" name="companyId"
+                                    ng-model="bidInfo.companyId">
+                                	<option value="">--请选择--</option>
+                                	<option ng-repeat="company in companyIds" value="{{company.userId+''}}">{{company.realName}}
+                               	 	</option>
+                            		</select>
+                           			 <span style="color:#F00" class="bid-info" id="companyIdError"></span>
+                                </div>
+                             </span>
+                             
+                            <div class="form-group">
+                                <label class="textright">显示交易所信息:</label>
+                                <input type="radio" name="bourseFlg" ng-model="bidInfo.bourseFlg" value="0"
+                                       ng-checked="strConvertArrContains(bidInfo.bourseFlg,0)">否
+                                <input type="radio" name="bourseFlg" ng-model="bidInfo.withholdState" value="1"
+                                       ng-checked="strConvertArrContains(bidInfo.bourseFlg,1)">是
+                            </div>   <br/>
+
+                            </div>
+                        </div>
+                        <div ng-show="showPage">
+                            <button type="button" ng-model="showPage" class="btn btn-outline btn-success"
+                                    ng-click="submit(BidForm)" validator-submit="BidForm">保存
+                            </button>
+                            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                        <div ng-hide="showPage">
+                            <button type="button" ng-model="showPage" class="btn btn-outline btn-success"
+                                    ng-click="update(BidForm)" validator-submit="BidForm">修改
+                            </button>
+                            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<div ng-include="'pages/template/bidInfo/userInfo.html'"></div>

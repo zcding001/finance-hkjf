@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserVipRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserVipRecord" type="com.hongkun.finance.user.model.RegUserVipRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="nowMoney" column="now_money"/>
+		<result property="times" column="times"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,now_money,times,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_vip_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="nowMoney != null">
+				now_money ,
+			</if>
+			<if test="times != null">
+				times ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="nowMoney != null">
+				#{nowMoney} ,
+			</if>
+			<if test="times != null">
+				#{times} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO reg_user_vip_record (
+	       	id ,
+	       	reg_user_id ,
+	       	now_money ,
+	       	times ,
+	       	create_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.nowMoney != null">
+					#{item.nowMoney} ,
+				</if>
+				<if test="item.nowMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.times != null">
+					#{item.times} ,
+				</if>
+				<if test="item.times == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="nowMoney != null ">
+				now_money =now_money + #{nowMoney} ,
+			</if>
+			<if test="times != null">
+			times = #{times} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_user_vip_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_vip_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserVipRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_user_vip_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="nowMoney != null">
+			AND now_money = #{nowMoney}
+			</if>
+			<if test="times != null">
+			AND times = #{times}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_vip_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserVipRecord">
+		SELECT <include refid="columns" />
+		FROM reg_user_vip_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+    <!-- 查询用户降级记录 -->
+    <select id="findRegUserVipRecordsList" resultType="com.hongkun.finance.user.model.RegUserVipRecord">
+        SELECT
+            b.id,
+            b.reg_user_id AS regUserId,
+            b.create_time AS createTime,
+            b.now_money AS nowMoney,
+            b.times
+        FROM
+            reg_user AS a
+        INNER JOIN reg_user_vip_record AS b ON b.reg_user_id = a.id
+        WHERE
+            a.vip_flag = 1
+        AND (
+            b.reg_user_id,
+            b.create_time
+        ) = ANY (
+            SELECT
+                reg_user_id,
+                MAX(b.create_time)
+            FROM
+                reg_user_vip_record b
+            GROUP BY
+                b.reg_user_id
+        )
+    </select>
+</mapper>

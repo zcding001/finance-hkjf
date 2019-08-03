@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>鸿坤金服卡券使用规则</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        min-height: 100%;
+        font-family: "Microsoft YaHei", sans-serif;
+        box-sizing: border-box;
+    }
+
+    html {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    li,
+    ol,
+    ul,
+    dl,
+    dt,
+    dd {
+        list-style: none
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+        outline: 0;
+    }
+
+    .bank_cont {
+        margin-left: .30rem;
+        margin-right: .30rem;
+        margin-top: .61rem;
+        margin-bottom: 1.11rem;
+        text-align: justify;
+        text-justify:inter-ideograph;
+    }
+    .bank_cont  h3{
+        font-size: .28rem;
+        font-weight: bold;
+        margin:.2rem 0;
+    }
+
+    .bank_cont p {
+        font-size: .28rem;
+        color: #333;
+        line-height: .5rem;
+        text-indent: 2em;
+    }
+    </style>
+    <script>
+    (function(doc, win) { // font-size.js
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = (clientWidth >= 640 ? 100 : clientWidth / 6.4) + 'px';
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    </script>
+</head>
+
+<body>
+    <div class="bank_cont">
+        <h3>如何使用加息券和投资红包</h3>
+        <p>1. 平台会根据用户和实际情况不定期发放给用户到账户里；</p>
+        <p>2. 加息券和投资红包是有一定有效期限的和使用范围，具体可以查看每个红包和加息券的使用规则；</p>
+        <p>3. 每次投资最多使用一张加息券和投资红包，加息券和投资红包可一起使用；</p>
+        <p>4. 用户输入投资金额，平台会根据用户账户可用的投资红包、加息券和投资金额，默认选择最大化的福利卡券，用户也可以自行选择使用或者不使用。</p>
+        <h3>卡券激活</h3>
+        <p>激活码是一串 数字、字母、或者加上符号的组合，一般会通过线下活动、合作商家平台进行发放，一个用户一天内不限兑换码的兑换次数，同时不限卡券使用张数；激活成功即可在规定的范围内使用。</p>
+    </div>
+</body>
+
+</html>

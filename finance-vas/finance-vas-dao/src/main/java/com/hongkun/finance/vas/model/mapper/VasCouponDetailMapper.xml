@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasCouponDetail">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasCouponDetail" type="com.hongkun.finance.vas.model.VasCouponDetail">
+		<result property="id" column="id"/>
+		<result property="acceptorUserId" column="acceptor_user_id"/>
+		<result property="avtKey" column="avt_key"/>
+		<result property="worth" column="worth"/>
+		<result property="couponProductId" column="coupon_product_id"/>
+		<result property="bidProductTypeRange" column="bid_product_type_range"/>
+		<result property="source" column="source"/>
+		<result property="beginTime" column="begin_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="usedTime" column="used_time"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="modifiedUserId" column="modified_user_id"/>
+		<result property="reason" column="reason"/>
+		<result property="state" column="state"/>
+		<result property="actionScope" column="action_scope"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	<resultMap id="_VasCouponDetailVO" type="com.hongkun.finance.vas.model.vo.VasCouponDetailVO" extends="_VasCouponDetail">
+		<result property="name" column="name"/>
+		<result property="type" column="type"/>
+		<result property="amountMin" column="amount_min"/>
+		<result property="amountMax" column="amount_max"/>
+	</resultMap>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,acceptor_user_id,avt_key,worth,coupon_product_id,bid_product_type_range,source,begin_time,end_time,used_time,create_user_id,modified_user_id,reason,state,action_scope,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_coupon_detail ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="acceptorUserId != null">
+				acceptor_user_id ,
+			</if>
+			<if test="avtKey != null and avtKey != ''">
+				avt_key ,
+			</if>
+			<if test="worth != null">
+				worth ,
+			</if>
+			<if test="couponProductId != null">
+				coupon_product_id ,
+			</if>
+			<if test="bidProductTypeRange != null and bidProductTypeRange != ''">
+				bid_product_type_range ,
+			</if>
+			<if test="source != null">
+				source ,
+			</if>
+				begin_time ,
+				end_time ,
+			<if test="usedTime != null">
+				used_time ,
+			</if>
+			<if test="createUserId != null">
+				create_user_id ,
+			</if>
+			<if test="modifiedUserId != null">
+				modified_user_id ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="actionScope != null">
+				action_scope ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="acceptorUserId != null">
+				#{acceptorUserId} ,
+			</if>
+			<if test="avtKey != null and avtKey != ''">
+				#{avtKey} ,
+			</if>
+			<if test="worth != null">
+				#{worth} ,
+			</if>
+			<if test="couponProductId != null">
+				#{couponProductId} ,
+			</if>
+			<if test="bidProductTypeRange != null and bidProductTypeRange != ''">
+				#{bidProductTypeRange} ,
+			</if>
+			<if test="source != null">
+				#{source} ,
+			</if>
+			<choose>
+				<when test="beginTime != null">
+					#{beginTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="endTime != null">
+					#{endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="usedTime != null">
+				#{usedTime} ,
+			</if>
+			<if test="createUserId != null">
+				#{createUserId} ,
+			</if>
+			<if test="modifiedUserId != null">
+				#{modifiedUserId} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				#{reason} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="actionScope != null">
+				#{actionScope} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO vas_coupon_detail (
+        	acceptor_user_id ,
+        	avt_key ,
+        	worth ,
+        	coupon_product_id ,
+        	bid_product_type_range ,
+        	source ,
+        	begin_time ,
+        	end_time ,
+        	used_time ,
+        	create_user_id ,
+        	modified_user_id ,
+        	reason ,
+        	state ,
+			action_scope ,
+        	create_time ,
+        	modify_time 
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+			<![CDATA[(]]>
+				<if test="item.acceptorUserId != null">
+					#{item.acceptorUserId} ,
+				</if>
+				<if test="item.acceptorUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.avtKey != null and item.avtKey != ''">
+					#{item.avtKey} ,
+				</if>
+				<if test="item.avtKey == null or item.avtKey == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.worth != null">
+					#{item.worth} ,
+				</if>
+				<if test="item.worth == null">
+					DEFAULT ,
+				</if>
+				<if test="item.couponProductId != null">
+					#{item.couponProductId} ,
+				</if>
+				<if test="item.couponProductId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidProductTypeRange != null and item.bidProductTypeRange != ''">
+					#{item.bidProductTypeRange} ,
+				</if>
+				<if test="item.bidProductTypeRange == null or item.bidProductTypeRange == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.source != null">
+					#{item.source} ,
+				</if>
+				<if test="item.source == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.beginTime != null">
+					#{item.beginTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">
+					#{item.endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.usedTime != null">
+					#{item.usedTime} ,
+				</if>
+				<if test="item.usedTime == null">
+					DEFAULT ,
+				</if>
+				<if test="item.createUserId != null">
+					#{item.createUserId} ,
+				</if>
+				<if test="item.createUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.modifiedUserId != null">
+					#{item.modifiedUserId} ,
+				</if>
+				<if test="item.modifiedUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.reason != null and item.reason != ''">
+					#{item.reason} ,
+				</if>
+				<if test="item.reason == null or item.reason == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.actionScope != null">
+					#{item.actionScope} ,
+				</if>
+				<if test="item.actionScope == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        <![CDATA[)]]>
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="acceptorUserId != null">
+			acceptor_user_id = #{acceptorUserId} ,
+		   </if>
+			<if test="avtKey != null and avtKey != ''">
+				avt_key = #{avtKey} ,
+			</if>
+			<if test="worth != null">
+			worth = #{worth} ,
+		   </if>
+			<if test="couponProductId != null">
+			coupon_product_id = #{couponProductId} ,
+		   </if>
+			<if test="bidProductTypeRange != null and bidProductTypeRange != ''">
+				bid_product_type_range = #{bidProductTypeRange} ,
+			</if>
+			<if test="source != null">
+			source = #{source} ,
+		   </if>
+			<if test="beginTime != null">
+				begin_time = #{beginTime} ,
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime} ,
+			</if>
+			<if test="usedTime != null">
+				used_time = #{usedTime} ,
+			</if>
+			<if test="createUserId != null">
+			create_user_id = #{createUserId} ,
+		   </if>
+			<if test="modifiedUserId != null">
+			modified_user_id = #{modifiedUserId} ,
+		   </if>
+			<if test="reason != null and reason != ''">
+				reason = #{reason} ,
+			</if>
+			<if test="state != null">
+				state = #{state} ,
+		    </if>
+			<if test="actionScope != null">
+				action_scope = #{actionScope} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_coupon_detail
+		<include refid="update_sql"/>
+		WHERE 1=1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="ids != null and ids.size != 0">
+			AND id IN
+			<foreach collection="ids" open="(" separator="," close=")" item="val">
+				${val}
+			</foreach>
+		</if>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_coupon_detail 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasCouponDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_coupon_detail 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<where>
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="acceptorUserId != null">
+			AND acceptor_user_id = #{acceptorUserId}
+			</if>
+			<if test="avtKey != null and avtKey !=''">
+			AND avt_key = #{avtKey}
+			</if>
+			<if test="worth != null">
+			AND worth = #{worth}
+			</if>
+			<if test="couponProductId != null">
+			AND coupon_product_id = #{couponProductId}
+			</if>
+			<if test="bidProductTypeRange != null and bidProductTypeRange !=''">
+			AND bid_product_type_range = #{bidProductTypeRange}
+			</if>
+			<if test="source != null">
+			AND source = #{source}
+			</if>
+			<if test="beginTimeBegin != null">
+			AND begin_time >= #{beginTimeBegin}
+			</if>
+			<if test="beginTimeEnd != null">
+			AND begin_time &lt;= #{beginTimeEnd}
+			</if>
+			<if test="endTimeBegin != null">
+			AND end_time >= #{endTimeBegin}
+			</if>
+			<if test="endTimeEnd != null">
+			AND end_time &lt;= #{endTimeEnd}
+			</if>
+			<if test="usedTimeBegin != null">
+			AND used_time >= #{usedTimeBegin}
+			</if>
+			<if test="usedTimeEnd != null">
+			AND used_time &lt;= #{usedTimeEnd}
+			</if>
+			<if test="createUserId != null">
+			AND create_user_id = #{createUserId}
+			</if>
+			<if test="modifiedUserId != null">
+			AND modified_user_id = #{modifiedUserId}
+			</if>
+			<if test="reason != null and reason !=''">
+			AND reason = #{reason}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="actionScope != null">
+				AND action_scope = #{actionScope}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+            <if test="ids != null and ids.size != 0">
+                AND id IN
+                <foreach collection="ids" open="(" separator="," close=")" item="val">
+                    #{val}
+                </foreach>
+            </if>
+		</where>
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="couponDetailSearch_where">
+		<where>
+			1 = 1
+			<if test="vas.id != null">
+				AND id = #{vas.id}
+			</if>
+			<if test="vas.acceptorUserId != null">
+				AND acceptor_user_id = #{vas.acceptorUserId}
+			</if>
+			<if test="vas.avtKey != null and vas.avtKey !=''">
+				AND avt_key = #{vas.avtKey}
+			</if>
+			<if test="vas.worth != null">
+				AND worth = #{vas.worth}
+			</if>
+			<if test="vas.couponProductId != null">
+				AND coupon_product_id = #{vas.couponProductId}
+			</if>
+			<if test="vas.bidProductTypeRange != null and vas.bidProductTypeRange !=''">
+				AND bid_product_type_range = #{vas.bidProductTypeRange}
+			</if>
+			<if test="vas.source != null">
+				AND source = #{vas.source}
+			</if>
+			<if test="vas.beginTimeBegin != null">
+				AND begin_time >= #{vas.beginTimeBegin}
+			</if>
+			<if test="vas.beginTimeEnd != null">
+				AND begin_time &lt;= #{vas.beginTimeEnd}
+			</if>
+			<if test="vas.endTimeBegin != null">
+				AND end_time >= #{vas.endTimeBegin}
+			</if>
+			<if test="vas.endTimeEnd != null">
+				AND end_time &lt;= #{vas.endTimeEnd}
+			</if>
+			<if test="vas.usedTimeBegin != null">
+				AND used_time >= #{vas.usedTimeBegin}
+			</if>
+			<if test="vas.usedTimeEnd != null">
+				AND used_time &lt;= #{vas.usedTimeEnd}
+			</if>
+			<if test="vas.createUserId != null">
+				AND create_user_id = #{vas.createUserId}
+			</if>
+			<if test="vas.modifiedUserId != null">
+				AND modified_user_id = #{vas.modifiedUserId}
+			</if>
+			<if test="vas.reason != null and vas.reason !=''">
+				AND reason = #{vas.reason}
+			</if>
+			<if test="vas.state != null">
+				AND state = #{vas.state}
+			</if>
+			<if test="vas.actionScope != null">
+				AND action_scope = #{vas.actionScope}
+			</if>
+			<if test="vas.createTimeBegin != null">
+				AND create_time >= #{vas.createTimeBegin}
+			</if>
+			<if test="vas.createTimeEnd != null">
+				AND create_time &lt;= #{vas.createTimeEnd}
+			</if>
+			<if test="vas.modifyTimeBegin != null">
+				AND modify_time >= #{vas.modifyTimeBegin}
+			</if>
+			<if test="vas.modifyTimeEnd != null">
+				AND modify_time &lt;= #{vas.modifyTimeEnd}
+			</if>
+			<if test="limitsUserIds != null and limitsUserIds.size != 0">
+				AND acceptor_user_id IN
+				<foreach collection="limitsUserIds" open="(" separator="," close=")" item="userId">
+					${userId}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_coupon_detail 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasCouponDetail">
+		SELECT <include refid="columns" />
+		FROM vas_coupon_detail 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 查询数量 -->
+	<select id="couponDetailSearchCount" resultType="java.lang.Integer">
+		SELECT
+		COUNT(vcd.ID)
+		FROM
+		vas_coupon_detail vcd
+		LEFT JOIN vas_coupon_product vcp ON vcd.coupon_product_id = vcp.id
+		WHERE 1=1
+		<if test="limitsUserIds != null and limitsUserIds.size != 0">
+			AND vcd.acceptor_user_id IN
+			<foreach collection="limitsUserIds" open="(" separator="," close=")" item="userId">
+				${userId}
+			</foreach>
+		</if>
+		<if test="vas.name != null and vas.name != ''">
+			AND vcp. NAME LIKE CONCAT('%', #{vas.name}, '%')
+		</if>
+		<if test="vas.type != null">
+			AND vcp.type = #{vas.type}
+		</if>
+		<if test="vas.bidProductTypeRange != null and vas.bidProductTypeRange != ''">
+			AND FIND_IN_SET(#{vas.bidProductTypeRange},vcd.bid_product_type_range)
+		</if>
+		<if test="vas.state != null">
+			AND vcd.state = #{vas.state}
+		</if>
+		<if test="vas.beginTimeBegin != null">
+			AND vcd.begin_time >= DATE(#{vas.beginTimeBegin})
+		</if>
+		<if test="vas.beginTimeEnd != null">
+			AND vcd.begin_time &lt;= DATE(#{vas.beginTimeEnd})
+		</if>
+		<if test="vas.endTimeBegin != null">
+			AND vcd.end_time >= DATE(#{vas.endTimeBegin})
+		</if>
+		<if test="vas.endTimeEnd != null">
+			AND vcd.end_time &lt;= DATE(#{vas.endTimeEnd})
+		</if>
+		<if test="vas.createTimeBegin != null">
+			AND vcd.create_time >= DATE(#{vas.createTimeBegin})
+		</if>
+		<if test="vas.createTimeEnd != null">
+			AND vcd.create_time &lt;= DATE(#{vas.createTimeEnd})
+		</if>
+		<if test="vas.usedTimeBegin != null">
+			AND vcd.used_time >= DATE(#{vas.usedTimeBegin})
+		</if>
+		<if test="vas.usedTimeEnd != null">
+			AND vcd.used_time &lt;= DATE(#{vas.usedTimeEnd})
+		</if>
+		<if test="vas.actionScope != null">
+			AND vcd.action_scope = #{vas.actionScope}
+		</if>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="couponDetailSearch" resultMap="_VasCouponDetailVO">
+		SELECT
+		vcp.name,
+		vcp.type,
+		vcp.amount_min,
+		vcp.amount_max,
+		vcd.id,
+		vcd.acceptor_user_id,
+		vcd.avt_key,
+		vcd.worth,
+		vcd.bid_product_type_range,
+		vcd.begin_time,
+		vcd.end_time,
+		vcd.used_time,
+		vcd.reason,
+		vcd.state,
+		vcd.create_time,
+		vcd.modify_time
+		FROM
+		vas_coupon_detail vcd
+		LEFT JOIN vas_coupon_product vcp ON vcd.coupon_product_id = vcp.id
+		WHERE 1=1
+		<if test="limitsUserIds != null and limitsUserIds.size != 0">
+			AND vcd.acceptor_user_id IN
+			<foreach collection="limitsUserIds" open="(" separator="," close=")" item="userId">
+				${userId}
+			</foreach>
+		</if>
+		<if test="vas.name != null and vas.name != ''">
+			AND vcp. NAME LIKE CONCAT('%', #{vas.name}, '%')
+		</if>
+		<if test="vas.type != null">
+			AND vcp.type = #{vas.type}
+		</if>
+		<if test="vas.bidProductTypeRange != null and vas.bidProductTypeRange != ''">
+			AND FIND_IN_SET(#{vas.bidProductTypeRange},vcd.bid_product_type_range)
+		</if>
+		<if test="vas.state != null">
+			AND vcd.state = #{vas.state}
+		</if>
+		<if test="vas.beginTimeBegin != null">
+			AND vcd.begin_time >= DATE(#{vas.beginTimeBegin})
+		</if>
+		<if test="vas.beginTimeEnd != null">
+			AND vcd.begin_time &lt;= DATE(#{vas.beginTimeEnd})
+		</if>
+		<if test="vas.endTimeBegin != null">
+			AND vcd.end_time >= DATE(#{vas.endTimeBegin})
+		</if>
+		<if test="vas.endTimeEnd != null">
+			AND vcd.end_time &lt;= DATE(#{vas.endTimeEnd})
+		</if>
+		<if test="vas.createTimeBegin != null">
+			AND vcd.create_time >= DATE(#{vas.createTimeBegin})
+		</if>
+		<if test="vas.createTimeEnd != null">
+			AND vcd.create_time &lt;= DATE(#{vas.createTimeEnd})
+		</if>
+		<if test="vas.usedTimeBegin != null">
+			AND vcd.used_time >= DATE(#{vas.usedTimeBegin})
+		</if>
+		<if test="vas.usedTimeEnd != null">
+			AND vcd.used_time &lt;= DATE(#{vas.usedTimeEnd})
+		</if>
+		<if test="vas.actionScope != null">
+			AND vcd.action_scope = #{vas.actionScope}
+		</if>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 获取用户卡券信息 -->
+	<select id="getUserCouponDetailList" resultMap="_VasCouponDetailVO">
+		SELECT
+		vcp.name,
+		vcp.type,
+		vcp.amount_min,
+		vcp.amount_max,
+		vcd.id,
+		vcd.acceptor_user_id,
+		vcd.avt_key,
+		vcd.worth,
+		vcd.bid_product_type_range,
+		vcd.begin_time,
+		vcd.end_time,
+		vcd.used_time,
+		vcd.reason,
+		vcd.state,
+		vcd.action_scope
+		FROM
+		vas_coupon_detail vcd
+		LEFT JOIN vas_coupon_product vcp ON vcd.coupon_product_id = vcp.id
+		WHERE 1=1
+			AND vcd.acceptor_user_id = #{acceptorUserId}
+			<if test="type != null">
+				AND vcp.type = #{type}
+			</if>
+			<if test="actionScope != null">
+				AND vcd.action_scope = #{actionScope}
+			</if>
+			<if test="state == 1">
+				<![CDATA[AND DATE(vcd.end_time) >= DATE(NOW()) AND vcd.state = 1]]>
+				ORDER BY vcp.type ASC,vcd.end_time ASC
+			</if>
+			<if test="state == 2">
+				AND vcd.state = 2
+				ORDER BY vcd.used_time DESC
+			</if>
+			<if test="state == 3">
+				<![CDATA[AND (vcd.state = 3 or (vcd.state != 2 and DATE(vcd.end_time) < date(now())))]]>
+				ORDER BY vcp.type ASC,vcd.end_time DESC
+			</if>
+			<if test="state == 4">
+				<![CDATA[AND DATE(vcd.end_time) >= DATE(NOW())
+				AND vcd.state IN (1,4) AND vcp.type IN (1,3)]]>
+				ORDER BY vcp.type ASC,vcd.end_time ASC
+			</if>
+			<if test="state == null">
+				AND state != 9 ORDER BY vcd.modify_time DESC
+			</if>
+	</select>
+
+	<!-- 获取用户卡券信息 -->
+	<select id="getUserCouponDetailListCount" resultType="java.lang.Integer">
+		SELECT
+		count(vcd.id)
+		FROM
+		vas_coupon_detail vcd
+		LEFT JOIN vas_coupon_product vcp ON vcd.coupon_product_id = vcp.id
+		WHERE 1=1
+		AND vcd.acceptor_user_id = #{acceptorUserId}
+		<if test="type != null">
+			AND vcp.type = #{type}
+		</if>
+		<if test="actionScope != null">
+			AND vcd.action_scope = #{actionScope}
+		</if>
+		<if test="state == 1">
+			<![CDATA[AND DATE(vcd.end_time) >= DATE(NOW()) AND vcd.state = 1]]>
+		</if>
+		<if test="state == 2">
+			AND vcd.state = 2
+		</if>
+		<if test="state == 3">
+			<![CDATA[AND (vcd.state = 3 or DATE(vcd.end_time) < date(now()))]]>
+		</if>
+		<if test="state == 4">
+			<![CDATA[AND DATE(vcd.end_time) >= DATE(NOW())
+				AND vcd.state IN (1,4) AND vcp.type IN (1,3)]]>
+		</if>
+		<if test="state == null">
+			AND state != 9
+		</if>
+	</select>
+
+	<!-- 根据卡券key查询 -->
+	<select id="findVasCouponDetailByKey" resultMap="_VasCouponDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_coupon_detail
+		WHERE 1 = 1
+			AND avt_key = #{avtKey}
+		]]>
+	</select>
+
+	<!-- 获取用户各类卡券的数量 -->
+	<select id="getUserCouponDetailCountGroupByType" resultType="java.util.Map" parameterType="java.lang.Integer">
+		SELECT
+		vcp.type,
+		COUNT(0) as count
+		FROM
+		vas_coupon_detail vcd
+		LEFT JOIN vas_coupon_product vcp ON vcd.coupon_product_id = vcp.id
+		WHERE
+		vcd.acceptor_user_id = #{regUserId}
+		<![CDATA[AND DATE(vcd.end_time) >= DATE(NOW()) AND vcd.state in (1,4)]]>
+		GROUP BY
+		vcp.type
+	</select>
+
+	<!-- 获取已过期的卡券(已使用、已过期的卡券不作处理) -->
+	<select id="getExpiredCouponDetailList" resultMap="_VasCouponDetail">
+		SELECT id FROM vas_coupon_detail WHERE state in (0,1,4) AND DATE(#{currentDate}) > DATE(end_time)
+	</select>
+
+	<!-- 根据卡券id集合获取卡券信息 -->
+	<select id="findVasCouponDetailByIds" resultMap="_VasCouponDetail">
+		SELECT <include refid="columns" />
+		FROM vas_coupon_detail
+		WHERE id in
+		<foreach collection="collection" open="(" separator="," close=")" item="val">
+			${val}
+		</foreach>
+	</select>
+</mapper>

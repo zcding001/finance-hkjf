@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinPlatformPayway">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinPlatformPayway" type="com.hongkun.finance.payment.model.FinPlatformPayway">
+		<result property="id" column="id"/>
+		<result property="sysName" column="sys_name"/>
+		<result property="sysNameCode" column="sys_name_code"/>
+		<result property="platformName" column="platform_name"/>
+		<result property="thirdName" column="third_name"/>
+		<result property="thirdNameCode" column="third_name_code"/>
+		<result property="paywayName" column="payway_name"/>
+		<result property="paywayCode" column="payway_code"/>
+		<result property="state" column="state"/>
+		<result property="userType" column="user_type"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,sys_name,sys_name_code,platform_name,third_name,third_name_code,payway_name,payway_code,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_platform_payway ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				sys_name ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				platform_name ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				third_name_code ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				payway_name ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				payway_code ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				#{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				#{sysNameCode} ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				#{platformName} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				#{thirdNameCode} ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				#{paywayName} ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				#{paywayCode} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+		INSERT INTO fin_platform_payway (
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				sys_name ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				platform_name ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				third_name_code ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				payway_name ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				payway_code ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES 
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				#{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				#{sysNameCode} ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				#{platformName} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				#{thirdNameCode} ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				#{paywayName} ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				#{paywayCode} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="sysName != null and sysName != ''">
+				sys_name = #{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code = #{sysNameCode} ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				platform_name = #{platformName} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name = #{thirdName} ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				third_name_code = #{thirdNameCode} ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				payway_name = #{paywayName} ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				payway_code = #{paywayCode} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_platform_payway
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_platform_payway 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinPlatformPayway">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_platform_payway 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="sysName != null and sysName !=''">
+			AND sys_name = #{sysName}
+			</if>
+			<if test="sysNameCode != null and sysNameCode !=''">
+			AND sys_name_code = #{sysNameCode}
+			</if>
+			<if test="platformName != null and platformName !=''">
+			AND platform_name = #{platformName}
+			</if>
+			<if test="thirdName != null and thirdName !=''">
+			AND third_name = #{thirdName}
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode !=''">
+			AND third_name_code = #{thirdNameCode}
+			</if>
+			<if test="paywayName != null and paywayName !=''">
+			AND payway_name = #{paywayName}
+			</if>
+			<if test="paywayCode != null and paywayCode !=''">
+			AND payway_code = #{paywayCode}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="userType != null and userType !=''">
+			AND FIND_IN_SET (#{userType},user_type)
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_platform_payway 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinPlatformPayway">
+		SELECT <include refid="columns" />
+		FROM fin_platform_payway 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 查询每个系统的每个平台下有哪几种支付渠道 -->
+	<select id="findPayChannelInfo" resultMap="_FinPlatformPayway">
+		SELECT <include refid="columns" />
+		FROM fin_platform_payway 
+		<where>	  
+			1 = 1    				
+			<if test="sysNameCode != null and sysNameCode !=''">
+			AND sys_name_code = #{sysNameCode}
+			</if>
+			<if test="platformName != null and platformName !=''">
+			AND platform_name = #{platformName}
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode !=''">
+			AND third_name_code = #{thirdNameCode}
+			</if>			
+			<if test="paywayCode != null and paywayCode !=''">
+			AND payway_code = #{paywayCode}
+			</if>		
+		</where>
+		group by third_name_code
+	</select>
+</mapper>

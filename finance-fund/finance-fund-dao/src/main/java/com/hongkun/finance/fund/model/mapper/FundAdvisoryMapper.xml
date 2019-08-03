@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.FundAdvisory">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FundAdvisory" type="com.hongkun.finance.fund.model.FundAdvisory">
+		<result property="id" column="id"/>
+		<result property="infoIds" column="info_ids"/>
+		<result property="name" column="name"/>
+		<result property="tel" column="tel"/>
+		<result property="sex" column="sex"/>
+		<result property="advisor" column="advisor"/>
+		<result property="assignUserId" column="assign_user_id"/>
+		<result property="assignUserName" column="assign_user_name"/>
+		<result property="source" column="source"/>
+		<result property="state" column="state"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="create_time"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="modifyUserId" column="modify_user_id"/>
+		<result property="projectParentType" column="project_parent_type"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,info_ids,name,tel,sex,advisor,assign_user_id,assign_user_name,source,state,remark,create_time,reg_user_id,modify_time,modify_user_id,project_parent_type
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fund_advisory ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="infoIds != null and infoIds != ''">
+				info_ids ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel ,
+			</if>
+			<if test="sex != null">
+				sex ,
+			</if>
+			<if test="advisor != null">
+				advisor ,
+			</if>
+			<if test="assignUserId != null">
+				assign_user_id ,
+			</if>
+			<if test="assignUserName != null and assignUserName != ''">
+				assign_user_name ,
+			</if>
+			<if test="source != null">
+				source ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark ,
+			</if>
+				create_time ,
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+				modify_time ,
+			<if test="modifyUserId != null">
+				modify_user_id ,
+			</if>
+			<if test="projectParentType != null">
+				project_parent_type 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="infoIds != null and infoIds != ''">
+				#{infoIds} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				#{tel} ,
+			</if>
+			<if test="sex != null">
+				#{sex} ,
+			</if>
+			<if test="advisor != null">
+				#{advisor} ,
+			</if>
+			<if test="assignUserId != null">
+				#{assignUserId} ,
+			</if>
+			<if test="assignUserName != null and assignUserName != ''">
+				#{assignUserName} ,
+			</if>
+			<if test="source != null">
+				#{source} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="modifyUserId != null">
+				#{modifyUserId} ,
+			</if>
+			<if test="projectParentType != null">
+				#{projectParentType} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO fund_advisory (
+	       	id ,
+	       	info_ids ,
+	       	name ,
+	       	tel ,
+	       	sex ,
+	       	advisor ,
+	       	assign_user_id ,
+	       	assign_user_name ,
+	       	source ,
+	       	state ,
+	       	remark ,
+	       	create_time ,
+	       	reg_user_id ,
+	       	modify_time ,
+	       	modify_user_id ,
+	       	project_parent_type 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.infoIds != null and item.infoIds != ''">
+					#{item.infoIds} ,
+				</if>
+				<if test="item.infoIds == null or item.infoIds == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tel != null and item.tel != ''">
+					#{item.tel} ,
+				</if>
+				<if test="item.tel == null or item.tel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sex != null">
+					#{item.sex} ,
+				</if>
+				<if test="item.sex == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advisor != null">
+					#{item.advisor} ,
+				</if>
+				<if test="item.advisor == null">
+					DEFAULT ,
+				</if>
+				<if test="item.assignUserId != null">
+					#{item.assignUserId} ,
+				</if>
+				<if test="item.assignUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.assignUserName != null and item.assignUserName != ''">
+					#{item.assignUserName} ,
+				</if>
+				<if test="item.assignUserName == null or item.assignUserName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.source != null">
+					#{item.source} ,
+				</if>
+				<if test="item.source == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.remark != null and item.remark != ''">
+					#{item.remark} ,
+				</if>
+				<if test="item.remark == null or item.remark == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.modifyUserId != null">
+					#{item.modifyUserId} ,
+				</if>
+				<if test="item.modifyUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.projectParentType != null">
+					#{item.projectParentType} 
+				</if>
+				<if test="item.projectParentType == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="infoIds != null and infoIds != ''">
+				info_ids = #{infoIds} ,
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel = #{tel} ,
+			</if>
+			<if test="sex != null">
+			sex = #{sex} ,
+		   </if>
+			<if test="advisor != null">
+			advisor = #{advisor} ,
+		   </if>
+			<if test="assignUserId != null">
+			assign_user_id = #{assignUserId} ,
+		   </if>
+			<if test="assignUserName != null and assignUserName != ''">
+				assign_user_name = #{assignUserName} ,
+			</if>
+			<if test="source != null">
+			source = #{source} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="modifyUserId != null">
+			modify_user_id = #{modifyUserId} ,
+		   </if>
+			<if test="projectParentType != null">
+			project_parent_type = #{projectParentType} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fund_advisory
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fund_advisory 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FundAdvisory">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fund_advisory 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="infoIds != null and infoIds !=''">
+			AND info_ids = #{infoIds}
+			</if>
+			<if test="name != null and name !=''">
+			AND name = #{name}
+			</if>
+			<if test="tel != null and tel !=''">
+			AND tel = #{tel}
+			</if>
+			<if test="sex != null">
+			AND sex = #{sex}
+			</if>
+			<if test="advisor != null">
+			AND advisor = #{advisor}
+			</if>
+			<if test="assignUserId != null">
+			AND assign_user_id = #{assignUserId}
+			</if>
+			<if test="assignUserName != null and assignUserName !=''">
+			AND assign_user_name = #{assignUserName}
+			</if>
+			<if test="source != null">
+			AND source = #{source}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="remark != null and remark !=''">
+			AND remark = #{remark}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="modifyUserId != null">
+			AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="projectParentType != null">
+			AND project_parent_type = #{projectParentType}
+			</if>
+		</where>
+	</sql>
+
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where_fuzzy">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1 AND state != 0
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="infoIds != null and infoIds !=''">
+				AND info_ids = #{infoIds}
+			</if>
+			<if test="name != null and name !=''">
+				AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="tel != null and tel !=''">
+				AND tel LIKE CONCAT('%',#{tel},'%')
+			</if>
+			<if test="sex != null">
+				AND sex = #{sex}
+			</if>
+			<if test="advisor != null">
+				AND advisor = #{advisor}
+			</if>
+			<if test="assignUserId != null">
+				AND assign_user_id = #{assignUserId}
+			</if>
+			<if test="assignUserName != null and assignUserName !=''">
+				AND assign_user_name = #{assignUserName}
+			</if>
+			<if test="source != null">
+				AND source = #{source}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND remark = #{remark}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="modifyUserId != null">
+				AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="projectParentType != null">
+				AND project_parent_type = #{projectParentType}
+			</if>
+			<if test="state == null or state == -999">
+				AND state in (1,2)
+			</if>
+		</where>
+	</sql>
+
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fund_advisory 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FundAdvisory">
+		SELECT <include refid="columns" />
+		FROM fund_advisory 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 股权预约分页查询数量 -->
+	<select id="findFundAdvisoryListWithConditionCount" resultType="long">
+		SELECT COUNT(ID) FROM fund_advisory
+		<include refid="findPage_where_fuzzy"/>
+	</select>
+
+	<!-- 条件检索股权预约信息列表 -->
+	<select id="findFundAdvisoryListWithCondition" resultType="com.hongkun.finance.fund.model.vo.FundAdvisoryVo">
+		SELECT
+			id as id,
+			info_ids as infoIds,
+			name as name,
+			tel as tel,
+			sex as sex,
+			advisor as advisor,
+			assign_user_id as assignUserId,
+			assign_user_name as assignUserName,
+			source as source,
+			state as state,
+			remark as remark,
+			create_time as createTime,
+			reg_user_id as regUserId,
+			modify_time as modifyTime,
+			modify_user_id as modifyUserId,
+			project_parent_type as projectParentType
+		FROM fund_advisory
+		<include refid="findPage_where_fuzzy"/>
+		order by id desc
+	</select>
+
+
+	<!-- 查询用户每日预约次数 -->
+	<select id = "findAdvisoryCount" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT COUNT(1)
+		FROM fund_advisory
+		<where>
+			1 = 1
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="startTime != null ">
+				AND create_time > #{startTime}
+			</if>
+			<if test="endTime != null ">
+				AND create_time <![CDATA[ <= ]]>#{endTime}
+			</if>
+			<if test="projectParentType != null ">
+				AND project_parent_type = #{projectParentType}
+			</if>
+			<if test="infoIds != null">
+				AND info_ids = #{infoIds}
+			</if>
+		</where>
+	</select>
+
+
+
+</mapper>

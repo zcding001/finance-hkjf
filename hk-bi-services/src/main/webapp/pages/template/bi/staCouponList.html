@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">卡券统计</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <span class="sp-width" style="width:100px;">卡券产品类型：</span> <select id="type" name="type" class="form-control"
+                                                                                           style="width: 120px;display:inline-block;"></select>
+                        价值：<input name="worth" class="form-control" style="width: 120px;display:inline-block;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="sp-width" style="width:130px;">适用标的产品类型：</span><select id="bidProductTypeRange" name="bidProductTypeRange" class="form-control"
+                                                                                            style="width: 120px;display:inline-block;"></select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('卡券统计')" style="display:inline-block;">导出</a>
+                    </form>
+                    <hr>
+                </div>
+
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+    var columns =  [
+        { title:"标题",className:"dt-simple",data: "name"},
+        { title:"年化率/价值",className:"dt-simple",data: "worth",render:function (value,type,row) {
+            //免费提现券价值设置为1
+                if (row.type == 2){
+                    return 1;
+                }
+                return value;
+            }},
+        { title:"类型",className:"dt-simple",data: "type",render:function (value) {
+            return DIC_CONSTANT.getName("vas","coupon_product_type",value);
+            }},
+        { title:"创建时间",className:"dt-simple",data: "createTime",render:function (value) {
+            return dateUtil.date(value);
+            }},
+        { title:"生成数量",className:"dt-simple",data: null,render:function (value,type,row) {
+            return row.couponCreate + row.couponSendAlready + row.couponUseAlready + row.couponExpired;
+            }},
+        { title:"未领取",className:"dt-simple",data: "couponCreate"},
+        { title:"已领取",className:"dt-simple",data: "couponSendAlready"},
+        { title:"已使用",className:"dt-simple",data: "couponUseAlready"},
+        { title:"已过期",className:"dt-simple",data: "couponExpired"},
+        { title:"标的范围",className:"dt-simple",data: "bidProductTypeRange",render:function (value) {
+            return DIC_CONSTANT.getNames("vas","coupon_bid_product_type",value);
+            }}
+    ];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.staCouponDetailList, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+    //初始化查询条件的下拉框
+    $("#type").append(DIC_CONSTANT.getOption("vas","coupon_product_type","empty"));
+    $("#bidProductTypeRange").append(DIC_CONSTANT.getOption("vas","coupon_bid_product_type","empty"));
+</script>

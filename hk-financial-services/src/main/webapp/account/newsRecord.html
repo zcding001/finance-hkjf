@@ -1,0 +1,117 @@
+<style>
+#mb_con{width:350px !important;}
+</style>
+<div class="tx_bar">
+    <form id="dataTableForm">
+        <ul class="clearfix">
+            <li class="fl">
+                <cite class="fl">类型：</cite>
+                <cite class="mr-10">
+                    <select name="type" class="fl">
+                        <option value="-999" selected="selected">全部</option>
+                        <option value="1">通知消息</option>
+                        <option value="2">推广消息</option>
+                    </select>
+                </cite>
+            </li>
+            <li class="fl ml-10">
+                <cite class="tx_bar_t fl">状态：</cite>
+                <cite class="fl rel"></cite>
+                <select name="state" class="fl" id="state">
+                    <option value="0" selected="selected">未读</option>
+                    <option value="1">已读</option>
+                </select>
+            </li>
+            <li class="fl ml-10">
+                <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+            </li>
+        </ul>
+    </form>
+</div>
+<div style="overflow-x: auto;width:818px;">
+    <table class="table table-hover ellipsis tab-inp-text" id="dataTable"></table>
+</div>
+<div class="">
+    <a href="javascript:void(0)" id="markReadBtn" class="colr-blue">标记已读</a>
+    <a href="javascript:void(0)" id="markDelBtn" class="colr-blue ml-10">删除</a>
+</div>
+<div class="paging"></div>
+
+
+<!-- 公共js -->
+<!--<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>-->
+<script>
+    var columns = [
+        renderUtil.initCheckBox("id"),
+        {
+            title: '状态', data: 'state', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                if (value == 1) {
+                    return "已读";
+                }
+                return "<em id='msgId" + row.id + "'>未读</em>";
+            }
+        },
+        {
+            title: '内容', data: 'title', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                return "<a href='javascript:void(0)' onclick='showWebMsgDetial(\"" + row.id + "\", \"" + value + "\")'>" + value + "</a>";
+            }
+        },
+        {
+            title: '时间', data: 'createTime', tdClass: 'tac', thClass: 'tac', thStyle: 'width:200px',
+            render: function (value, row) {
+                return dateUtil.dateTime(value);
+            }
+        }
+    ];
+    renderUtil.renderList("/smsController/webMsgList.do", columns, "", function(){
+    	if($("#state").val() == 0){
+            $("#markReadBtn").show();
+        }else{
+	        $("#markReadBtn").hide();
+        }
+    });
+
+    $(function () {
+        $("#markDelBtn, #markReadBtn").click(function () {
+            var arr = renderUtil.getCheckBoxValues();
+            if (arr == undefined || arr.length <= 0) {
+                dialogUtil.msg("系统提示", "请至少选择一项!");
+                return;
+            }
+            var ids = '';
+            for (var i in arr) {
+                ids += arr[i] + ",";
+            }
+            if($(this).attr("id") == "markDelBtn"){
+                dialogUtil.confirm("确认删除？", "确定删除此站内信?", function(){
+                	ajaxUtil.post("/smsController/updateWebMsgState.do",
+                            {ids: ids.substring(0, ids.length - 1), state: 2},
+                            function (data) {
+                                renderUtil.refresh();
+                                commonUtil.loadUnreadWebMsg();
+                            });
+                });
+            }else{
+            	ajaxUtil.post("/smsController/updateWebMsgState.do",
+                        {ids: ids.substring(0, ids.length - 1), state: 1},
+                        function (data) {
+                            renderUtil.refresh();
+                            commonUtil.loadUnreadWebMsg();
+                        });
+            }
+            
+        });
+    });
+
+    function showWebMsgDetial(id, title) {
+        ajaxUtil.post("/smsController/webMsgDetail.do",
+                {id: id}, function (data) {
+                    $("#msgId" + id).text("已读");
+                    dialogUtil.msg("消息查看", "标题：" + title + "<br/> 内容：" + data.resMsg.msg, 1);
+                });
+    }
+</script>
+
+</html>

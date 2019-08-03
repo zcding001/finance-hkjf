@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+    <div>
+                <ul class="zqzr_bq clearfix">
+                    <li class="zqzr-hover" id="tab_transfer"><a href="#">可转让</a></li>
+                    <li class="" id="tab_transfering"><a href="#">转让中</a></li>
+                    <li class="" id="tab_transfered"><a href="#">已转让</a></li>
+                    <div class="clear"></div>
+                </ul>
+ 
+                <div class="zqzr-box show">
+                    <div style="overflow-x: auto;width:818px;">
+                        <table class="table table-hover ellipsis" id="dataTable">
+                        </table>
+                    </div>
+                </div>
+
+    </div>
+</body>
+<script>
+
+    var investController = {};
+    investController.toInvestDetail = function(id){
+        if(commonUtil.needLogin()){
+            containerUtil.add(CONSTANTS.TO_INVEST_BID_ID, id);
+            //不显示保障计划
+            containerUtil.remove("securityPlanContract");
+            commonUtil.jump("invest/creditorTransferDetails.html");
+        }
+    };
+
+var columns = [
+               {title:'项目名称', data:'bidName', tdClass:'tac', thClass:'tac'},
+               {title:'持有金额（元）', data:'creditorAmount', tdClass:'tac', thClass:'tac'},
+               {title:'可转让金额（元）', data:'creditorAmount', tdClass:'tac', thClass:'tac'},
+               {title:'年化率（%）', data:'buyerRate', tdClass:'tac', thClass:'tac'},
+               {title:'状态', data:'state', tdClass:'tac', thClass:'tac',
+            		render:function(vaule,row){
+            			if(vaule==0){
+            				return '待转让';
+            			}
+						return dictionaryUtil.getName('invest', 'transfer_manual_state', vaule);            			
+            		}   
+               },
+               {title:'到期日', data:'endDate', tdClass:'tac', thClass:'tac',
+                   render:function(value, row){
+                       return dateUtil.dateTime(value);
+                   }
+               },
+               {title:'操作', data:'investId', tdClass:'tac', thClass:'tac',
+            		render:function(value,row){
+						if(row.state!=0){
+							var param = {target: "account/creditorTransferedDetail.html", investId : row.investId,transferId:row.transferId};
+							return '<a href="javascript:void(0)" onclick="commonUtil.openAccountMenu(\'' + securityUtil.encrypt(JSON.stringify(param)) + '\')">查看详情</a>';
+						}
+            			var param = {target: "account/creditorDetail.html", investId : row.investId};
+            			return '<a href="javascript:void(0)" onclick="commonUtil.openAccountMenu(\'' + securityUtil.encrypt(JSON.stringify(param)) + '\')">发起转让</a>';
+            		}
+               }
+       ];
+
+
+var transferColumns = [
+    {title:'项目名称', data:'bidName', tdClass:'tac', thClass:'tac'},
+    {title:'转让金额（元）', data:'creditorAmount', tdClass:'tac', thClass:'tac'},
+    {title:'转让价格（元）', data:'creditorPrice', tdClass:'tac', thClass:'tac'},
+    {title:'年化率（%）', data:'buyerRate', tdClass:'tac', thClass:'tac'},
+    {title:'状态', data:'state', tdClass:'tac', thClass:'tac',
+        render:function(vaule,row){
+            if(vaule==0){
+                return '待转让';
+            }
+            return dictionaryUtil.getName('invest', 'transfer_manual_state', vaule);
+        }
+    },
+    {title:'到期日', data:'endDate', tdClass:'tac', thClass:'tac',
+        render:function(value, row){
+            return dateUtil.dateTime(value);
+        }
+    },
+    {title:'操作', data:'investId', tdClass:'tac', thClass:'tac',
+        render:function(value,row){
+            if(row.state!=0){
+                var param = {target: "account/creditorTransferedDetail.html", investId : row.investId,transferId:row.transferId};
+
+                return '<a href="javascript:void(0)" onclick="investController.toInvestDetail(' + row.transferId +  ')">查看详情</a>';
+                // return '<a href="javascript:void(0)" onclick="commonUtil.openAccountMenu(\'' + securityUtil.encrypt(JSON.stringify(param)) + '\')">查看详情</a>';
+            }
+            var param = {target: "account/creditorDetail.html", investId : row.investId};
+            return '<a href="javascript:void(0)" onclick="commonUtil.openAccountMenu(\'' + securityUtil.encrypt(JSON.stringify(param)) + '\')">发起转让</a>';
+        }
+    }
+];
+$(function() {
+    $(".zqzr_bq li").click(function() {
+    	$("#dataTable").html("");
+        var $this = $(this);
+        $this.addClass("zqzr-hover").siblings("li").removeClass("zqzr-hover");
+        var state = 0 ;
+        var id = $this.attr('id');
+        if(id=='tab_transfering'){
+        	state = 1;
+            renderUtil.renderList("/transferManualController/myCreditorList.do?state="+state+"&userFlag=1", transferColumns);
+        }else if(id=='tab_transfered'){
+        	state = 2;
+            renderUtil.renderList("/transferManualController/myCreditorList.do?state="+state+"&userFlag=1", transferColumns);
+        }else{
+            renderUtil.renderList("/transferManualController/myCreditorList.do?state="+state+"&userFlag=1", columns);
+        }
+    });
+    $("#tab_transfer").click();
+})
+</script>
+
+</html>

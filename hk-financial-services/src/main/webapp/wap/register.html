@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册</title>
+    <meta name="keywords" content="互联网金融，鸿坤金服，投资，理财，个人理财，理财收益，鸿坤，鸿坤财富，鸿坤地产，银行理财">
+    <meta name="description" content="鸿坤金服定位为社区“金融超市”，服务于特定社区及特定人群，被评定为国家AAA级信用等级平台、国家高新技术企业、诚信兴商示范单位、中国经济创新示范企业。">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- 默认依webkit内核渲染页面 -->
+    <meta name="renderer" content="webkit">
+    <!--ios禁止识别电话号-->
+    <meta name="format-detection" content="telephone = no"/>
+    <!--禁止识别邮箱-->
+    <meta name="applicable-device" content="mobile">
+    <!-- 禁止缓存-->
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <!-- 指定标题 -->
+    <meta name="apple-mobile-web-app-title" content="鸿坤金服">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="email=no" name="format-detection"/>
+    <link rel="stylesheet" href="../src/css/wap/loginbg.css">
+    <script src="../src/js/rem.js"></script>
+
+    <script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="../src/js/ratchet.min.js"></script>
+    <script type="text/javascript" src="../src/js/Validform_v5.3.2_min.js"></script>
+    <script type="text/javascript" src="../src/js/Validform_Datatype.js"></script>
+    <script type="text/javascript" src="../src/js/security.js"></script>
+    <script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+    <script type="text/javascript" src="../lib/constants.js"></script>
+    <script type="text/javascript" src="../lib/utils/containerUtil.js"></script>
+
+    <script type="text/javascript" src="../lib/rsa/jsencrypt.min.js"></script>
+    <script type="text/javascript" src="../lib/rsa/rsaUtil.js"></script>
+    <style>
+        body{background-color:#eeeeee;width: 6.4rem;margin: 0 auto;}
+        .s-odiv{width: 5.9rem;margin: 0.53rem auto 0;;}
+        .s-divinput{padding-left:0.24rem;background-color: white;border-radius: 4px;border: 1px solid #e6e6e6;}
+        .s-div-input1{border-bottom: 1px solid #ededed;height: 0.82rem;;line-height: 0.82rem;padding-right: 0.24rem;}
+        .s-div-input1:last-child{border-bottom: none;}
+        .s-loginimg1{width: 0.2rem;line-height: 0.82rem;display: inline-block;}
+        .s-tel,.s-pasword,.s-imgjg,.s-hqyzm{height: 0.8rem;;width: 4.6rem;line-height: 0.8rem;display: inline-block;vertical-align: 0.04rem;;font-size: 0.24rem;color: #333333;;margin-left: 0.16rem;background-color: transparent;}
+        .s-closeBtn{width: 0.24rem;display: none;float: right;margin-top: 0.28rem;}
+        .s-YZM{width: 1.38rem;height: 0.5rem;float: right;margin-top: 0.14rem;}
+        .s-yanzenma{font-size: 0.20rem;color: #f39200;width: 1.38rem;;display: inline-block;height: 0.5rem;border-radius:3px;border:1px solid #f39200;line-height: 0.5rem;text-align: center;float: right;margin-top: 0.14rem;}
+        .Next{color: white;font-size: 0.3rem;border-radius: 3px; height: 0.78rem;line-height: 0.78rem;text-align: center;display: block;width: 100%;margin-top: 0.6rem;letter-spacing: 1px;background-color: #f39200;}
+        .xieyi{font-size: 0.20rem;color: #666666;margin-top: 0.42rem}
+        .frame{width: 0.27rem;height: 0.27rem;background-color: #00b7ee;position: relative;border:1px solid #00b7ee;display: inline-block;vertical-align: -0.04rem;}
+        .frame span{width: 0.16rem;height: 0.12rem;border-bottom: 2px solid white;border-left: 2px solid white;-webkit-transform:rotate(-45deg);display:inline-block;position: absolute;top: 0.02rem;;left: 0.04rem;}
+    </style>
+</head>
+<body>
+<header class="z-prompt-header" style="border-bottom: none;">
+        <a href="javascript:history.go(-1)"></a>
+        <h3>注册</h3>
+</header>
+<div class='resetmargin'></div>
+<div class="s-odiv">
+    <div class="s-divinput">
+    <input type="hidden" id="pwdLevel" name="pwdLevel" />
+        <div class="s-div-input1">
+            <img src="../src/img/wap/telBtn.png" alt="" class="s-loginimg1"/>
+            <input type="tel" id="tel" class="s-tel odiv-input" placeholder="手机号" maxlength="11"/>
+            <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+        </div>
+        <div class="s-div-input1">
+            <input type="text" id="calcCode" class="s-imgjg" style="width: 3rem;margin-left:0;" placeholder="图片计算结果" maxlength="5"/>
+            <img onclick="javascript:commonUtil.loadValidateCode(this, 2);" alt="" class="s-YZM fr" id="validCode"/>
+        </div>
+        <div class="s-div-input1">
+            <img src="../src/img/wap/zcsuo.png" alt="" class="s-loginimg1"/>
+            <input type="text" id="randCode" class="s-hqyzm" placeholder="验证码" maxlength="8" style="width: 3rem;" />
+            <div class="s-yanzenma" id="smsCodeBtn">获取验证码</div>
+        </div>
+        <div class="s-div-input1">
+            <img src="../src/img/wap/lockBtn.png" alt="" class="s-loginimg1"/>
+            <input type="password" id="password" class="s-pasword odiv-input" placeholder="密码（输入6位以上数字和字母）" maxlength="20" />
+            <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+        </div>
+    </div>
+    <div class="xieyi">
+        <div class="frame"><span></span></div> 同意并接受<span style="color: #00b7ee;"><a href="javascript:void(0)" id="contract" style="text-decoration: none;">
+        《鸿坤金服网站服务协议》</a></span><span style="color: #00b7ee;"><!--<a href="javascript:void(0)" id="cont" style="text-decoration: none;">《定向及合格投资者认定》</a></span>-->
+        <span style="color: #00b7ee;"><a href="javascript:void(0)" id="riskNotify" style="text-decoration: none;">《投资风险告知书》</a></span>
+    </div>
+
+    <button class="Next btnActive" id="nextBtn">下一步</button>
+</div>
+<!--气泡提示框-->
+<div id="bubbleBtn" class="animated pulse">快速注册</div>
+<script src="../src/js/zepto.min.js"></script>
+<script src="../src/js/publicMethod.js"></script>
+<!--<script type="text/javascript" src="../src/js/security.js"></script>-->
+<script>
+    //图片验证码输入框
+    var _calcCode = $("#calcCode");
+    //发送短信验证码按钮
+    var _smsCodeBtn = $("#smsCodeBtn");
+    //手机号输入框
+    var _tel = $("#tel");
+    //用户登录密码输入框
+    var _password = $("#password");
+    //短信验证码输入框
+    var _randCode = $("#randCode");
+    //默认手机号校验为false
+    var _telValidFlag = false;
+    $(function () {
+        //判断用户输入的手机号是否正确
+        _tel.blur(function () {
+            loginBlur();
+        });
+        //获取图片验证码
+        commonUtil.loadValidateCode($("#validCode"), 2);
+        //判断图片计算结果
+        _calcCode.blur(function () {
+            calcCodeBlur();
+        });
+        //发送短信验证码
+        _smsCodeBtn.click(function () {
+            sendSmsCode();
+        });
+        //短信验证码验证
+        _randCode.blur(function () {
+            randCodeBlur();
+        });
+        //用户登录秘密验证
+        _password.blur(function () {
+            passwordBlur();
+        });
+        //跳转至下一步
+        $("#nextBtn").click(function () {
+            //验证手机号
+            loginBlur();
+            if (!_telValidFlag){
+                return;
+            }
+            //验证图片计算结果
+            if (!calcCodeBlur()){
+                return;
+            }
+            //验证短信验证码
+            if (!randCodeBlur()){
+                return;
+            }
+            //验证用户登录密码
+            if (!passwordBlur()){
+                return;
+            }
+            commonUtil.pwdStrong(_password.val());
+            //校验通过跳转至下一步,输入用户名和邀请码
+            window.location.href = "registerTwo.html?login="+_tel.val() + "&calcCode=" + _calcCode.val() +
+                "&smsCode=" + _randCode.val() + "&passwd=" + rsaUtil.encryptData(_password.val());
+        })
+    });
+    //判断手机号是否正确
+    function loginBlur() {
+        var login = _tel.val();
+        if (!validUtil.validTelFormat(login)){
+            showbubbleBtn("请输入正确的手机号!");
+            return;
+        }
+        //后台查询该手机号是否符合要求
+        ajaxUtil.post("/indexController/validLogin.do",{"login":login},function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS){
+                _telValidFlag = true;
+            }else {
+                _telValidFlag = false;
+                showbubbleBtn(result.resMsg);
+            }
+        });
+    }
+    //用户登录密码校验
+    function passwordBlur(){
+        var password = _password.val();
+        if (!password){
+            showbubbleBtn("请设置登录密码!");
+        }else {
+            var reg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/);
+            if (validUtil.validPassFormat(password)) {
+                return true;
+            } else {
+                showbubbleBtn("请输入6至16位字母数字组合!");
+            }
+        }
+        return false;
+    }
+    function randCodeBlur() {
+        var randCode = _randCode.val();
+        if (!randCode){
+            showbubbleBtn("请输入验证码!");
+            return false;
+        }
+        return true;
+    }
+    //计算结果验证
+    function calcCodeBlur() {
+        var calcCode = _calcCode.val();
+        if(calcCode == "") {
+            showbubbleBtn("请输入计算结果!");
+            return false;
+        } else if(isNaN(calcCode)){
+            showbubbleBtn("请输有效数字!");
+            return false;
+        }
+        return true;
+    }
+    //获取验证码
+    function sendSmsCode(){
+        //判断手机号是否正确
+        loginBlur();
+        if (!_telValidFlag){
+            return;
+        }
+        // 图片验证码
+        if (!calcCodeBlur()){
+            return;
+        }
+        //发送短信验证码
+        ajaxUtil.post("/indexController/sendSmsCodeWithCode.do", {"login" : _tel.val(),"calcCode" : _calcCode.val(), "type": 1},
+            function(data){
+            if(data.resStatus == CONSTANTS.SUCCESS){
+                // 返回成功则开始读秒
+                _smsCodeBtn.attr("onclick","javascript:void(0);");
+                _smsCodeBtn.addClass("re_button_gray");
+                curCount1 = count1;
+                InterValObj1 = window.setInterval(setRemainTime, 1000); //启动计时器，1秒执行一次
+            }else{
+                showbubbleBtn(data.resMsg);
+            }
+        });
+    }
+
+    //倒计时
+    var InterValObj1; //timer变量，控制时间
+    var count1 = 60; //间隔函数，1秒执行
+    var curCount1;//当前剩余秒数
+    //timer处理函数
+    function setRemainTime() {
+        if (curCount1 == 0) {
+            window.clearInterval(InterValObj1);//停止计时器
+            _smsCodeBtn.removeClass("re_button_gray").attr("onclick","sendSmsCode()").html("重新获取");
+        }else {
+            curCount1--;
+            _smsCodeBtn.text("重新获取(" + curCount1 + ")");
+        }
+    }
+
+    // 协议内容
+    $("#contract").click(function(){
+        window.location.href="registAgreement.html";
+    });
+
+    // 投资风险测评书
+    $("#riskNotify").click(function(){
+        window.location.href="registRiskNotify.html";
+    });
+</script>
+</body>
+</html>

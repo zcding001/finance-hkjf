@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">积分支付记录</span>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <span class="sp-width">商家名称：</span><input name="merchantName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="sp-width" style="width:85px;">商家编号：</span><input name="merchantCode" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="sp-width">买家名称：</span><input name="realName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="sp-width" style="width:85px;">买家手机号：</span><input name="login" class="form-control" validate="tel" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br><br>
+                        <span class="sp-width">交易日期：</span> <input id="createTimeBegin" name="createTimeBegin" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate form-control" readonly="readonly"  style="width: 160px;height:34px;display:inline-block;"> -
+                                  <input name="createTimeEnd" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'createTimeBegin\')}'})" class="Wdate form-control" readonly="readonly"  style="width: 160px;height:34px;display:inline-block;">
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title:"商家名称",data:"merchantName",className:"dt-simple"},
+        {title:"商家编号",data:"merchantCode",className:"dt-simple"},
+        {title:"买家姓名",data:"realName",className:"dt-simple"},
+        {title:"买家手机号",data:"login",className:"dt-simple"},
+        {title:"操作积分值",data:"point",className:"dt-simple"},
+        {title:"人民币价值",data:"realWorth",className:"dt-simple"},
+        {title:"操作记录",data:"comments",className:"dt-simple"},
+        {title:"操作员",data:"opratorName",className:"dt-simple"},
+        {title:"交易日期",data:"createTime",className:"dt-simple",render: function (value, type, row, meta) {return dateUtil.date(value);}},
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.pointPayRecordList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+</script>

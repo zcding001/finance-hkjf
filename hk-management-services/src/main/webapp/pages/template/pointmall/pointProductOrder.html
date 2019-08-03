@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">积分订单列表</span>
+                <a href="javascript:void(0)" class="btn btn-primary"  onclick="angular.element(this).scope().createCheckPanel()" style="display:inline-block;margin-right:10px;float:right;">批量审核</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        兑换人姓名：<input name="realName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        兑换人电话：<input name="login" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        订单状态：<select   name="state" class="form-control" style="width: 120px;display:inline-block;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        配送方式：<select   name="sendWay" class="form-control" style="width: 120px;display:inline-block;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br/>
+                        <br/>
+                        <span class="sp-width">
+                         兑换时间：</span><input type="text" id="start" name="createTimeBegin"
+                                                                  onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})"
+                                                                  class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="end" name="createTimeEnd"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        dataTableUtil.createCheckBoxByCondition('id',"0","state"),
+        {title:"兑换用户",data:"realName",className:"dt-simple"},
+        {title:"兑换人手机号",data:"login",className:"dt-simple"},
+        {title:"商品名称",data:"name",className:"dt-simple"},
+        {title:"商品数量",data:"number",className:"dt-simple"},
+        {title:"总价(积分)",data:"point",className:"dt-simple"},
+        {title:"收货人",data:"consignee",className:"dt-simple"},
+        {title:"收货人电话",data:"consigneeTel",className:"dt-simple"},
+        {title:"收货地址",data:"address",className:"dt-simple"},
+        {title:"快递单号",data:"courierNo",className:"dt-simple"},
+        {title:"配送方式",data:"sendWay",className:"dt-simple",
+            render:function(value, type, row, meta){
+               return  DIC_CONSTANT.getName("point_product", "send_way",value);
+            }},
+        {
+            title:"兑换时间",
+            data:"createTime",
+            className:"dt-simple",
+            render:function(value, type, row, meta){
+                return new Date(value).Format("yyyy-MM-dd HH:mm:ss");
+            }
+        },
+        {title:"状态",data:"state",className:"dt-simple",render: function (value, type, row, meta) {return DIC_CONSTANT.getName('point_order','state',value); }},
+        {
+            title:"操作",
+            data: null,
+            className:"dt-operate",
+            render: function (data, type, row, meta) {
+                var btn ='';
+                if(row.state==0){
+                    //创建审核按钮
+                 btn+='<a href="javascript:void(0)"  onclick="angular.element(this).scope().createCheckPanel('+row.id+')" title="审核" class="fa fa-th fa-gavel hide-underline" style="padding-left: 3px;padding-right: 3px;"></a>';
+                }
+                if(row.state==1||row.state==2){
+                    btn+='<a href="javascript:void(0)"  onclick="angular.element(this).scope().createCourierNoPanel('+row.id+')" title="填写快递单号" class="fa fa-file-word-o" style="padding-left: 3px;padding-right: 3px;"></a>';
+                    btn+=commonUtil.createConfirmRequestBtn({orderId:row.id,ajaxUrl:"pointOrderController/cancelOrder",fn:void(0)}, "取消订单", "取消订单", "确定取消订单?", "fa fa-times fa-remove hide-underline")+'&nbsp;&nbsp;';
+                }
+                return btn;
+            }
+        }
+
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.listOrder,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+
+</script>

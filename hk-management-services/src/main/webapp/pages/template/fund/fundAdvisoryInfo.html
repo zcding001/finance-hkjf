@@ -1,0 +1,107 @@
+<style>
+    span{ color: #3f903f}
+</style>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <div class="well">
+                <table class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【1】、投资者的电汇付款是否来自上述投资者姓名本人的银行的账户？&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       默认选项：是&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.payFlag == 1">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.payFlag != 1">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【2】、投资者代表并保证:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：以实益拥有人的身份行事&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.controlStatementFlag == 1">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.controlStatementFlag != 1">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【3】、投资者声明并保证它是:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：个人不是美国人人士（包括任何此类个人的信托）&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.investStatementFlag == 1">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.investStatementFlag != 1">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【4】、根据投资者最大知悉情况，投资者是否与该基金其他任何投资者存在控制、被控制及同一控制关系？&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：否&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.investAwareFlag == 0">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.investAwareFlag != 0">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【5】、投资者是否与其他人基于本基金的整体或部分回报签订掉期，结构化票据或其他衍生工具？&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：否&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.signedSwapFlag == 0">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.signedSwapFlag != 0">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【6】、任何其他人士是否根据本协议获得的A类权益有获益权（除投资者的股东，合伙人，保单拥有人或投资者其他股权的受益人）或投资者是否作为他方的代理人，代表或提名人?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：否&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.proxyFlag == 0">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.proxyFlag != 0">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>【7】、美国税务居民：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    默认选项：我不是美国公民或美国税务居民&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <span ng-if="info.americanTaxFlag == 1">用户选择默认！</span>
+                                    <span style="color:red;" ng-if="info.americanTaxFlag != 1">用户选择非默认！</span>
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>

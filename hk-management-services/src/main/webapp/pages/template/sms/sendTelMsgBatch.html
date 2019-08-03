@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">短信发送</span>
+				<a href="javascript:void(0)" class="btn btn-info" onclick="sendTelMsg('1')" style="display:inline-block;float:right;margin-right: 10px;">发送</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				<div>
+                            客户群：<select id="userGroup" name="userGroup" class="form-control" style="width: 120px;display:inline-block;">
+                                    <option value="0">全部用户</option>
+                                    <option value="1">投资用户</option>
+                                    <option value="2">实名未投资</option>
+                                    <option value="3">实名</option>
+                                    <option value="4">男性用户</option>
+                                    <option value="5">女性用户</option>
+                                    <option value="6">不活跃用户</option>
+                                    <option value="7">导入型用户</option>
+                            </select>
+                            <div style="margin-top:15px;">
+                                短信内容 : <textarea class="confirmChildrenTextArea" name="msg" id="msg"></textarea>
+                            </div>
+						</div>
+           			</form>
+            	</div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+	//预更新用户被推荐人
+	function sendTelMsg(){
+	    var context = "<input name='msg' type='hidden' value='" + $("#msg").val() + "'>";
+	    context += "<input name='userGroup' type='hidden' value='" + $("#userGroup").val() + "'>";
+        if(commonUtil.isEmpty($("textarea[name=msg]").val())){
+            commonUtil.createSimpleNotify("请输入短信内容");
+        }else{
+            commonUtil.createCustomConfirmBox("提示", context + "确认一键发送短信?", CONFIG.interface.sendTelMsgBatch, "", commonUtil.customConfirmStandardAfterExecuteFn, );
+        }
+    }
+</script>

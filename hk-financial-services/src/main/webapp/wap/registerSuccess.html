@@ -1,0 +1,49 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+
+	<!-- Sets initial viewport load and disables zooming  -->
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>鸿坤金服网站_注册页</title>
+
+	<link href="../src/css/wap/ratchet.min.css" rel="stylesheet">
+	<link href="../src/css/wap/ratchet-theme-android.min.css" rel="stylesheet">
+	<link href="../src/css/wap/ratchet-theme-ios.min.css" rel="stylesheet">
+	<link href="../src/css/wap/login.css" rel="stylesheet">
+
+	<!--<script src="../src/js/ratchet.min.js"></script>-->
+	<script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+	<!--<script src="../src/js/radius.js"></script>-->
+</head>
+
+<body style='background:white;height:initial'>
+<!-- 头部内容开始 -->
+<header class="bar bar-nav" style='border-bottom: 1px #eeeeee solid;'>
+  <a href="javascript:history.go(-1)" class="icon icon-left-nav pull-left c_ff"></a>  
+  <h1 class="title">注册成功</h1>
+</header>
+<!-- 头部内容结束 -->
+
+<!-- 表单内容开始 -->
+<div class="main" style='margin: 70px 15px 10px 15px;'>
+	<div style="text-align: center;margin-top:30%;">
+	<img src="../src/img/wap/successful.png" style='width:39.6875%'>
+	</div>
+   	<div style='margin:8% 0 15px 0;;'><a class="btn btn-negative btn-block bg_red " id="Download" style="margin: 0 auto;box-shadow: none;"  href="javascript:void(0);">下载APP</a></div>
+</div>
+<!-- 表单内容结束 -->
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+	$("#Download").click(function(){//跳过,直接显示注册成功
+		window.location.href='http://a.app.qq.com/o/simple.jsp?pkgname=com.yrtz.qiankundai';
+	});
+		
+});	
+</script>

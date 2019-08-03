@@ -1,0 +1,170 @@
+<!-- 左侧菜单开始 -->
+<div class="act_head"><a href="javascript:void(0)">我的鸿坤金服</a></div>
+<ul class="menu-one" id="menu-one">
+    <!--<li>-->
+    <!--<div> <span>我的投资<i class="iconfont icon-arrow"></i></span></div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="receiptPlanList.html">回款计划</a></li>-->
+    <!--<li><a href="investRecord.html">投资记录</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>资金管理<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="recharge.html">充值</a></li>-->
+    <!--<li><a href="Withdrawals.html">提现</a></li>-->
+    <!--<li><a href="transactionRecord.html">交易记录</a></li>-->
+    <!--<li><a href="ExperienceRecord.html">体验金记录</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>账户管理<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="securityCenter.html">安全中心</a></li>-->
+    <!--<li><a href="directCard.html">银行卡管理</a></li>-->
+    <!--<li><a href="userInfo.html">个人基本信息</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>自动投资<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="autoInvest.html">自动投资</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>消息中心<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="newsRecord.html">消息记录</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>红包管理<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="cashRedpacket.html">红包兑换</a></li>-->
+    <!--<li><a href="sendOutRedPacket.html">已发红包</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>借款管理<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="loanApplication.html">借款申请</a></li>-->
+    <!--<li><a href="myLoan.html">我的借款</a></li>-->
+    <!--<li><a href="RepaymentPlan.html">还款计划</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>平台活动<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="WinningInfo.html">中奖信息</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>债权转让<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li><a href="myCreditor.html">债权转让</a></li>-->
+    <!--<li><a href="myZqzr.html">我认购的债权</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>购房宝<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li class="firstChild"><a href="transactionRecord.html">交易记录</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div id="pointMenu"> <span>积分管理<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li id="sendPoint"><a href="pointTransfer.html">积分转赠</a></li>-->
+    <!--<li id="pointRecord"><a href="pointRecord.html">积分记录</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>增值服务<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li class="firstChild" id="searchCoupon"><a href="couponRecord.html">券卡查询</a></li>-->
+    <!--<li id="activeCoupon"><a href="couponActive.html">券卡激活</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>我的推荐<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li class="firstChild"><a href="hytj.html">推荐好友</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<div> <span>收货地址<i class="iconfont icon-arrow"></i></span> </div>-->
+    <!--<ul class="menu-two">-->
+    <!--<li class="firstChild"><a href="userAddress.html">收货地址</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+</ul>
+<script>
+
+    function _openAccountMenu(){
+        //打开相应的菜单
+        var aMenuOneLi = $(".menu-one > li");
+        var aMenuTwo = $(".menu-two");
+        var aMenuTwoLi = $(".menu-two > li");
+        $(".menu-one > li >div").each(function(i) {
+            $(this).click(function() {
+                if ($(aMenuTwo[i]).css("display") == "block") {
+                    $(aMenuTwo[i]).slideUp(300);
+                    $(aMenuOneLi[i]).removeClass("menu-show");
+                } else {
+                    for (var j = 0; j < aMenuTwo.length; j++) {
+                        $(aMenuTwo[j]).slideUp(300);
+                        $(aMenuOneLi[j]).removeClass("menu-show");
+                    }
+                    $(aMenuTwo[i]).slideDown(300);
+                    $(aMenuOneLi[i]).addClass("menu-show");
+                }
+            });
+        });
+
+        $(".menu-one > li >ul >li >a").each(function() {
+            var href = $(this).attr("href");
+            var target = commonUtil.getRequestUrl("account/" + href);
+            $(this).attr("href", "javascript:void(0)");
+            $(this).attr("oldHref", href);
+            $(this).click(function(){
+                $("#includeContent").attr("file", target);
+                commonUtil.includeOuterHtml(target);
+            });
+            //展开对应的菜单和子菜单
+            if(commonUtil.endWith($("#includeContent").attr("file"), href)){
+                $(this).parent().parent().slideDown(300);
+                $(this).parent().parent().parent().addClass("menu-show");
+            }
+        });
+    }
+    $(document).ready(function() {
+        $(".act_head").click(function(){
+            commonUtil.jump("account/actIndex.html");
+        });
+        var callBack = function (msg) {
+            var menus='';
+            if(msg.resStatus==CONSTANTS.SUCCESS){
+                var levelOneMenu=msg.resMsg
+                for(var i=0;i < levelOneMenu.length;i++){
+                    var singMenu = '<li><div> <span>' + levelOneMenu[i].levelOneName + '<i class="iconfont icon-arrow"></i></span></div>';
+                    var levelTwos=levelOneMenu[i].childNode;
+                    singMenu += '<ul class="menu-two">' ;
+                    for(var k=0;k<levelTwos.length;k++){
+                        singMenu +=
+                            '<li>' +
+                            '<a href="' + levelTwos[k].menuUrl + '">'+levelTwos[k].menuName+'</a>' +
+                            '</li>' ;
+                    }
+                    singMenu += '</ul>' ;
+                    singMenu+= '</li>';
+                    menus += singMenu;
+                }
+            }
+            //拼接菜单
+            $("#menu-one").append(menus);
+        };
+        ajaxUtil.post(CONSTANTS.BASE_PATH +"/indexController/loadUserMenu.do",{},callBack,'json',false);
+        /****** 加载菜单***************/
+        _openAccountMenu();
+    });
+</script>

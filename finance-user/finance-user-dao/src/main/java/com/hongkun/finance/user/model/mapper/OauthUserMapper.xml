@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.OauthUser">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_OauthUser" type="com.hongkun.finance.user.model.OauthUser">
+		<result property="id" column="id"/>
+		<result property="guid" column="guid"/>
+		<result property="createTime" column="create_time"/>
+		<result property="archived" column="archived"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/>
+		<result property="phone" column="phone"/>
+		<result property="username" column="username"/>
+		<result property="defaultUser" column="default_user"/>
+		<result property="lastLoginTime" column="last_login_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,guid,create_time,archived,email,password,phone,username,default_user,last_login_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO oauth_user ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="guid != null and guid != ''">
+				guid ,
+			</if>
+				create_time ,
+			<if test="email != null and email != ''">
+				email ,
+			</if>
+			<if test="password != null and password != ''">
+				password ,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone ,
+			</if>
+			<if test="username != null and username != ''">
+				username ,
+			</if>
+				last_login_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="guid != null and guid != ''">
+				#{guid} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="email != null and email != ''">
+				#{email} ,
+			</if>
+			<if test="password != null and password != ''">
+				#{password} ,
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone} ,
+			</if>
+			<if test="username != null and username != ''">
+				#{username} ,
+			</if>
+			<choose>
+				<when test="lastLoginTime != null">
+					#{lastLoginTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO oauth_user (
+	       	id ,
+	       	guid ,
+	       	create_time ,
+	       	archived ,
+	       	email ,
+	       	password ,
+	       	phone ,
+	       	username ,
+	       	default_user ,
+	       	last_login_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.guid != null and item.guid != ''">
+					#{item.guid} ,
+				</if>
+				<if test="item.guid == null or item.guid == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.email != null and item.email != ''">
+					#{item.email} ,
+				</if>
+				<if test="item.email == null or item.email == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.password != null and item.password != ''">
+					#{item.password} ,
+				</if>
+				<if test="item.password == null or item.password == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.phone != null and item.phone != ''">
+					#{item.phone} ,
+				</if>
+				<if test="item.phone == null or item.phone == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.username != null and item.username != ''">
+					#{item.username} ,
+				</if>
+				<if test="item.username == null or item.username == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.lastLoginTime != null">
+					#{item.lastLoginTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="guid != null and guid != ''">
+				guid = #{guid} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email} ,
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password} ,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone = #{phone} ,
+			</if>
+			<if test="username != null and username != ''">
+				username = #{username} ,
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time = #{lastLoginTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  oauth_user
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM oauth_user 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_OauthUser">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM oauth_user 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="guid != null and guid !=''">
+			AND guid = #{guid}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="email != null and email !=''">
+			AND email = #{email}
+			</if>
+			<if test="password != null and password !=''">
+			AND password = #{password}
+			</if>
+			<if test="phone != null and phone !=''">
+			AND phone = #{phone}
+			</if>
+			<if test="username != null and username !=''">
+			AND username = #{username}
+			</if>
+			<if test="lastLoginTimeBegin != null">
+			AND last_login_time >= #{lastLoginTimeBegin}
+			</if>
+			<if test="lastLoginTimeEnd != null">
+			AND last_login_time &lt;= #{lastLoginTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM oauth_user 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_OauthUser">
+		SELECT <include refid="columns" />
+		FROM oauth_user 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="getByGuid" resultMap="_OauthUser" parameterType="java.lang.String">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+		FROM oauth_user 
+		WHERE guid = #{guid}
+		]]>
+	</select>
+	<select id="getByUsername" resultMap="_OauthUser" parameterType="java.lang.String">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+		FROM oauth_user 
+		WHERE username = #{username}
+		]]>
+	</select>
+</mapper>

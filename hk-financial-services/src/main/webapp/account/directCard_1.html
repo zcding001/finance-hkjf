@@ -1,0 +1,48 @@
+            <!-- 维护开户行信息 -->
+            <div class="act_right fr">
+                <div class="border">
+                    <div class="tx_bt">可提金额：<span class="colr-org" id="useableMoney">￥495176 </span>元</div>
+                    <form name="bankForm" id="bankForm">
+                        <input  type="hidden"  id="id" name="id">
+                    <div class="bank_bd">
+                        <ul>
+                            <li class="tx_bd">
+                                <span class="f-18">持卡人姓名：</span>
+                                <span>
+                                <input class="disabled" type="text"  id="realName" readonly="readonly">
+                          </span>
+                            </li>
+                            <li class="tx_bd">
+                                <span class="f-18"><span class="colr-red">*</span> 银行卡号：</span>
+                                <span><input class="" name="bankCard" id="bankCard" type="text"></span>
+                            </li>
+                            <li class="tx_bd">
+                                <span class="f-18 "><span class="colr-red">*</span> 开户地址：</span>
+                                <span><select id="bankProvince" name="bankProvince" class="select_input"></select></span>
+                                <span><select id="bankCity" name="bankCity"  class="select_input"></select></span>
+                            </li>
+                            <li class="tx_bd">
+                                <span class="f-18"><span class="colr-red">*</span> 支行名称：</span>
+                                <input class="edit" name="branchName" id="branchName"  type="text">
+                            </li>
+                            <li class="tx_bd f-16">
+                                <span class="qr_btn"><a href="javascript:void(0);" id="bank_save_bt">确定</a></span>
+                                <span class="qx_btn"><a href="javascript:void(0);" id="bank_cancle_bt">取消</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                        <div class="bank_ts2">温馨提示
+                        <br> 1.为保障您的账户资金安全，申请提现时，您选择的银行卡（不能选择信用卡）开户名必须与您鸿坤金服账户实名认证一致，否则提现申请将不予受理。
+                        <br> 2.收到您的提现请求后，鸿坤金服将在1-3个工作日（双休日或法定节假日顺延）内处理您的提现申请，结果会以短信的形式告知，请注意查收。
+                        <br> 3.严禁利用鸿坤金服进行套现、洗钱、匿名转账，对于频繁的非正常以投资为目的的资金充提行为，一经发现，鸿坤金服将通过原充值渠道进行资金清退。
+                        <br> 4.如果提现时遇到问题，请联系客服 400-900-9630/400-099-0229。
+                    </div>
+                </div>
+            </div>
+<script type="text/javascript" src="${project_base_path}/jslib/payment/bankCard.js"></script>
+            <script>
+                $(function(){
+                    bankController.viewBankInfo();
+                });
+            </script>

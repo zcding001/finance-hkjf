@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.qdz.model.QdzTransRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_QdzTransRecord" type="com.hongkun.finance.qdz.model.QdzTransRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="type" column="type"/>
+		<result property="transMoney" column="trans_money"/>
+		<result property="preMoney" column="pre_money"/>
+		<result property="afterMoney" column="after_money"/>
+		<result property="state" column="state"/>
+		<result property="source" column="source"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,type,trans_money,pre_money,after_money,state,source,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO qdz_trans_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="transMoney != null">
+				trans_money ,
+			</if>
+			<if test="preMoney != null">
+				pre_money ,
+			</if>
+			<if test="afterMoney != null">
+				after_money ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="source != null">
+				source ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="transMoney != null">
+				#{transMoney} ,
+			</if>
+			<if test="preMoney != null">
+				#{preMoney} ,
+			</if>
+			<if test="afterMoney != null">
+				#{afterMoney} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="source != null">
+				#{source} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO qdz_trans_record (
+        	id ,
+        	reg_user_id ,
+        	type ,
+        	trans_money ,
+        	pre_money ,
+        	after_money ,
+        	state ,
+        	source ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transMoney != null">
+					#{item.transMoney} ,
+				</if>
+				<if test="item.transMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.preMoney != null">
+					#{item.preMoney} ,
+				</if>
+				<if test="item.preMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.afterMoney != null">
+					#{item.afterMoney} ,
+				</if>
+				<if test="item.afterMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.source != null">
+					#{item.source} ,
+				</if>
+				<if test="item.source == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="preMoney != null ">
+				pre_money =pre_money + #{preMoney} ,
+			</if>
+			<if test="afterMoney != null ">
+				after_money =after_money + #{afterMoney} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="source != null">
+			source = #{source} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  qdz_trans_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM qdz_trans_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_QdzTransRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM qdz_trans_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+    <!-- 通过用户ID，查询转入转出记录信息 -->
+	<select id="findQdzTransRecordByRegUserId" resultMap="_QdzTransRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM qdz_trans_record 
+		WHERE 1 = 1
+			AND reg_user_id = #{regUserId}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="type != null and type!='-999'">
+			AND type = #{type}
+			</if>
+			<if test="transMoney != null">
+			AND trans_money = #{transMoney}
+			</if>
+			<if test="preMoney != null">
+			AND pre_money = #{preMoney}
+			</if>
+			<if test="afterMoney != null">
+			AND after_money = #{afterMoney}
+			</if>
+			<if test="state != null and state!='-999'">
+			AND state = #{state}
+			</if>
+			<if test="source != null">
+			AND source = #{source}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null ">
+			AND create_time &lt;#{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM qdz_trans_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_QdzTransRecord">
+		SELECT <include refid="columns" />
+		FROM qdz_trans_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 分页查询钱袋子账单流水 数量 -->
+	<select id="findQdzTransferRecordListCount" resultType="long">
+		SELECT COUNT(ID)
+		FROM qdz_trans_record 
+		<include refid="findQdzInfo_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 分页查询钱袋子账单流水-->
+	<select id="findQdzTransferRecordList" resultMap="_QdzTransRecord">
+		SELECT <include refid="columns" />
+		FROM qdz_trans_record 
+		<include refid="findQdzInfo_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	
+	<!-- 查询条件 -->
+	<sql id="findQdzInfo_where">
+		<where>	  
+			1 = 1    				
+			<if test="flowId != null">
+			AND id = #{flowId}
+			</if>
+			<if test="regUserIdList != null">
+			AND reg_user_id  in
+			<foreach collection="regUserIdList" item="regUserIds"  open="(" separator="," close=")">
+				${regUserIds}
+			</foreach>
+			</if>	
+			<if test="type != null and type!='-999'">
+			AND type = #{type}
+			</if>
+			<if test="transMoney != null">
+			AND trans_money = #{transMoney}
+			</if>
+			<if test="preMoney != null">
+			AND pre_money = #{preMoney}
+			</if>
+			<if test="afterMoney != null">
+			AND after_money = #{afterMoney}
+			</if>
+			<if test="state != null and state!='-999'">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null ">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="findQdzCount_where">
+		<where>	  
+			1 = 1    				
+			<if test="type != null and type!='-999'">
+			AND type = #{type}
+			</if>
+			<if test="state != null and state!='-999'">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND date(create_time) >= date(#{createTimeBegin})
+			</if>
+			<if test="createTimeEnd != null">
+			AND date(create_time) &lt;= date(#{createTimeEnd})
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 按条件查询转入金额之和 -->
+	<select id="findSumTransMoneyOfDay" resultType="java.math.BigDecimal">
+		SELECT COALESCE(SUM(trans_money),0)
+		FROM qdz_trans_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 按条件查询当月转入次数 -->
+    <select id="findTransferInTimesOfMonth" resultType="java.lang.Integer">
+		SELECT count(id)
+		FROM qdz_trans_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 查询转入转出人数 -->
+	 <select id="findTransferUserSum" resultType="java.lang.Integer">
+		SELECT   count(DISTINCT reg_user_id)
+		FROM qdz_trans_record 
+		<include refid="findQdzCount_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+</mapper>

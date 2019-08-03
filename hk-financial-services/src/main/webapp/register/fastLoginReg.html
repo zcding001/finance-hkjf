@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速登录注册</title>
+</head>
+<body>
+<div class="container regist">
+    <!--欢迎登录开始-->
+    <div class="login_cont fr box-back loginHide">
+        <form id="dataForm">
+            <input type="hidden" name="login" id="login">
+            <input type="hidden" name="passwd" id="passwd">
+            <div class="login_cont_c">
+                <h1>欢迎登录</h1>
+                <input id="loginTmp" class="login_input" value="请输入您的手机号" datatype="mobile" nullmsg="请输入您的手机号"
+                       errormsg="请填写正确的手机号码！">
+                <input id="passwdTmp" type="text" class="login_input" value="请输入您的密码" isPasswd="true" datatype="ns6-16"
+                       nullmsg="请输入您的密码" errormsg="请输入6至16位字母数字组合!">
+                <!-- 错误提示和忘记密码在一行 -->
+                <div class="forget_password clearfix">
+                    <div class="info_error fl resErrMsg0"></div>
+                    <a href="register/password.html" class="block fr">忘记密码?</a>
+                </div>
+                <div class="login_button gradient" id="loginBtn">立即登录</div>
+                <p class="login_text">
+                    <a href="javascript:void(0);" class="toregit toRegistBtn">没有帐号？    我要注册</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    <!-- 欢迎登录结束 -->
+    <!-- 登录后显示页面开始 -->
+    <div class="login_cont hide loginShow">
+        <div class="login_cont_c pt_30">
+            <div class="clearfix">
+                <p class="login_name_lt fl"><span class="nickNameString">未登录</span></p>
+                <a href="#" class="login_tc fr logoutBtn">退出</a>
+            </div>
+            <div class="login_dlh">
+                <div class="zcqk clearfix">
+                    <p class="fl">总资产</p>
+                    <a href="account/actIndex.html" class="fr">查看</a>
+                </div>
+                <p class="zc_no" style="color:#888;"><span class="colr-org f-18 totalAmountNum">0</span> 元</p>
+                <p class="zc_no2">可用余额：<span style="color:#333;" class="useableMoneyNum">0</span> 元</p>
+            </div>
+            <a href="#">
+                <button class="login_button gradient" id = "toInvestBtn" style="margin-top:23px;" >立即投资</button>
+            </a>
+            <p class="login_text2">
+                <a href="javascript:void(0)" onclick="commonUtil.jumpToAccount('recharge.html')" >我要充值</a>
+                <span>|</span>
+                <a href="javascript:void(0)" onclick="commonUtil.jumpToAccount('Withdrawals.html')" >我要提现</a>
+            </p>
+        </div>
+    </div>
+    <!-- 登录后显示页面结束 -->
+
+
+    <!--注册开始-->
+    <form id="fastRegForm">
+        <input type="hidden" name="login" id="regLogin">
+        <input type="hidden" name="passwd" id="regPasswd">
+        <div class="login_cont fr box-front loginHide">
+            <div class="login_cont_c">
+                <h1>快速注册</h1>
+                <input id="regLoginTmp" type="text" value="请输入您的手机号" datatype="mobile" nullmsg="请输入您的手机号"
+                       errormsg="请填写正确的手机号码！"/>
+                <input id="regPasswdTmp" type="text" value="请设置密码(6至16位字母数字组合)" isPasswd="true" datatype="ns6-16"
+                       nullmsg="请设置密码(6至16位字母数字组合)" errormsg="请输入6至16位字母数字组合!" />
+                <!-- 错误提示 -->
+                <div class="forget_password">
+                    <div class="info_error tal fl resErrMsg1"></div>
+                </div>
+                <div class="login_button gradient" style="margin-top:40px;" id="registBtn">立即注册</div>
+                <p class="login_text" style="margin-top: 13px;"><a href="javascript:;" class="toLoginBtn">已注册，我要登录</a></p>
+            </div>
+        </div>
+        <!--注册结束-->
+        <!--注册继续页面开始-->
+        <div class="login_cont fr box-regist loginHide">
+            <div class="login_cont_c">
+                <p><a href="javascript:void(0);" class="wj_back" id="backToReg">＜返回</a></p>
+                <ul>
+                    <li class="clearfix">
+                        <input type="text" name="calcCode" id="calcCode" class="Login_in_small fl" value="请输入计算结果" datatype="n1-3" nullmsg="请输入计算结果" errormsg="请输入计算结果！">
+                        <img id="validCode" title="点击更换" onclick="javascript:commonUtil.loadValidateCode(this, 2);" class="jisuanqi Login_in_small fr" src="" />
+                    </li>
+                </ul>
+                <ul>
+                    <li class="clearfix">
+                        <input class="Login_in_small fl" id="smsCode" type="text" name="smsCode" value="请输入您的6位验证码" datatype="n6-6" nullmsg="请输入您的6位验证码" errormsg="请输入合法的验证码">
+                        <a href="javascript:void(0);" class="jisuanqi Login_in_small fr" id="smsCodeBtn">获取验证码</a><span id="waitTime"></span>
+                    </li>
+                </ul>
+                <input id="commendNo" name="commendNo" class="login_in" type="text" placeholder="请输入您的推荐码(推荐人手机号后8位)" maxlength="8" datatype="/^\d{8}|(\s){0}$/" nullmsg="请输入您的推荐码(推荐人手机号后8位)" errormsg = "请输入您的推荐码(推荐人手机号后8位)">
+                <div style="margin-top:8px;margin-bottom:20px;" class="clearfix">
+                    <input type="checkbox" checked="checked" value="" class="fl" id="agreeOn">
+                    <p class="wj fl">
+                        <span>注册代表您阅读并同意</span><a href="javascript:void(0)" id="hkjfAgreement" class="">《鸿坤金服网站服务协议》</a>
+                        <!-- 及<a href="javascript:void(0);" id="investAgreement" class="a_pub">《投资协议》</a> -->
+                        <!--<a href="javascript:void(0)" id="toFxinvest">《定向及合格投资者认定》</a>-->
+                        <a href="javascript:void(0)" id="riskNotify">《投资风险告知书》</a>
+                    </p>
+                </div>
+                <!-- 错误提示 -->
+                <div class="info_error_bak tal resErrMsg2 colr-red mb-5" style="margin-bottom:-10px;"></div>
+                <div class="login_button gradient" style="margin-bottom: 27px;" id="regSubmitBtn">完成</div>
+            </div>
+        </div>
+        <!--登录继续页面结束-->
+    </form>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="registHkjfAgreement" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">鸿坤金服网站协议</h4>
+            </div>
+            <div class="modal-body pb-30 pt-30" style="height:600px;overflow-y:auto;">
+                <!-- 所要添加的内容start -->
+                <div class="include" file="${project_base_path}/contract/registHkjfAgreement.html"></div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="registRiskNotify" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">投资风险告知书</h4>
+            </div>
+            <div class="modal-body pb-30 pt-30" style="height:600px;overflow-y:auto;">
+                <!-- 所要添加的内容start -->
+                <div class="include" file="${project_base_path}/contract/registRiskNotify.html"></div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="fxinvest" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">定向及合格投资者认定</h4>
+            </div>
+            <div class="modal-body pb-30 pt-30" style="height:520px;">
+                <!-- 所要添加的内容start -->
+                <div class="include" file="${project_base_path}/contract/fxinvest.html"></div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog2" id="registInvestAgreement" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">投资协议</h4>
+            </div>
+            <div class="modal-body pb-30 pt-30" style="height:600px;overflow-y:auto;">
+                <!-- 所要添加的内容start -->
+                <div class="include" file="${project_base_path}/contract/registInvestAgreement.html"></div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel">信息提示</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30">短信验证码已发送</div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 业务js -->
+<script type="text/javascript" src="${project_base_path}/lib/rsa/rsaUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/jsencrypt.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/smsCodeUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/user/loginReg.js"></script>
+
+<script>
+    $(function(){
+        //判断ticket是否存在
+        if(validUtil.validNotEmpty(cookieUtil.getCookie(CONSTANTS.SSO_TICKET))){
+            console.info("检测到ticket存在");
+            loginRegController.ticketLogin();
+        }
+        loginRegController.fastLogin();
+        loginRegController.fastReg();
+        loginRegController.toInvest();
+    });
+</script>
+</html>

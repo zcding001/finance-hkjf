@@ -1,0 +1,187 @@
+@charset "utf-8";
+
+body{font-family:"微软雅黑","Arial Narrow";background:#fff;-webkit-text-size-adjust:100%;}
+/*首页头部样式*/
+.index-header {
+    width: 100%;
+    height: 5rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.index-header h3 {
+    font-size: 1.8rem;
+    color: #333;
+    line-height: 5rem;
+    text-align: center;
+    font-weight: 400;
+    background: #fff;
+}
+
+
+/*banner样式*/
+
+.swiper-container {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.08);
+    margin-top:5rem;
+}
+
+.swiper-container .swiper-slide img {
+    width: 100%;
+    display: block;
+}
+
+.swiper-pagination-bullet {
+    background: #ffe880;
+}
+
+.swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+    bottom: 0px;
+}
+
+/*list title样式*/
+
+.index-nav {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.08);
+    margin-bottom: 15px;
+}
+
+.index-nav ul {
+    width: 100%;
+    text-align: center;
+}
+
+.index-nav ul li {
+    width: 25%;
+    float: left;
+    line-height: 35px;
+}
+
+.index-nav ul li a {
+    padding-top: 15px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    color: #333;
+    font-size: 12px;
+}
+
+.index-nav ul li img {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+}
+
+
+/*理财专区 样式*/
+
+.index-card,
+.pro-list-card {
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom:10px;
+}
+
+.index-card-top,
+.pro-list-top {
+    width: 96%;
+    margin: 0 auto;
+    border-bottom: 1px solid #eee;
+    padding-top: 15px;
+    padding-bottom: 13px;
+    position:relative;
+}
+
+.index-card-top span:first-child {
+    color: #666;
+    font-size: 16px;
+}
+
+.index-card-top span:last-child {
+    color: #f39200;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+.index-card-bot,
+.pro-list-bot {
+    padding: 18px 0;
+    position:relative;
+}
+
+.index-card-bot ul>li:first-child {
+    border-right: 1px solid #eee;
+    width: 55%;
+    padding-left: 15%;
+}
+
+.index-card-bot ul>li:last-child {
+    width: 45%;
+    padding-left: 17%;
+}
+
+.index-card-bot div {
+    padding-top: 6px;
+}
+
+.index-card-bot div>span,
+.pro-list-bot div>span {
+    font-size: 27px;
+    color: #f39200;
+}
+
+.index-card-bot div i,
+.pro-list-bot div i {
+    font-size: 14px;
+    color: #888;
+}
+
+.index-card-bot p {
+    color: #888;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.index-card .index-card-top .index-sp-color {
+    color: #666;
+    font-size: 16px !important;
+    font-size: 16px;
+    padding-left: 2%;
+}
+
+.index-pro-title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #888;
+    font-size: 16px;
+    padding-left: 2%;
+}
+
+.index-card-top .index-tyb-sp {
+    font-size: 16px;
+    border: 1px solid #f39200;
+    border-radius: 14px;
+    height: 28px;
+    line-height: 27px;
+    padding-left: 3%;
+    padding-right: 3%;
+    color: #f39200;
+}

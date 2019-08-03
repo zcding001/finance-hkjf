@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasSimRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasSimRecord" type="com.hongkun.finance.vas.model.VasSimRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="money" column="money"/>
+		<result property="expireTime" column="expire_time"/>
+		<result property="source" column="source"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,money,expire_time,source,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_sim_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="money != null">
+				money ,
+			</if>
+				expire_time ,
+			<if test="source != null">
+				source ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="money != null">
+				#{money} ,
+			</if>
+			<choose>
+				<when test="expireTime != null">
+					#{expireTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="source != null">
+				#{source} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO vas_sim_record (
+        	id ,
+        	reg_user_id ,
+        	money ,
+        	expire_time ,
+        	source ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.money != null">
+					#{item.money} ,
+				</if>
+				<if test="item.money == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.expireTime != null">
+					#{item.expireTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.source != null">
+					#{item.source} ,
+				</if>
+				<if test="item.source == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="money != null ">
+				money =money + #{money} ,
+			</if>
+			<if test="expireTime != null">
+				expire_time = #{expireTime} ,
+			</if>
+			<if test="source != null">
+			source = #{source} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_sim_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_sim_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasSimRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_sim_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="money != null">
+			AND money = #{money}
+			</if>
+			<if test="expireTimeBegin != null">
+			AND expire_time >= #{expireTimeBegin}
+			</if>
+			<if test="expireTimeEnd != null">
+			AND expire_time &lt;= #{expireTimeEnd}
+			</if>
+			<if test="source != null">
+			AND source = #{source}
+			</if>
+			<if test="state != null and state != -999" >
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_sim_record 
+		<include refid="findPage_where"/>    
+	</select>
+    <!-- 通过条件查询用户体验金总和 -->
+	<select id="findSimSumMoney" resultType="BigDecimal">
+		SELECT COALESCE(sum(money),0.00) FROM vas_sim_record 
+		<include refid="findPage_where"/>    
+	</select>
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasSimRecord">
+		SELECT <include refid="columns" />
+		FROM vas_sim_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 分页按条件 查询体验金记录数量 -->
+	<select id="findListPageCount" resultType="long" parameterType="java.util.HashMap">
+		SELECT COUNT(ID) FROM vas_sim_record 
+		<include refid="findPageList_where"/>   
+	</select>
+	<!-- 分页按条件 查询体验金记录 -->
+	<select id="findListPage" resultMap="_VasSimRecord">
+		SELECT <include refid="columns" /> 
+		FROM  vas_sim_record 
+		<include refid="findPageList_where"/>   
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 查询条件 -->
+	<sql id="findPageList_where">
+		<where>	  
+			1 = 1    
+			<if test="vasSimGoldId != null">
+			AND id = #{vasSimGoldId}
+			</if>				
+			<if test="state != null and state != -999">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="regUserIdList != null">
+			AND reg_user_id  in
+			<foreach collection="regUserIdList" item="reglist"  open="(" separator="," close=")">
+				#{reglist}
+			</foreach>
+			</if>		
+		</where>
+	</sql>
+    <!-- 统计体验金发放信息 -->
+	<select id="findSimGoldCountInfo" resultType="java.util.HashMap">
+		SELECT  m.totalMoney as sumSimGrantToTalMoney ,m.sumTotalPerson as sumTotalPerson,n.totalMoney as sumInvestSimTotalMoney,n.suminvestTotalPerson as suminvestTotalPerson 
+		from
+		(select COALESCE(sum(totalMoney),0.00) totalMoney, count(1) sumTotalPerson from 
+		( select COALESCE(sum(money),0.00) totalMoney  from vas_sim_record  group by reg_user_id) m1) m,
+		(select COALESCE(sum(totalMoney),0.00) totalMoney, count(1) suminvestTotalPerson from 
+		( select COALESCE(sum(money),0.00) totalMoney  from vas_sim_record  where state='1' group by reg_user_id)n1 ) n
+	</select>
+	<!-- 查询体验金记录不是已使用和已失效并已过期的记录 -->
+	<select id="getExpiredSimgoldList" resultMap="_VasSimRecord">
+		SELECT id FROM vas_sim_record WHERE state !=1 AND  state !=3 AND DATE(#{currentDate}) > DATE(expire_time)
+	</select>
+</mapper>

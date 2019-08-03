@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegCompanyInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegCompanyInfo" type="com.hongkun.finance.user.model.RegCompanyInfo">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="code" column="code"/>
+		<result property="enterpriseName" column="enterprise_name"/>
+		<result property="corporate" column="corporate"/>
+		<result property="agent" column="agent"/>
+		<result property="licenseNo" column="license_no"/>
+		<result property="tel" column="tel"/>
+		<result property="legalTel" column="legal_tel"/>
+		<result property="bankLicenseUrl" column="bank_license_url"/>
+		<result property="orgNo" column="org_no"/>
+		<result property="legalldNo" column="legalld_no"/>
+		<result property="taxNo" column="tax_no"/>
+		<result property="email" column="email"/>
+		<result property="registerProvince" column="register_province"/>
+		<result property="registerCity" column="register_city"/>
+		<result property="registerCountry" column="register_country"/>
+		<result property="registerAddress" column="register_address"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,code,enterprise_name,corporate,agent,license_no,tel,legal_tel,bank_license_url,org_no,legalld_no,tax_no,email,register_province,register_city,register_country,register_address,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_company_info ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="code != null and code != ''">
+				code ,
+			</if>
+			<if test="enterpriseName != null and enterpriseName != ''">
+				enterprise_name ,
+			</if>
+			<if test="corporate != null and corporate != ''">
+				corporate ,
+			</if>
+			<if test="agent != null and agent != ''">
+				agent ,
+			</if>
+			<if test="licenseNo != null and licenseNo != ''">
+				license_no ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel ,
+			</if>
+			<if test="legalTel != null and legalTel != ''">
+				legal_tel ,
+			</if>
+			<if test="bankLicenseUrl != null and bankLicenseUrl != ''">
+				bank_license_url ,
+			</if>
+			<if test="orgNo != null and orgNo != ''">
+				org_no ,
+			</if>
+			<if test="legalldNo != null and legalldNo != ''">
+				legalld_no ,
+			</if>
+			<if test="taxNo != null and taxNo != ''">
+				tax_no ,
+			</if>
+			<if test="email != null and email != ''">
+				email ,
+			</if>
+			<if test="registerProvince != null and registerProvince != ''">
+				register_province ,
+			</if>
+			<if test="registerCity != null and registerCity != ''">
+				register_city ,
+			</if>
+			<if test="registerCountry != null and registerCountry != ''">
+				register_country ,
+			</if>
+			<if test="registerAddress != null and registerAddress != ''">
+				register_address ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="code != null and code != ''">
+				#{code} ,
+			</if>
+			<if test="enterpriseName != null and enterpriseName != ''">
+				#{enterpriseName} ,
+			</if>
+			<if test="corporate != null and corporate != ''">
+				#{corporate} ,
+			</if>
+			<if test="agent != null and agent != ''">
+				#{agent} ,
+			</if>
+			<if test="licenseNo != null and licenseNo != ''">
+				#{licenseNo} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				#{tel} ,
+			</if>
+			<if test="legalTel != null and legalTel != ''">
+				#{legalTel} ,
+			</if>
+			<if test="bankLicenseUrl != null and bankLicenseUrl != ''">
+				#{bankLicenseUrl} ,
+			</if>
+			<if test="orgNo != null and orgNo != ''">
+				#{orgNo} ,
+			</if>
+			<if test="legalldNo != null and legalldNo != ''">
+				#{legalldNo} ,
+			</if>
+			<if test="taxNo != null and taxNo != ''">
+				#{taxNo} ,
+			</if>
+			<if test="email != null and email != ''">
+				#{email} ,
+			</if>
+			<if test="registerProvince != null and registerProvince != ''">
+				#{registerProvince} ,
+			</if>
+			<if test="registerCity != null and registerCity != ''">
+				#{registerCity} ,
+			</if>
+			<if test="registerCountry != null and registerCountry != ''">
+				#{registerCountry} ,
+			</if>
+			<if test="registerAddress != null and registerAddress != ''">
+				#{registerAddress} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO reg_company_info (
+        	id ,
+        	reg_user_id ,
+        	code ,
+        	enterprise_name ,
+        	corporate ,
+        	agent ,
+        	license_no ,
+        	tel ,
+			legal_tel,
+        	bank_license_url ,
+        	org_no ,
+        	legalld_no ,
+        	tax_no ,
+        	email ,
+        	register_province ,
+        	register_city ,
+        	register_country ,
+        	register_address ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.code != null and item.code != ''">
+					#{item.code} ,
+				</if>
+				<if test="item.code == null or item.code == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.enterpriseName != null and item.enterpriseName != ''">
+					#{item.enterpriseName} ,
+				</if>
+				<if test="item.enterpriseName == null or item.enterpriseName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.corporate != null and item.corporate != ''">
+					#{item.corporate} ,
+				</if>
+				<if test="item.corporate == null or item.corporate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.agent != null and item.agent != ''">
+					#{item.agent} ,
+				</if>
+				<if test="item.agent == null or item.agent == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.licenseNo != null and item.licenseNo != ''">
+					#{item.licenseNo} ,
+				</if>
+				<if test="item.licenseNo == null or item.licenseNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tel != null and item.tel != ''">
+					#{item.tel} ,
+				</if>
+				<if test="item.tel == null or item.tel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.legalTel != null and item.legalTel != ''">
+					#{item.legalTel} ,
+				</if>
+				<if test="item.bankLicenseUrl != null and item.bankLicenseUrl != ''">
+					#{item.bankLicenseUrl} ,
+				</if>
+				<if test="item.bankLicenseUrl == null or item.bankLicenseUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.orgNo != null and item.orgNo != ''">
+					#{item.orgNo} ,
+				</if>
+				<if test="item.orgNo == null or item.orgNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.legalldNo != null and item.legalldNo != ''">
+					#{item.legalldNo} ,
+				</if>
+				<if test="item.legalldNo == null or item.legalldNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.taxNo != null and item.taxNo != ''">
+					#{item.taxNo} ,
+				</if>
+				<if test="item.taxNo == null or item.taxNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.email != null and item.email != ''">
+					#{item.email} ,
+				</if>
+				<if test="item.email == null or item.email == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.registerProvince != null and item.registerProvince != ''">
+					#{item.registerProvince} ,
+				</if>
+				<if test="item.registerProvince == null or item.registerProvince == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.registerCity != null and item.registerCity != ''">
+					#{item.registerCity} ,
+				</if>
+				<if test="item.registerCity == null or item.registerCity == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.registerCountry != null and item.registerCountry != ''">
+					#{item.registerCountry} ,
+				</if>
+				<if test="item.registerCountry == null or item.registerCountry == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.registerAddress != null and item.registerAddress != ''">
+					#{item.registerAddress} ,
+				</if>
+				<if test="item.registerAddress == null or item.registerAddress == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="code != null and code != ''">
+				code = #{code} ,
+			</if>
+			<if test="enterpriseName != null and enterpriseName != ''">
+				enterprise_name = #{enterpriseName} ,
+			</if>
+			<if test="corporate != null and corporate != ''">
+				corporate = #{corporate} ,
+			</if>
+			<if test="agent != null and agent != ''">
+				agent = #{agent} ,
+			</if>
+			<if test="licenseNo != null and licenseNo != ''">
+				license_no = #{licenseNo} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel = #{tel} ,
+			</if>
+			<if test="legalTel != null and legalTel != ''">
+				legal_tel = #{legalTel} ,
+			</if>
+			<if test="bankLicenseUrl != null and bankLicenseUrl != ''">
+				bank_license_url = #{bankLicenseUrl} ,
+			</if>
+			<if test="orgNo != null and orgNo != ''">
+				org_no = #{orgNo} ,
+			</if>
+			<if test="legalldNo != null and legalldNo != ''">
+				legalld_no = #{legalldNo} ,
+			</if>
+			<if test="taxNo != null and taxNo != ''">
+				tax_no = #{taxNo} ,
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email} ,
+			</if>
+			<if test="registerProvince != null and registerProvince != ''">
+				register_province = #{registerProvince} ,
+			</if>
+			<if test="registerCity != null and registerCity != ''">
+				register_city = #{registerCity} ,
+			</if>
+			<if test="registerCountry != null and registerCountry != ''">
+				register_country = #{registerCountry} ,
+			</if>
+			<if test="registerAddress != null and registerAddress != ''">
+				register_address = #{registerAddress} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_company_info
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_company_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegCompanyInfo">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_company_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="code != null and code !=''">
+			AND code = #{code}
+			</if>
+			<if test="enterpriseName != null and enterpriseName !=''">
+			AND enterprise_name = #{enterpriseName}
+			</if>
+			<if test="corporate != null and corporate !=''">
+			AND corporate = #{corporate}
+			</if>
+			<if test="agent != null and agent !=''">
+			AND agent = #{agent}
+			</if>
+			<if test="licenseNo != null and licenseNo !=''">
+			AND license_no = #{licenseNo}
+			</if>
+			<if test="tel != null and tel !=''">
+			AND tel = #{tel}
+			</if>
+			<if test="legalTel != null and legalTel !=''">
+			AND legal_tel = #{legalTel}
+			</if>
+			<if test="bankLicenseUrl != null and bankLicenseUrl !=''">
+			AND bank_license_url = #{bankLicenseUrl}
+			</if>
+			<if test="orgNo != null and orgNo !=''">
+			AND org_no = #{orgNo}
+			</if>
+			<if test="legalldNo != null and legalldNo !=''">
+			AND legalld_no = #{legalldNo}
+			</if>
+			<if test="taxNo != null and taxNo !=''">
+			AND tax_no = #{taxNo}
+			</if>
+			<if test="email != null and email !=''">
+			AND email = #{email}
+			</if>
+			<if test="registerProvince != null and registerProvince !=''">
+			AND register_province = #{registerProvince}
+			</if>
+			<if test="registerCity != null and registerCity !=''">
+			AND register_city = #{registerCity}
+			</if>
+			<if test="registerCountry != null and registerCountry !=''">
+			AND register_country = #{registerCountry}
+			</if>
+			<if test="registerAddress != null and registerAddress !=''">
+			AND register_address = #{registerAddress}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_company_info 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegCompanyInfo">
+		SELECT <include refid="columns" />
+		FROM reg_company_info 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="findRegCompanyInfoByRegUserId" resultMap="_RegCompanyInfo" parameterType="java.lang.Integer">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+		FROM reg_company_info 
+		WHERE reg_user_id = #{regUserId}
+		]]>
+	</select>
+
+	<select id="findRegCompanyInfoByLegalTel" resultMap="_RegCompanyInfo" parameterType="java.lang.String">
+		SELECT <include refid="columns"/>
+		<![CDATA[
+		FROM reg_company_info
+		WHERE legal_tel = #{legalTel}
+		]]>
+	</select>
+</mapper>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册</title>
+    <meta name="keywords" content="互联网金融，鸿坤金服，投资，理财，个人理财，理财收益，鸿坤，鸿坤财富，鸿坤地产，银行理财">
+    <meta name="description" content="鸿坤金服定位为社区“金融超市”，服务于特定社区及特定人群，被评定为国家AAA级信用等级平台、国家高新技术企业、诚信兴商示范单位、中国经济创新示范企业。">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- 默认依webkit内核渲染页面 -->
+    <meta name="renderer" content="webkit">
+    <!--ios禁止识别电话号-->
+    <meta name="format-detection" content="telephone = no"/>
+    <!--禁止识别邮箱-->
+    <meta name="applicable-device" content="mobile">
+    <!-- 禁止缓存-->
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <!-- 指定标题 -->
+    <meta name="apple-mobile-web-app-title" content="鸿坤金服">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="email=no" name="format-detection"/>
+    <link rel="stylesheet" href="../src/css/wap/loginbg.css">
+    <script src="../src/js/rem.js"></script>
+    <script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+
+    <script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+    <script type="text/javascript" src="../lib/constants.js"></script>
+    <script type="text/javascript" src="../lib/utils/containerUtil.js"></script>
+
+    <style>
+        body{background-color:#eeeeee;width: 6.4rem;margin: 0 auto;}
+        .s-odiv{width: 5.9rem;margin: 0.54rem auto 0;;}
+        .s-divinput{padding: 0 0 0 0.24rem;background-color: white;border-radius: 2px;border: 1px solid #e6e6e6;}
+        .s-div-input1{border-bottom: 1px solid #ededed;height: 0.87rem;;line-height: 0.87rem;padding-right: 0.24rem;}
+        .s-div-input1:last-child{border-bottom: none;}
+        .s-loginimg1{width: 0.24rem;line-height: 0.76rem;display: inline-block;}
+        .s-yonghum,.s-yqm{height: 0.86rem;;width: 4.5rem;line-height: 0.86rem;display: inline-block;vertical-align: 0.04rem;;font-size: 0.24rem;color: #333333;;margin-left: 0.16rem;background-color: transparent;}
+        .s-closeBtn{width: 0.24rem;display: none;float: right;margin-top: 0.3rem;}
+        .login{color: white;font-size: 0.3rem;border-radius: 3px; height: 0.78rem;line-height: 0.78rem;text-align: center;display: block;width: 100%;margin-top: 0.6rem;letter-spacing: 1px;}
+    </style>
+</head>
+<body>
+<header class="z-prompt-header" style="border-bottom: none;">
+        <a href="javascript:history.go(-1)"></a>
+        <h3>注册</h3>
+</header>
+<div class='resetmargin'></div>
+    <div class="s-odiv">
+        <div class="s-divinput">
+            <div class="s-div-input1">
+                <img src="../src/img/wap/zcpop.png" alt="" class="s-loginimg1"/>
+                <input type="text" id="nickName" class="s-yonghum odiv-input" placeholder="用户名（选填）" maxlength="8"/>
+                <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+            </div>
+            <div class="s-div-input1">
+                <img src="../src/img/wap/zcddd.png" alt="" class="s-loginimg1" style="width: 0.28rem;vertical-align: 0.04rem;"/>
+                <input type="text" class="s-yqm odiv-input" id="commendPhone" placeholder="邀请码（推荐人手机号后8位，选填）" maxlength="20" />
+                <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+            </div>
+        </div>
+        <button class="login btn-color btnActive" id="registBtn">完成</button>
+    </div>
+    <!--气泡提示框-->
+    <div id="bubbleBtn" class="animated pulse">快速注册快速快速</div>
+    <script src="../src/js/zepto.min.js"></script>
+    <script src="../src/js/publicMethod.js"></script>
+    <script>
+        //邀请码输入框
+        var _commendPhone = $("#commendPhone");
+        //邀请码校验
+        var _commendPhoneFlag = true;
+        $(function () {
+           //获取url上的参数
+            var param = commonUtil.getRequestParamByUrl();
+           //判断邀请码是否正确
+            _commendPhone.blur(function () {
+                commendPhoneBlur();
+            });
+            
+            $("#registBtn").click(function () {
+                commendPhoneBlur();
+                if(!_commendPhoneFlag){
+                    return;
+                }
+                param.nickName = $("#nickName").val();
+                param.commendNo = _commendPhone.val();
+                //进行注册操作
+                ajaxUtil.post("/indexController/reg.do",param,
+                    function(data){
+                        if(data.resStatus == CONSTANTS.SUCCESS){
+                            // 活动跳转至初始页
+                            if(!commonUtil.isEmpty(containerUtil.get("LOTTERY_ACTIVITY_ID"))){
+                                commonUtil.jump("/wap/lotteryActivity/lotteryActivityList.html");
+                                containerUtil.remove("LOTTERY_ACTIVITY_ID");
+                            }else{
+                                // 跳转至实名认证页面
+                                window.location.href = "realName.html";
+                            }
+                        }else{
+                            showbubbleBtn(data.resMsg);
+                        }
+                    });
+            });
+        });
+
+        function commendPhoneBlur() {
+            var commendNo = _commendPhone.val();
+            if (commonUtil.isEmpty(commendNo)){
+                _commendPhoneFlag = true;
+            }else {
+                //判断推荐人邀请码是否正确
+                ajaxUtil.post("/indexController/getUserInfoByInviteNo.do",{"inviteNo":commendNo},function (result) {
+                    if (result.resStatus == CONSTANTS.SUCCESS){
+                        _commendPhoneFlag = true;
+                    }else {
+                        showbubbleBtn("邀请码输入错误!");
+                        _commendPhoneFlag = false;
+                    }
+                },null,false);
+            }
+        }
+    </script>
+</body>
+</html>

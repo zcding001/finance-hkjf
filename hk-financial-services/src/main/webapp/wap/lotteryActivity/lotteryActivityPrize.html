@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>我的奖品</title>
+     <link rel="stylesheet" type="text/css" href="../../src/css/wap/lotteryActivity/joyactivity.css">
+     <link rel="stylesheet" href="../../src/css/wap/lotteryActivity/reset.css">
+     <link rel="stylesheet" href="../../src/css/wap/lotteryActivity/publicCss.css">
+     <link href="../../src/css/wap/lotteryActivity/myaccount.css" type="text/css" rel="stylesheet"/>
+     <link href="../../src/css/wap/lotteryActivity/public.css" type="text/css" rel="stylesheet"/>
+     <script src="../../src/js/lotteryActivity/jquery.min.js"></script>
+     <script src="../../src/js/publicMethod.js"></script>
+      <script src="../../src/js/lotteryActivity/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../../lib/utils/extendUtil.js"></script>
+      <script src="../../src/js/lotteryActivity/lotteryActivityUtil.js"></script>
+      <script type="text/javascript" src="../../lib/utils/cookieUtil.js"></script>
+      <script type="text/javascript" src="../../lib/constants.js"></script>
+      <script type="text/javascript" src="../../lib/utils/containerUtil.js"></script>
+      <script type="text/javascript" src="../../lib/utils/dateUtil.js"></script>
+  </head>
+  <body style="background:#f5f5f5;">
+     <div class="wardwhole">
+ 	   <nav class="helpindex_nav pb_height pb_bt">
+	      <div class="helpindex_content pb_height" style="position:relative;">
+		   <a href="../../wap/lotteryActivity/lotteryActivityList.html" class="f_l pb_height psa dp"style="width:10%;z-index:100;left:0;"></a>
+		   <span style="font-size:16px;display:block;">我的奖品</span>
+	      </div>
+	   </nav>            
+        <div class="wardwholein">
+            <div class="wardword">
+            </div>
+        </div>
+     </div>
+     <div id="bubbleBtn" class="animated pulse"></div>
+
+  </body>
+</html>
+
+<script type="text/javascript">
+(function (doc, win) {
+  var docEl = doc.documentElement,
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    recalc = function () {
+      var clientWidth = docEl.clientWidth;
+      if (!clientWidth) return;
+      docEl.style.fontSize = (clientWidth>=750 ? 100 : clientWidth/7.5) + 'px';
+    };
+ 
+  if (!doc.addEventListener) return;
+  win.addEventListener(resizeEvt, recalc, false);
+  doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+
+function exchange(id,obj) {
+    var activityId = $("#activityId").val();
+    var $exchangeEle = $(obj).parent().next().find(".exchangeCode");
+    $.ajax({
+        type: "POST",
+        cache: false,
+        url: CONSTANTS.BASE_PATH + "/lotteryActivityController/exchangePrize.do",
+        data: {
+            "lotteryRecordId": id,
+            "activityId": activityId
+        },
+        dataType: "json",
+        success: function (data) {
+            showbubbleBtn(data.resMsg);
+            if (data.resStatus == 1000) {
+                $exchangeEle.val(data.params.exchangeCode);
+                $exchangeEle.css("color", "black");
+                $(obj).text("已兑换");
+                $(obj).addClass("aleadydh");
+                $(obj).removeAttr("onclick");
+            }
+        }
+    });
+}
+
+$(function () {
+    var params = lotteryActivityUtil.getRequestParamByUrl();
+    var _activityId = params.activityId;
+    $.ajax({
+        type : "POST",
+        cache  :false,
+        url : CONSTANTS.BASE_PATH + "/lotteryActivityController/getMyPrizeInfo.do",
+        data: {"activityId" : _activityId},
+        dataType : "json",
+        success : function(data) {
+            var resParams = data.params;
+            if (data.resStatus == CONSTANTS.SUCCESS) {
+                var infoList = resParams.infoList;
+                if (null != infoList && undefined != infoList) {
+                    var html = ""
+                    if (infoList.length > 0) {
+                        for (var i in infoList) {
+                            var info = infoList[i];
+                            html += ' <input type="hidden" name="activityId" id="activityId" value="' + info.lotteryActivityId + '" />'
+                                + '<div class="wardzero"><div class="dishedzero" > <div class="dishedname"><h1>' + info.itemName + '</h1></div>'
+                                + '<p style="text-align:center;">';
+                            if (info.itemType == 5 || info.itemType == 6) {
+                                html += '使用期限：' + dateUtil.dateByFormat(info.startTime, "yyyy-MM-dd") + '~' + dateUtil.dateByFormat(info.endTime, "yyyy-MM-dd") + '</p> </div>';
+                            } else if (info.itemType == 3 || info.itemType == 4) {
+                                html += '使用期限：有效期30天，请及时兑换</p> </div>';
+                            } else if (info.itemType == 1 || info.itemType == 2) {
+                                html += '已发送到账户</p> </div>'
+                            }
+                            if (info.itemType == 5) {
+                                html += ' <div class="dhbtn public_mt publicbg">'
+                                if (info.verfication == '' || info.verfication == null) {
+                                    html += '<a href="javascript:void(0)" onclick="exchange(\'' + info.id + '\',this)" id="activityState">兑换</a></div>'
+                                } else {
+                                    html += ' <a href="javascript:void(0)" class="aleadydh" >已兑换</a></div>';
+                                }
+
+                                html += '<div class="functionzero public_mt"> <div class="fl dhm">兑换码</div>'
+                                    + '<input id = "exchangeCode" name = "exchangeCode"  type="text" value="' + info.verfication + '" readonly="readonly" class="fr dhmtext exchangeCode"/>'
+                                    + '<input type="text" value="XXXXX" style="display:none;" class="fr dhmtext"/>'
+                                    + '<div class="clear"></div></div>';
+                            }
+                            html += '</div>';
+                        }
+                    } else {
+                        html += '暂无中奖记录';
+                    }
+                    $(".wardword").before(html);
+                }
+                $(".wardword").append(' 兑奖说明<br/>' + resParams.introduction);
+            } else {
+                // 跳转登录/注册
+                if (resParams.loginFlag == 0) {
+                    lotteryActivityUtil.jump("/wap/login.html")
+                } else {
+                    alert(data.resMsg)
+                }
+            }
+        }
+
+
+    });
+
+})
+	
+
+
+</script>

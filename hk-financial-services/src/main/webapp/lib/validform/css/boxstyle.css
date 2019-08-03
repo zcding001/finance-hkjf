@@ -1,0 +1,52 @@
+.clearfix::before,
+.clearfix::after{
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    clear: both;
+}
+    .tc_box{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 1001;
+    }
+    .tc_box1 {
+       width:325px;
+        background: #fff;
+        border: 5px solid #ccc;
+        margin: 0  auto;
+        padding:20px;
+        margin-top:10%;
+        border-radius:3px;
+        position: relative;
+    }
+    .tc_sp,.tc_te {
+      float: left;
+    }
+    .tc_te {
+      margin-bottom: 10px;
+    }
+    .tc_box2 {
+        text-align: center;
+        margin-top: 5px;
+    }
+    .tc_inp {
+      margin-right: 20px;
+    }
+    .tc_span{
+      	  position: absolute;
+	      top: 0;
+	      right: 3px;
+	      width:20px;
+	      height:20px;
+	      background: rgba(0,0,0,0.4);
+	      color:#fff;
+	      text-align:center;
+	      line-height:20px; 
+    }

@@ -1,0 +1,54 @@
+<!-- 积分记录 -->
+<div class="act_right fr">
+    <form id="dataTableForm">
+        <div class="tx_bar">
+            <ul class="clearfix">
+                <li class="fl">
+                    <cite class="fl">类型：</cite>
+                    <cite class="mr-10">
+                        <select name="type" class="fl">
+                            <option value="" selected="selected">全部</option>
+                            <option value="98">积分收入</option>
+                            <option value="99">积分支出</option>
+                        </select>
+                    </cite>
+                </li>
+                <li class="fl ml-10 in_time">
+                    <cite class="tx_bar_t fl">交易时间：</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+                    </cite>
+                    </cite>
+                    <cite class="fl">&nbsp;-&nbsp;</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+                    </cite>
+                </li>
+                <li class="fl ml-10">
+                    <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <div style="overflow-x: auto;width:818px;">
+        <table class="table table-hover ellipsis" id="dataTable"></table>
+        
+    </div>
+    <div class="paging"></div>
+    <script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+</div>
+<script>
+    var columns = [
+        {title:'类型',data:'type',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dictionaryUtil.getName('point','type',value);
+        }},
+        {title:'积分（包含手续费）',data:'point',tdClass:'tac',thClass:'tac'},
+        {title:'价值',data:'worth',tdClass:'tac',thClass:'tac'},
+        {title:'交易时间',data:'createTime',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:'转赠手续费',data:'fee',tdClass:'tac',thClass:'tac'},
+        {title:'备注',data:'comments',tdClass:'tac',thClass:'tac'}
+    ];
+    renderUtil.renderList("${project_base_path}/pointController/getUserPointRecord.do",columns);
+</script>

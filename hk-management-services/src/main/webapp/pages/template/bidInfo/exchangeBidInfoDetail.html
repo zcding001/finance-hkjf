@@ -1,0 +1,415 @@
+   <style>
+	   span{ color: #3f903f}
+   </style>
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+	                <div class="well">
+						<table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款产品：【<span  ng-bind="bidVo.productName" ></span>】</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>借款用途：<span ng-bind="bidVo.loanUse"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款标题：<span ng-bind="bidVo.title"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>显示平台：<span ng-bind="bidVo.showPosition"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>投资平台：<span ng-bind="bidVo.investPosition"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>项目编号：<span ng-bind="bidVo.bidCode"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>标签内容：<span ng-bind="bidVo.labelText"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>标签链接：<span ng-bind="bidVo.labelUrl"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>封面图片：</label>
+										<input type="hidden"  id="Pic_imgUrl"/>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>印章图片： </label>
+										<input type="hidden"  id="Pic_printImgurl"/>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款金额：<span ng-bind="bidVo.totalAmount"></span></label>
+									</div>
+								</td>
+								<td>
+									<div ng-show="bidVo.bidScheme == 0 ">
+										<div class="form-group" >
+											<label>招标方案, 招标方案值：<span> 平均金额招标,平均每份投资金额为</span>
+												<span ng-bind="bidVo.bidSchemeValue"></span><span>元</span>
+											</label>
+										</div>
+									</div>
+									<div ng-show="bidVo.bidScheme== 1">
+										<div class="form-group" >
+											<label>招标方案, 招标方案值：<span> 最低金额招标,最低投资金额</span>
+												<span ng-bind="bidVo.bidSchemeValue"></span><span>元,且以</span>
+												<span ng-bind="bidVo.stepValue"></span><span>元整数倍递增</span>
+											</label>
+										</div>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款期限（<span ng-bind="bidVo.termUnit"></span>）：<span ng-bind="bidVo.termValue"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>总付利息：<span ng-bind="bidVo.interestAmount"></span> 元</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>投标开始时间：<span ng-bind="bidVo.startTime|date:'yyyy-MM-dd HH:mm:ss'"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>投标结束时间：<span ng-bind="bidVo.endTime|date:'yyyy-MM-dd HH:mm:ss'"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>年利率：<span ng-bind="bidVo.interestRate"></span> %</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>已加息利率：<span ng-bind="bidVo.raiseRate"></span>%</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款手续费率：<span ng-bind="bidVo.commissionRate"></span> %</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>总借款服务费率：<span ng-bind="bidVo.serviceRate"></span> %</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>逾期罚款：<span ng-bind="bidVo.punishState"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>信用等级：<span ng-bind="bidVo.creditLevel"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>垫付服务费率：<span ng-bind="bidVo.advanceServiceRate"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>逾期违约金费率：<span ng-bind="bidVo.liquidatedDamagesRate"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>票据号：<span ng-bind="bidVo.billNo"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>风控方式：<span ng-bind="bidVo.assureType"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>还款方式：<span ng-bind="bidVo.biddRepaymentWay"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label> 还款来源：<span ng-bind="bidVo.repaymentSource"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>本金接收人：<span ng-bind="bidVo.receiptUserName"></span></label>
+									</div>
+								</td>
+								<td>
+									<div ng-show="bidVo.state==5||bidVo.state==6">
+										<div class="form-group">
+										<label>放款时间：<span ng-bind="bidVo.lendingTime|date:'yyyy-MM-dd HH:mm:ss'"></span></label>
+									</div>
+									</div>
+									<div ng-show="bidVo.state!=5&&bidVo.state!=6">
+										<div class="form-group">
+										<label>放款时间：<span>未放款</span></label>
+										</div>
+									</div>
+
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label> 是否赠送积分：<span ng-bind="bidVo.givingPointState"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>是否参与好友推荐：<span ng-bind="bidVo.recommendState"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div ng-show="bidVo.allowCoupon == 0">
+										<div class="form-group">
+											<label>是否允许使用卡券：<span>不支持</span></label>
+										</div>
+									</div>
+									<div ng-show="bidVo.allowCoupon == 1">
+										<div class="form-group">
+											<label>是否允许使用卡券：<span>不限制</span></label>
+										</div>
+									</div>
+									<div ng-show="bidVo.allowCoupon == 2">
+										<div class="form-group">
+											<label>是否允许使用卡券：<span>仅加息券</span></label>
+										</div>
+									</div>
+									<div ng-show="bidVo.allowCoupon == 3">
+										<div class="form-group">
+											<label>是否允许使用卡券：<span>仅红包</span></label>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>是否允许代扣：<span ng-bind="bidVo.withholdState"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td >
+									<div class="form-group">
+										<label>标的属性：<span ng-bind="bidVo.type"></span></label>
+									</div>
+								</td>
+								<td >
+									<div class="form-group">
+										<label>显示交易所信息：<span ng-bind="bidVo.bourseFlg"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>是否允许提前还本：<span ng-bind="bidVo.advanceRepayState"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>提前还本计息方式：<span ng-bind="bidVo.returnCapWay"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>借款满n天后可提前结清：<span ng-bind="bidVo.returnCapDays"></span></label>
+									</div>
+								</td>
+                                <td>
+                                    <div class="form-group">
+                                        <label>匹配类型：<span ng-bind="bidVo.matchType"></span></label>
+                                    </div>
+                                </td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group" >
+										<label>是否允许债权转让：<span ng-bind="bidVo.creditorState"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>债权转让最多转让次数：<span ng-bind="bidVo.mostTransferCount"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>转让交易日期距下次还款日期天数：<span ng-bind="bidVo.dealRepayDays"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>转让前持有债权天数：<span ng-bind="bidVo.creditorDays"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>溢价率：<span ng-bind="bidVo.overflowRateStart"></span>
+										%-<span ng-bind="bidVo.overflowRateEnd"></span>%
+										</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>折价率：<span ng-bind="bidVo.convertRateStart"></span>
+										%-
+										<span ng-bind="bidVo.convertRateEnd"></span>%
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="form-group">
+										<label>项目信息：<span ng-bind="bidVo.projectDescription"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>资金用途：<span ng-bind="bidVo.fundUse"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>企业账户：<span ng-bind="bidVo.companyName"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="form-group">
+										<label>风险控制措施：<span ng-bind="bidVo.assureDescription"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="form-group">
+										<label>借款方详细信息：<span ng-bind="bidVo.borrowerName"></span></label>
+									</div>
+								</td>
+								<td>
+								</td>
+							</tr>
+						</table>
+		     		 </div>
+	              </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+<table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+</table>
+<script>
+$(function(){
+	var Request  = commonUtil.getRequestParamByUrl();
+	var id = Request.param;
+	var columns = [
+					{
+						title:"投资人",
+						data: "investUserName",
+						className:"dt-simple"
+					},
+					{ title:"电话", data: "tel",className:"dt-simple" },
+					{ title:"投资金额", data: "investAtm",className:"dt-simple" },
+					{
+						title:"状态",
+						data: "bidInvestState",
+						className:"dt-simple",
+                        render: function (value, type, row, meta) {
+                            return "投资成功";
+                        }
+					},
+					{ title:"投资时间", data: "createdTime",className:"dt-simple",
+						render: function (value, type, row, meta) {
+									return dateUtil.dateTime(value);
+								}
+					}
+				];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.investExchangeListForPager+"?bidInfoId="+id, columns);
+})
+</script>

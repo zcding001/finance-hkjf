@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <title>头部信息</title>
+</head>
+
+<body style=" background: #f7f7f7;">
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-099-0229</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40 hide loginShow">
+                            <a href="javascript:void(0)" id="headInforms" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng totalNum"></i>条未读消息</a>
+                        </div>
+                        <div class="fr pr0 loginHide zlogin">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide loginShow">
+                            <span>欢迎您 , <i class="nickName"></i></span>
+                            <a href="#" class="logoutBtn" style="color:#ed5345;">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="nav">
+			<div class="container" style="border:none;">
+				<div class="nav_c fl" style="padding: 10px 0 10px 0">
+					<a class="zlogo" href="">
+							<img src="${project_base_path}/src/img/guquan/logo1.png" alt="私募基金" style="margin-top:13px;">
+							<!--  <img src="${project_base_path}/src/img/guquan/logo3.png" alt="信托产品" style="margin-top:13px;">-->
+					</a>
+				</div>
+				 <ul class="nav_c fr zlinks">
+						<li style="padding:0 20px;"><a class="" href="${project_base_path}/fund/peFund.html">首页</a></li>
+					    <li style="padding:0 20px;"><a class="nav_selected" href="${project_base_path}/fund/advisory/pefundInfo.html">产品介绍</a></li>
+					    <li style="padding:0 20px;"><a class="" href="${project_base_path}/fund/advisory/pefundYuyue.html">立即预约</a></li>
+				</ul> 
+				<div class="clear"></div>
+			</div>
+		</div>
+    </header>
+    <!-- 头部结束 -->
+
+</body>
+<script>
+    $(function(){
+        commonUtil.isLogin();
+
+        //首先获取utype
+        utype = commonUtil.getUrlParam("utype");//检查url中是否指定，优先级1
+        utype = fundCommon.initUtype(utype);//检查参数中是否指定，优先级2
+        //修改导航图片，链接首页、介绍、预约 （登录注册）及样式
+        //获取当前URL
+        var currentPath = window.location.pathname;
+        var pageType = 0;
+        if(currentPath.indexOf("/advisory/pefundYuyue") != -1){
+            pageType = 2;
+        }else if(currentPath.indexOf("/advisory/pefundInfo") != -1){
+            pageType = 1;
+        }
+        fundCommon.initNavigation(utype , pageType);
+
+        //绑定退出操作事件
+        $(".logoutBtn").each(function(){
+            $(this).unbind("click").click(function () {
+                fundCommon.logout(utype);
+            });
+        });
+
+        //站内信消息提示
+        $("#headInforms").click(function(){
+            //if(!commonUtil.isLogin()){commonUtil.sessionTimeOut()};   //未登录具体页面根据utype跳转到相应主页
+            var flag = false;
+            $('.nav_c li a').each(function() {
+                if($(this).hasClass("nav_selected")){
+                    if($(this).text() == "我的账户"){
+                        flag = true;
+                    }
+                }
+            });
+            if(flag){
+                commonUtil.jumpAccountMenu("newsRecord.html");
+            }else{
+                commonUtil.jumpToAccount("newsRecord.html");
+            }
+        });
+
+    })
+
+</script>
+
+</html>

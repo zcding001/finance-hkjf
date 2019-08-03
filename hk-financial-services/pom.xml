@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>hk-financial-services</artifactId>
+	<packaging>war</packaging>
+
+	<name>hk-financial-services</name>
+	<description>hongkun financial services web project.</description>
+
+	<properties>
+		<freemarker.version>2.3.23</freemarker.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.yirun.framework</groupId>
+			<artifactId>framework-web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yirun.framework</groupId>
+			<artifactId>framework-redis</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yirun.framework</groupId>
+			<artifactId>framework-jms</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>-->
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-payment-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-sms-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-contract-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-invest-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-qdz-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-info-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-property-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-point-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-loan-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+            <groupId>com.hongkun.finance</groupId>
+            <artifactId>finance-vas-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+		<!--因为要引用service中的AuthorityIntercepter，所以引入service-->
+        <dependency>
+            <groupId>com.hongkun.finance</groupId>
+            <artifactId>finance-user-api</artifactId>
+			<version>${project.parent.version}</version>
+        </dependency>
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-fund-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-activity-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+    </dependencies>
+
+	<!--打包部署区域start-->
+	<!--打包配置文件 profiles-->
+	<profiles>
+		<!-- 本地环境 -->
+		<profile>
+			<id>env-dev</id>
+			<properties>
+				<env>env_dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>env-test</id>
+			<properties>
+				<env>env_test</env>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!--过滤js文件中的变量-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/*.js</include>
+								<include>**/*.html</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<!--指定变量替换文件所在位置-->
+		<filters>
+			<filter>src/main/resources/env/${env}.properties</filter>
+			<filter>../env/env_common.properties</filter>
+		</filters>
+		<!--指定打包资源开始-->
+		<resources>
+			<!--替换properties中的占位符-->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
+				<excludes>
+					<exclude>env/*</exclude>
+				</excludes>
+			</resource>
+			<!--把env_common.properties文件包含进来-->
+			<resource>
+				<directory>../env</directory>
+				<filtering>false</filtering>
+			</resource>
+
+		</resources>
+		<!--指定打包资源结束-->
+
+	</build>
+	<!--打包部署区域end-->
+</project>

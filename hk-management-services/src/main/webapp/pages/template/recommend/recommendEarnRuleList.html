@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">推荐规则管理</span>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addRecommendEarnRule')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           			活动时间：<input type="text" id="start" name="beginTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="endTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           				创建时间：<input type="text" id="startDate" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endDate\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="endDate" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'startDate\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                                                          状态：<select name="state" id="state" class="form-control" style="width: 120px;display:inline-block;">
+            			</select>            			<a href="javascript:void(0)" class="btn btn-info"
+															id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"规则内容",data: "ruleChildList",
+ 			render: function (value, type, row, meta) {
+ 			    return _parseJsonContentForQdz(value);
+ 		    }	
+ 		},
+ 		{ title:"活动开始时间",className:"dt-simple",data: "beginTime",
+			render: function (value, type, row, meta) {
+				if(dateUtil.date(value)=='0-12-30'){
+					return '---------';
+				}
+				return dateUtil.date(value);
+			}
+		},
+		{ title:"活动结束时间",className:"dt-simple",data: "endTime",
+			render: function (value, type, row, meta) {
+				if(dateUtil.date(value)=='0-12-30'){
+					return '---------';
+				}
+				return dateUtil.date(value);
+			}
+		},
+ 		{ title:"创建时间",className:"dt-simple",data: "createTime",
+			render: function (value, type, row, meta) {
+				return dateUtil.date(value);
+			}
+		},
+ 		{ title:"可用状态",className:"dt-simple",data: "state",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("vas", "recommend_rule_state", value);
+			}
+		},
+	    {
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row, meta) {
+					if(row.state == 0){
+						var btn = commonUtil.createConfirmRequestBtn({id:row.id, ajaxUrl:"recommendRuleController/enableRule"}, "启用",
+							"规则操作", "确定启用?", "fa fa-play");
+	 		    		btn+='<a href="javascript:void(0)" title="新增规则" onclick="addRule('+row.id+')" class="fa fa-question-circle hide-underline" style="padding-left: 3px;padding-right: 3px;"></a>'
+						btn += commonUtil.createDirectRequestBtn({id:row.id, target : "addRecommendEarnRule"},"修改","fa-edit");
+						return btn;
+					}
+					if(row.state == 1){
+						var btn = '<span class="fa fa fa-circle-o-notch fa-fw hide-underline" title="使用中" style="padding-left: 3px;padding-right: 3px;"></span>'
+						return btn;
+					}
+					return '';
+ 		    }
+ 		}
+ 	];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.findRecommendRule, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+$("#state").append(DIC_CONSTANT.getOption("vas", "recommend_rule_state"));
+function addRule(vasRebatesRuleId){
+	 cookieUtil.setCookie("vasRebatesRuleId",vasRebatesRuleId);
+	 var data={target : "addRecommendEarnRule"};
+	 commonUtil.directRequest(encryptAndDecryptUtil.encrypt(JSON.stringify(data)));
+}
+//转换好友推荐规则显示内容
+function _parseJsonContentForQdz(jsonStr){
+	var obj =angular.fromJson(jsonStr);
+	console.log(obj)
+	var html='';
+	for(var j=0;j<obj.length;j++){
+		var object=angular.fromJson(obj[j].content);
+		var buffer =  DIC_CONSTANT.getName('vas', 'user_type', obj[j].userType)+":<br>";
+		console.log(buffer);
+		buffer+='<span>转化周期:</span><span class="font-red">    '+obj[j].switchCycle+'天   </span><br>';
+		if(commonUtil.isNotEmpty(object.friendLevelOne)){
+			for(var i=0;i<object.friendLevelOne.length;i++){
+				console.log(object.friendLevelOne);
+				buffer += '<span class="font-red"></span>一级好友第<span class="font-red">'+ object.friendLevelOne[i].investStrokeCount +'</span>笔投资, 返利汇率: <span class="font-red">'+object.friendLevelOne[i].rate+'%;</span>';	
+			}
+		}
+		buffer += '<br><span class="font-red"></span>一级好友从第<span class="font-red">'+ object.fromInvNumOne +'</span>笔到' + '<span class="font-red">'+ object.toInvNumOne + '</span>笔投资, 返利汇率: <span class="font-red">'+object.rebatesRateLevelOne+'%</span><br>';	
+		if(commonUtil.isNotEmpty(object.friendLevelTwo)){
+			for(var i=0;i<object.friendLevelTwo.length;i++){
+				buffer += '<span class="font-red"></span>二级好友第<span class="font-red">'+ object.friendLevelTwo[i].investStrokeCount +'</span>笔投资, 返利汇率: <span class="font-red">'+object.friendLevelTwo[i].rate+'%;</span>';	
+			}
+		}
+		buffer += '<span class="font-red"></span>二级好友从第<span class="font-red">'+ object.fromInvNumTwo +'</span>笔到' + '<span class="font-red">'+ object.toInvNumTwo + '</span>笔投资, 返利汇率: <span class="font-red">'+object.rebatesRateLevelTwo+'%</span><br>';	
+		html +=buffer ;
+	}
+	console.log(html);
+	return html;
+}
+</script>

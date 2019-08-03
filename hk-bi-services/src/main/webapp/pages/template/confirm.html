@@ -1,0 +1,79 @@
+<!-- confirm模态框（Modal） -->
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="confirmHeader" aria-hidden="true">
+	<input type="hidden" id="modalUri">
+	<input type="hidden" id="modalData">
+	<input type="hidden" id="sucTarget">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="confirmHeader"></h4>
+			</div>
+			<div class="modal-body" id="confirmBody"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" id="confirmOkBtn">确认</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- alert模态框（Modal） -->
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="alertHeader" aria-hidden="true">
+	<input type="hidden" id="modalUri">
+	<input type="hidden" id="modalData">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="alertHeader">提示</h4>
+			</div>
+			<div class="modal-body" id="alertBody">操作成功</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="alertOkBtn">确认</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 带文本框的模态框（Modal） -->
+<div class="modal fade" id="modalText" tabindex="-1" role="dialog" aria-labelledby="textHeader" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="textHeader"></h4>
+			</div>
+			<form id="_confirmForm">
+				<input type="hidden" name="ids" id="ids">
+				<div class="modal-body" id="textBody"></div>
+			</form>
+			<div class="modal-footer">
+				<span id="_confirmError" style="text-align: left; display: inline-block;  width: 447px; color: red"></span>
+				<span style="display: inline">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="textOkBtn">确认</button>
+				</span>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- detail模态框（Modal） -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="detailHeader" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="detailHeader">详情</h4>
+			</div>
+			<div class="modal-body" id="detailBody"></div>
+			<div class="modal-footer">
+				<span id="_detailError" style="text-align: left; display: inline-block;  width: 447px; color: red"></span>
+				<span style="display: inline">
+					&nbsp;
+				</span>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

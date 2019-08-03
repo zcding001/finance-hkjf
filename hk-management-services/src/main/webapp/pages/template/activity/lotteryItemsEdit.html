@@ -1,0 +1,387 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               抽奖选项
+            </div>
+            <!-- /.panel-heading -->
+            <form name="lotteryItemsForm" id="lotteryItemsForm" enctype="multipart/form-data" novalidate>
+				<input type='hidden' id='lotteryActivityId' value=''>
+            <div class="panel-body" >
+				<div class="accordion-inner">
+					<br><div>
+						<button class="btn" type="button" onclick="addGroup()">添加用户群</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-outline btn-success"  onclick="submitItems()" >保存</button>
+						<button type="button" class="btn btn-outline btn-success" onclick="back()">返回</button>
+					</div><br>
+				</div>
+
+				<div class="accordion-inner" id = "containerDiv">
+				</div>
+
+			</div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+
+	$(function () {
+
+	    function getSelectValue(selectId,value){
+            var _options =  $('#'+ selectId ).find("option");
+            for(var j = 0; j < _options.length; j++){
+                if ($(_options[j]).val() == value) {
+                    $(_options[j]).attr("selected", "selected");
+                }
+			}
+		}
+
+	    var $lotteryActivityId = commonUtil.getRequestParamByUrl().id;
+        $("#lotteryActivityId").val($lotteryActivityId);
+
+		// 获取奖项
+        $.ajax({
+            url : CONFIG.interface.getLotteryActivityItems,
+            type : 'post',
+            dataType: 'json',
+            async: false,
+            data: {lotteryActivityId :$lotteryActivityId},
+            success	: function(data){
+                if(data.resStatus==CONFIG.CONSTANTS.SUCCESS_STATE){
+				   debugger;
+				   var selectIds = new Array();
+				   var selectVals = new Array();
+				   var itemsDivHtml = "";
+                   var itemsList = data.resMsg;
+                   if(itemsList != null && itemsList != undefined && itemsList.length > 0){
+                       for(var i in itemsList){
+                           var groupItem = itemsList[i];
+                           itemsDivHtml += '<div class="alert alert-info fade in" name = "groups">'
+								   +'用户群: <select class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 10%;" id = "group'+ i +'" >'
+								   + '<option value="0">全部</option><option value="1" selected="selected">新用户</option>'
+								   + '<option value="2">老用户</option><option value="3">男用户</option><option value="4">女用户</option><option value="5">已投资用户</option><option value="6">未投资用户</option> </select>&nbsp;&nbsp;&nbsp;&nbsp;'
+								   + '京籍/非京籍: <select  class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 8%;" id = "locationFlag'+ i +'" ><option value="0" selected="selected">全部</option>'
+								   + '<option value="1">京籍</option><option value="2">非京籍</option> </select>&nbsp;&nbsp;&nbsp;&nbsp;'
+								   + '<button class="btn" type="button"  onclick="removeGroup(this,1,\'' + groupItem.itemGroup + '\',\'' + groupItem.locationFlag + '\')">移除用户群</button>&nbsp;'
+								   + '<button class="btn" type="button" onclick="addItems(this)">添加选项</button>'
+                           selectIds.push("group"+i);
+                           selectVals.push(groupItem.itemGroup);
+                           selectIds.push("locationFlag"+i);
+                           selectVals.push(groupItem.locationFlag);
+
+                           var lotteryItems = groupItem.lotteryItems;
+						   if(lotteryItems!= null && lotteryItems != undefined && lotteryItems.length > 0){
+                               for(var j in lotteryItems){
+                                   var item = lotteryItems[j];
+                                   itemsDivHtml += '<div class="alert alert-info fade in"><input type="hidden" name = "itemId" value="'+item.id+'">'
+												   + '奖品类型:<select  class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 11%;" id = "item'+ i + j +'" >'
+												   + '<option value="1">红包</option><option value="2">积分</option> <option value="3">投资红包</option> <option value="4">加息券</option> <option value="5">兑换奖品</option><option value="6" selected="selected">其他奖品</option></select>&nbsp;&nbsp;&nbsp;'
+												   + '价值:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_amountAtm" style="width: 8%;" onblur="checkAmountAtm(this)"  value="'+item.amountAtm+'">元/分/%&nbsp;&nbsp;&nbsp;'
+												   + '名称:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_name" style="width: 8%;" onblur="checkName(this)"  value="'+item.itemName+'">&nbsp;&nbsp;&nbsp;'
+												   + '总数:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_lotsCount" style="width: 8%;"  onblur="checkCount(this)"  value="'+item.itemCount+'" >个/张&nbsp;&nbsp;'
+												   + '中奖概率:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_lotsRate"  style="width: 8%;" onblur="checkRate(this)"  value="'+item.itemRate+'" >% &nbsp;&nbsp;'
+												   + '序号:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_sequenceNum"  style="width: 8%;" onblur="checkSeq(this)"  value="'+item.sequenceNum+'" > &nbsp;&nbsp;'
+												   + '<button class="btn remove_chose" type="button" style="float: right;" onclick="removeGroup(this,2,\'' + item.id + '\')">移除选项</button> </div>'
+                                   selectIds.push("item"+ i + j);
+                                   selectVals.push(item.itemType);
+                               }
+
+						   }
+                           itemsDivHtml += '</div>';
+					   }
+				     }
+				   $('#containerDiv').append(itemsDivHtml);
+
+                    // select回显操作
+					for(var k = 0; k < selectIds.length; k++){
+                        getSelectValue(selectIds[k],selectVals[k]);
+					}
+
+                }
+            },
+            error: function(){}
+        });
+    });
+
+
+    var params = {
+        groupModel : '<div class="alert alert-info fade in" name = "groups">'
+            +'用户群: <select class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 10%;" >'
+            + '<option value="0">全部</option><option value="1" selected="selected">新用户</option>'
+            + '<option value="2">老用户</option><option value="3">男用户</option><option value="4">女用户</option><option value="5">已投资用户</option><option value="6">未投资用户</option> </select>&nbsp;&nbsp;&nbsp;&nbsp;'
+            + '京籍/非京籍: <select  class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 8%;" ><option value="0" selected="selected">全部</option>'
+            + '<option value="1">京籍</option><option value="2">非京籍</option> </select>&nbsp;&nbsp;&nbsp;&nbsp;'
+            + ' <button class="btn" type="button"  onclick="removeGroup(this,-1,-1)">移除用户群</button>&nbsp;<button class="btn" type="button" onclick="addItems(this)">添加选项</button></div>',
+
+        itemModel: '<div class="alert alert-info fade in"><input type="hidden" name = "itemId" value="">'
+            + '奖品类型:<select  class="form-control ng-pristine ng-valid ng-touched textstyle" style=" margin-bottom: 3px;width: 11%;">'
+            + '<option value="1">红包</option><option value="2">积分</option> <option value="3">投资红包</option> <option value="4">加息券</option> <option value="5">兑换奖品</option><option value="6" selected="selected">其他奖品</option></select>&nbsp;&nbsp;&nbsp;'
+            + '价值:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_amountAtm" style="width: 8%;" onblur="checkAmountAtm(this)">元/分/%&nbsp;&nbsp;&nbsp;'
+		    + '名称:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_name" style="width: 8%;" onblur="checkName(this)">&nbsp;&nbsp;&nbsp;'
+            + '总数:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_lotsCount" style="width: 8%;"  onblur="checkCount(this)" >个/张&nbsp;&nbsp;'
+		    + '中奖概率:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_lotsRate"  style="width: 8%;" onblur="checkRate(this)" >% &nbsp;&nbsp;'
+            + '序号:<input type="text" class="form-control ng-pristine ng-valid ng-touched textstyle chose_sequenceNum"  style="width: 8%;" onblur="checkSeq(this)" > &nbsp;&nbsp;'
+            + '<button class="btn remove_chose" type="button" style="float: right;" onclick="removeGroup(this,2,-1)">移除选项</button> </div>',
+        delGroup	:'',
+        delLocation :'',
+        delItems	:''
+    }
+
+    // 添加用户群
+    function addGroup () {
+        $('#containerDiv').append(params.groupModel);
+    }
+
+    // 移除用户群
+    function removeGroup (obj,idGroup,id,location){
+        if(idGroup == 1 && id > -1){//groups & locationFlag
+            params.delGroup += (id + '-');
+            params.delLocation += (location + '-');
+        }
+        if(idGroup == 2 && id > -1){//items
+            params.delItems += (id + '-');
+        }
+        $(obj).parent().remove();
+    }
+
+    // 添加奖项
+    function addItems (obj){
+        $(obj).parent().append(params.itemModel);
+    }
+
+    // 返回
+    function back(){
+        window.location.href = commonUtil.getRouteUrl({target:'lotteryActivityList'});
+	}
+
+
+    // 关于校验相关
+    // 校验通用方法
+    function validateCommon(value,min,max,reg,regFlag){
+        var unValidateNumber = parseFloat(value);
+        if (unValidateNumber.toString() == "NaN") {
+            return false;
+        }
+        if(unValidateNumber >= min && unValidateNumber <= max){
+            if(!regFlag || reg.test(unValidateNumber)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // 价值
+    function checkAmountAtm(obj){
+        var amountAtm = $.trim($(obj).val());
+        var regex = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+        var boo = validateCommon(amountAtm,0,1000000,regex,true);
+        if(amountAtm == '' || amountAtm == null){
+            alert("价值不能为空！");
+            return false;
+        }else if(!boo == true){
+            alert("价值应为0~10000000，最多两位小数!");
+            return false;
+        }
+        return true;
+    }
+
+    // 名称
+    function checkName(obj){
+        var name = $.trim($(obj).val());
+        if(name == '' || name == null){
+            alert("名称不能为空！");
+            return false;
+        }
+        return true;
+    }
+
+    // 总数
+    function checkCount(obj){
+        var count = $.trim($(obj).val());
+        var regex = /^\+?[1-9]\d*$/;
+        var boo = validateCommon(count,1,10000000,regex,true);
+        if(count == '' || count == null){
+            alert("总数不能为空！");
+            return false;
+        }else if(!boo == true){
+            alert("总数应为1~10000000的正整数!");
+            return false;
+        }
+        return true;
+    }
+
+    // 中奖概率
+    function checkRate(obj){
+        var rate = $.trim($(obj).val());
+        var regex = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+        var boo = validateCommon(rate,0,100,regex,true);
+        if(rate == '' || rate == null){
+            alert("中奖概率不能为空！");
+            return false;
+        }else if(!boo == true){
+            alert("中奖概率应为0~100，最多保留两位小数!");
+            return false;
+        }
+        return true;
+    }
+
+    // 序号
+    function checkSeq(obj){
+        var seq = $.trim($(obj).val());
+        var regex = /^\+?[1-9]\d*$/;
+        var boo = validateCommon(seq,1,10000000,regex,true);
+        if(seq == '' || seq == null){
+            alert("序号不能为空！");
+            return false;
+        }else if(!boo == true){
+            alert("序号应为1~10000000的正整数!");
+            return false;
+        }
+        return true;
+    }
+
+
+    function checkSubmit(){
+        var amountAtmArr = document.getElementsByClassName("chose_amountAtm");
+        for (var i = 0; i < amountAtmArr.length ;i++){
+            console.log(amountAtmArr[i]);
+            if(!checkAmountAtm(amountAtmArr[i])){
+                return false;
+            }
+        }
+        var nameArr = document.getElementsByClassName("chose_name");
+        for (var i = 0;i < nameArr.length;i++){
+            if(!checkName(nameArr[i])){
+                return false;
+            }
+        }
+
+        var lotsCountArr = document.getElementsByClassName("chose_lotsCount");
+        for (var i = 0;i < lotsCountArr.length ;i++){
+            if(!checkCount(lotsCountArr[i])){
+                return false;
+            }
+        }
+
+        var lotsRateArr = document.getElementsByClassName("chose_lotsRate") ;
+        for (var i = 0;i < lotsRateArr.length;i++){
+            if(!checkRate(lotsRateArr[i])){
+                return false;
+            }
+        }
+
+        var sequenceNumArr = document.getElementsByClassName("chose_sequenceNum");
+        for (var i = 0;i < sequenceNumArr.length;i++){
+            if(!checkSeq(sequenceNumArr[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    function getData(){
+        debugger;
+        var flag = true;
+        var groups = document.getElementsByName('groups');
+        var data = {};
+        data.groups = new Array(groups.length);
+        data.activityId = $('#lotteryActivityId').val();
+        data.delGroup = params.delGroup;
+        data.delLocation = params.delLocation;
+        data.delItems = params.delItems;
+        var squArray = new Array();
+        for(var i = 0 ; i< groups.length ; i++){
+            var groupJSON = {};
+            // 所在用户群
+            var group = $(groups[i]).children('select').eq(0);
+            var locationFlag = $(groups[i]).children('select').eq(1);
+            groupJSON.group = group.val();
+            groupJSON.locationFlag = locationFlag.val();
+            // 奖品选项
+            var items = $(groups[i]).children('div');
+            var itemsArray = new Array(items.length);
+            for(var j = 0 ; j< items.length ; j++){
+                var itemJSON = {};
+                itemJSON.lotsType = $($(items[j]).children('select')[0]).val();
+                itemJSON.itemId = $($(items[j]).children('input')[0]).val();
+                itemJSON.amountAtm = $($(items[j]).children('input')[1]).val();
+                itemJSON.lotsName = $($(items[j]).children('input')[2]).val();
+                itemJSON.lotsCount = $($(items[j]).children('input')[3]).val();
+                itemJSON.lotsRate = $($(items[j]).children('input')[4]).val();
+                itemJSON.sequenceNum = $($(items[j]).children('input')[5]).val();
+                squArray.push(itemJSON.sequenceNum);
+                itemsArray[j] = itemJSON;
+            }
+            groupJSON.items = itemsArray;
+            data.groups[i] = groupJSON;
+        }
+
+        // 校验 是否有重复的序号
+        var itemsLength = squArray.length
+        var uniqueLength =  $.unique(squArray).length
+        if(itemsLength != uniqueLength){
+			alert("序号不能重复!");
+            flag = false;
+        }
+
+        // 校验是 360的整数倍
+        if(360 % itemsLength != 0){
+            alert("奖品数必须能被360度整除!");
+            flag = false;
+        }
+        data.flag = flag;
+        return data;
+    }
+
+
+    // 提交
+    function submitItems(){
+        debugger;
+        //获取数据
+        var dataJSON = getData();
+        // 数据校验
+        if(!checkSubmit()){
+            return false;
+        }
+        if(!dataJSON.flag){
+            return false;
+        }
+        $.ajax({
+            url : CONFIG.interface.saveLotteryActivityItems,
+            type : 'post',
+            dataType: 'json',
+            async: false,
+            data: 'groups=' + JSON.stringify(dataJSON),
+            success		: function(data){
+                if(data.resStatus==CONFIG.CONSTANTS.SUCCESS_STATE){
+                 /*   notifyThenJump("保存成功!",ALERT_SUC,"{target:'lotteryActivityList'}")*/
+                    window.location.href = commonUtil.getRouteUrl({target:'lotteryActivityList'});
+                }
+            },
+            error: function(){}
+        });
+    }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

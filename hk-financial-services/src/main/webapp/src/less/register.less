@@ -1,0 +1,258 @@
+   @charset "utf-8";
+   /*引入底层库;common-base.less基于less-base.css*/
+
+   @import "common-base.less";
+   /*登录注册实名认证less*/
+  input[type=checkbox]::before, input[type=checkbox]::after {
+    display: block;
+    content: '';
+    width:18px;
+    height:18px;
+}
+input[type=checkbox]:checked::before {
+    border-color: #f39200;
+    content: '\2714';
+    font-family: "STSong";
+    background: #f39200;
+    color: #fff;
+    border-radius: 2px;
+    line-height: 18px;
+    text-align: center;
+}
+   .login_bg {
+       width: 100%;
+       background: url(../img/register/login_bg_rep.jpg) 0 -1px repeat-x;
+       .login_main {
+           width: 100%;
+           background: url(../img/register/login_bg.jpg) center top no-repeat;
+           padding-top: 85px;
+           padding-bottom: 100px;
+           .login_con {
+               width: 488px;
+               min-height: 290px;
+               _height: 290px;
+               border: solid #b0b0b0 1px;
+               .bg-white;
+               margin: 0 auto;
+               ul {
+                   width: 400px;
+                   margin: 0 auto;
+                   .pt-50;
+                   .pb-30;
+                   .q_text,
+                   .q_yzm {
+                       width: 100%;
+                       margin: 0 auto;
+                       .blk-48;
+                       .blh-48;
+                       .mb-25;
+                       input[type=text] {
+                           width: 100%;
+                           .blk-48;
+                           .blh-48;
+                           .f-16;
+                           .pl-10;
+                           border: Solid #b0b0b0 1px;
+                           color: #ccc;
+                       }
+                   }
+                   .q_yzm {
+                       input[type=text] {
+                           width: 300px;
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+   .login_btn {
+       width: 100%;
+       .blk-50;
+       .blh-50;
+       .mt-30;
+       .mb-20;
+       a {
+           .block;
+           .blk-50;
+           .blh-50;
+           .border-radius;
+           .gradient;
+           .colr-white;
+           .f-18;
+           .tac;
+           .cur;
+           &:hover {
+               text-decoration: none;
+               background:#f39200;
+           }
+           &:focus {
+               outline: none;
+           }
+       }
+   }
+
+   .q_bz {
+       .tac;
+       .mb-40;
+   }
+
+   .pass_tel {
+       .blk-40;
+       .blh-40;
+       .f-18;
+       .mb-20;
+   }
+
+   .get_yzm {
+       display: inline-block;
+       width: 95px;
+       .blk-48;
+       .blh-48;
+       .tac;
+       .f-16;
+       .colr-white;
+       .bg-org;
+       .border-radius;
+       .cur;
+   }
+
+   .cite_tit {
+       display: inline-block;
+       width: 95px;
+       .tar;
+       .f-16;
+   }
+
+   .inputxt {
+       width: 300px;
+       .blk-48;
+       .blh-48;
+       .border;
+       .bg-white;
+       .pl-8;
+       border-color: #b0b0b0;
+   }
+   /*注册页面*/
+   .reg_login {
+       width: 100%;
+       .blk-80;
+       .blh-80;
+       .tar;
+       .f-16;
+   }
+
+   .register_left,
+   .register_right {
+       width: 50%;
+   }
+
+   .register_left {
+       .bor_r;
+       .reg_inp {
+           width: 330px;
+           .blk-50;
+           .blh-50;
+           .border;
+           .pl-10;
+           .ml-30;
+           .mb-20;
+           border-color: #b0b0b0;
+       }
+   }
+  .register_left .reg_text,
+   .register_left .reg_yzm {
+       input{
+           width: 330px;
+           .blk-50;
+           .blh-50;
+           .mb-20;
+           .pl-10;
+           .f-14;
+           margin-left: 83px;
+           color: #ccc;
+           border: 1px solid #b0b0b0 !important;
+       }
+   }
+
+   .register_left .reg_yzm {
+       input {
+           width: 200px;
+       }
+       p:nth-child(2) {
+           a {
+               display: inline-block;
+               width: 120px;
+               .blk-50;
+               .blh-50;
+               .tac;
+               .f-16;
+               .border-radius;
+               .bg-org;
+               .colr-white;
+               &:hover {
+                   text-decoration: none;
+               }
+           }
+       }
+   }
+
+   .reg_checkbox {
+       margin-left: 83px;
+       input {
+           width: 18px;
+           .blk-18;
+           &::before,&::after{
+           		width:18px;
+           		.blk-18;
+           }
+       }
+       p {
+           .ml-10;
+       }
+   }
+
+   .reg_btn {
+       a {
+           .block;
+           width: 330px;
+           .blk-50;
+           .blh-50;
+           .gradient;
+           .tac;
+           .f-16;
+           .colr-white;
+           .border-radius;
+           margin-left: 83px;
+           .mt-30;
+           .mb-20;
+       }
+   }
+
+   .reg_tg {
+       margin-left: 320px;
+   }
+
+   .reg_con {
+       min-height: 300px;
+   }
+
+   .q_suc {
+       .tac;
+       .pt-50;
+       .mt-50;
+       .f-20;
+       color: #555;
+       img {
+           vertical-align: middle;
+       }
+   }
+
+   .suc_p {
+       width: 100%;
+       .tac;
+       .blk-30;
+       .blh-30;
+       .f-16;
+       color: #555;
+   }

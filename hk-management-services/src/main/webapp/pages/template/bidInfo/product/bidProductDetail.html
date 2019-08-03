@@ -1,0 +1,85 @@
+   <style>
+	   span{ color: #3f903f}
+   </style>
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+	                <div class="well">
+						<table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>产品名称：【<span  ng-bind="detail.name" ></span>】</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>产品类型：<span ng-bind="detail.typeValue"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>适应人群：<span ng-bind="detail.adaptcrowd"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>额度范围(元)：<span ng-bind="detail.amount"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>年利率范围(%)：<span ng-bind="detail.rate"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>还款方式：<span ng-bind="detail.repaymentway"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="form-group">
+										<label>借款期限：<span ng-bind="detail.timeLimitInfo"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>招标方案：<span ng-bind="detail.bidSchemeText"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>招标方案值(元)：<span ng-bind="detail.bidSchemeValue"></span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>合同：<span ng-bind="detail.contractText"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>产品描述：<span ng-bind="detail.description"></span></label>
+									</div>
+								</td>
+							</tr>
+						</table>
+		     		 </div>
+	              </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+<table id="investTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+</table>

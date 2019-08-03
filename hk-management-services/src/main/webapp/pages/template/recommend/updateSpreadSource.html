@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              修改推广来源
+            </div>
+            <!-- /.panel-heading -->
+            <form name="spreadForm" id="spreadForm"  novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                
+	                     <div class="form-group" style="overflow:hidden">
+		       			  <label class="textright" style="float:left"><span class="font-red">*&nbsp;</span>手机号:</label>
+		       			  <span id="login" ></span>
+						</div>
+						<div class="form-group">
+                            <label class="textright" style="float:left"><span class="font-red">*&nbsp;</span>企业名称:</label>
+                            <select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="groupCode" ng-model="groupCode" validator="required" valid-method="blur" message-id="groupCodeError">
+                                <option  value="">=请选择=</option>
+                                <option ng-repeat="tmp in enterpriseUsers" value="{{tmp.groupCode}}">{{tmp.enterpriseName}} {{tmp.groupCode}}</option>
+                            </select>
+                            <span style="color:#F00" class="bid-info" id="groupCodeError"></span>
+                        </div>
+						
+		     		 <div style="margin-left:80px;">
+			     		 <button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(spreadForm)" validator-submit="simRuleForm">保存</button>
+	                     <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+	                 </div>
+	                 	 
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

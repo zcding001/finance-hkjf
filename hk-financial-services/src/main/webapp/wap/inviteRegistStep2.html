@@ -1,0 +1,319 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>鸿坤金服网站-注册页</title>
+	<link href="../src/css/wap/share.css" rel="stylesheet">
+	<script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+	<script type="text/javascript" src="../src/js/ratchet.min.js"></script>
+	<script type="text/javascript" src="../src/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="../src/js/Validform_Datatype.js"></script>
+	<script type="text/javascript" src="../src/js/security.js"></script>
+	<script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+	<script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+	<script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+	<script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+	<script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+	<script type="text/javascript" src="../lib/constants.js"></script>
+	<script type="text/javascript" src="../lib/utils/containerUtil.js"></script>
+
+	<script type="text/javascript" src="../lib/rsa/jsencrypt.min.js"></script>
+	<script type="text/javascript" src="../lib/rsa/rsaUtil.js"></script>
+</head>
+
+<body>
+<img src="../src/img/wap/app_banner.png" width="100%">
+<div class="zc_main">
+ <form name="registForm" id="registForm">
+	<div class="tip_text">手机号码：<span class="c_red" id="tel"></span></div>
+	<input type="hidden" name="login" id="login"  value="" />
+	<ul class="register">
+            <li>
+			  	<div class="re_lt fl" style="margin-bottom: 5%;">
+            		<input id="calcCode" name="calcCode" class="zc_input wd100"  style="width: 100%;" type="text" placeholder="请输入问号的计算结果" value="" />
+            		<div class="clear" id="verifyCodeMsg" style="color: red;font-size: 13px;"></div>
+            	</div>
+            	<div class="fr" style="width:35%;">
+            		<img id="validCode" title="点击更换" onclick="javascript:commonUtil.loadValidateCode(this, 2);"  alt="我是图片"
+						 style="width:100%;height:50px;border-radius: 5px;">
+            	</div>
+                
+                <div class="re_lt fl"><input id="randCode" name="randCode" type="text" class="zc_input wd100" placeholder="请输入短信校验码" style="width: 100%;"/></div>
+                <div class="yzm fr"><button type="button" class="re_button" value="" id="smsCodeBtn"
+											style="color:#fff;background:#bc1b21;">获取验证码</button></div>
+                <div class="clear" id="randCodeMsg" style="color: red;font-size: 13px;"></div>
+            </li>
+            
+            <li>
+	            <input id="password" name="password" type="password"  class="zc_input wd100" placeholder="请输入密码" style="width: 100%;">
+	            <div class="clear" id="passwordMsg" style="color: red;font-size: 13px;"></div>
+            </li>
+
+            <li>
+                <input name="" type="checkbox" value="" class="fl check dg_bg" id="check">
+                <p class="re_text fl">我已阅读并同意<a href="javascript:void(0)" id="contract">《鸿坤金服网站服务协议》</a>
+					<!--<a href="javascript:void(0)" id="cont">《定向及合格投资者认定》</a></p>-->
+					<a href="javascript:void(0)" id="riskNotify">《投资风险告知书》</a></p>
+                <div class="clear" id="checkMsg"></div>
+            </li>
+           	<div id="msg" style="color:red;margin-top:10px;display:none;"></div>
+            <a href="javascript:void(0)" class="zc_button" id="over" style="color:#fff;background:#bc1b21;">下一步</a>
+
+        </ul>
+</form>
+</div>
+<!-- 遮罩层 -->
+ 	<div class="jd_win" style="display:none;">
+        <div class="jd_win_box">
+          <img src="../src/img/wap/img_jiazai_1.gif" alt="加载小圆圈">
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+// 手机验证码
+var randCodeFlg = false;
+// 密码标示
+var pwdFlg = false;
+// 协议标示
+var checkFlg = true;
+
+//当前用户的手机号码
+var tel;
+//推荐人的邀请码
+var inviteNo;
+//提交表单
+$(function(){
+	//获取url上的参数
+    var param = commonUtil.getRequestParamByUrl();
+    tel = param.tel;
+    inviteNo = param.inviteNo;
+    //给页面上的手机号赋值
+	$("#tel").html(tel);
+	//获取图片验证码
+    commonUtil.loadValidateCode($("#validCode"), 2);
+    //获取短信验证码
+	$("#smsCodeBtn").click(function () {
+        sendSmsCode();
+    });
+	// 协议内容
+	$("#contract").click(function(){
+		window.location.href="registAgreement.html";
+	});
+	
+	// 定向及合格投资者认定 
+	$("#cont").click(function(){
+		window.location.href="fxinvest.html";
+	});
+
+	// 投资风险测评书
+	$("#riskNotify").click(function(){
+		window.location.href="registRiskNotify.html";
+	});
+
+	// 下一步完成注册
+	$("#over").click(function(){
+		registSubmit();
+	});
+	
+	// 图片验证码
+	$("#calcCode").blur(function(){
+	 	$("#verifyCodeMsg").hide();
+	});
+	
+	// 验证码
+	$("#randCode").blur(function(){
+ 		checkRandCode();
+	});
+
+	// 登录密码
+	$("#password").blur(function(){
+		passwordBlur();
+	});
+    $("#randCode").bind({
+        focus:function(){
+            if (this.value == '请输入短信校验码'){
+                this.value="";
+            }
+        }
+    });
+
+    $("#password").bind({
+        focus:function(){
+            if (this.value == '请输入密码'){
+                this.value="";
+                this.type="password";
+            }
+        }
+    });
+	// 协议选中
+	$("#check").click(function(){
+        _this = $(this);
+        if(_this.hasClass('dg_bg')){
+            $(this).removeClass('dg_bg');
+        }else{
+            $(this).addClass('dg_bg');
+        }
+		if (checkFlg) {
+			//将下一步按钮禁用
+            $("#over").unbind("click");
+            $("#over").css("background","gray");
+		} else {
+			//启用下一步按钮
+            $("#over").click(function(){
+                registSubmit();
+            });
+            $("#over").css("background","#bc1b21");
+		}
+		checkFlg = !checkFlg;
+	});
+});
+
+// 登录密码验证
+function passwordBlur() {
+	var password = $("#password").val();
+ 	if(!password){
+ 		$("#passwordMsg").show().html("请设置登录密码!");
+ 		pwdFlg = false;
+ 		return false;
+ 	} else {
+ 		if (validUtil.validPassFormat(password)) {
+ 			$("#passwordMsg").hide();
+ 			pwdFlg = true;
+ 	 		return true;
+ 		} else {
+ 			$("#passwordMsg").show().html("请输入6至16位字母数字组合!");
+ 			pwdFlg = false;
+ 			return false;
+ 		}
+ 	}
+}
+
+//提交前校验
+function submitRegistForm() {
+    //判断短信验证码
+	var randFlag = checkRandCode();
+	if(!randFlag){
+		return false;
+	}
+	//判断密码
+	var psdFlag = passwordBlur();
+	if(!psdFlag){
+		return false;
+	}
+	//判断图片计算结果
+	if($("#calcCode").val().trim() != "") {
+		$("#verifyCodeMsg").html("");
+		randCodeFlg = true;
+	} else {
+		$("#calcCode").removeClass("success");
+		$("#verifyCodeMsg").show().html("请输入计算结果!");
+		randCodeFlg = false;
+		return false;
+	}
+	
+	if(($("#randCode").val() != "请输入短信校验码") && ($("#randCode").val().trim() != "")) {
+		$("#randCodeMsg").html("");
+		randCodeFlg = true;
+	} else {
+		$("#randCode").removeClass("success");
+		$("#randCodeMsg").show().html("请输入手机验证码!");
+		randCodeFlg = false;
+		return false;
+	}
+	return true;
+}
+
+//倒计时
+var InterValObj1; //timer变量，控制时间
+var count1 = 60; //间隔函数，1秒执行
+var curCount1;//当前剩余秒数
+//timer处理函数
+function setRemainTime() {
+    if (curCount1 == 0) {
+    	window.clearInterval(InterValObj1);//停止计时器
+        $("#smsCodeBtn").removeClass("re_button_gray").attr("onclick","sendSmsCode()").html("重新获取");
+    }else {
+        curCount1--;
+        $("#smsCodeBtn").text("重新获取(" + curCount1 + ")");
+	}
+}
+//获取验证码
+function sendSmsCode(){
+	// 图片验证码
+	var calcCode=$("#calcCode").val();
+	if(calcCode=="") {
+		$("#verifyCodeMsg").show().html("请输入计算结果!");
+        return;
+    } else if(isNaN(calcCode)){
+    	$("#verifyCodeMsg").show().html("请输有效数字!");
+        return;
+    }
+	$(".jd_win").show();
+
+
+    //发送短信验证码
+    ajaxUtil.post("/indexController/sendSmsCodeWithCode.do", {"login" : tel,"calcCode" : $("#calcCode").val(), "type": 1}, function(data){
+        if(data.resStatus == CONSTANTS.SUCCESS){
+            // 返回成功则开始读秒
+			$("#smsCodeBtn").attr("onclick","javascript:void(0);");
+			$("#smsCodeBtn").addClass("re_button_gray");
+			curCount1=count1;
+            InterValObj1 = window.setInterval(setRemainTime, 1000); //启动计时器，1秒执行一次
+        }else{
+            $("#verifyCodeMsg").show().html(data.resMsg);
+        }
+        $(".jd_win").hide();
+    });
+}
+
+// 验证手机的验证码是否正确
+function checkRandCode() {
+	var randCode=$("#randCode").val();
+	
+	if (!randCode) {
+		randCodeFlg = false;
+		$("#randCode").removeClass("success");
+		$("#randCodeMsg").show().html("请输入验证码！");
+		return false;
+	}else {
+        $("#randCode").addClass("success");
+        $("#randCodeMsg").html("");
+        randCodeFlg = true;
+	}
+	return randCodeFlg;
+}
+
+// 注册提交
+function registSubmit() {
+	// 登录前验证
+	var submitForm = submitRegistForm();
+	if (!submitForm) {
+		return false;
+	} 
+	
+	$(".jd_win").show();
+
+	// 密码加密
+	var pwd = $('#password').val();
+    var password = rsaUtil.encryptData(pwd);
+    commonUtil.pwdStrong(pwd);
+	//短信验证码
+    var randCode = $("#randCode").val();
+
+    //进行注册操作
+    ajaxUtil.post("/indexController/reg.do",{"login":tel,"passwd":password,"commendNo":inviteNo,"smsCode":randCode,"calcCode" : $("#calcCode").val(),"isByInviteUrl":true},
+		function(data){
+        if(data.resStatus == CONSTANTS.SUCCESS){
+            // 跳转至注册成功页面
+          	window.location.href = "registerSuccess.html";
+        }else{
+            $("#verifyCodeMsg").show().html(data.resMsg);
+        }
+        $(".jd_win").hide();
+    });
+}
+</script>

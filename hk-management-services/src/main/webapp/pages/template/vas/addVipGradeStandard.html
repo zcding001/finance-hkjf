@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px; margin-bottom: 20px;">
+                <span style="float:left; font-size: 18px;">添加会员待遇</span>
+            </div>
+            <form name="dataForm" id="dataForm" enctype="multipart/form-data">
+                <div class="panel-body">
+                    <div class="well">
+                        <input type="hidden" name="id" ng-model="vipGradeStandard.id" value="{{vipGradeStandard.id}}">
+                        <div class="form-group">
+                            <label>等级：</label>
+                            <select name="level" ng-model="vipGradeStandard.level" validator="required"
+                                    id="level" valid-method="blur" message-id="levelError">
+                                <option value="">--请选择--</option>
+                                <option ng-repeat="ct in vipGrade" ng-value="ct.value" value={{ct.value}}>{{ct
+                                    .name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>成长值下限：</label>
+                            <input name="growthValMin" ng-model="vipGradeStandard.growthValMin"
+                                   validator="required,integertext"
+                                   type="text" valid-method="blur"
+                                   message-id="growthValMinError">
+                        </div>
+                        <div class="form-group">
+                            <label>成长值上限：</label>
+                            <input name="growthValMax" ng-model="vipGradeStandard.growthValMax" validator="required,integertext"
+                                   type="text" valid-method="blur"
+                                   message-id="growthValMaxError">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline btn-success"
+                                    ng-click="saveAndUpdate(dataForm)" validator-submit="dataForm">保存</button>
+                            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

@@ -1,0 +1,11 @@
+@charset "utf-8";
+/*公共样式*/
+* { margin:0; padding:0 }
+a { text-decoration:none; border:none; outline:none; }
+ul { list-style:none }
+.clear { clear:both }/*清除浮动*/
+/*单选按钮样式，可以定义想要的样式*/
+.radio_box > ul >li { background:url(../../img/wap/icon_n.png) 5px center no-repeat; /*未选中项的样式*/ padding-left:34px; margin:0 5px; height:auto; line-height:28px; font-size:14px; color:#575757; cursor:default }
+.radio_box > ul > li.selected { background:url(../../img/wap/yes.png) 5px center no-repeat }
+.radio_box > dl > dt { background:url(../../img/wap/icon_n.png) 5px center no-repeat; /*未选中项的样式*/ padding-left:34px; margin:0 5px; height:auto; line-height:28px; font-size:14px; color:#575757; cursor:default }
+.radio_box > dl > dt.selected { background:url(../../img/wap/yes.png) 5px center no-repeat }

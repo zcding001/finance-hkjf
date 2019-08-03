@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">股权项目信息查询</span>
+              	<a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addFundInfo')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				<span class="sp-width">名称：</span><input name="name" class="form-control" style="width: 120px;display:inline-block;">
+						<span class="sp-width">项目类型：</span>
+						<select id="fundProjectInfoState" name="projectId" class="form-control" style="width: 120px;display:inline-block;">
+					     </select>
+					    <span class="sp-width">存息期限：</span><input name="termValue" class="form-control" style="width: 120px;display:inline-block;">
+					    <select name="termUnit" class="form-control" style="width: 120px;display:inline-block;">
+           						<option value="-999">全部</option>
+           						<option value="1">年</option>
+           						<option value="2">月</option>
+           						<option value="3">日</option>
+           					</select>
+						<span class="sp-width">状态：</span>
+						<select id="fundInfoState" name="state" class="form-control" style="width: 120px;display:inline-block;">
+							<option value="-999">全部</option>
+           						<option value="1">待上架</option>
+           						<option value="2">上架</option>
+           						<option value="3">下架</option>
+					     </select>
+					     </br>
+					     </br>
+					    <span class="sp-width">起投金额：</span><input name="lowestAmount" class="form-control" style="width: 120px;display:inline-block;">
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+            			<a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('项目信息列表')" style="display:inline-block;">导出</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"名称",className:"dt-simple",data: "name", width:100,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		},
+ 		{ title:"项目类型",className:"dt-simple",data: "projectName", width:100,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 20);
+ 		    }
+ 		},
+ 		{ title:"产品类型",className:"dt-simple",data: "parentType", width:140,
+ 			render: function (value, type, row, meta) {
+ 				return DIC_CONSTANT.getName("fund", "project_parent_type", value);
+ 		    }	
+ 		},
+ 		{ title:"存息期限",className:"dt-simple",data: "termValue",
+ 			render: function (value, type, row, meta) {
+				return value+" "+ DIC_CONSTANT.getName("invest", "bid_term_unit", row.termUnit);
+		    }	
+ 		},
+ 		{ 
+ 			title:"状态",
+ 			data: "state",
+ 			className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 			   if(value==0){
+ 				  return "删除" 
+ 			   }else if(value==1){
+ 				  return "待上架";
+ 			   }else if(value==2){
+ 				  return "上架";
+ 			   }else if(value==3){
+ 				  return "下架";
+ 			   }else{
+ 				  return "未知"; 
+ 			   }
+ 		    }
+ 		},
+  		{ title:"预约",data: "subscribeState",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 				if(value==1){
+ 					return "预约中";
+ 				}else{
+ 					return "停约";
+ 				}
+ 		    }
+ 		}, 
+ 		{ title:"起投金额",data: "lowestAmount",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 				var amountUnit = '(元)';
+ 				if(row.lowestAmountUnit == 2){
+ 					amountUnit = '(美元)';
+ 				}
+ 			    return commonUtil.toFixed(value,2) + amountUnit;
+ 		    }
+ 		},
+ 		{ title:"管理机构",data: "management",className:"dt-simple"},
+ 		{ title:"操作员",data: "modifyUserName",className:"dt-simple"},
+ 		{ title:"修改时间",data: "modifyTime",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 		    	return dateUtil.date(value);
+ 			}
+ 		},
+ 		{
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 			width:150,
+ 		    render: function (data, type, row, meta) {
+ 		    	//详情按钮
+ 		    	var btn = commonUtil.createDirectRequestBtn({id:row.id, target:'fundInfo'},"详细信息","fa-list",1);
+ 		    	if(row.state == 1 || row.state == 3){
+ 		    		btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,state:2,ajaxUrl:"fundInfoController/updateFundInfoState"}, "上架", "操作(上架)",
+						"确定上架?",
+						"fa-long-arrow-up");
+ 		    	}
+ 		    	if(row.state == 2 ){
+ 		    		btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,state:3,ajaxUrl:"fundInfoController/updateFundInfoState"}, "下架", "操作(下架)", "确定下架?", "fa-long-arrow-down");
+ 		    	}
+ 		    	//修改按钮,状态为非上架才可以修改
+ 		    	if(row.state!=2){
+                    //修改
+                    btn = btn +
+                        commonUtil.createDirectRequestBtn({param:row.id,row:row,target:'addFundInfo'},"修改","fa-edit");
+				}
+                //预约
+                if(row.state == 2 && row.subscribeState == 0){
+					//预约
+                    btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,subscribeState:1,ajaxUrl:"fundInfoController/updateFundInfoSubscribeState"},
+						"预约", "项目操作(预约)",
+                        "确定项目预约?",
+                        "fa fa-play" );
+				}
+                //停约
+                if(row.subscribeState == 1){
+					//停约
+                    btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,subscribeState:0,ajaxUrl:"fundInfoController/updateFundInfoSubscribeState"},
+						"停约", "项目操作(停约)",
+                        "确定项目停约?",
+                        "fa fa-pause");
+				}
+                //修改按钮,状态为下架才允许删除
+                if(row.state!=2){
+					//删除
+                    btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,state:0,ajaxUrl:"fundInfoController/updateFundInfoState"},
+						"删除", "项目操作(删除)",
+                        "确定删除项目?",
+                        "fa fa-times fa-remove hide-underline fa-fw hide-underline");
+				}
+ 			    return btn;
+ 		    }
+ 		}
+ 	];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.searchFundInfoList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+//初始化下拉框
+$("#fundProjectInfoState").append(DIC_CONSTANT.getOption("fund", "project_type"));
+</script>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.point.model.PointProductImg">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_PointProductImg" type="com.hongkun.finance.point.model.PointProductImg">
+		<result property="id" column="id"/>
+		<result property="productId" column="product_id"/>
+		<result property="title" column="title"/>
+		<result property="bigImgUrl" column="big_img_url"/>
+		<result property="smallImgUrl" column="small_img_url"/>
+		<result property="headImg" column="head_img"/>
+		<result property="state" column="state"/>
+		<result property="sort" column="sort"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,product_id,title,big_img_url,small_img_url,head_img,state,sort
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO point_product_img ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="productId != null">
+				product_id ,
+			</if>
+			<if test="title != null and title != ''">
+				title ,
+			</if>
+			<if test="bigImgUrl != null and bigImgUrl != ''">
+				big_img_url ,
+			</if>
+			<if test="smallImgUrl != null and smallImgUrl != ''">
+				small_img_url ,
+			</if>
+			<if test="headImg != null">
+				head_img ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="sort != null">
+				sort 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="productId != null">
+				#{productId} ,
+			</if>
+			<if test="title != null and title != ''">
+				#{title} ,
+			</if>
+			<if test="bigImgUrl != null and bigImgUrl != ''">
+				#{bigImgUrl} ,
+			</if>
+			<if test="smallImgUrl != null and smallImgUrl != ''">
+				#{smallImgUrl} ,
+			</if>
+			<if test="headImg != null">
+				#{headImg} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="sort != null">
+				#{sort} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO point_product_img (
+	       	id ,
+	       	product_id ,
+	       	title ,
+	       	big_img_url ,
+	       	small_img_url ,
+	       	head_img ,
+	       	state ,
+	       	sort 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.productId != null">
+					#{item.productId} ,
+				</if>
+				<if test="item.productId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.title != null and item.title != ''">
+					#{item.title} ,
+				</if>
+				<if test="item.title == null or item.title == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bigImgUrl != null and item.bigImgUrl != ''">
+					#{item.bigImgUrl} ,
+				</if>
+				<if test="item.bigImgUrl == null or item.bigImgUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.smallImgUrl != null and item.smallImgUrl != ''">
+					#{item.smallImgUrl} ,
+				</if>
+				<if test="item.smallImgUrl == null or item.smallImgUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.headImg != null">
+					#{item.headImg} ,
+				</if>
+				<if test="item.headImg == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} 
+				</if>
+				<if test="item.sort == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="productId != null">
+			product_id = #{productId} ,
+		   </if>
+			<if test="title != null and title != ''">
+				title = #{title} ,
+			</if>
+			<if test="bigImgUrl != null and bigImgUrl != ''">
+				big_img_url = #{bigImgUrl} ,
+			</if>
+			<if test="smallImgUrl != null and smallImgUrl != ''">
+				small_img_url = #{smallImgUrl} ,
+			</if>
+			<if test="headImg != null">
+			head_img = #{headImg} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="sort != null">
+			sort = #{sort} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  point_product_img
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM point_product_img 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_PointProductImg">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM point_product_img 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<where>
+			 state != 0
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="productId != null">
+			AND product_id = #{productId}
+			</if>
+			<if test="title != null and title !=''">
+			AND title = #{title}
+			</if>
+			<if test="bigImgUrl != null and bigImgUrl !=''">
+			AND big_img_url = #{bigImgUrl}
+			</if>
+			<if test="smallImgUrl != null and smallImgUrl !=''">
+			AND small_img_url = #{smallImgUrl}
+			</if>
+			<if test="headImg != null">
+			AND head_img = #{headImg}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM point_product_img 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_PointProductImg">
+		SELECT <include refid="columns" />
+		FROM point_product_img 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!--查询指定产品id的首图-->
+	<select id="findProductHeadImgsByProductIds" resultMap="_PointProductImg">
+		SELECT  product_id,small_img_url
+		FROM point_product_img
+		WHERE product_id  IN
+		<foreach collection="list" item="pid" open="(" separator="," close=")">
+			#{pid}
+		</foreach>
+		AND head_img=1
+	</select>
+
+</mapper>

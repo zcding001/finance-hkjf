@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.info.model.InfoInformationNews">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_InfoInformationNews" type="com.hongkun.finance.info.model.InfoInformationNews">
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="type" column="type"/>
+		<result property="source" column="source"/>
+		<result property="channel" column="channel"/>
+		<result property="position" column="position"/>
+		<result property="content" column="content"/>
+		<result property="url" column="url"/>
+		<result property="keyword" column="keyword"/>
+		<result property="resideSelect" column="reside_select"/>
+		<result property="sort" column="sort"/>
+		<result property="eulogizeNum" column="eulogize_num"/>
+		<result property="browseNum" column="browse_num"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="imgUrl" column="img_url"/>
+		<result property="showFlag" column="showFlag"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,title,type,source,channel,position,content,url,keyword,reside_select,sort,eulogize_num,browse_num,state,create_time,modify_time,img_url,showFlag
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO info_information_news ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="title != null and title != ''">
+				title ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="source != null and source != ''">
+				source ,
+			</if>
+			<if test="channel != null and channel != ''">
+				channel ,
+			</if>
+			<if test="position != null">
+				position ,
+			</if>
+			<if test="content != null and content != ''">
+				content ,
+			</if>
+			<if test="url != null and url != ''">
+				url ,
+			</if>
+			<if test="keyword != null and keyword != ''">
+				keyword ,
+			</if>
+			<if test="resideSelect != null">
+				reside_select ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+			<if test="eulogizeNum != null">
+				eulogize_num ,
+			</if>
+			<if test="browseNum != null">
+				browse_num ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				img_url ,
+			</if>
+			<if test="showFlag != null">
+				showFlag, 
+			</if>
+				create_time ,
+				modify_time 
+			
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="title != null and title != ''">
+				#{title} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="source != null and source != ''">
+				#{source} ,
+			</if>
+			<if test="channel != null and channel != ''">
+				#{channel} ,
+			</if>
+			<if test="position != null">
+				#{position} ,
+			</if>
+			<if test="content != null and content != ''">
+				#{content} ,
+			</if>
+			<if test="url != null and url != ''">
+				#{url} ,
+			</if>
+			<if test="keyword != null and keyword != ''">
+				#{keyword} ,
+			</if>
+			<if test="resideSelect != null">
+				#{resideSelect} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<if test="eulogizeNum != null">
+				#{eulogizeNum} ,
+			</if>
+			<if test="browseNum != null">
+				#{browseNum} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				#{imgUrl} ,
+			</if>
+			<if test="showFlag != null">
+				#{showFlag},
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+			
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO info_information_news (
+        	id ,
+        	title ,
+        	type ,
+        	source ,
+        	channel ,
+        	position ,
+        	content ,
+        	url ,
+        	keyword ,
+        	reside_select ,
+        	sort ,
+        	eulogize_num ,
+        	browse_num ,
+        	state ,
+        	img_url ,
+		showFlag ,
+        	create_time ,
+        	modify_time 
+        	
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.title != null and item.title != ''">
+					#{item.title} ,
+				</if>
+				<if test="item.title == null or item.title == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.source != null and item.source != ''">
+					#{item.source} ,
+				</if>
+				<if test="item.source == null or item.source == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.channel != null and item.channel != ''">
+					#{item.channel} ,
+				</if>
+				<if test="item.channel == null or item.channel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.position != null">
+					#{item.position} ,
+				</if>
+				<if test="item.position == null">
+					DEFAULT ,
+				</if>
+				<if test="item.content != null and item.content != ''">
+					#{item.content} ,
+				</if>
+				<if test="item.content == null or item.content == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.url != null and item.url != ''">
+					#{item.url} ,
+				</if>
+				<if test="item.url == null or item.url == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.keyword != null and item.keyword != ''">
+					#{item.keyword} ,
+				</if>
+				<if test="item.keyword == null or item.keyword == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.resideSelect != null">
+					#{item.resideSelect} ,
+				</if>
+				<if test="item.resideSelect == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+				<if test="item.eulogizeNum != null">
+					#{item.eulogizeNum} ,
+				</if>
+				<if test="item.eulogizeNum == null">
+					DEFAULT ,
+				</if>
+				<if test="item.browseNum != null">
+					#{item.browseNum} ,
+				</if>
+				<if test="item.browseNum == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.imgUrl != null and item.imgUrl != ''">
+					#{item.imgUrl} ,
+				</if>
+				<if test="item.imgUrl == null or item.imgUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.showFlag != null">
+					#{item.showFlag}  ,
+				</if>
+				<if test="item.showFlag == null">
+					DEFAULT  ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="title != null and title != ''">
+				title = #{title} ,
+			</if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="source != null and source != ''">
+				source = #{source} ,
+			</if>
+			<if test="channel != null and channel != ''">
+				channel = #{channel} ,
+			</if>
+			<if test="position != null">
+			position = #{position} ,
+		   </if>
+			<if test="content != null and content != ''">
+				content = #{content} ,
+			</if>
+			<if test="url != null">
+				url = #{url} ,
+			</if>
+			<if test="keyword != null and keyword != ''">
+				keyword = #{keyword} ,
+			</if>
+			<if test="resideSelect != null">
+				reside_select = #{resideSelect} ,
+		   </if>
+			<if test="sort != null">
+				sort = #{sort} ,
+		   </if>
+			<if test="eulogizeNum != null">
+				eulogize_num = #{eulogizeNum} ,
+		   </if>
+			<if test="browseNum != null">
+				browse_num = #{browseNum} ,
+		   </if>
+			<if test="state != null">
+				state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				img_url = #{imgUrl} ,
+			</if>
+			<if test="showFlag != null">
+			showFlag = #{showFlag} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  info_information_news
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM info_information_news 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_InfoInformationNews">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM info_information_news 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="title != null and title !=''">
+			AND title LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="source != null and source !=''">
+			AND source = #{source}
+			</if>
+			<if test="channel != null">
+			AND find_in_set(#{channel},channel)
+			</if>
+			<if test="position != null and position !=-999">
+			AND position = #{position}
+			</if>
+			<if test="content != null and content !=''">
+			AND content = #{content}
+			</if>
+			<if test="url != null and url !=''">
+			AND url = #{url}
+			</if>
+			<if test="keyword != null and keyword !=''">
+			AND keyword = #{keyword}
+			</if>
+			<if test="resideSelect != null">
+			AND reside_select = #{resideSelect}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="eulogizeNum != null">
+			AND eulogize_num = #{eulogizeNum}
+			</if>
+			<if test="browseNum != null">
+			AND browse_num = #{browseNum}
+			</if>
+			<if test="state != null and state != -999">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="imgUrl != null and imgUrl !=''">
+			 AND img_url = #{imgUrl}
+			</if>
+			<if test="showFlag != null">
+			AND showFlag = #{showFlag}
+			</if>
+			AND state != 0
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM info_information_news 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_InfoInformationNews">
+		SELECT <include refid="columns" />
+		FROM info_information_news 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<!-- 资讯分页查询 -->
+	<select id="findInfomationNewsPageCount" resultType="long">
+		SELECT COUNT(ID) FROM info_information_news 
+	    <include refid="findInfomationNewsPage_where"/>
+	</select>
+	<!-- 资讯分页查询-->
+	<select id="findInfomationNewsPage" resultMap="_InfoInformationNews">
+		SELECT <include refid="columns" />  FROM info_information_news 
+	    <include refid="findInfomationNewsPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 资讯分页查询 map传参的查询条件 -->
+    <sql id="findInfomationNewsPage_where">
+		<where>	  
+			1 = 1    				
+			<if test="id != null and id !=''">
+			AND id = #{id}
+			</if>
+			<if test="infoTypes != null and infoTypes.size > 0">
+			 AND type in
+			  <foreach collection="infoTypes" open="(" separator="," close=")" item="infoType">
+	            ${infoType}
+	         </foreach>
+			</if>
+			<if test="state != null and state!=-999">
+			AND state = #{state}
+			</if>
+			<if test="showFlag != null and showFlag!=-999">
+			AND showFlag = #{showFlag}
+			</if>
+			<if test="position != null and position !=-999">
+			AND position = #{position}
+			</if>
+			<if test="channel != null">
+			AND find_in_set(#{channel},channel)
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="title != null and title !=''">
+			AND title LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="resideSelect != null and resideSelect !=-999">
+			AND reside_select = #{resideSelect}
+			</if>
+			AND state != 0
+		</where>
+	</sql>
+</mapper>

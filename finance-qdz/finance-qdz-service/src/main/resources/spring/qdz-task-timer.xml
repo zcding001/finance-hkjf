@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:reg="http://www.dangdang.com/schema/ddframe/reg" 
+    xmlns:job="http://www.dangdang.com/schema/ddframe/job" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd 
+                        http://www.dangdang.com/schema/ddframe/reg 
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd 
+                        http://www.dangdang.com/schema/ddframe/job 
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd 
+                        ">
+    <!--配置作业注册中心 -->
+    <reg:zookeeper id="regCenter" server-lists="${ealsticjob.zookeeper.address}" namespace="hk-timer"
+                   base-sleep-time-milliseconds="${ealsticjob.base.sleep.time.milliseconds}"
+                   max-sleep-time-milliseconds="${ealsticjob.max-sleep-time-milliseconds}"
+                   max-retries="${ealsticjob.max-retries}"/>
+    <!-- 散标客户还款提醒 -->
+    <!--钱袋子债券匹配-->
+     <job:simple id="qdzRateRecordTaskTime"
+                class="com.hongkun.finance.qdz.timer.QdzRateRecordTaskTime"
+                registry-center-ref="regCenter"
+                description = "钱袋子当日利率记录"
+                cron="0 40 16 * * ?"
+                sharding-total-count="1"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    /> 
+    <!--钱袋子债券匹配-->
+     <job:simple id="qdzMatchTaskTimer"
+                class="com.hongkun.finance.qdz.timer.QdzMatchTaskTimer"
+                registry-center-ref="regCenter"
+                 description = "钱袋子购买债券匹配"
+                cron="0 00 21 * * ?"
+                sharding-total-count="1"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!--钱袋子计算利息-->
+    <job:simple id="qdzCalculateInterestTaskTimer"
+                class="com.hongkun.finance.qdz.timer.QdzCalculateInterestTaskTimer"
+                registry-center-ref="regCenter"
+                description = "钱袋子计算利息"
+                cron="0 00 23 * * ?"
+                sharding-total-count="10"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    /> 
+    <!--第三方垫息-->
+     <job:simple id="qdzThirdAccountPadBearingTimer"
+                class="com.hongkun.finance.qdz.timer.QdzThirdAccountPadBearingTimer"
+                registry-center-ref="regCenter"
+                description = "第三方垫息跑批"                
+                cron="0 00 03 * * ?"
+                sharding-total-count="1"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+</beans>

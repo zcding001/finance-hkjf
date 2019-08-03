@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinChannelGrant">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinChannelGrant" type="com.hongkun.finance.payment.model.FinChannelGrant">
+		<result property="id" column="id"/>
+		<result property="sysName" column="sys_name"/>
+		<result property="sysNameCode" column="sys_name_code"/>
+		<result property="channelName" column="channel_name"/>
+		<result property="sort" column="sort"/>
+		<result property="channelNameCode" column="channel_name_code"/>
+		<result property="payStyle" column="pay_style"/>
+		<result property="platformSource" column="platform_source"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,sys_name,sys_name_code,channel_name,sort,channel_name_code,pay_style,platform_source,state
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_channel_grant ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				sys_name ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code ,
+			</if>
+			<if test="channelName != null and channelName != ''">
+				channel_name ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+			<if test="channelNameCode != null and channelNameCode != ''">
+				channel_name_code ,
+			</if>
+			<if test="payStyle != null">
+				pay_style ,
+			</if>
+			<if test="platformSource != null and platformSource != ''">
+				platform_source ,
+			</if>
+			<if test="state != null">
+				state 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				#{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				#{sysNameCode} ,
+			</if>
+			<if test="channelName != null and channelName != ''">
+				#{channelName} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<if test="channelNameCode != null and channelNameCode != ''">
+				#{channelNameCode} ,
+			</if>
+			<if test="payStyle != null">
+				#{payStyle} ,
+			</if>
+			<if test="platformSource != null and platformSource != ''">
+				#{platformSource} ,
+			</if>
+			<if test="state != null">
+				#{state} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_channel_grant (
+        	id ,
+        	sys_name ,
+        	sys_name_code ,
+        	channel_name ,
+        	sort ,
+        	channel_name_code ,
+        	pay_style ,
+        	platform_source ,
+        	state 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sysName != null and item.sysName != ''">
+					#{item.sysName} ,
+				</if>
+				<if test="item.sysName == null or item.sysName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sysNameCode != null and item.sysNameCode != ''">
+					#{item.sysNameCode} ,
+				</if>
+				<if test="item.sysNameCode == null or item.sysNameCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.channelName != null and item.channelName != ''">
+					#{item.channelName} ,
+				</if>
+				<if test="item.channelName == null or item.channelName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+				<if test="item.channelNameCode != null and item.channelNameCode != ''">
+					#{item.channelNameCode} ,
+				</if>
+				<if test="item.channelNameCode == null or item.channelNameCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.payStyle != null">
+					#{item.payStyle} ,
+				</if>
+				<if test="item.payStyle == null">
+					DEFAULT ,
+				</if>
+				<if test="item.platformSource != null and item.platformSource != ''">
+					#{item.platformSource} ,
+				</if>
+				<if test="item.platformSource == null or item.platformSource == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} 
+				</if>
+				<if test="item.state == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="sysName != null and sysName != ''">
+				sys_name = #{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code = #{sysNameCode} ,
+			</if>
+			<if test="channelName != null and channelName != ''">
+				channel_name = #{channelName} ,
+			</if>
+			<if test="sort != null">
+			sort = #{sort} ,
+		   </if>
+			<if test="channelNameCode != null and channelNameCode != ''">
+				channel_name_code = #{channelNameCode} ,
+			</if>
+			<if test="payStyle != null">
+			pay_style = #{payStyle} ,
+		   </if>
+			<if test="platformSource != null and platformSource != ''">
+				platform_source = #{platformSource} ,
+			</if>
+			<if test="state != null">
+			state = #{state} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_channel_grant
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_channel_grant 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinChannelGrant">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_channel_grant 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="sysName != null and sysName !=''">
+			AND sys_name = #{sysName}
+			</if>
+			<if test="sysNameCode != null and sysNameCode !=''">
+			AND sys_name_code = #{sysNameCode}
+			</if>
+			<if test="channelName != null and channelName !=''">
+			AND channel_name = #{channelName}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="channelNameCode != null and channelNameCode !=''">
+			AND channel_name_code = #{channelNameCode}
+			</if>
+			<if test="payStyle != null and payStyle != -999">
+			AND pay_style = #{payStyle}
+			</if>
+			<if test="platformSource != null and platformSource !=''">
+			AND FIND_IN_SET(#{platformSource},platform_source)
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_channel_grant 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinChannelGrant">
+		SELECT <include refid="columns" />
+		FROM fin_channel_grant 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 根据系统 CODE、支付方式，查询当前系统下启用的支付方式 -->
+	<select id="findFinChannelGrantList" resultMap="_FinChannelGrant">
+		SELECT <include refid="columns" />
+		FROM fin_channel_grant 
+		<include refid="findPage_where"/>
+		group by channel_name_code
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+</mapper>

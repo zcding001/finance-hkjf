@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+   <div class="autoinvest_main mb-50">
+       <div class="autoinvest_one">
+           <div class="autoinvest_one_title">
+               <div class="auto_invest_1">项目名称：<span class="bidNameString"></span></div>
+               <ul class="auto_condition_1 clearfix">
+                   <li>状态：<span >可转让</span></li>
+                   <li>到期时间：<span class="endDateDate"></span></li>
+               </ul>
+           </div>
+           <div class="autovest_one_content clearfix">
+               <ul>
+                   <li>
+                   <span>已收收益：<i class="receivedIncomeNum"></i>元</span>
+                   <span>预年化率：<i class="interestRateNum"></i>%</span>
+                   <span>持有金额：<i class="investAmountNum"></i>元</span>
+               </li>
+                   <li>
+                       <span>未收收益：<i class="notReceivedIncomeNum"></i>元</span>
+                       <span>项目期限：<i class="termValueNum"></i><i class="termUnitStrString"></i></span>
+                       <span>可转本金：<i class="creditorAmountNum"></i>元</span>
+                       <span>起息日期：<i class="lendingTimeDate"></i></span>
+                   </li>
+               </ul>
+           </div>
+           <form id="transferForm" action="${project_base_path}/transferManualController/saveTransferManual.do">
+			<input type="hidden" name="oldInvestId" class="investIdNum"/>
+			<input type="hidden" name="transferRate" value="100" />
+           <div class="zqzr_list clearfix">
+               <ul class="zqzr_list_box fl">
+                   <li><span>转让金额：</span>
+                   <input id="creditorAmount" name="creditorAmount" type="text"  class='inp_txt creditorAmountNum' />元</li>
+                   <span id="creditorAmount_errorMsg" style="color:red;margin-left: 106px;"></span>
+                   <li><span>筹集天数：</span>
+                       <input id="transferDays" name="transferDays" type="text" class="inp_txt" />&nbsp;&nbsp;天</li>
+                       <span id="transferDays_errorMsg" style="color:red;margin-left: 106px;"></span>
+                   <li class="myzq_li clearfix">
+                       <span class="fl mt-13">转让方式：</span>
+                       <ul class="fl">
+                           <li class="zqzr_mode">
+                               <cite class="fl pt-12" title="当您选择折价时，您需要放弃一部分已获取的收益来实现快速变现，提高折价金额能提高转让成功的机会！">
+                                   <input name="transType" type="radio" value="1" checked="checked">
+                               </cite>&nbsp;&nbsp;平价转让</li>
+                           <!--<li class="zqzr_mode">-->
+                               <!--<cite class="fl pt-12" title="当您选择溢价时，您将获得更多的收益，但会影响转让成功几率！">-->
+                                   <!--<input name="transType"  type="radio" value="2">-->
+                               <!--</cite>-->
+                               <!--<cite>&nbsp;&nbsp;溢价转让</cite>-->
+                               <!--<cite>-->
+                                   <!--<input id="transferRateHigher" type="text" class="inp_txt_1" disabled="disabled" >-->
+                               <!--</cite>-->
+                               <!--<cite>&nbsp;&nbsp;%</cite>-->
+                           <!--</li>-->
+                           <!--<li> <div id="transferRate_error_2" style="color:red;margin-left: 106px;"></div></li>-->
+                           <!--<li class="zqzr_mode">-->
+                               <!--<cite class="fl pt-12">-->
+                                   <!--<input name="transType"  type="radio" value="3">-->
+                               <!--</cite>-->
+                               <!--<cite class="">&nbsp;&nbsp;折价转让</cite>-->
+                               <!--<input id="transferRateLower" type="text" class="inp_txt_1" disabled="disabled" >-->
+                               <!--<cite>&nbsp;&nbsp;%</cite>-->
+                           <!--</li>-->
+                           <!--<li><div id="transferRate_error_3" style="color:red;margin-left: 106px;"></div></li>-->
+                           <!--<li class="zqzr_mode2">-->
+                               <!--<cite class=""><span></span></cite>-->
+                           <!--</li>-->
+                       </ul>
+                   </li>
+               </ul>
+               <div class="myzq_er fr">
+                   <ul class="">
+                       <li class="pt-20 f-weight">转让价格&nbsp;&nbsp;
+                           <cite  id="transferPrice" class="yellow f20 fb creditorAmountNum"></cite>&nbsp;&nbsp;元
+                       </li>
+                       <li class="c_gray">(自动计算不允许修改)</li>
+                       <li class="pt-20 f-weight">转让后年化率&nbsp;&nbsp;
+                           <cite  class="interestRateNum" id="afterRate">0.00</cite>&nbsp;&nbsp;%
+                       </li>
+                       <li class="c_gray">(自动计算不允许修改)</li>
+                   </ul>
+               </div>
+           </div>
+           <div class="bc_list">
+               <div class="zqzr_btn"><a href="javascript:;" onclick="saveCreditor();">发布转让</a></div>
+           </div>
+           </form>
+       </div>
+   </div>
+</body>
+<script type="text/javascript">
+var TRANSFER_DETAIL;
+$(function(){
+		var request = containerUtil.getTransient();
+		 ajaxUtil.post("/transferManualController/showTransferManualDetail.do",request,function(data){
+				if(data.resStatus == CONSTANTS.SUCCESS){
+            		if(request.transferId==0||request.transferId==null){
+            			TRANSFER_DETAIL = data.params.data;
+            			// if(TRANSFER_DETAIL.state==null){
+            			// 	TRANSFER_DETAIL.state = 0;
+            			// }
+            			// TRANSFER_DETAIL.state = dictionaryUtil.getName("invest", "transfer_manual_state",
+                        // 		TRANSFER_DETAIL.state);
+                        //控制部分转让金额输入
+                        if(TRANSFER_DETAIL.creditorState == 2 ){
+                            $("#creditorAmount").removeAttr("readonly");
+                        }else{
+                            $("#creditorAmount").attr("readonly","readonly");
+                            $("#creditorAmount_errorMsg").html("只允许全部转让，转让金额不可修改");
+                        }
+                        TRANSFER_DETAIL.termUnitStr = dictionaryUtil.getName("invest", "bid_term_unit",
+                            TRANSFER_DETAIL.termUnit);
+            			renderUtil.renderElement(TRANSFER_DETAIL);
+            		}
+            	}
+         });
+		$("#creditorAmount").blur(function(){
+			validateTransAmount();
+		});
+		
+		$("#transferDays").blur(function(){
+			validateTransferDays();
+		});
+		//TODO  债权转让溢价和折价校验暂时去掉
+		// $("input:radio[name='transType']").change(function (){
+		// 	var thisRadioVal=$("input:radio[name='transType']:checked").val() ;
+		// 	$("#transferPrice").html("计算中……");
+    		// $("#afterRate").html("计算中……");
+		// 	if(thisRadioVal==1){
+		// 		$("#transferRateHigher").val('');
+		// 		$("#transferRateLower").val('');
+		// 		$("#transferRateHigher").attr("disabled",true);
+		// 		$("#transferRateLower").attr("disabled",true);
+		// 		$("#transferPrice").html(TRANSFER_DETAIL.useAbleCapital);
+        	// 	$("#afterRate").html(TRANSFER_DETAIL.rate);
+		// 	}
+		// 	if(thisRadioVal==2){
+		// 		//溢价
+		// 		$("#transferRateLower").val('');
+		// 		$("#transferRateHigher").attr("disabled",false);
+		// 		$("#transferRateLower").attr("disabled",true);
+		// 	}
+		// 	if(thisRadioVal==3){
+		// 		//折价
+		// 		$("#transferRateHigher").val('');
+		// 		$("#transferRateLower").attr("disabled",false);
+		// 		$("#transferRateHigher").attr("disabled",true);
+		// 	}
+		// 	$("#transferRate_error_2").html("");
+		// 	$("#transferRate_error_3").html("");
+		// });
+		// $("#transferRateHigher").blur(function(){
+		// 	validateTransferRate($("#transferRateHigher").val(),2);
+		// });
+		// $("#transferRateLower").blur(function(){
+		// 	validateTransferRate($("#transferRateLower").val(),3);
+		// });
+	})
+	
+	/**
+	 * 校验转让金额
+	 */
+	function validateTransAmount(){
+	    if(TRANSFER_DETAIL.creditorState == 2){
+            var money = $("#creditorAmount").val();
+            if(money==''){
+                $("#creditorAmount_errorMsg").html("请填写转让金额");
+                return false;
+            }
+            if(!validUtil.validNumber(money)){
+                $("#creditorAmount_errorMsg").html("请填写有效的金额");
+                return false;
+            }
+            if(money%100!=0){
+                $("#creditorAmount_errorMsg").html("转让金额必须是100的整数倍");
+                return false;
+            }
+            if(money>TRANSFER_DETAIL.creditorAmount){
+                $("#creditorAmount_errorMsg").html("转让金额超过最大可转本金");
+                return false;
+            }
+            $("#creditorAmount_errorMsg").html("");
+            $("#transferPrice").html(money);
+        }
+		return true;
+	}
+	/**
+	 * 校验筹集天数
+	 */
+	function validateTransferDays(){
+		var transferDay = $("#transferDays").val();
+		if(transferDay==''){
+			$("#transferDays_errorMsg").html("请填写筹集天数");
+			return false;
+		}
+		if(!validUtil.validNumber(transferDay)){
+			$("#transferDays_errorMsg").html("请填写有效的筹集天数");
+			return false;
+		}
+		if(transferDay>TRANSFER_DETAIL.maxTransferDays){
+			$("#transferDays_errorMsg").html("筹集天数不能超过"+TRANSFER_DETAIL.maxTransferDays+"天");
+			return false;
+		}
+		$("#transferDays_errorMsg").html("");
+		return true;
+	}
+	/**
+	 * 校验转让比率
+	 */
+	//TODO 转让比率暂时注释
+	// function validateTransferRate(transferRate,type){
+	// 	var errorId = "transferRate_error_"+type;
+	// 	if(transferRate==''){
+	// 		$("#"+errorId).html("请填写转让比率");
+	// 		return false;
+	// 	}
+	// 	if(!validUtil.validNumber(transferRate)){
+	// 		$("#"+errorId).html("请填写有效的转让比率");
+	// 		return false;
+	// 	}
+	// 	if(type==3){
+	// 		if(transferRate>TRANSFER_DETAIL.convertRateEnd||transferRate<TRANSFER_DETAIL.convertRateStart){
+	// 			var error = "折价率必须在"+TRANSFER_DETAIL.convertRateStart+"-"+TRANSFER_DETAIL.convertRateEnd+"之间";
+	// 			$("#"+errorId).html(error);
+	// 			return false;
+	// 		}
+	// 		//调用接口回显转让价格和年化率
+	// 	}
+	// 	if(type==2){
+	// 		if(transferRate>TRANSFER_DETAIL.overflowRateEnd||transferRate<TRANSFER_DETAIL.overflowRateStart){
+	// 			var error = "溢价率必须在"+TRANSFER_DETAIL.overflowRateStart+"-"+TRANSFER_DETAIL.overflowRateEnd+"之间";
+	// 			$("#"+errorId).html(error);
+	// 			return false;
+	// 		}
+	// 	}
+	// 	$("#"+errorId).html('');
+	// 	if(type==1){
+	// 		return true;
+	// 	}
+	// 	if($("#creditorAmount").val()>0){
+	// 		calTransferMoneyAndInterestRate($("#creditorAmount").val(), transferRate);
+	// 	}
+	// 	return true;
+	// }
+	
+	/**
+     *
+	 * 计算转让价格&转让后利率
+	 */
+	//TODO 转让价格利率注释 暂不启用
+	// function calTransferMoneyAndInterestRate(creditorAmount,transferRate){
+	// 	var oldInvest = TRANSFER_DETAIL.investId;
+	// 	ajaxUtil.post("/transferManualController/calTransferMoneyAndInterestRate.do", {"investId":oldInvest,"creditorAmount":creditorAmount,
+     //    	"transferRate":transferRate},function(data){
+     //    		if(data.resStatus == CONSTANTS.SUCCESS){
+     //        		$("#transferPrice").html(data.params.transferPrice);
+     //        		$("#afterRate").html(data.params.transferedRate);
+     //        	}
+     //    });
+	// }
+	
+	function submitCallback(formData){
+		ajaxUtil.post("/transferManualController/saveTransferManual.do", formData,function(data){
+			if(data.resStatus == CONSTANTS.SUCCESS){
+	     		dialogUtil.alert("发布转让","发布成功");
+	     		commonUtil.jumpAccountMenu("myCreditor.html");
+	     	}else{
+	     		dialogUtil.alert("发布转让",data.resMsg);
+	     	}
+        });
+	}
+	
+	function saveCreditor(){
+		if(!validateTransAmount()||!validateTransferDays()){
+			return false;
+		}
+		var transferRate = 100;
+		var thisRadioVal=$("input:radio[name='transType']:checked").val() ;
+		if(thisRadioVal==2){
+			transferRate = $("#transferRateHigher").val();
+		}
+		if(thisRadioVal==3){
+			transferRate = $("#transferRateHigher").val();
+		}
+		$("#transferRate").val(transferRate);
+		// if(!validateTransferRate(transferRate,thisRadioVal)){
+		// 	return false;
+		// }
+		//校验通过，发布转让
+		dialogUtil.confirm("发布转让", "确定对此债权发布转让吗", submitCallback, "", "", "transferForm");
+	}
+
+
+</script>
+
+</html>

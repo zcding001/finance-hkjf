@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/invest.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <div class="include" file="${project_base_path}/common/header.html"></div>
+    <!-- 头部结束 -->
+    <!-- 优选详情页 -->
+    <div class="list_content container">
+        <div class="detail_in_title clearfix">
+            <span class="fl titleString" id="titleName"></span>
+            <img src="${project_base_path}/src/img/invest/jb_03.png" id="stateImg">
+        </div>
+        <div class="detail_con clearfix">
+            <div class="fl detail_con_left">
+                <ul class="clearfix">
+                    <li>
+                        <div><em class="totalAmountView"></em><span>万</span></div>
+                        <p>投资总额</p>
+                    </li>
+                    <li>
+                        <div id = "interestRateDiv"></div>
+                        <p>预期年化收益率</p>
+                    </li>
+                    <li>
+                        <div><em class="termValue"></em><span class="termUnitView"></span></div>
+                        <p>投资期限</p>
+                    </li>
+                </ul>
+                <div class="ygmnum">已购人数：<span class="investPersonSumNum"></span>人</div>
+                <div class="jdt clearfix">
+                    <div class="jdt_left fl">
+                        <div class="red_jdt percentView" style="width:0%"></div>
+                    </div>
+                    <div class="jdt_right fr percent"></div>
+                </div>
+                <div class="iv_yxjh clearfix">
+                    <ul class="fl">
+                        <li>查看<span id="contractView"></span></li>
+                        <li>其他费用：<span>加入费用（免费）</span></li>
+                        <li style="height:auto;">投资标准：<span class="investStandard" style="width:280px;vertical-align:top;display:inline-block;">建议5000.00元起投</span></li>
+                    </ul>
+          	          <ul class="fr">
+                        <li>计息开始日期：<span>满标放款后计息</span></li>
+                        <li class="withActivity">活动参与：<span>此标参与好友推荐奖励</span></li>
+                        <li class="winType">收益获取方式：<span> 收益返还</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fl detail_con_right">
+                <form id="dataForm">
+                    <input id="id" class="idNum" type="hidden">
+                    <input id="bidSchemeValue" class="bidSchemeValue" type="hidden">
+                    <input id="bidScheme" class="bidSchemeNum" type="hidden">
+                    <input id="stepValue" class="stepValueNum" type="hidden">
+                    <input id="useableMoney" class="useableMoneyNum" type="hidden">
+                    <input id="biddRepaymentWay" class="biddRepaymentWay" type="hidden">
+                    <input id="residueAmount" class="residueAmountNum" type="hidden">
+                </form>
+                <div>剩余可投金额：<span class="residueAmountNum"></span>
+                    <font>元</font>
+                </div>
+                <div class="clearfix">
+                    <div class="fl">可用余额：<span class="useableMoneyNum"></span>元</div>
+                    <a href="javascript:void(0)" class="iv_recharge fr" id="rechargeBtn">充值</a>
+                </div>
+                <em id="showByState2">
+                    <div style="position:relative;">投资金额：
+                        <input type="text" class="in_put" id="money">
+                        <font class="dollar">元</font>
+                    </div>
+                    <div style="display: none" id="kidDiv">投资红包：
+                        <select class="sel_btn" name="investRedPacketId" id="investRedPacketId"></select>
+                    </div>
+                    <div style="display: none" id="jidDiv">加息券：
+                        <select class="sel_btn" style="margin-left:19px;" name="investRaiseInterestId" id="investRaiseInterestId"></select>
+                    </div>
+                    <div class="iv_shouyi">投资万元收益：
+                        <cite class="millionIncomeNum"></cite>元</div>
+                    <span class="colr-red" id="resErrMsg"></span>
+                </em>
+                <div class="mt-20">
+                    <a href="javascript:void(0)" id="submitBtn" class="right_ljtz" data-target=".bs-example-modal-sm">立即投资</a>
+                    <a href="./investList.html" id="seeOtherBtn" style="display: none;" class="right_ljtz" data-target=".bs-example-modal-sm">看看其他项目</a>
+                </div>
+            </div>
+        </div>
+        <div class="infor container">
+            <div class="infor_title clearfix">
+                <ul>
+                    <li class="in_active">计划介绍</li>
+                    <li>投资记录</li>
+                    <li>保障措施</li>
+                </ul>
+            </div>
+            <!--计划介绍-->
+            <div class="infor_cont hide show">
+                <table class="jh_table table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>计划标题</td>
+                            <td><span class="titleString"></span></td>
+                        </tr>
+                        <tr>
+                            <td>计划金额</td>
+                            <td><em class="totalAmountNum"></em>元</td>
+                        </tr>
+                        <tr>
+                            <td>投资期限</td>
+                            <td><em class="termValue"></em><em class="termUnitView"></em></td>
+                        </tr>
+                        <tr>
+                            <td>招标方案</td>
+                            <td><em class="investStandard"></em></td>
+                        </tr>
+                        <tr>
+                            <td>还款方式</td>
+                            <td><em class="biddRepaymentWayView"></em></td>
+                        </tr>
+                        <tr>
+                            <td>产品描述</td>
+                            <td><em class="projectDescription"></em></td>
+                        </tr>
+                        <tr>
+                            <td>风险提示</td>
+                            <td>市场有风险，投资需谨慎，请选择正规的互联网金融平台进行投资。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--加入记录-->
+            <div class="infor_cont hide">
+                <table class="jl_table table table-hover" id="dataTable"></table>
+            </div>
+            <!--保障措施-->
+            <div class="infor_cont hide">
+                <div class="iv_bzn">
+                    <h3>资金安全保障</h3>
+                    <p>由央行监管的、专业的第三方支付机构为您的交易资金划转提供相应的服务，实现资金流转清晰、合法、可查，增加交易透明度及安全性。</p>
+                </div>
+                <div class="iv_bzn">
+                    <h3>电子合同保障</h3>
+                    <p>鸿坤金服促成的交易均会在线上生成相应的电子合同及协议，明确投资人与融资人的债权债务关系。电子合同均由鸿坤金服及合作的律师团队制定。平台的数据及合同将通过与第三方数据保全机构合作的方式实现实时、完整性的第三方数据备份及保管，并可将所有数据通过公证机关进行全流程数据公证和加印国家授时中心统一时间，实现电子证据的固化和保全。</p>
+                </div>
+                <div class="iv_bzn">
+                    <h3>技术安全保障</h3>
+                    <p>鸿坤金服有完善的系统安全内部控制制度，严格管理用户数据，从流程上实现用户隐私不被泄露，更不会将用户信息泄露给第三方机构，实现用户隐私不受侵犯。采用数字签名技术、安全套接协议，对用户与平台的网络访问进行加密，实现通信私密不被窃听，通过三层防火墙对各系统进行隔离，最大程度实现用户数据安全， 严格执行备份容灾计划，保证数据和系统在极端情况下不受影响。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+
+    <!-- 投资测评弹窗 -->
+    <div ng-if="doQuestionnire == false" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="questionPage" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+            <div class="modal-content">
+                <div class="modal-header border-radius disabled  pt-10 pb-10">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">用户投资风险测评</h4>
+                </div>
+                <div class="modal-body pb-30 pt-30" style="height:520px;">
+                    <!-- 所要添加的内容start -->
+                    <div class="include" file="${project_base_path}/info/questionPage.html"></div>
+                    <!-- 所要添加的内容end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/invest/investDetail.js"></script>
+<script>
+    $(function(){
+        investDetailController.loadToInvest();
+    });
+</script>
+</html>

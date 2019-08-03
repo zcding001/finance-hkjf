@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.invest.model.BidAuditType">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_BidAuditType" type="com.hongkun.finance.invest.model.BidAuditType">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="modifyUserId" column="modify_user_id"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,name,sort,create_user_id,modify_user_id,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bid_audit_type ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+			<if test="createUserId != null">
+				create_user_id ,
+			</if>
+			<if test="modifyUserId != null">
+				modify_user_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<if test="createUserId != null">
+				#{createUserId} ,
+			</if>
+			<if test="modifyUserId != null">
+				#{modifyUserId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO bid_audit_type (
+        	id ,
+        	name ,
+        	sort ,
+        	create_user_id ,
+        	modify_user_id ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+				<if test="item.createUserId != null">
+					#{item.createUserId} ,
+				</if>
+				<if test="item.createUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.modifyUserId != null">
+					#{item.modifyUserId} ,
+				</if>
+				<if test="item.modifyUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="sort != null">
+			sort = #{sort} ,
+		   </if>
+			<if test="createUserId != null">
+			create_user_id = #{createUserId} ,
+		   </if>
+			<if test="modifyUserId != null">
+			modify_user_id = #{modifyUserId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  bid_audit_type
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM bid_audit_type 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_BidAuditType">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bid_audit_type 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+			AND name = #{name}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="createUserId != null">
+			AND create_user_id = #{createUserId}
+			</if>
+			<if test="modifyUserId != null">
+			AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="state == null">
+				AND state !=0
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM bid_audit_type 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_BidAuditType">
+		SELECT <include refid="columns" />
+		FROM bid_audit_type
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- id和name的map -->
+	<select id="findBidAuditTypeIdAndName" resultType="java.util.HashMap">
+		SELECT id,name
+		FROM bid_audit_type
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

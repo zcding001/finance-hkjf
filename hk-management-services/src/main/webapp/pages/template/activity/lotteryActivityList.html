@@ -1,0 +1,91 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;"></span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('lotteryActivityEdit')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        活动名称：<input name="name" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;
+                        <span class="sp-width">创建时间：</span><input type="text" name="createTimeBegin"
+                                                                  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                                                                  class="Wdate form-control" readonly="readonly" style="width:160px;height:35px;display:inline-block;"/>
+
+                        <span class="sp-width">开始时间：</span><input type="text" name="startTimeBegin"
+                                                                  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                                                                  class="Wdate form-control" readonly="readonly" style="width:160px;height:35px;display:inline-block;"/>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        { title:"活动名称",className:"dt-simple",data: "name"},
+        {title:"开始时间",data:"startTime",className:"dt-simple",
+            render: function (value) {
+                return dateUtil.dateTime(value);
+            }
+        },
+        {title:"结束时间",data:"endTime",className:"dt-simple",
+            render: function (value) {
+                return dateUtil.dateTime(value);
+            }
+        },
+        {title:"创建时间",data:"createTime",className:"dt-simple",
+            render: function (value) {
+                return dateUtil.dateTime(value);
+            }
+        },
+        {title:"状态",data:"state",className:"dt-simple",
+            render: function (value) {
+                var text = "--";
+                if(value === 1){
+                    text = "启用"
+                }else if(value === 0){
+                    text = "禁用"
+                }
+                return text;
+            }
+        },
+        {title:"操作",data:null,className:"dt-simple",render:function (data,type,row,meta) {
+            var btn = "";
+            if(row.state == 0){
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,state:1,ajaxUrl:"lotteryActivityController/updateState"}, "启用", "操作",
+                        "确定启用?","fa-play");
+                //修改
+                btn +=  commonUtil.createDirectRequestBtn({id:row.id,isUptate:true,target:'lotteryActivityEdit'},'修改','fa-edit',0)+'&nbsp;&nbsp;';
+                // 添加或修改奖品
+                btn += commonUtil.createDirectRequestBtn({id:row.id,target:'lotteryItemsEdit'},"添加奖品","fa-plus-square",0);
+
+            }else{
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,state:0,ajaxUrl:"lotteryActivityController/updateState"}, "禁用", "操作",
+                        "确定禁用?","fa-pause");
+                // 查看
+                btn += '<a target="_blank" href="'+CONFIG.CONSTANTS.FINANCE_BASE_PATH + "/wap/lotteryActivity/lotteryActivityTemplate.html?activityId=" + row.id + '" title="查看" class="fa fa-cog fa-fw hide-underline" style="padding-left: 3px;padding-right: 3px;"></a>';
+            }
+            return btn;
+        }}
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.lotteryActivityList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+
+    function showInfo(id) {
+        window.location.href = CONFIG.CONSTANTS.FINANCE_BASE_PATH + "/wap/lotteryActivity/lotteryActivityTemplate.html?activityId=" +id;
+    }
+
+
+</script>

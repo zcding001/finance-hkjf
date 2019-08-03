@@ -1,0 +1,60 @@
+<style type="text/css">
+    .cx_info li{
+        padding:0 15px;
+        float:left;
+        height:30px;
+        line-height:30px;
+        font-size:16px;
+    }
+    .cx_info li a{
+        display:block;
+        height:30px;
+        line-height:30px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">
+                    <div class="cx_info">
+                        <li class="oli1">
+                            <a style="cursor:pointer;color:#f08300;border-bottom:#f7931e 1px solid;" gotoUrl="carbuysellcontract">车辆买卖合同</a>
+                        </li>
+                        <li  class="oli1">
+                            <a id="danbaohan" style="cursor:pointer;" gotoUrl="danbaohan">担保函 </a>
+                        </li>
+                        <li  class="oli1">
+                            <a style="cursor:pointer;" gotoUrl="jiekuancontract"> 借款合同</a>
+                        </li>
+                        <li  class="oli1">
+                            <a style="cursor:pointer;"  gotoUrl="shouquanshu">授权书 </a>
+                        </li>
+                        <li  class="oli1 acar">
+                            <a style="cursor:pointer;" gotoUrl="weituoshu">车辆处置委托书</a>
+                        </li>
+                        <li  class="oli1">
+                            <a style="cursor:pointer;" gotoUrl="zhiyacontract">质押合同</a>
+                        </li>
+                    </div>
+                </span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div id="showContract"></div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+                <div class="clear"></div>
+                <div style="height:40px;line-height:40px;">
+                    <a style="cursor:pointer;font-size:14px;text-align:center;background:#f5f5f5;display:block;height:40px;line-height:40px;width:80px;margin:30px auto;border-radius:5px;" id="print_id" ng-click="toPrintPage()" target="_blank">打印</a></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>

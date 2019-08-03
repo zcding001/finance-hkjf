@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.hongkun.finance.vas.model.VasCouponProfitRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasCouponProfitRecord" type="com.hongkun.finance.vas.model.VasCouponProfitRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="regUserDetailRealName" column="reg_user_detail_real_name"/>
+		<result property="regUserLogin" column="reg_user_login"/>
+		<result property="bidInfoId" column="bid_info_id"/>
+		<result property="bidInfoName" column="bid_info_name"/>
+		<result property="bidInfoTermValue" column="bid_info_term_value"/>
+		<result property="bidInfoTermUnit" column="bid_info_term_unit"/>
+		<result property="bidInvestInvestAmount" column="bid_invest_invest_amount"/>
+		<result property="bidReceiptPlanId" column="bid_receipt_plan_id"/>
+		<result property="bidReceiptPlanPlanTime" column="bid_receipt_plan_plan_time"/>
+		<result property="bidReceiptPlanActualTime" column="bid_receipt_plan_actual_time"/>
+		<result property="bidReceiptPlanPeriods" column="bid_receipt_plan_periods"/>
+		<result property="bidReceiptPlanAmount" column="bid_receipt_plan_amount"/>
+		<result property="vasCouponDetailId" column="vas_coupon_detail_id"/>
+		<result property="vasCouponProductType" column="vas_coupon_product_type"/>
+		<result property="vasCouponDetailWorth" column="vas_coupon_detail_worth"/>
+		<result property="vasCouponDetailUsedTime" column="vas_coupon_detail_used_time"/>
+		<result property="profit" column="profit"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,reg_user_detail_real_name,reg_user_login,bid_info_id,bid_info_name,bid_info_term_value,bid_info_term_unit,bid_invest_invest_amount,bid_receipt_plan_id,bid_receipt_plan_plan_time,bid_receipt_plan_actual_time,bid_receipt_plan_periods,bid_receipt_plan_amount,vas_coupon_detail_id,vas_coupon_product_type,vas_coupon_detail_worth,vas_coupon_detail_used_time,profit,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_coupon_profit_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="regUserDetailRealName != null and regUserDetailRealName != ''">
+				reg_user_detail_real_name ,
+			</if>
+			<if test="regUserLogin != null">
+				reg_user_login ,
+			</if>
+			<if test="bidInfoId != null">
+				bid_info_id ,
+			</if>
+			<if test="bidInfoName != null and bidInfoName != ''">
+				bid_info_name ,
+			</if>
+			<if test="bidInfoTermValue != null">
+				bid_info_term_value ,
+			</if>
+			<if test="bidInfoTermUnit != null">
+				bid_info_term_unit ,
+			</if>
+			<if test="bidInvestInvestAmount != null">
+				bid_invest_invest_amount ,
+			</if>
+			<if test="bidReceiptPlanId != null">
+				bid_receipt_plan_id ,
+			</if>
+				bid_receipt_plan_plan_time ,
+				bid_receipt_plan_actual_time ,
+			<if test="bidReceiptPlanPeriods != null">
+				bid_receipt_plan_periods ,
+			</if>
+			<if test="bidReceiptPlanAmount != null">
+				bid_receipt_plan_amount ,
+			</if>
+			<if test="vasCouponDetailId != null">
+				vas_coupon_detail_id ,
+			</if>
+			<if test="vasCouponProductType != null">
+				vas_coupon_product_type ,
+			</if>
+			<if test="vasCouponDetailWorth != null">
+				vas_coupon_detail_worth ,
+			</if>
+				vas_coupon_detail_used_time ,
+			<if test="profit != null">
+				profit ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="regUserDetailRealName != null and regUserDetailRealName != ''">
+				#{regUserDetailRealName} ,
+			</if>
+			<if test="regUserLogin != null">
+				#{regUserLogin} ,
+			</if>
+			<if test="bidInfoId != null">
+				#{bidInfoId} ,
+			</if>
+			<if test="bidInfoName != null and bidInfoName != ''">
+				#{bidInfoName} ,
+			</if>
+			<if test="bidInfoTermValue != null">
+				#{bidInfoTermValue} ,
+			</if>
+			<if test="bidInfoTermUnit != null">
+				#{bidInfoTermUnit} ,
+			</if>
+			<if test="bidInvestInvestAmount != null">
+				#{bidInvestInvestAmount} ,
+			</if>
+			<if test="bidReceiptPlanId != null">
+				#{bidReceiptPlanId} ,
+			</if>
+			<choose>
+				<when test="bidReceiptPlanPlanTime != null">
+					#{bidReceiptPlanPlanTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="bidReceiptPlanActualTime != null">
+					#{bidReceiptPlanActualTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="bidReceiptPlanPeriods != null">
+				#{bidReceiptPlanPeriods} ,
+			</if>
+			<if test="bidReceiptPlanAmount != null">
+				#{bidReceiptPlanAmount} ,
+			</if>
+			<if test="vasCouponDetailId != null">
+				#{vasCouponDetailId} ,
+			</if>
+			<if test="vasCouponProductType != null">
+				#{vasCouponProductType} ,
+			</if>
+			<if test="vasCouponDetailWorth != null">
+				#{vasCouponDetailWorth} ,
+			</if>
+			<choose>
+				<when test="vasCouponDetailUsedTime != null">
+					#{vasCouponDetailUsedTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="profit != null">
+				#{profit} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO vas_coupon_profit_record (
+	       	id ,
+	       	reg_user_id ,
+	       	reg_user_detail_real_name ,
+	       	reg_user_login ,
+	       	bid_info_id ,
+	       	bid_info_name ,
+	       	bid_info_term_value ,
+	       	bid_info_term_unit ,
+	       	bid_invest_invest_amount ,
+	       	bid_receipt_plan_id ,
+	       	bid_receipt_plan_plan_time ,
+	       	bid_receipt_plan_actual_time ,
+	       	bid_receipt_plan_periods ,
+	       	bid_receipt_plan_amount ,
+	       	vas_coupon_detail_id ,
+	       	vas_coupon_product_type ,
+	       	vas_coupon_detail_worth ,
+	       	vas_coupon_detail_used_time ,
+	       	profit ,
+	       	create_time ,
+	       	modify_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserDetailRealName != null and item.regUserDetailRealName != ''">
+					#{item.regUserDetailRealName} ,
+				</if>
+				<if test="item.regUserDetailRealName == null or item.regUserDetailRealName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserLogin != null">
+					#{item.regUserLogin} ,
+				</if>
+				<if test="item.regUserLogin == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidInfoId != null">
+					#{item.bidInfoId} ,
+				</if>
+				<if test="item.bidInfoId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidInfoName != null and item.bidInfoName != ''">
+					#{item.bidInfoName} ,
+				</if>
+				<if test="item.bidInfoName == null or item.bidInfoName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bidInfoTermValue != null">
+					#{item.bidInfoTermValue} ,
+				</if>
+				<if test="item.bidInfoTermValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidInfoTermUnit != null">
+					#{item.bidInfoTermUnit} ,
+				</if>
+				<if test="item.bidInfoTermUnit == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidInvestInvestAmount != null">
+					#{item.bidInvestInvestAmount} ,
+				</if>
+				<if test="item.bidInvestInvestAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidReceiptPlanId != null">
+					#{item.bidReceiptPlanId} ,
+				</if>
+				<if test="item.bidReceiptPlanId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.bidReceiptPlanPlanTime != null">
+					#{item.bidReceiptPlanPlanTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.bidReceiptPlanActualTime != null">
+					#{item.bidReceiptPlanActualTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.bidReceiptPlanPeriods != null">
+					#{item.bidReceiptPlanPeriods} ,
+				</if>
+				<if test="item.bidReceiptPlanPeriods == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidReceiptPlanAmount != null">
+					#{item.bidReceiptPlanAmount} ,
+				</if>
+				<if test="item.bidReceiptPlanAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.vasCouponDetailId != null">
+					#{item.vasCouponDetailId} ,
+				</if>
+				<if test="item.vasCouponDetailId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.vasCouponProductType != null">
+					#{item.vasCouponProductType} ,
+				</if>
+				<if test="item.vasCouponProductType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.vasCouponDetailWorth != null">
+					#{item.vasCouponDetailWorth} ,
+				</if>
+				<if test="item.vasCouponDetailWorth == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.vasCouponDetailUsedTime != null">
+					#{item.vasCouponDetailUsedTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.profit != null">
+					#{item.profit} ,
+				</if>
+				<if test="item.profit == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="regUserDetailRealName != null and regUserDetailRealName != ''">
+				reg_user_detail_real_name = #{regUserDetailRealName} ,
+			</if>
+			<if test="regUserLogin != null">
+			reg_user_login = #{regUserLogin} ,
+		   </if>
+			<if test="bidInfoId != null">
+			bid_info_id = #{bidInfoId} ,
+		   </if>
+			<if test="bidInfoName != null and bidInfoName != ''">
+				bid_info_name = #{bidInfoName} ,
+			</if>
+			<if test="bidInfoTermValue != null">
+			bid_info_term_value = #{bidInfoTermValue} ,
+		   </if>
+			<if test="bidInfoTermUnit != null">
+			bid_info_term_unit = #{bidInfoTermUnit} ,
+		   </if>
+			<if test="bidInvestInvestAmount != null ">
+				bid_invest_invest_amount =bid_invest_invest_amount + #{bidInvestInvestAmount} ,
+			</if>
+			<if test="bidReceiptPlanId != null">
+			bid_receipt_plan_id = #{bidReceiptPlanId} ,
+		   </if>
+			<if test="bidReceiptPlanPlanTime != null">
+				bid_receipt_plan_plan_time = #{bidReceiptPlanPlanTime} ,
+			</if>
+			<if test="bidReceiptPlanActualTime != null">
+				bid_receipt_plan_actual_time = #{bidReceiptPlanActualTime} ,
+			</if>
+			<if test="bidReceiptPlanPeriods != null">
+			bid_receipt_plan_periods = #{bidReceiptPlanPeriods} ,
+		   </if>
+			<if test="bidReceiptPlanAmount != null ">
+				bid_receipt_plan_amount =bid_receipt_plan_amount + #{bidReceiptPlanAmount} ,
+			</if>
+			<if test="vasCouponDetailId != null">
+			vas_coupon_detail_id = #{vasCouponDetailId} ,
+		   </if>
+			<if test="vasCouponProductType != null">
+			vas_coupon_product_type = #{vasCouponProductType} ,
+		   </if>
+			<if test="vasCouponDetailWorth != null ">
+				vas_coupon_detail_worth =vas_coupon_detail_worth + #{vasCouponDetailWorth} ,
+			</if>
+			<if test="vasCouponDetailUsedTime != null">
+				vas_coupon_detail_used_time = #{vasCouponDetailUsedTime} ,
+			</if>
+			<if test="profit != null ">
+				profit =profit + #{profit} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_coupon_profit_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_coupon_profit_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasCouponProfitRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_coupon_profit_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="regUserDetailRealName != null and regUserDetailRealName !=''">
+			AND reg_user_detail_real_name like CONCAT('%',#{regUserDetailRealName},'%')
+			</if>
+			<if test="regUserLogin != null">
+			AND reg_user_login = #{regUserLogin}
+			</if>
+			<if test="bidInfoId != null">
+			AND bid_info_id = #{bidInfoId}
+			</if>
+			<if test="bidInfoName != null and bidInfoName !=''">
+			AND bid_info_name = #{bidInfoName}
+			</if>
+			<if test="bidInfoTermValue != null">
+			AND bid_info_term_value = #{bidInfoTermValue}
+			</if>
+			<if test="bidInfoTermUnit != null">
+			AND bid_info_term_unit = #{bidInfoTermUnit}
+			</if>
+			<if test="bidInvestInvestAmount != null">
+			AND bid_invest_invest_amount = #{bidInvestInvestAmount}
+			</if>
+			<if test="bidReceiptPlanId != null">
+			AND bid_receipt_plan_id = #{bidReceiptPlanId}
+			</if>
+			<if test="bidReceiptPlanPlanTimeBegin != null">
+			AND bid_receipt_plan_plan_time >= #{bidReceiptPlanPlanTimeBegin}
+			</if>
+			<if test="bidReceiptPlanPlanTimeEnd != null">
+			AND bid_receipt_plan_plan_time &lt;= #{bidReceiptPlanPlanTimeEnd}
+			</if>
+			<if test="bidReceiptPlanActualTimeBegin != null">
+			AND bid_receipt_plan_actual_time >= #{bidReceiptPlanActualTimeBegin}
+			</if>
+			<if test="bidReceiptPlanActualTimeEnd != null">
+			AND bid_receipt_plan_actual_time &lt;= #{bidReceiptPlanActualTimeEnd}
+			</if>
+			<if test="bidReceiptPlanPeriods != null">
+			AND bid_receipt_plan_periods = #{bidReceiptPlanPeriods}
+			</if>
+			<if test="bidReceiptPlanAmount != null">
+			AND bid_receipt_plan_amount = #{bidReceiptPlanAmount}
+			</if>
+			<if test="vasCouponDetailId != null">
+			AND vas_coupon_detail_id = #{vasCouponDetailId}
+			</if>
+			<if test="vasCouponProductType != null">
+			AND vas_coupon_product_type = #{vasCouponProductType}
+			</if>
+			<if test="vasCouponDetailWorth != null">
+			AND vas_coupon_detail_worth = #{vasCouponDetailWorth}
+			</if>
+			<if test="vasCouponDetailUsedTimeBegin != null">
+			AND vas_coupon_detail_used_time >= #{vasCouponDetailUsedTimeBegin}
+			</if>
+			<if test="vasCouponDetailUsedTimeEnd != null">
+			AND vas_coupon_detail_used_time &lt;= #{vasCouponDetailUsedTimeEnd}
+			</if>
+			<if test="profit != null">
+			AND profit = #{profit}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_coupon_profit_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasCouponProfitRecord">
+		SELECT <include refid="columns" />
+		FROM vas_coupon_profit_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

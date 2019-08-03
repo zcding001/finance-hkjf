@@ -1,0 +1,114 @@
+package com.hongkun.finance.user.service;
+
+import java.util.List;
+
+import com.yirun.framework.core.utils.pager.Pager;
+import com.hongkun.finance.user.model.AppUserServe;
+
+/**
+ * @Project       : finance-hkjf
+ * @Program Name  : com.hongkun.finance.user.service.AppUserServeService.java
+ * @Class Name    : AppUserServeService.java
+ * @Description   : GENERATOR SERVICE类
+ * @Author        : generator
+ */
+public interface AppUserServeService {
+	
+	/**
+	 * @Described			: 单条插入
+	 * @param appUserServe 持久化的数据对象
+	 * @return				: void
+	 */
+	void insertAppUserServe(AppUserServe appUserServe);
+	
+	/**
+	 * @Described			: 批量插入
+	 * @param List<AppUserServe> 批量插入的数据
+	 * @return				: void
+	 */
+	void insertAppUserServeBatch(List<AppUserServe> list);
+	
+	/**
+	 * @Described			: 批量插入
+	 * @param List<AppUserServe> 批量插入的数据
+	 * @param count 多少条数提交一次
+	 * @return				: void
+	 */
+	void insertAppUserServeBatch(List<AppUserServe> list, int count);
+	
+	/**
+	 * @Described			: 更新数据
+	 * @param appUserServe 要更新的数据
+	 * @return				: void
+	 */
+	void updateAppUserServe(AppUserServe appUserServe);
+	
+	/**
+	 * @Described			: 批量更新数据
+	 * @param appUserServe 要更新的数据
+	 * @param count 多少条数提交一次
+	 * @return				: void
+	 */
+	void updateAppUserServeBatch(List<AppUserServe> list, int count);
+	
+	/**
+	 * @Described			: 通过id查询数据
+	 * @param id id值
+	 * @return	AppUserServe
+	 */
+	AppUserServe findAppUserServeById(int id);
+	
+	/**
+	 * @Described			: 条件检索数据
+	 * @param appUserServe 检索条件
+	 * @return	List<AppUserServe>
+	 */
+	List<AppUserServe> findAppUserServeList(AppUserServe appUserServe);
+	
+	/**
+	 * @Described			: 条件检索数据
+	 * @param appUserServe 检索条件
+	 * @param start	起始页
+	 * @param limit 检索条数
+	 * @return	List<AppUserServe>
+	 */
+	List<AppUserServe> findAppUserServeList(AppUserServe appUserServe, int start, int limit);
+	
+	/**
+	 * @Described			: 条件检索数据
+	 * @param appUserServe 检索条件
+	 * @param pager	分页数据
+	 * @return	List<AppUserServe>
+	 */
+	Pager findAppUserServeList(AppUserServe appUserServe, Pager pager);
+
+	/**
+	 * @Described			: 统计条数
+	 * @param appUserServe 检索条件
+	 * @param pager	分页数据
+	 * @return	int
+	 */
+	int findAppUserServeCount(AppUserServe appUserServe);
+	
+	/**
+	 * 自定义sql查询count
+	 * @param obj
+	 * @param pager
+	 * @param sqlName
+	 * @return
+	 */
+	Pager findAppUserServeList(AppUserServe appUserServe, Pager pager, String sqlName/*添加一个自定义的sql的名字*/);
+	
+	/**
+	 * 
+	 *  @Description    : 
+	 *  @Method_Name    : getTotalCount
+	 *  @param object
+	 *  @param sqlName
+	 *  @return
+	 *  @return         : Integer
+	 *  @Creation Date  : 2017年6月15日 上午10:14:01 
+	 *  @Author         : zhichaoding@hongkun.com zc.ding
+	 */
+	Integer findAppUserServeCount(AppUserServe appUserServe, String sqlName);
+}

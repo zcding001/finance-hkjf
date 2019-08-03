@@ -1,0 +1,49 @@
+<!-- 收款统计 -->
+<div class="act_right fr">
+    <form id="dataTableForm">
+        <div class="tx_bar">
+            <ul class="clearfix">
+                <li class="fl">
+                    <cite class="fl">收银员手机号：</cite>
+                    <cite class="mr-10">
+                        <input id="buyersTel" name="buyersTel"  type="text" tabindex="1"
+                                       datatype="m" errormsg="请填写正确的手机号码！">
+                    </cite>
+                </li>
+                <li class="fl ml-10 in_time">
+                    <cite class="tx_bar_t fl">交易时间：</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+                    </cite>
+                    </cite>
+                    <cite class="fl">&nbsp;-&nbsp;</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+                    </cite>
+                </li>
+                <li class="fl ml-10">
+                    <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <div style="overflow-x: auto;width:818px;">
+        <table class="table table-hover ellipsis" id="dataTable"></table>
+        
+    </div>
+    <div class="paging"></div>
+    <script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+</div>
+<script>
+    var columns = [
+        {title:'买家手机号',data:'buyersTel',tdClass:'tac',thClass:'tac'},
+        {title:'付积分',data:'point',tdClass:'tac',thClass:'tac'},
+        {title:'交易时间',data:'createTime',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:'人民币（元）',data:'worth',tdClass:'tac',thClass:'tac'},
+        {title:'收银员姓名',data:'bussinessName',tdClass:'tac',thClass:'tac'},
+        {title:'收银员手机号',data:'bussinessTel',tdClass:'tac',thClass:'tac'}
+    ];
+    renderUtil.renderList("${project_base_path}/pointController/getCollectionPointStatistics.do",columns);
+</script>

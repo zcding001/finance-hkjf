@@ -1,0 +1,369 @@
+<style type="text/css">
+    .edit {
+        margin:1px 1px 1px 1px;
+        border: 1px solid #151515
+    }
+    .edit .thead_th{font-size: 24px;color: #333;font-weight: 400;height: 70px;line-height: 70px;padding-left: 20px;}
+    .edit .tbody_th tr{font-size:0;}
+    .edit .tbody_th tr td{height:40px;}
+    .edit .tbody_th th,.edit .tbody_th td{padding:8px 5px;text-align:center;width:200px;border:1px solid #ddd;}
+    .edit tbody tr th {
+        font-weight: normal;
+        font-size: 12px;
+        color: #484848;
+        display: inline-block;
+    }
+    .edit .tbody_th th{background:#f1f1f1;font-weight:600;padding: 8px 5px;}
+    .edit tbody tr th.w190{width:190px;}
+    .edit tbody tr td {
+        font-weight: normal;
+        font-size: 12px;
+        color: #707070;
+        display: inline-block;
+        width: 350px;
+        padding: 10px 5px;
+    }
+    .textstyle{
+        width: 30%;
+        display: inline-block;
+    }
+    .module-label{
+        margin: 20px;
+        font-size: 1.2em;
+    }
+    .module{
+        border: solid 1px;
+        border-radius: 20px;
+        margin-bottom: 5px;
+    }
+
+    .table, .table * {margin: 0 auto; padding: 0;font-size: 14px;font-family: Arial, 宋体, Helvetica, sans-serif;}
+    .table {display: table; width: 80%; border-collapse: collapse;}
+    .table-tr {display: table-row; height: 30px;background: #f5f5f5;}
+    .table-th {display: table-cell;font-weight: bold;height: 100%;border: 1px solid gray;text-align: center;vertical-align: middle;}
+    .table-td {display: table-cell; height: 100%;border: 1px solid gray; text-align: center;vertical-align: middle;padding: 10px 15px;}
+
+    .checkbox, .radio{
+        margin-top: 3px;
+        margin-bottom: -3px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px; margin-bottom: 20px;">
+                <span style="float:left; font-size: 18px;">添加房产信息</span>
+            </div>
+            <form name="HouseForm" id="houseForm" enctype="multipart/form-data">
+                <div class="panel-body">
+                    <div class="well">
+                        <input type="hidden" name="permitList" id="permitList" ng-model="house.permitList">
+                        <input type="hidden" name="picList" id="picList" ng-model="house.picList">
+                        <div class="module">
+                            <label class="module-label">基本信息</label>
+                            <div class="form-group">
+                                <label class="textright"><span class="font-red">*&nbsp;</span>项目名称:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="name" ng-model="house.name" type="text"
+                                       validator="required" valid-method="blur" message-id="nameError">
+                                <span style="color:#F00;display:inline-block;" class="bid-info" id="nameError"></span>
+
+                                <label class="textright"><span class="font-red">*&nbsp;</span>价格:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="price" ng-model="house.price" type="text"
+                                       validator="required" valid-method="blur" message-id="priceError">
+                                <span style="color:#F00;display:inline-block;" class="bid-info" id="priceError"></span>
+                            </div>
+                            <hr style="border: 1px dashed #b5a8a8">
+
+                            <div class="form-group" style="overflow:hidden">
+                                <label class="textright">物业类别:</label>
+                                <input type="hidden" id="proType" ng-model="house.proType"/>
+                                <div class="textstyle">
+                                    <div ng-repeat="atp in proTypes" style="float:left;margin-left:5px;">
+                                        <div class="checkbox">
+                                            <label for="proType{{atp.value}}">
+                                                <input type="checkbox" value="{{atp.value}}" id="proType{{atp.value}}"
+                                                       name="proType" ng-model="atp.checked"/>{{atp.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="textright">项目特色:</label>
+                                <input type="hidden" id="feature" ng-model="house.feature"/>
+                                <div class="textstyle">
+                                    <div ng-repeat="atp in features" style="float:left;margin-left:5px;">
+                                        <div class="checkbox">
+                                            <label for="feature{{atp.value}}">
+                                                <input type="checkbox" value="{{atp.value}}" id="feature{{atp.value}}"
+                                                       name="feature" ng-model="atp.checked"/>{{atp.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="overflow:hidden">
+                                <label class="textright">建筑类别:</label>
+                                <input type="hidden" id="buildType" ng-model="house.buildType"/>
+                                <div class="textstyle">
+                                    <div ng-repeat="atp in buildTypes" style="float:left;margin-left:5px;">
+                                        <div class="checkbox">
+                                            <label for="buildType{{atp.value}}">
+                                                <input type="checkbox" value="{{atp.value}}" id="buildType{{atp.value}}"
+                                                       name="buildType" ng-model="atp.checked"/>{{atp.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="textright">装修状况:</label>
+                                <input type="hidden" id="redecorate" ng-model="house.redecorate"/>
+                                <div class="textstyle">
+                                    <div ng-repeat="atp in redecorates" style="float:left;margin-left:5px;">
+                                        <div class="checkbox">
+                                            <label for="redecorate{{atp.value}}">
+                                                <input type="checkbox" value="{{atp.value}}"
+                                                       id="redecorate{{atp.value}}" name="redecorate"
+                                                       ng-model="atp.checked"/>{{atp.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright">产权年限:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="proYears" ng-model="house.proYears" type="text">
+
+                                <label class="textright">开发商:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="developers" ng-model="house.developers" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright">楼盘地址:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="address" ng-model="house.address" type="text">
+                            </div>
+                        </div>
+
+                        <div class="module">
+                            <label class="module-label">销售信息</label>
+                            <div class="form-group" style="overflow:hidden">
+                                <label class="textright">销售状态:</label>
+                                <div class="textstyle">
+                                    <span ng-repeat="temp in saleStates">
+                                     <input type="radio" name="saleState" ng-model="house.saleState"
+                                            value="{{temp.value}}">{{temp.name}}
+                                    </span>
+                                </div>
+
+                                <label class="textright">楼盘优惠:</label>
+                                <div class="textstyle">
+                                    <span ng-repeat="temp in prefers">
+                                     <input type="radio" name="prefer" ng-model="house.prefer"
+                                            value="{{temp.value}}">{{temp.name}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright">开盘时间:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="startSaleDate" ng-model="house.startSaleDate" type="text" placeholder="请输入开盘时间 如：2021年1月18日15#楼">
+
+                                <label class="textright">交盘时间:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="makeHouseDate" ng-model="house.makeHouseDate" type="text" placeholder="如：预计2021年1月18日15#楼交房">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright">售楼地址:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="saleAddress" ng-model="house.saleAddress" type="text" placeholder="请输入售楼地址">
+
+                                <label class="textright">咨询电话:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="salTel" ng-model="house.salTel" type="text" placeholder="选填">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright" style="float:left">主力户型:</label>
+                                <input type="hidden" id="roomType" ng-model="house.roomType"/>
+                                <div class="textstyle" style="width: 80%">
+                                    <div ng-repeat="atp in roomTypes" style="float:left;margin-left:5px;">
+                                        <div class="checkbox">
+                                            <label for="roomType{{atp.value}}">
+                                                <input type="checkbox" value="{{atp.value}}" id="roomType{{atp.value}}"
+                                                       name="roomType" ng-model="atp.checked"/>{{atp.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="textright" style="float:left">预售许可证:</label>
+                                <button style="margin-bottom: 10px;margin-left: 10px" ng-click="addPermit()">添加</button>
+                                <div style="width: 100%;" >
+                                    <div class="table" id="permits">
+                                        <div class="table-tr">
+                                            <div class="table-th">预售许可证</div>
+                                            <div class="table-th">发证时间</div>
+                                            <div class="table-th">绑定楼栋</div>
+                                            <div class="table-th">操作</div>
+                                        </div>
+                                        <div class="table-tr permit_show" >
+                                            <div class="table-td">
+                                                <input type="text" style="width: 80%" placeholder="（廊）房预售证第 20180026号" />
+                                            </div>
+                                            <div class="table-td">
+                                                <input type="text" style="width: 80%" placeholder="2018-07-26" />
+                                            </div>
+                                            <div class="table-td">
+                                                <input type="text" style="width: 80%" placeholder="15#" />
+                                            </div>
+                                            <div class="table-td">
+                                                <button style="margin: 0 15px;padding: 1px 8px;"
+                                                        ng-click="removePermit($event)">删除</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module">
+                            <label class="module-label">小区规划</label>
+                            <div class="form-group">
+                                <label class="textright">占地面积:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="landArea" ng-model="house.landArea" type="text">
+
+                                <label class="textright">建筑面积:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="buildArea" ng-model="house.buildArea" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">容积率:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="capRate" ng-model="house.capRate" type="text">
+
+                                <label class="textright">绿化率:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="greenRate" ng-model="house.greenRate" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">停车位:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="parkSpace" ng-model="house.parkSpace" type="text">
+
+                                <label class="textright">楼栋总数:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="floorNum" ng-model="house.floorNum" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">总户数:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="doorNum" ng-model="house.doorNum" type="text">
+
+                                <label class="textright">物业公司:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                       name="proCompany" ng-model="house.proCompany" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="textright">物业费:</label>
+                                <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="请输入物业费：如：1.5元/平方米"
+                                       name="proFee" ng-model="house.proFee" type="text">
+                            </div>
+                        </div>
+
+                        <div class="module">
+                            <label class="module-label">项目简介</label>
+                            <div class="clearfix">
+                                <textarea id="showText" name="showText" ng-model="house.showText"
+                                          message-id="showTextError" style="width: 80%;height: 400px"></textarea>
+                                <span style="color:#F00" id="showTextError"></span>
+                            </div>
+                        </div>
+
+                        <div class="module">
+                            <label class="module-label">户型图</label><button ng-click="addPic('room_pic_table')">添加</button>
+                            <table id="roomPics" class="edit" style="width:80%;margin:10px auto;border:none;">
+                                <tbody class="tbody_th" id="room_pic_table">
+                                <tr>
+                                    <th>选择</th>
+                                    <th>户型</th>
+                                    <th>操作</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="position:relative;">
+                                            <input type="file" name="roomPic"/>
+                                        </label>
+                                    </td>
+                                    <td ><input type="text" style="height:25px;padding-left:5px;"/></td>
+                                    <td style="line-height:25px;"><a href="javascript:void(0);"
+                                                                    ng-click="removePermit($event);">删除</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="module">
+                            <label class="module-label">封面图片</label>
+                            <!--<button ng-click="addPic('index_pic_table')">添加</button>-->
+                            <table class="edit" style="width:80%;margin:10px auto;border:none;" id="indexPics">
+                                <tbody class="tbody_th" id="index_pic_table">
+                                <tr>
+                                    <th>选择</th>
+                                    <th>相册</th>
+                                    <!--<th>操作</th>-->
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="position:relative;">
+                                            <input type="file" name="indexPic"/>
+                                        </label>
+                                    </td>
+                                    <td><input type="text"  style="height:25px;padding-left:5px;"/></td>
+                                    <!--<td style="line-height:25px;"><a href="javascript:void(0);"-->
+                                                                     <!--ng-click="removePermit($event);">删除</a></td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="module">
+                            <label class="module-label">楼盘相册</label><button ng-click="addPic('other_pic_table')">添加</button>
+                            <table class="edit" style="width:80%;margin:10px auto;border:none;" id="otherPics">
+                                <tbody class="tbody_th" id="other_pic_table">
+                                <tr>
+                                    <th>选择</th>
+                                    <th>相册</th>
+                                    <th>操作</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="position:relative;">
+                                            <input type="file" name="otherPic"/>
+                                        </label>
+                                    </td>
+                                    <td><input type="text"  style="height:25px;padding-left:5px;"/></td>
+                                    <td style="line-height:25px;"><a href="javascript:void(0);"
+                                                                     ng-click="removePermit($event);">删除</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 20px">
+                            <button type="button" class="btn btn-outline btn-success"
+                                    ng-click="save(HouseForm)" validator-submit="HouseForm">保存</button>
+                            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/footPage.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+    <!-- 头部结束 -->
+    <!-- 红包兑换问题 -->
+    <div class="ques_top">
+        <div class="container">
+            <p>常见问题</p>
+        </div>
+    </div>
+    <div class="container clearfix">
+         <!-- 左侧菜单 -->
+        <div class="include" file="${project_base_path}/common/footLeftMenu.html"></div>
+        <!-- 右侧页面 -->
+        <div class="ask_rt fr">
+            <div class="ask_cont">
+                <h1 class="bor_b">红包兑换流程</h1>
+                <p>
+                    1.登录鸿坤金服账户，进入我的账号，点击“消息中心”-“系统消息”。
+                    <br>
+                    <br>
+                    <img src="${project_base_path}/src/img/footPage/hb_img1.jpg" width="730">
+                    <br>
+                    <br> 2.点击消息标题，即可查看红包的兑换码。
+                    <br>
+                    <br>
+                    <img src="${project_base_path}/src/img/footPage/hb_img2.jpg" width="730">
+                    <br>
+                    <br> 3.将兑换编码复制之后，关闭红包消息，点击左侧“红包管理”-“红包兑换”，输入红包编码，点击兑换。
+                    <br>
+                    <br>
+                    <img src="${project_base_path}/src/img/footPage/hb_img3.jpg" width="730">
+                    <br>
+                    <br> 4.点击兑换后，弹出消息显示红包兑换成功，红包的金额将会直接进入账户。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="foot_top">
+        <div class="container">
+            <div class="">选择鸿坤金服，安心享受高收益</div>
+            <div class=""><a href="${project_base_path}/invest/investList.html">马上去赚钱</a></div>
+        </div>
+    </div>
+      <!-- 底部开始 -->
+   <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script>
+$(function() {
+    $(".hb_c").on("click", function() {
+        $(this).siblings(".hb_show").slideToggle("normal");
+    })
+    $(".ask_active").on("mouseover", function() {
+        $(this).addClass("ask");
+        $(this).find(".hb_c").addClass("hb_c_1").find("h1").css("color", "#f39200");
+        $(this).find(".hb_show").css("border-top", "2px solid #f39200");
+    })
+    $(".ask_active").on("mouseout", function() {
+        $(this).removeClass("ask");
+        $(this).find(".hb_c").removeClass("hb_c_1").find("h1").css("color", "#333");
+        $(this).find(".hb_show").css("border-top", "1px solid #ddd");
+
+    })
+})
+</script>
+
+</html>

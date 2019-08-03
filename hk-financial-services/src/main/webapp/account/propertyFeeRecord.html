@@ -1,0 +1,90 @@
+<div class="tx_bar">
+    <form id="dataTableForm">
+	    <ul class="clearfix">
+	        <li class="fl">
+	            <cite class="fl">手机号：</cite>
+	            <cite class="mr10">
+	                <input type="text" name="tel"/>
+	            </cite>
+	        </li>
+	        <li class="fl">
+	            <cite class="fl">用户名：</cite>
+	            <cite class="mr10">
+	                <input type="text" name="userName"/>
+	            </cite>
+	        </li>
+	        <li class="fl in_time">
+	            <cite class="tx_bar_t fl">交易时间：</cite>
+	            <cite class="fl rel">
+	                <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+	            </cite>
+	            </cite>
+	            <cite class="fl">&nbsp;-&nbsp;</cite>
+	            <cite class="fl rel">
+	                <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+	            </cite>
+	        </li>
+	        <li class="fl ml-10 mt-20">
+	            <a href="javascript:;" id="dataTableSearchBtn">查询</a>
+	            <a href="javascript:;" id="exportBtn" onclick='exportExcel();'>导出</a>
+	        </li>
+	    </ul>
+    </form>
+</div>
+
+<div class="iv_list mt-20" style="overflow-x: auto;width:800px;">
+    <table class="table table-hover ellipsis" id="dataTable">
+    </table>
+</div>
+<div class="paging"></div>
+<!--<div class="manu"></div>-->
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+var columns = [
+               {title:'项目名称', data:'bidName', tdClass:'tac', thClass:'tac',
+            	   render:function(value,row){
+            		   if(row.payType==1){
+            			   return "物业费";
+            		   }else{
+            			   return "车位费";
+            		   }
+               }},
+               {title:'手机号', data:'tel', tdClass:'tac', thClass:'tac'},
+               {title:'用户名', data:'userName', tdClass:'tac', thClass:'tac'},
+               {title:'缴纳总金额', data:'money', tdClass:'tac', thClass:'tac'},
+               {title:'积分抵扣金额', data:'pointMoney', tdClass:'tac', thClass:'tac'},
+               {title:'抵扣所用积分', data:'point', tdClass:'tac', thClass:'tac'},
+               {title:'交易时间', data:'createdTime', tdClass:'tac', thClass:'tac',
+            	   render:function(value,row){
+            		   return dateUtil.dateTime(value);
+            	}},
+               {title:'居住小区', data:'communityName', tdClass:'tac', thClass:'tac'},
+//                {title:'具体地址', data:'address', tdClass:'tac', thClass:'tac'},
+               {title:'状态', data:'state', tdClass:'tac', thClass:'tac',render:function(value,row){
+				   var msg = "进行中";
+            	   if(value==2||value==4){
+						msg = "失败";
+				   }else if(value==3){
+					   msg="成功";
+				   }           
+            	   return msg;
+               }}
+       ];
+       
+renderUtil.renderList("/propertyManagementController/findPropertyFeeRecord.do",columns);	
+
+function exportExcel(){
+	var dataParam = {};
+	var searchForm = $("#dataTableForm").serializeObject();
+	if(searchForm != undefined){
+		for(var o in searchForm){
+			if(searchForm[o] != undefined && searchForm[o] != '' && searchForm[o] != null){
+				dataParam[o] = searchForm[o] == null ? null : searchForm[o] + "".trim();
+			}
+		}
+	}
+	dataParam['start'] = 1;
+	dataParam['pageSize'] = 1000;
+	ajaxUtil.downloan("/propertyManagementController/exportPropertyFeeRecord.do", dataParam);
+}
+</script>

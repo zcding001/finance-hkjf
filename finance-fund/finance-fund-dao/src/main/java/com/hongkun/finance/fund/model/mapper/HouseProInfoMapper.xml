@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.HouseProInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_HouseProInfo" type="com.hongkun.finance.fund.model.HouseProInfo">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="proType" column="pro_type"/>
+		<result property="feature" column="feature"/>
+		<result property="buildType" column="build_type"/>
+		<result property="redecorate" column="redecorate"/>
+		<result property="proYears" column="pro_years"/>
+		<result property="developers" column="developers"/>
+		<result property="address" column="address"/>
+		<result property="saleState" column="sale_state"/>
+		<result property="prefer" column="prefer"/>
+		<result property="startSaleDate" column="start_sale_date"/>
+		<result property="makeHouseDate" column="make_house_date"/>
+		<result property="saleAddress" column="sale_address"/>
+		<result property="salTel" column="sal_tel"/>
+		<result property="roomType" column="room_type"/>
+		<result property="state" column="state"/>
+		<result property="homeArea" column="home_area"/>
+		<result property="modifiedUser" column="modified_user"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,name,price,pro_type,feature,build_type,redecorate,pro_years,developers,address,sale_state,prefer,start_sale_date,make_house_date,sale_address,sal_tel,room_type,state,home_area,modified_user,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO house_pro_info ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="price != null and price != ''">
+				price ,
+			</if>
+			<if test="proType != null">
+				pro_type ,
+			</if>
+			<if test="feature != null and feature != ''">
+				feature ,
+			</if>
+			<if test="buildType != null and buildType != ''">
+				build_type ,
+			</if>
+			<if test="redecorate != null and redecorate != ''">
+				redecorate ,
+			</if>
+			<if test="proYears != null and proYears != ''">
+				pro_years ,
+			</if>
+			<if test="developers != null and developers != ''">
+				developers ,
+			</if>
+			<if test="address != null and address != ''">
+				address ,
+			</if>
+			<if test="saleState != null">
+				sale_state ,
+			</if>
+			<if test="prefer != null and prefer != ''">
+				prefer ,
+			</if>
+			<if test="startSaleDate != null and startSaleDate != ''">
+				start_sale_date ,
+			</if>
+			<if test="makeHouseDate != null and makeHouseDate != ''">
+				make_house_date ,
+			</if>
+			<if test="saleAddress != null and saleAddress != ''">
+				sale_address ,
+			</if>
+			<if test="salTel != null and salTel != ''">
+				sal_tel ,
+			</if>
+			<if test="roomType != null and roomType != ''">
+				room_type ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="homeArea != null and homeArea != ''">
+				home_area ,
+			</if>
+			<if test="modifiedUser != null and modifiedUser != ''">
+				modified_user ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="price != null and price != ''">
+				#{price} ,
+			</if>
+			<if test="proType != null">
+				#{proType} ,
+			</if>
+			<if test="feature != null and feature != ''">
+				#{feature} ,
+			</if>
+			<if test="buildType != null and buildType != ''">
+				#{buildType} ,
+			</if>
+			<if test="redecorate != null and redecorate != ''">
+				#{redecorate} ,
+			</if>
+			<if test="proYears != null and proYears != ''">
+				#{proYears} ,
+			</if>
+			<if test="developers != null and developers != ''">
+				#{developers} ,
+			</if>
+			<if test="address != null and address != ''">
+				#{address} ,
+			</if>
+			<if test="saleState != null">
+				#{saleState} ,
+			</if>
+			<if test="prefer != null and prefer != ''">
+				#{prefer} ,
+			</if>
+			<if test="startSaleDate != null and startSaleDate != ''">
+				#{startSaleDate} ,
+			</if>
+			<if test="makeHouseDate != null and makeHouseDate != ''">
+				#{makeHouseDate} ,
+			</if>
+			<if test="saleAddress != null and saleAddress != ''">
+				#{saleAddress} ,
+			</if>
+			<if test="salTel != null and salTel != ''">
+				#{salTel} ,
+			</if>
+			<if test="roomType != null and roomType != ''">
+				#{roomType} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="homeArea != null and homeArea != ''">
+				#{homeArea} ,
+			</if>
+			<if test="modifiedUser != null and modifiedUser != ''">
+				#{modifiedUser} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO house_pro_info (
+	       	id ,
+	       	name ,
+	       	price ,
+	       	pro_type ,
+	       	feature ,
+	       	build_type ,
+	       	redecorate ,
+	       	pro_years ,
+	       	developers ,
+	       	address ,
+	       	sale_state ,
+	       	prefer ,
+	       	start_sale_date ,
+	       	make_house_date ,
+	       	sale_address ,
+	       	sal_tel ,
+	       	room_type ,
+	       	state ,
+	       	home_area ,
+	       	modified_user ,
+	       	create_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.price != null and item.price != ''">
+					#{item.price} ,
+				</if>
+				<if test="item.price == null or item.price == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.proType != null">
+					#{item.proType} ,
+				</if>
+				<if test="item.proType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.feature != null and item.feature != ''">
+					#{item.feature} ,
+				</if>
+				<if test="item.feature == null or item.feature == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.buildType != null and item.buildType != ''">
+					#{item.buildType} ,
+				</if>
+				<if test="item.buildType == null or item.buildType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.redecorate != null and item.redecorate != ''">
+					#{item.redecorate} ,
+				</if>
+				<if test="item.redecorate == null or item.redecorate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.proYears != null and item.proYears != ''">
+					#{item.proYears} ,
+				</if>
+				<if test="item.proYears == null or item.proYears == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.developers != null and item.developers != ''">
+					#{item.developers} ,
+				</if>
+				<if test="item.developers == null or item.developers == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.address != null and item.address != ''">
+					#{item.address} ,
+				</if>
+				<if test="item.address == null or item.address == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.saleState != null">
+					#{item.saleState} ,
+				</if>
+				<if test="item.saleState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.prefer != null and item.prefer != ''">
+					#{item.prefer} ,
+				</if>
+				<if test="item.prefer == null or item.prefer == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.startSaleDate != null and item.startSaleDate != ''">
+					#{item.startSaleDate} ,
+				</if>
+				<if test="item.startSaleDate == null or item.startSaleDate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.makeHouseDate != null and item.makeHouseDate != ''">
+					#{item.makeHouseDate} ,
+				</if>
+				<if test="item.makeHouseDate == null or item.makeHouseDate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.saleAddress != null and item.saleAddress != ''">
+					#{item.saleAddress} ,
+				</if>
+				<if test="item.saleAddress == null or item.saleAddress == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.salTel != null and item.salTel != ''">
+					#{item.salTel} ,
+				</if>
+				<if test="item.salTel == null or item.salTel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.roomType != null and item.roomType != ''">
+					#{item.roomType} ,
+				</if>
+				<if test="item.roomType == null or item.roomType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.homeArea != null and item.homeArea != ''">
+					#{item.homeArea} ,
+				</if>
+				<if test="item.homeArea == null or item.homeArea == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.modifiedUser != null and item.modifiedUser != ''">
+					#{item.modifiedUser} ,
+				</if>
+				<if test="item.modifiedUser == null or item.modifiedUser == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="name != null">
+				name = #{name} ,
+			</if>
+			<if test="price != null">
+				price = #{price} ,
+			</if>
+			<if test="proType != null">
+			pro_type = #{proType} ,
+		   </if>
+			<if test="feature != null">
+				feature = #{feature} ,
+			</if>
+			<if test="buildType != null">
+				build_type = #{buildType} ,
+			</if>
+			<if test="redecorate != null">
+				redecorate = #{redecorate} ,
+			</if>
+			<if test="proYears != null">
+				pro_years = #{proYears} ,
+			</if>
+			<if test="developers != null">
+				developers = #{developers} ,
+			</if>
+			<if test="address != null">
+				address = #{address} ,
+			</if>
+			<if test="saleState != null">
+			sale_state = #{saleState} ,
+		   </if>
+			<if test="prefer != null">
+				prefer = #{prefer} ,
+			</if>
+			<if test="startSaleDate != null">
+				start_sale_date = #{startSaleDate} ,
+			</if>
+			<if test="makeHouseDate != null">
+				make_house_date = #{makeHouseDate} ,
+			</if>
+			<if test="saleAddress != null">
+				sale_address = #{saleAddress} ,
+			</if>
+			<if test="salTel != null">
+				sal_tel = #{salTel} ,
+			</if>
+			<if test="roomType != null">
+				room_type = #{roomType} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="homeArea != null">
+				home_area = #{homeArea} ,
+			</if>
+			<if test="modifiedUser != null">
+				modified_user = #{modifiedUser} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  house_pro_info
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM house_pro_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_HouseProInfo">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM house_pro_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+			AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="price != null and price !=''">
+			AND price = #{price}
+			</if>
+			<if test="proType != null">
+			AND pro_type = #{proType}
+			</if>
+			<if test="feature != null and feature !=''">
+			AND feature = #{feature}
+			</if>
+			<if test="buildType != null and buildType !=''">
+			AND build_type = #{buildType}
+			</if>
+			<if test="redecorate != null and redecorate !=''">
+			AND redecorate = #{redecorate}
+			</if>
+			<if test="proYears != null and proYears !=''">
+			AND pro_years = #{proYears}
+			</if>
+			<if test="developers != null and developers !=''">
+			AND developers = #{developers}
+			</if>
+			<if test="address != null and address !=''">
+			AND address = #{address}
+			</if>
+			<if test="saleState != null">
+			AND sale_state = #{saleState}
+			</if>
+			<if test="prefer != null and prefer !=''">
+			AND prefer = #{prefer}
+			</if>
+			<if test="startSaleDate != null and startSaleDate !=''">
+			AND start_sale_date = #{startSaleDate}
+			</if>
+			<if test="makeHouseDate != null and makeHouseDate !=''">
+			AND make_house_date = #{makeHouseDate}
+			</if>
+			<if test="saleAddress != null and saleAddress !=''">
+			AND sale_address = #{saleAddress}
+			</if>
+			<if test="salTel != null and salTel !=''">
+			AND sal_tel = #{salTel}
+			</if>
+			<if test="roomType != null and roomType !=''">
+			AND room_type = #{roomType}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="homeArea != null and homeArea !=''">
+			AND home_area = #{homeArea}
+			</if>
+			<if test="modifiedUser != null and modifiedUser !=''">
+			AND modified_user = #{modifiedUser}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= DATE(#{createTimeBegin})
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= DATE(#{createTimeEnd})
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM house_pro_info 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_HouseProInfo">
+		SELECT <include refid="columns" />
+		FROM house_pro_info 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="findHouseInfoVoPageListCount" resultType="long">
+		SELECT COUNT(ID) FROM house_pro_info
+		<include refid="findPage_where"/>
+	</select>
+
+	<select id="findHouseInfoVoPageList" resultType="com.hongkun.finance.fund.model.vo.HouseProInfoVo" >
+		SELECT  id as id ,name as name ,price as price,room_type as roomType,address as address,
+		       home_area as homeArea,pro_type as proType
+		FROM house_pro_info
+		<include refid="findPage_where"/>
+		ORDER BY create_time desc
+	</select>
+
+	<select id="findHouseInfoAndDetailById" resultType="com.hongkun.finance.fund.model.vo.HouseInfoAndDetail" >
+		SELECT hpi.id as id,hpi.name as name,hpi.price as price,hpi.pro_type as proType,hpi.feature as feature,
+			hpi.build_type as buildType,hpi.redecorate as redecorate,
+			hpi.pro_years as proYears,hpi.developers as developers,hpi.address as address,hpi.sale_state as saleState,hpi.prefer as prefer,
+			hpi.start_sale_date as startSaleDate,hpi.make_house_date as makeHouseDate,hpi.sale_address as saleAddress,hpi.sal_tel as salTel,
+			hpi.room_type as roomType,hpi.state as state,hpi.home_area as homeArea,hpi.modified_user as modifiedUser,hpi.create_time as createTime,
+			hpd.land_area as landArea,hpd.build_area as buildArea,hpd.cap_rate as capRate,hpd.green_rate as greenRate,hpd.park_space as parkSpace,
+			hpd.floor_num as floorNum,hpd.door_num as doorNum,hpd.pro_company as proCompany,hpd.pro_fee as proFee,
+			hp.show_text as showText
+		FROM house_pro_info hpi inner join house_pro_detail hpd on hpi.id = hpd.id
+			inner join house_pro_introduce hp on hpi.id = hp.id
+		WHERE hpi.id = #{infoId}
+	</select>
+
+
+</mapper>

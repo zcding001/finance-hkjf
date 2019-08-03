@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.point.model.PointMerchantInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_PointMerchantInfo" type="com.hongkun.finance.point.model.PointMerchantInfo">
+		<result property="id" column="id"/>
+		<result property="merchantCode" column="merchant_code"/>
+		<result property="merchantName" column="merchant_name"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="address" column="address"/>
+		<result property="businessLicenseUrl" column="business_license_url"/>
+		<result property="permitUrl" column="permit_url"/>
+		<result property="idcardFrontUrl" column="idcard_front_url"/>
+		<result property="idcardBackUrl" column="idcard_back_url"/>
+		<result property="businessType" column="business_type"/>
+		<result property="hygieneLicenseUrl" column="hygiene_license_url"/>
+		<result property="gatheringUrl" column="gathering_url"/>
+		<result property="reason" column="reason"/>
+		<result property="note" column="note"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,merchant_code,merchant_name,reg_user_id,address,business_license_url,permit_url,idcard_front_url,idcard_back_url,business_type,hygiene_license_url,gathering_url,reason,note,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO point_merchant_info ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="merchantCode != null and merchantCode != ''">
+				merchant_code ,
+			</if>
+			<if test="merchantName != null and merchantName != ''">
+				merchant_name ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="address != null and address != ''">
+				address ,
+			</if>
+			<if test="businessLicenseUrl != null and businessLicenseUrl != ''">
+				business_license_url ,
+			</if>
+			<if test="permitUrl != null and permitUrl != ''">
+				permit_url ,
+			</if>
+			<if test="idcardFrontUrl != null and idcardFrontUrl != ''">
+				idcard_front_url ,
+			</if>
+			<if test="idcardBackUrl != null and idcardBackUrl != ''">
+				idcard_back_url ,
+			</if>
+			<if test="businessType != null">
+				business_type ,
+			</if>
+			<if test="hygieneLicenseUrl != null and hygieneLicenseUrl != ''">
+				hygiene_license_url ,
+			</if>
+			<if test="gatheringUrl != null and gatheringUrl != ''">
+				gathering_url ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason ,
+			</if>
+			<if test="note != null and note != ''">
+				note ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="merchantCode != null and merchantCode != ''">
+				#{merchantCode} ,
+			</if>
+			<if test="merchantName != null and merchantName != ''">
+				#{merchantName} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="address != null and address != ''">
+				#{address} ,
+			</if>
+			<if test="businessLicenseUrl != null and businessLicenseUrl != ''">
+				#{businessLicenseUrl} ,
+			</if>
+			<if test="permitUrl != null and permitUrl != ''">
+				#{permitUrl} ,
+			</if>
+			<if test="idcardFrontUrl != null and idcardFrontUrl != ''">
+				#{idcardFrontUrl} ,
+			</if>
+			<if test="idcardBackUrl != null and idcardBackUrl != ''">
+				#{idcardBackUrl} ,
+			</if>
+			<if test="businessType != null">
+				#{businessType} ,
+			</if>
+			<if test="hygieneLicenseUrl != null and hygieneLicenseUrl != ''">
+				#{hygieneLicenseUrl} ,
+			</if>
+			<if test="gatheringUrl != null and gatheringUrl != ''">
+				#{gatheringUrl} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				#{reason} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO point_merchant_info (
+	       	id ,
+	       	merchant_code ,
+	       	merchant_name ,
+	       	reg_user_id ,
+	       	address ,
+	       	business_license_url ,
+	       	permit_url ,
+	       	idcard_front_url ,
+	       	idcard_back_url ,
+	       	business_type ,
+	       	hygiene_license_url ,
+	       	gathering_url ,
+	       	reason ,
+	       	note ,
+	       	state ,
+	       	create_time ,
+	       	modify_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.merchantCode != null and item.merchantCode != ''">
+					#{item.merchantCode} ,
+				</if>
+				<if test="item.merchantCode == null or item.merchantCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.merchantName != null and item.merchantName != ''">
+					#{item.merchantName} ,
+				</if>
+				<if test="item.merchantName == null or item.merchantName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.address != null and item.address != ''">
+					#{item.address} ,
+				</if>
+				<if test="item.address == null or item.address == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.businessLicenseUrl != null and item.businessLicenseUrl != ''">
+					#{item.businessLicenseUrl} ,
+				</if>
+				<if test="item.businessLicenseUrl == null or item.businessLicenseUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.permitUrl != null and item.permitUrl != ''">
+					#{item.permitUrl} ,
+				</if>
+				<if test="item.permitUrl == null or item.permitUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.idcardFrontUrl != null and item.idcardFrontUrl != ''">
+					#{item.idcardFrontUrl} ,
+				</if>
+				<if test="item.idcardFrontUrl == null or item.idcardFrontUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.idcardBackUrl != null and item.idcardBackUrl != ''">
+					#{item.idcardBackUrl} ,
+				</if>
+				<if test="item.idcardBackUrl == null or item.idcardBackUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.businessType != null">
+					#{item.businessType} ,
+				</if>
+				<if test="item.businessType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.hygieneLicenseUrl != null and item.hygieneLicenseUrl != ''">
+					#{item.hygieneLicenseUrl} ,
+				</if>
+				<if test="item.hygieneLicenseUrl == null or item.hygieneLicenseUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.gatheringUrl != null and item.gatheringUrl != ''">
+					#{item.gatheringUrl} ,
+				</if>
+				<if test="item.gatheringUrl == null or item.gatheringUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.reason != null and item.reason != ''">
+					#{item.reason} ,
+				</if>
+				<if test="item.reason == null or item.reason == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} ,
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="merchantCode != null and merchantCode != ''">
+				merchant_code = #{merchantCode} ,
+			</if>
+			<if test="merchantName != null and merchantName != ''">
+				merchant_name = #{merchantName} ,
+			</if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="address != null and address != ''">
+				address = #{address} ,
+			</if>
+			<if test="businessLicenseUrl != null and businessLicenseUrl != ''">
+				business_license_url = #{businessLicenseUrl} ,
+			</if>
+			<if test="permitUrl != null and permitUrl != ''">
+				permit_url = #{permitUrl} ,
+			</if>
+			<if test="idcardFrontUrl != null and idcardFrontUrl != ''">
+				idcard_front_url = #{idcardFrontUrl} ,
+			</if>
+			<if test="idcardBackUrl != null and idcardBackUrl != ''">
+				idcard_back_url = #{idcardBackUrl} ,
+			</if>
+			<if test="businessType != null">
+			business_type = #{businessType} ,
+		   </if>
+			<if test="hygieneLicenseUrl != null and hygieneLicenseUrl != ''">
+				hygiene_license_url = #{hygieneLicenseUrl} ,
+			</if>
+			<if test="gatheringUrl != null and gatheringUrl != ''">
+				gathering_url = #{gatheringUrl} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason = #{reason} ,
+			</if>
+			<if test="note != null and note != ''">
+				note = #{note} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="businessType == 0">
+				hygiene_license_url = NULL ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  point_merchant_info
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM point_merchant_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_PointMerchantInfo">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM point_merchant_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="merchantCode != null and merchantCode !=''">
+			AND merchant_code = #{merchantCode}
+			</if>
+			<if test="merchantName != null and merchantName !=''">
+			AND merchant_name = #{merchantName}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="address != null and address !=''">
+			AND address = #{address}
+			</if>
+			<if test="businessLicenseUrl != null and businessLicenseUrl !=''">
+			AND business_license_url = #{businessLicenseUrl}
+			</if>
+			<if test="permitUrl != null and permitUrl !=''">
+			AND permit_url = #{permitUrl}
+			</if>
+			<if test="idcardFrontUrl != null and idcardFrontUrl !=''">
+			AND idcard_front_url = #{idcardFrontUrl}
+			</if>
+			<if test="idcardBackUrl != null and idcardBackUrl !=''">
+			AND idcard_back_url = #{idcardBackUrl}
+			</if>
+			<if test="businessType != null">
+			AND business_type = #{businessType}
+			</if>
+			<if test="hygieneLicenseUrl != null and hygieneLicenseUrl !=''">
+			AND hygiene_license_url = #{hygieneLicenseUrl}
+			</if>
+			<if test="gatheringUrl != null and gatheringUrl !=''">
+			AND gathering_url = #{gatheringUrl}
+			</if>
+			<if test="reason != null and reason !=''">
+			AND reason = #{reason}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+			<if test="state != null and state != -999">
+			AND state = #{state}
+			</if>
+			<if test="state == null or state ==-999">
+				AND state != 0
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+
+			<if test="limitUserIds != null and limitUserIds.size>0">
+				AND reg_user_id  IN
+				<foreach collection="limitUserIds" open="(" separator="," close=")" item="uid">
+					${uid}
+				</foreach>
+			</if>
+
+
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM point_merchant_info 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_PointMerchantInfo">
+		SELECT <include refid="columns" />
+		FROM point_merchant_info 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="getPointMerchantInfoByUserId" resultMap="_PointMerchantInfo">
+		SELECT <include refid="columns" />
+		FROM point_merchant_info
+		WHERE reg_user_id = #{regUserId}
+		AND state in (1,3)
+	</select>
+
+	<select id="findMerchantIdsByInfo" resultType="java.lang.Integer">
+		SELECT id
+		FROM point_merchant_info
+		<where>
+			1=1
+			<if test="merchantCode != null">
+				AND merchant_code LIKE CONCAT('%',#{merchantCode},'%')
+			</if>
+			<if test="merchantName != null">
+				AND merchant_name LIKE CONCAT('%',#{merchantName},'%')
+			</if>
+		</where>
+	</select>
+</mapper>

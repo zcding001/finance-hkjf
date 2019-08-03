@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">App菜单列表</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="angular.element(this).scope().createAddOrUpdateAppServePanel()"
+                   style="display:inline-block;float:right;">添加App菜单</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        菜单名称：<input name="servceName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="sp-width" style="width:80px;">分类名称：</span><select id="type" name="type" class="form-control"
+                                                                                     style="width: 80px;display:inline-block;"></select>
+                        <span class="sp-width" style="width:50px;">状态：</span><select id="isShow" name="isShow" class="form-control"
+                                                                                     style="width: 80px;display:inline-block;"></select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover"
+                       style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title: "排序号", data: "seq", className: "dt-simple"},
+        {
+            title: "分类名称", data: "type", className: "dt-simple", render: function (data, type, row, meta) {
+                return DIC_CONSTANT.getName("appServe", "type", data);
+            }
+        },
+        {title: "菜单名称", data: "serviceName", className: "dt-simple"},
+        {title: "菜单url地址", data: "serviceUrl", className: "dt-simple"},
+        {title: "图标url地址", data: "icoUrl", className: "dt-simple"},
+        {
+            title: "菜单状态", data: "isShow", className: "dt-simple", render: function (data, type, row, meta) {
+                return DIC_CONSTANT.getName("appServe", "is_show", data);
+            }
+        },
+        {
+            title: "操作", data: null, className: "dt-simple", render: function (data, type, row, meta) {
+            var btn = '';
+
+            if(row.isShow == 1){
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"appMenuController/enableAppServe"},"启用", "启用App菜单(上架)", "确定启用菜单的?", "fa-long-arrow-up");
+            }
+            if(row.isShow == 0 ){
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"appMenuController/disableAppServe"}, "禁用", "禁用App菜单(下架)", "确定禁用菜单的?", "fa-long-arrow-down");
+            }
+
+            //修改                                                                                                                                     id, title, menuUrl, linkKey, seq
+            btn += '<a href="javascript:void(0)" class="fa fa-edit" title="修改" onclick="angular.element(this).scope().createAddOrUpdateAppServePanel(' +row.id+','+'\''+row.type +'\'' + ',' + '\'' + row.serviceName+'\'' + ',' + '\'' + row.serviceUrl + '\'' + ',' + '\'' + row.icoUrl + '\'' + ',' + '\'' +  row.isShow + '\'' +',' +row.seq+')" ></a>&nbsp;&nbsp;'
+            return btn;
+
+        }
+        }
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.listAppServes, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+    $("#isShow").append(DIC_CONSTANT.getOption("appServe","is_show","empty"));
+    $("#type").append(DIC_CONSTANT.getOption("appServe","type","empty"));
+</script>

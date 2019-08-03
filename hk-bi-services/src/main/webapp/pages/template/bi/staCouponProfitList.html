@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">卡券收益统计</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        姓名：<input name="regUserDetailRealName" class="form-control" style="width: 120px;display:inline-block;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        实际还款日期：<input type="text" id="bidReceiptPlanActualTimeBegin" name="bidReceiptPlanActualTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'bidReceiptPlanActualTimeEnd\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="bidReceiptPlanActualTimeEnd" name="bidReceiptPlanActualTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'bidReceiptPlanActualTimeBegin\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        手机号：<input name="regUserLogin" class="form-control" style="width: 120px;display:inline-block;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        使用时间：<input type="text" id="vasCouponDetailUsedTimeBegin" name="vasCouponDetailUsedTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'vasCouponDetailUsedTimeEnd\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="vasCouponDetailUsedTimeEnd" name="vasCouponDetailUsedTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'vasCouponDetailUsedTimeBegin\')}'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <span class="sp-width" style="width:100px;">卡券产品类型：</span> <select id="vasCouponProductType" name="vasCouponProductType" class="form-control"
+                                                                                           style="width: 120px;display:inline-block;"></select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('卡券统计')" style="display:inline-block;">导出</a>
+                    </form>
+                    <hr>
+                </div>
+
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<script>
+    var columns =  [
+        { title:"姓名",className:"dt-simple",data: "regUserDetailRealName"},
+        { title:"手机号",className:"dt-simple",data: "regUserLogin"},
+        { title:"福利类型",className:"dt-simple",data: "vasCouponProductType",render:function (value) {
+                return DIC_CONSTANT.getName("vas","coupon_product_type",value);
+            }},
+        { title:"使用时间",className:"dt-simple",data: "vasCouponDetailUsedTime",render:function (value) {
+                return dateUtil.date(value);
+            }},
+        { title:"标的名称",className:"dt-simple",data: "bidInfoName"},
+        { title:"标的期限",className:"dt-simple",data: null,render:function (value,type,row) {
+            return row.bidInfoTermValue + DIC_CONSTANT.getName("invest","bid_term_unit",row.bidInfoTermUnit);
+            }},
+        { title:"投资金额",className:"dt-simple",data: "bidInvestInvestAmount"},
+        { title:"加息/投资红包收益",className:"dt-simple",data: "profit"},
+        { title:"计划回款日期",className:"dt-simple",data: "bidReceiptPlanPlanTime",render:function (value) {
+                return dateUtil.date(value);
+            }},
+        { title:"实际回款日期",className:"dt-simple",data: "bidReceiptPlanActualTime",render:function (value) {
+                return dateUtil.date(value);
+            }},
+        { title:"期数",className:"dt-simple",data: "bidReceiptPlanPeriods"}
+    ];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.staCouponProfitList, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+    //初始化查询条件的下拉框
+    $("#vasCouponProductType").append(DIC_CONSTANT.getOption("vas","coupon_product_type","empty"));
+</script>

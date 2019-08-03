@@ -1,0 +1,28 @@
+<!-- 还款计划 -->
+<div class="q_sx">
+    <form id="dataTableForm">
+        <input type="hidden" name="state" id="state" value="-999">
+        <ul class="f-16 mt-10 mb-10">
+            <li>
+                <span class="pt-10 pb-10">项目状态：</span>
+                <span class="on"><a href="javascript:void(0);" val="-999">全部</a></span>
+                <span><a href="javascript:void(0);" val="2">投标中</a></span>
+                <span><a href="javascript:void(0);" val="3">已满标</a></span>
+                <span><a href="javascript:void(0);" val="4">待放款</a></span>
+                <span><a href="javascript:void(0);" val="5">还款中</a></span>
+                <span><a href="javascript:void(0);" val="6">已完成</a></span>
+            </li>
+        </ul>
+    </form>
+</div>
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table class="table table-hover ellipsis tb-expired" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+<script src="${project_base_path}/jslib/account/bidRecord.js"></script>
+<script src="${project_base_path}/jslib/invest/investDetail.js"></script>
+<script>
+    $(function(){
+        bidRecordController.initBorrowerRecord();
+    });
+</script>

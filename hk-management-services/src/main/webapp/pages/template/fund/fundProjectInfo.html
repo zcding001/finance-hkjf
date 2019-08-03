@@ -1,0 +1,50 @@
+
+<style>
+    span{ color: #3f903f}
+</style>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-body" >
+            <div class="well">
+                <table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>项目类型名称：&nbsp;&nbsp;&nbsp;<span  ng-bind="info.type" ></span></label>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td >
+                            <div class="form-group">
+                                <label>项目父类型：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="info.parentType"></span></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group" >
+                                <label>项目类型介绍: &nbsp;&nbsp;&nbsp;
+                                    <div style="float:right" id = "introduction"></div>
+                                </label>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>备注:&nbsp;&nbsp;&nbsp;<span ng-bind="info.remark"></span></label>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>

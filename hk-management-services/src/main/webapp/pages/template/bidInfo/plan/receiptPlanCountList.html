@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;"> </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+           			<form id="searchForm">
+                        <input type="hidden" name="planType" value="2">
+           				项目名称：<input name="bidName" class="form-control" style="width: 120px;display:inline-block;">
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<script>
+    var userId = commonUtil.getRequestParamByUrl().id;
+    var columns =  [
+ 		{ title:"标的名称",data: "bidName", width:140},
+ 		{ title:"项目总额",className:"dt-simple",data: "bidAmount", width:100},
+ 		{ title:"回款金额(元)",className:"dt-simple",data: "null",
+            render: function (data, type, row) {
+                return parseFloat(row.amount + row.increaseAmount).toFixed(2);
+            }
+        },
+ 		{ title:"回款本金(元)",className:"dt-simple",data: "capitalAmount"},
+ 		{ title:"回款利息(元)",className:"dt-simple",data: "interestAmount"},
+ 		{ title:"加息收益(元)",className:"dt-simple",data: "increaseAmount"},
+ 		{ title:"使用加息券",className:"dt-simple",data: "null",
+            render: function (data, type, row) {
+ 		        if(row.couponWorthJ == null) {
+ 		            return "--";
+                }else {
+                    return row.couponWorthJ;
+                }
+            }
+        },
+ 		{ title:"已还期数",className:"dt-simple",data: "finishPeriods"},
+ 		{ title:"未还期数",className:"dt-simple",data: "unFinishPeriods"},
+ 		{
+ 			title:"详情",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row) {
+                return commonUtil.createDirectRequestBtn({bidId:row.bidId,userId:userId,planType:2,target:'receiptPlanList'},"详细信息","fa-list",1);
+ 		    }
+ 		}
+ 	];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.planCountList + "?userId=" + userId, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+</script>

@@ -1,0 +1,203 @@
+<div class="bidAutoSchemeListDiv">
+    <div class="autoinvest_main">
+        <div class="autoinvest_one">
+            <div class="autoinvest_one_title">
+                <div class="auto_invest">自动投资</div>
+                <ul class="auto_condition">
+                    <li><a href="${project_base_path}/contract/autoInvestAgreement.html" target="_blank">自动投资协议</a></li>
+                    <li><a href="${project_base_path}/navBar/autoinvest1.html" target="_blank">什么是自动投资？</a></li>
+                </ul>
+            </div>
+            <div class="autovest_one_content clearfix">
+                <div class="autovest_one_content_left ">
+                    自动投资是通过预先设定投资规则后，在无需登录的情况下系统按设定自动完成投资的交易流程。投资人可根据自己的风险偏好、投资习惯在自动投资功能中设置条件，设置成功并开启此功能后，若有符合相应条件的项目出现，系统将根据用户预先设定的自动投资方案，自动完成投资。
+                    <p><a href="javascript:void(0);" class="cw" onclick="commonUtil.jumpAccountMenu('investRecord.html', {investType:2});">自动投资记录 &gt;</a></p>
+                </div>
+                <div class="autovest_one_content_right">
+                    <div class="account_balance">账户余额(元)</div>
+                    <div class="clearfix">
+                        <span class="account_num"><em class="useableMoneyNum">0.00</em> 元</span>
+                        <a href="javascript:void(0);" onclick="commonUtil.jumpAccountMenu('recharge.html');" class="top_ups">充值</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--列表-->
+        <div class="accountvest_table b_line m_t">
+            <table class="table table-hover ellipsis tab-inp-text" id="dataTable"></table>
+
+        </div>
+    </div>
+    <!--自动投资规则-->
+    <div class="autovestment_rule b_line m_t">
+        <div class="autovestment_rule_title">
+            <i class="iconfont icon-tishi icon-tishi-auto ml-10"></i>
+            <span class="d_b f_l">自动投资规则</span>
+        </div>
+        <div class="autovestment_rule_content">
+            1.设置自动投资规则后，系统会根据设置时间的先后顺序进行排队；
+            <br> 2.当平台发布新的项目时，如果符合自动投资设置，系统将按设置的排队顺序自动投资；
+            <br> 3.自动投资成功后，自动投资功能设置仍然有效直至用户手动退出（禁用、删除）；
+            <br> 4.当账户可用余额小于最低起投金额100时，系统不会触发自动投资功能；
+            <br> 5.只可设置一种投资方案，可以随时编辑该方案，但每次编辑会重新排队；
+            <br> 6.账户余额充足时，手动投资和自动投资可同时使用；
+            <br> 7.当不需要自动投资时，需要手动关闭自动投资功能或选择删除自动投资方案；
+            <br> 8.当系统有多个项目满足其设置的投资方案时，系统会根据投资方案中设置的优先级进行选择，并会将账户中所持有的投资红
+            <p>包、加息券进行最优组合后进行投资。</p>
+        </div>
+    </div>
+</div>
+
+<div class="addBidAutoSchemeDiv" style="display: none;">
+    <div class="autoinvest_main" style="margin-top:-20px;">
+        <!--自动编辑-->
+        <div class="autovestment_rule">
+            <div class="autovestment_rule_title clearfix">
+                <span class="ml-20 fl">设置自动投资<font>(最多只允许添加一个方案)</font></span>
+                <a href="javascript:void(0)" class="set_help fr" data-toggle="modal" data-target="#exampleModal">设置帮助</a>
+            </div>
+            <div class="autovestment_edit">
+                <form id="dataForm" method="post">
+                    <input type="hidden" id="xsbFlag" class="xsbFlagNum">
+                    <input type="hidden" name="id" class="idNum">
+                    <ul>
+                        <li>
+                            <label class="liabel">最低预期年化收益率：</label>
+                            <input id = "minRate" type="text" name="minRate" value="" class="bdeep_line income_input minRateNum"> %
+                            <span id="err_rateAtm" style="color:red"></span>
+                        </li>
+                        <li><label class="liabel">投资期限范围：</label>
+                            <input type="text" id = "investTermMin" name = "investTermMin" value="" class="bdeep_line income_input investTermMinNum"> 个月 ——
+                            <input type="text" id = "investTermMax" name = "investTermMax" value="" class="bdeep_line income_input investTermMaxNum"> 个月
+                            <span id="err_investTerm" style="color:red"></span>
+                        </li>
+                        <li>
+                            <label class="liabel" style="width:17.5%;">还款方式：</label>
+                            <input type="checkbox" id = "a1" value = "2" class="checkoutTmp" checked="checked"/><label for="a1" class="checkoutTmp"/></label>按月付息，到期还本
+                            <input type="checkbox" id = "a2" value = "3" class="checkoutTmp" checked="checked"/><label for="a2" class="checkoutTmp"/></label>到期一次还本付息
+                            <span id="err_repayType" style="color:red"></span>
+                        </li>
+                        <li><label class="liabel">账户预留金额：</label>
+                            <input type="text" id = "reserveAmount" name = "reserveAmount" value="0.00" class="cun_input bdeep_line reserveAmountNum"/> 元
+                            <span id="err_reserveAmount" style="color:red"></span>
+                        </li>
+                        <li>
+                            <label class="liabel" style="width:17.4%;">自动投资有效期：</label>
+                            <label class="liabel" style="width:14%;">
+                                <input type="radio" name="effectiveType" id="longRange" value="1" class="radioTmp" checked="checked"/>
+                                <label for="longRange" class="radioTmp"></label> 长期有效
+                            </label>
+                            <label class="liabel" style="width:14%;">
+                                <input type="radio" name="effectiveType" id="customRange" value="2" class="radioTmp"/>
+                                <label for="customRange" class="radioTmp"></label> 自定义
+                            </label>
+                            <div id="custTimeDiv" style="display: none;">
+                                <label class="liabel" name="time" style="margin-right:20px;">
+                                    <input class="Wdate tb_time fl" style="margin-top:15px;" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'effectiveEndTime\')}'})"
+                                           id="effectiveStartTime" name="effectiveStartTime" readonly="readonly"/>
+                                </label>
+                                <label class="liabel" name="time" >
+                                    <input class="Wdate tb_time fl" style="margin-top:15px;" onClick="WdatePicker({minDate:'#F{$dp.$D(\'effectiveStartTime\')}'})"
+                                           id="effectiveEndTime" name="effectiveEndTime" readonly="readonly"/>
+                                </label>
+                            </div>
+                            &nbsp;<span id="err_time" style="color:red;margin-left: 10px;"></span>
+                        </li>
+                        <li style="position:relative;margin:20px 0 0 0;">
+                            <label class="liabel" style="width:17.4%">使用红包和加息券：</label>
+                            <div class="icon_content wenhao">?</div>
+                            <div class="icon_content system">系统会根据投资匹配最合适的红包和加息券</div>
+                            <img src="${project_base_path}/src/img/account/icon_wenhanjiao.png" class="icon_question">
+                            <!--<img src="${req.contextPath}/css/yrtz/images/account/icon_content.png" >-->
+                            <input type="radio" name="useCouponFlag" id = "a5" class="radioTmp" value="1" checked="checked"/>
+                            <label for="a5" class="radioTmp"></label><span>是</span>
+                            <input type="radio" name="useCouponFlag" id = "a6" class="radioTmp"value = "0"/>
+                            <label for="a6" class="radioTmp"></label><span>否</span>
+                        </li>
+                        <li><label class="liabel" style="width:15%;">投资优先级设置</label><font style="color:#666;">(系统会根据标的类型优先级设置匹配最优标的进行投资)</font></li>
+                        <li style="height:100px;"><label class="liabel">标的优先级：</label>
+                            <div class="kind_select fl">
+                                <div class="select_chose">
+                                    <ul>
+                                        <li>
+                                            <label>月月盈</label>
+                                            <div class="select_box">
+                                                <select id="yyy" style="background:#f5f5f5;width:140px;height:23px;line-height:23px;"></select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label>季季盈</label>
+                                            <div class="select_box">
+                                                <select id="jjy" style="background:#f5f5f5;width:140px;height:23px;line-height:23px;"></select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label>年年盈</label>
+                                            <div class="select_box">
+                                                <select id="nny" style="background:#f5f5f5;width:140px;height:23px;line-height:23px;"></select>
+                                            </div>
+                                        </li>
+                                        <li  id = "xsbId" style="display:none;">
+                                            <label>新手标</label>
+                                            <div class="select_box" >
+                                                <select id="xsb" style="background:#f5f5f5;width:140px;height:23px;line-height:23px;"></select>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            &nbsp;<span id="err_priority" style="color:red;position: relative; top: -21px;left: 20%;"></span>
+                        </li>
+                        <li>
+                            <label style="width:32%;">预期年化收益率和投资期限优先级：</label>
+                            <input type="radio" name="priorityType" id = "a7" value = "1" class="radioTmp" checked = "checked"/>
+                            <label for="a7" class="radioTmp"></label>预期年化收益率优先
+                            <input type="radio" name="priorityType" id = "a8" value = "2" class="radioTmp"/>
+                            <label for="a8" class="radioTmp"></label>投资期限优先
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div class="agreement_Protocol"><input id = "conformContract" type="checkbox" value="" checked = "checked">我已阅读并同意<a href="javascript:void(0)" class="hkjf_Protocol">《鸿坤金服自动投资协议》</a>
+                <span id="err_conformContract" style="color:red"></span>
+            </div>
+
+        </div>
+        <div class="sever_btn"><a href="javascript:void(0);" id="submitBtn">保存</a></div>
+    </div>
+
+</div>
+
+<!-- 设置帮助弹出框 -->
+
+        <div class="modal fade bs-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document" style="border-radius: 5px;width: 737px;">
+                <div class="modal-content">
+	                <div class="modal-header" style="border-bottom:none;background:#ccc;border-top-left-radius: 5px;border-top-right-radius:5px;">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			            <h4 class="modal-title" id="exampleModalLabel">设置帮助</h4>
+			        </div>
+                    <div class="modal-body">
+		                <div class="pl-15 pr-15 mt-20 mb-20">
+		                	<p style="line-height:24px;padding-bottom:15px;">
+		                		<font style="color:#ff8a00;">最低预期年化收益率</font>:指的是投资者能接受的最低预期年化收益率，当发起项目的预期年化收益率大于等于该值时都认为是可接受的投资范围。
+		                	</p>
+		                	<p style="line-height:24px;padding-bottom:15px;">
+		                		<font style="color:#ff8a00;">账户预留金额</font>：指投资人鸿坤金服账户将要保留的资金，即系统触发自动投资后账户需要留下来的资金。
+		                	</p>
+		                	<p style="line-height:24px;padding-bottom:15px;">
+		                	 <font style="color:#ff8a00;">标的优先级</font>：指自动投资时优先选择投资的产品类型，级别高的将优先选择。
+		                	</p>
+		                	<p style="line-height:24px;padding-bottom:15px;">
+		                	 	<font style="color:#ff8a00;">预期年化收益率和投资期限优先级</font>：自动投标时作为筛选项目的两个单选条件，设定此优先级后系统在自动投资时会根据设置优先级的高低进行投资项目的筛选，级别高的将优先选择。即：预期年化收益率高和投资期限短的优先。
+		                	</p>
+                    	</div>
+	                    <div class="modal-footer" style="text-align:center;">
+	                        <button type="button" class="btn btn-warning btn-lg" data-dismiss="modal" style="width: 120px;">知道了</button>
+	                    </div>
+	                </div>
+            	</div>
+        	</div>
+        </div>
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script src="${project_base_path}/jslib/account/autoInvest.js"></script>

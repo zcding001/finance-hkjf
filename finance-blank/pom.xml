@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<!--
+	    blank-step 1: 修改项目名称,以及各个模块的名称,请把下面所有涉及到blank修改为需要创建的服务名称。
+	-->
+	<artifactId>finance-blank</artifactId>
+	<packaging>pom</packaging>
+	<name>finance-blank</name>
+	<description>finance-blank for copy</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<modules>
+		<module>finance-blank-api</module>
+		<module>finance-blank-dao</module>
+		<module>finance-blank-model</module>
+		<module>finance-blank-service</module>
+	</modules>
+</project>

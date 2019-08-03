@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:reg="http://www.dangdang.com/schema/ddframe/reg" 
+    xmlns:job="http://www.dangdang.com/schema/ddframe/job" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd 
+                        http://www.dangdang.com/schema/ddframe/reg 
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd 
+                        http://www.dangdang.com/schema/ddframe/job 
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd 
+                        ">
+     <!--配置作业注册中心 -->
+    <reg:zookeeper id="regCenter" server-lists="${ealsticjob.zookeeper.address}" namespace="hk-timer"
+                   base-sleep-time-milliseconds="${ealsticjob.base.sleep.time.milliseconds}"
+                   max-sleep-time-milliseconds="${ealsticjob.max-sleep-time-milliseconds}"
+                   max-retries="${ealsticjob.max-retries}"/>
+    <!-- 散标客户还款提醒 -->
+      <!--加息券、投资红包已过期的记录更新为已过期状态-->
+    <job:simple id="couponDetailOverdueTaskTime"
+                class="com.hongkun.finance.vas.timer.CouponDetailOverdueTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 02 * * ?"
+                sharding-total-count="1"
+                description="设置卡券过期状态"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!--红包更新为已过期状态-->
+    <job:simple id="redPacketInvalidTaskTimer"
+                class="com.hongkun.finance.vas.timer.RedPacketInvalidTaskTimer"
+                registry-center-ref="regCenter"
+                cron="0 40 16 * * ?"
+                sharding-total-count="1"
+                description="红包失效定时"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!--每月1号发送卡券-->
+    <job:simple id="vasTreatmentPerMonthTaskTime"
+                class="com.hongkun.finance.vas.timer.VipTreatmentPerMonthTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 3 1 * ? *"
+                sharding-total-count="1"
+                description="每月1号发送卡券"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!--每天用户生日发送卡券-->
+    <job:simple id="vasTreatmentPerBirthDayTaskTime"
+                class="com.hongkun.finance.vas.timer.VipTreatmentPerBirthDayTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 2 1/1 * ?"
+                sharding-total-count="1"
+                description="每天用户生日发送卡券"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!--每天用户会员降级-->
+    <job:simple id="vasVipDownGradeTaskTime"
+                class="com.hongkun.finance.vas.timer.VipDownGradeTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 1 1/1 * ?"
+                sharding-total-count="1"
+                description="每天用户会员降级"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+    <!-- 设置过期的体验金记录为过期 -->
+    <job:simple id="simgoldOverdueTaskTime"
+                class="com.hongkun.finance.vas.timer.SimgoldOverdueTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 03 * * ?"
+                sharding-total-count="1"
+                description="设置过期的体验金记录为过期"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                misfire="true"
+                monitor-execution="true"
+    />
+</beans>

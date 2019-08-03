@@ -1,0 +1,89 @@
+ /*气泡提示框*/
+#bubbleBtn{width: 3.56rem;font-size: 0.24rem;text-align: center;color: white;background-color:rgba(0,0,0,.8);position: fixed;bottom: 1.6rem;margin: 0 auto;left: 0 ;right: 0;padding: 10px;display: none;z-index:99999999;}
+
+/*一个确定按钮的弹窗*/
+
+.animated {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.animated.infinite {
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+}
+
+
+@-webkit-keyframes pulse {
+    from {
+        -webkit-transform: scale3d(2, 2, 2);
+        transform: scale3d(2, 2, 2);
+    }
+
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse {
+    from {
+        -webkit-transform: scale3d(2, 2, 2);
+        transform: scale3d(2, 2, 2);
+    }
+
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.pulse {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+
+
+
+
+
+/*上拉弹窗*/
+
+.s-actionsheet{  font-size: 0.28rem;color: #333333;;  text-align: center;  position: fixed;  bottom: 0;  left: 0;  width: 100%;  z-index: 1000;  background-color: #f7f7f7;;transition: 0.3s all;-webkit-transition:0.3s all; ; transform: translate(0, 100%);-webkit-transform: translate(0, 100%) ;}
+.s-actionsheetClose{transform: translate(0, 0);-webkit-transform: translate(0, 0) }
+.s-actionsheet-ul{margin-bottom: 0.1rem;background-color: white;}
+.s-actionsheet-ul li{height: 0.82rem;line-height: 0.82rem;border-bottom: 1px solid #ebebeb;}
+.s-actionsheet-ul li:last-child{border-bottom: none;}
+.Closetc{background-color: white;height: 0.82rem;line-height: 0.82rem;}
+/*遮罩*/
+.mask-black{  background-color: rgba(0, 0, 0, 0.4);  position: fixed;  z-index: 500;  bottom: 0;  right: 0;  left: 0;  top: 0;  display: none;}
+
+
+
+
+
+
+/*支持银行弹层*/
+.bankmask{  background-color: white;;  position: fixed;  z-index: 600;  bottom: 0;  right: 0;  left: 0;  top: 0;  display: block;;transition: 0.3s all;-webkit-transition:0.3s all; ; transform: translate(0, 100%);-webkit-transform: translate(0, 100%) }
+.s-bankmaskClose{transform: translate(0, 0);-webkit-transform: translate(0, 0) }
+.gbBtnBiank{width: 0.26rem;position: absolute;top: 0.3rem;right: 0.26rem;;}
+.bankmask-h3{font-size: 0.32rem;color: #333333;text-align: center;margin-top: 0.2rem;}
+.bankmask-ul{padding: 0.35rem 0.65rem 0;overflow: scroll;height: 8.8rem;}
+.bankicon1{width: 2.23rem;float: left;margin-left: 0.6rem;margin-bottom: 0.25rem;}
+.bankicon1:nth-child(odd){margin-left: 0;}
+
+
+
+
+
+
+
+
+

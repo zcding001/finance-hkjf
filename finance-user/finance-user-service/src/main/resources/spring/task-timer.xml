@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:reg="http://www.dangdang.com/schema/ddframe/reg" 
+    xmlns:job="http://www.dangdang.com/schema/ddframe/job" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd 
+                        http://www.dangdang.com/schema/ddframe/reg 
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd 
+                        http://www.dangdang.com/schema/ddframe/job 
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd 
+                        ">
+    <!--配置作业注册中心 -->
+    <reg:zookeeper id="regCenter" server-lists="${ealsticjob.zookeeper.address}" namespace="hk-timer"
+                   base-sleep-time-milliseconds="${ealsticjob.base.sleep.time.milliseconds}"
+                   max-sleep-time-milliseconds="${ealsticjob.max-sleep-time-milliseconds}"
+                   max-retries="${ealsticjob.max-retries}"/>
+    <!-- 用户VIP降级，此VIP是投资VIP不是成长值对应的VIP -->
+    <!--<job:simple id="regUserVipRecordTaskTime"
+                class="com.hongkun.finance.user.timer.RegUserVipRecordTaskTime"
+                registry-center-ref="regCenter"
+                cron="0 0 3 1 * ? *"
+                sharding-total-count="1"
+                overwrite="true"
+                event-trace-rdb-data-source="defaultDataSource"
+                failover="true"
+                description="VIP用户降级"
+                misfire="true"
+                monitor-execution="true"
+    />-->
+</beans>

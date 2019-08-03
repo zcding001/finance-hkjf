@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+				咨询信息详情
+            </div>
+            <!-- /.panel-heading -->
+            <form name="fundAdvisoryForm" id="fundAdvisoryForm" enctype="multipart/form-data" novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                   <input type="hidden" name="id" id="id" ng-value="fundAdvisoryInfo.id"/>
+		                <br/>
+		                 <div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>客户名称:</label>
+		       			     <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="请填写客户名称" name="name" ng-model="fundAdvisoryInfo.name" type="text"  validator="required" valid-method="blur" message-id="nameError">
+						 <span style="color:#F00;display:inline-block;" class="bid-info" id="nameError"></span>
+						 </div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>电话:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="请填写电话" name="tel" ng-model="fundAdvisoryInfo.tel" type="text"  validator="required,tel" valid-method="blur" message-id="telError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="telError"></span>
+						</div>
+
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>项目类型:</label>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" id = "projectParentType" name = "projectParentType"
+									 ng-model="fundAdvisoryInfo.projectParentType" ng-change="typeChange()" style="width: 11.5%;" validator="required"
+									 ng-options="x.value as x.name for x in projectParentTypes" validator="required" message-id="projectParentTypeError">
+								<option  value=""> 请选择 </option>
+							</select>
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="projectParentTypeError"></span>
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>项目名称:</label>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle"  id = "infoIds" name = "infoIds" ng-model="fundAdvisoryInfo.infoIds"
+									 style="width: 20.5%;" validator="required" ng-options="item.id as item.name for item in infos" validator="required" message-id="infoIdsError">
+								<option  value=""> 请选择 </option>
+							</select>
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="infoIdsError"></span>
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>性别:</label>
+							<input type="radio" name="sex"  value="0" ng-model="fundAdvisoryInfo.sex" />女
+							<input type="radio" name="sex" value="1" ng-model="fundAdvisoryInfo.sex"  />男
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>是否为投顾客户:</label>
+							<input type="radio" name="advisor"  value="0" ng-model="fundAdvisoryInfo.advisor" />否
+							<input type="radio" name="advisor" value="1" ng-model="fundAdvisoryInfo.advisor"  />是
+						</div>
+
+						<div class="form-group">
+							<label class="textright">备注:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="备注" name="remark" ng-model="fundAdvisoryInfo.remark" type="text" >
+						</div>
+
+		     		 <div style="width:70%;padding-left:145px;">
+			     		 <button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(fundAdvisoryForm)" validator-submit="fundAdvisoryForm">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	                     <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+	                 </div>
+
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+

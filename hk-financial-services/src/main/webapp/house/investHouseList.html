@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/invest.css?v=1.0" />
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/investHouse.css?v=1.0" />
+    
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <style>
+        *{box-sizing:border-box;}
+        .container h3{font-size: 24px;line-height: 60px;color: #333333;font-weight:normal;}
+    </style>
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+
+<!-- 项目列表开始 -->
+<div class="container">
+    <h3>鸿坤房产项目专区</h3>
+    <ul class="h_ul houseList" >
+    </ul>
+    <div class="paging houseList_paging"></div>
+</div>
+<!-- 项目列表结束 -->
+
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+</body>
+<!-- 公共js -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/house/house.js"></script>
+<script>
+    $(function() {
+        houseController.loadHouseInfoList();
+        //investController.loadBidList();
+        // if(!commonUtil.isLogin()){commonUtil.sessionTimeOut()};
+    });
+
+</script>
+
+</html>

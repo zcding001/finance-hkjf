@@ -1,0 +1,40 @@
+<!-- 还款计划 -->
+<div class="q_sx">
+    <form id="dataTableForm">
+        <input type="hidden" name="state" id="state" value="-999">
+        <input type="hidden" name="planType" value="1">
+        <ul class="f-16 mt-10 mb-10">
+            <li style="height:42px;width:100%;overflow:hidden;">
+                <span class="pt-10 pb-10" style="float:left;">还款状态：</span>
+                <span class="on" style="float:left;"><a href="javascript:void(0);" val="-999" style="line-height:40px;">全部</a></span>
+                <span style="float:left;"><a href="javascript:void(0);" val="1" style="line-height:40px;">待还款</a></span>
+                <span style="float:left;"><a href="javascript:void(0);" val="2" style="line-height:40px;">已还款</a></span>
+                <!--<span style="float:left;"><a href="javascript:void(0);" val="8" style="line-height:40px;">已提前还款</a></span>-->
+            </li>
+            <li>
+                <span class="pt-10 pb-10">项目名称：</span>
+                <span class="check_inp">
+                        <input type="text" name="bidName" id="bidName" onkeydown='if(event.keyCode==13) return false;'/>
+                    </span>
+                <span class="check_sp">
+                    <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+                </span>
+            </li>
+        </ul>
+    </form>
+</div>
+<div class="repay_mess">
+    <span style="margin-left:0;">总还款金额：<em class="repaySumNum">0.00</em> 元</span>
+    <span>(已还：<em class="finishRepayNum">0.00</em> 元&nbsp;|<cite class="colr-org"> 待还：<em class="repayState1Num">0.00</em> 元</cite>)</span>
+    <span>金额单位(元)</span>
+</div>
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table class="table table-hover ellipsis tb-expired" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+<script src="${project_base_path}/jslib/account/bidRecord.js"></script>
+<script>
+    $(function(){
+        bidRecordController.initRepayPlanRecord();
+    });
+</script>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.SysMenuPriRel">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_SysMenuPriRel" type="com.hongkun.finance.user.model.SysMenuPriRel">
+		<result property="id" column="id"/>
+		<result property="sysMenuId" column="sys_menu_id"/>
+		<result property="sysPriId" column="sys_pri_id"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,sys_menu_id,sys_pri_id,state
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_menu_pri_rel ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="sysMenuId != null">
+				sys_menu_id ,
+			</if>
+			<if test="sysPriId != null">
+				sys_pri_id ,
+			</if>
+			<if test="state != null">
+				state
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="sysMenuId != null">
+				#{sysMenuId} ,
+			</if>
+			<if test="sysPriId != null">
+				#{sysPriId} ,
+			</if>
+			<if test="state != null">
+				#{state}
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sys_menu_pri_rel (
+	       	id ,
+	       	sys_menu_id ,
+	       	sys_pri_id ,
+	       	state 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sysMenuId != null">
+					#{item.sysMenuId} ,
+				</if>
+				<if test="item.sysMenuId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sysPriId != null">
+					#{item.sysPriId} ,
+				</if>
+				<if test="item.sysPriId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} 
+				</if>
+				<if test="item.state == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="sysMenuId != null">
+			sys_menu_id = #{sysMenuId} ,
+		   </if>
+			<if test="sysPriId != null">
+			sys_pri_id = #{sysPriId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sys_menu_pri_rel
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sys_menu_pri_rel 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_SysMenuPriRel">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sys_menu_pri_rel 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			state!=0
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="sysMenuId != null">
+			AND sys_menu_id = #{sysMenuId}
+			</if>
+			<if test="sysPriId != null">
+			AND sys_pri_id = #{sysPriId}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sys_menu_pri_rel 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_SysMenuPriRel">
+		SELECT <include refid="columns" />
+		FROM sys_menu_pri_rel 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+
+	<!--清空权限和菜单的绑定-->
+	<update id="clearMenuPrisRelByMenuIdOrPriId">
+		UPDATE
+		sys_menu_pri_rel
+		SET state=0
+		WHERE
+		state=0
+		<if test="menuIds!=null and menuIds.size>0">
+			OR
+		 	sys_menu_id IN
+			<foreach collection="menuIds" open="(" separator="," close=")" item="mid">
+				${mid}
+			</foreach>
+		</if>
+		<if test="priIds!=null and priIds.size>0">
+			OR
+			sys_pri_id IN
+			<foreach collection="priIds" open="(" separator="," close=")" item="pid">
+				${pid}
+			</foreach>
+		</if>
+	</update>
+
+</mapper>

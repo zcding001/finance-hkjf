@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px">
+                <span style="float: left;">赠送卡券</span>
+                <div>
+                    <a href="javascript:void(0)" class="btn btn-primary"  ng-click="giveCouponDetailToUser();"
+                       style="display:inline-block;float:right;">选择用户赠送</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div>
+                	<hr>
+                    <form id="searchForm">
+                        <span class="sp-width" style="width:115px;">作用范围：</span><select id="actionScope" name="actionScope" class="form-control" style="width: 120px;display:inline-block;"></select>
+                        <span class="sp-width">卡券名称:</span><input type="text" name="name" class="form-control" style="width: 120px;display:inline-block;">
+                        <span class="sp-width" style="width:115px;">卡券产品类型：</span><select id="type" name="type" class="form-control" style="width: 120px;display:inline-block;"></select>
+                       <span class="sp-width">使用场景：</span><select id="couponScenes" name="couponScenes" class="form-control"
+                                     style="width: 120px;display:inline-block;"></select>
+                        </br></br>
+                        <span class="sp-width" style="width:130px;">使用标的产品类型：</span><select id="bidProductTypeRange" name="bidProductTypeRange" class="form-control" style="width: 120px;display:inline-block;"></select>
+                        
+                        <span class="sp-width">创建时间：</span><input type="text" id="createTimeBegin" name="createTimeBegin"
+                                    onclick="WdatePicker({maxDate:'#F{$dp.$D(\'createTimeEnd\')}'})"
+                                    class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="createTimeEnd" name="createTimeEnd"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'createTimeBegin\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<!-- 引入选择用户发送卡券页面 -->
+<div ng-include="'pages/template/vas/coupon/userInfoForCouponDetail.html'"></div>
+<script>
+    var  columns = [
+        dataTableUtil.createCheckBox('id'),
+        {title:"标题",data:"name",class:"column-center"},
+        {title:"使用场景",data:"couponScenes",class:"column-center",render:function (value) {
+            return DIC_CONSTANT.getName("vas","coupon_use_scene",value)
+        }},
+        {title:"作用范围",data:"actionScope",class:"column-center",render:function (value) {
+            return DIC_CONSTANT.getName("invest","action_scope",value)
+        }},
+        {title:"产品类型",data:"type",class:"column-center",render:function (value) {
+            return DIC_CONSTANT.getName("vas","coupon_product_type",value);
+        }},
+        {title:"加息率/价值",data:"worth",class:"column-center",render:function (value,type,row) {
+            return returnValueOrNothing(value) + commonUtil.getCouponDetailUnit(row.type);
+        }},
+        {title:"为截止日期",data:"deadlineType",class:"column-center",render:function (value) {
+            return value == 1 ? "是" : "否";
+        }},
+        {title:"有效开始日期",data:"beginTime",class:"column-center",render:function (value) {
+            return value > 0 ? dateUtil.date(value) : "--";
+        }},
+        {title:"有效截止日期",data:"endTime",class:"column-center",render:function (value) {
+            return value > 0 ? dateUtil.date(value) : "--";
+        }},
+        {title:"有效天数",data:"validDay",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"最小额度",data:"amountMin",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"最大额度",data:"amountMax",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"创建时间",data:"createTime",class:"column-center",render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:"适用标的产品类型",data:"bidProductTypeRange",class:"column-center",render:function (value) {
+            return commonUtil.isEmpty(value) ? "--" : DIC_CONSTANT.getNames("vas","coupon_bid_product_type",value);
+        }}
+    ];
+    //创建带分页的dataTable
+    dataTableUtil.createDT(CONFIG.interface.giveCouponProductList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+    function returnValueOrNothing(value) {
+        return value > 0 ? value : "--";
+    }
+    $("#actionScope").append(DIC_CONSTANT.getOption("invest","action_scope","empty"));
+    $("#couponScenes").append(DIC_CONSTANT.getOption("vas","coupon_use_scene","empty"));
+    $("#type").append(DIC_CONSTANT.getOption("vas","coupon_product_type","empty"));
+    $("#state").append(DIC_CONSTANT.getOption("vas","coupon_product_state","empty"));
+    $("#bidProductTypeRange").append(DIC_CONSTANT.getOption("vas","coupon_bid_product_type","empty"));
+</script>

@@ -1,0 +1,54 @@
+
+<div class="tx_bar">
+    <form id="dataTableForm">
+        <input type="hidden" name="planType" value="2">
+        <ul class="clearfix">
+            <li class="fl">
+                <cite class="fl">回款状态：</cite>
+                <cite class="mr10">
+                    <select name="state" class="fl">
+                        <option value="1" selected="selected">待回款</option>
+                        <option value="2">已回款</option>
+                    </select>
+                </cite>
+            </li>
+            <li class="fl ml-10 in_time">
+                <cite class="tx_bar_t fl">计划回款日期：</cite>
+                <cite class="fl rel">
+                    <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+                </cite>
+                </cite>
+                <cite class="fl">&nbsp;-&nbsp;</cite>
+                <cite class="fl rel">
+                    <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+                </cite>
+            </li>
+            <li class="fl ml-10">
+                <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<!--<div class="iv_t">-->
+    <!--<span>待回款金额：<em class="repaySumNum">0.00</em> 元</span>-->
+    <!--<span>待回款本金：<em class="capitalSumNum">0.00</em> 元</span>-->
+    <!--<span>待回款利息：<em class="interestSumNum">0.00</em> 元</span>-->
+    <!--<span>待加息收益：<em class="increaseSumNum">0.00</em> 元</span>-->
+<!--</div>-->
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table>
+        <tr><td colspan="6">金额单位(元)</td></tr>
+    </table>
+    <table class="table table-hover ellipsis" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+</body>
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script src="${project_base_path}/jslib/account/bidRecord.js"></script>
+<script>
+    $(function(){
+        bidRecordController.initReceiptPlanRecord();
+    });
+</script>
+</html>

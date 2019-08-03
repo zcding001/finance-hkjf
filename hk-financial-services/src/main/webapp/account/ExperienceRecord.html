@@ -1,0 +1,60 @@
+            <!-- 体验金记录 -->
+            <div class="act_right fr">
+                    <div class="tx_bar">
+                        <ul class="clearfix">
+                            <li class="fl">
+                                <cite class="fl">交易流水号：</cite>
+                                <cite class="jy_inp">
+                                    <input type="text" id="flowId"/>
+                                </cite>
+                            </li>
+                            <li class="fl">
+                                <cite class="fl">状态：</cite>
+                                <cite>
+                                    <select name="state" class="fl" id="state">
+                                    </select>
+                                </cite>
+                            </li>
+                            <li class="fl ml-10 in_time">
+                                <cite class="tx_bar_t fl">交易时间：</cite>
+                                <cite class="fl rel">
+                                    <input readonly="readonly" name="createTimeBegin" onclick="WdatePicker()" id="createTimeBegin"/>
+                                </cite>
+                                </cite>
+                                <cite class="fl">&nbsp;-&nbsp;</cite>
+                                <cite class="fl rel">
+                                    <input readonly="readonly" name="createTimeEnd" onclick="WdatePicker()" id="createTimeEnd" />
+                                </cite>
+                            </li>
+                            <li class="fl ml-10">
+                                <a href="javascript:;" id="search">检索</a>
+                            </li>
+                        </ul>
+                    </div>
+                <div style="overflow-x: auto;width:818px;">
+                    <table class="table table-hover ellipsis" id="simgoldlist">
+                        <thead>
+                            <tr>
+                                <th>体验金流水号</th>
+                                <th>赠送金额（元）</th>
+                                <th>体验金有效期</th>
+                                <th>状态</th>
+                                <th>交易时间</th>
+                            </tr>
+                        </thead>
+                       <tbody>
+                      </tbody>
+                    </table>
+                </div>
+                <div class="paging simGoldList_paging">
+                </div>
+            </div>
+            
+<script type="text/javascript" src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/vas/experienceGold.js"></script>
+<script>
+$(function() {
+	$("#state").append(dictionaryUtil.getOption("vas","sim_state"));
+	experienceGoldController.simGoldList();
+})
+</script>

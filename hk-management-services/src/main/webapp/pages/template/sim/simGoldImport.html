@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">批量导入体验金数据</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+					<br>
+					<button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="goSimGrantList()">返回</button>
+					<font style="font-size:12px">注：批量导入体验金有效期和手动发放期限(注册事件类型)一致；导入模板须包含标题列：手机号和金额(100整数倍)；导入失败数据处理后单独导入，勿重复导入同一文件!</font>
+					<hr>
+					<form name="importForm" id="importForm" enctype="multipart/form-data">
+						<input id="importFile" name="importFile" file-model="importForm.importFile" type="file" style="display:none">
+						<div class="input-append">
+							<input id="photoCover" class="input-large" ng-model="importForm.filePath" type="text" style="height:33px;position: relative;top: 1px;" readonly>
+							<a class="btn btn-info" onclick="$('input[id=importFile]').click();">浏览</a>
+							<button type="button" ng-model="showPage" class="btn btn-success"  ng-click="uploadFile(importForm)" validator-submit="importForm">保存</button>
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="error"></span>
+						</div>
+					</form>
+            	</div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+	$('input[id=importFile]').change(function() {
+		$('#photoCover').val($(this).val());
+	});
+</script>

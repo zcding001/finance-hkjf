@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 消费者关系启动时检查 check=false 解决循环依赖问题  -->
+	<dubbo:consumer check="false" timeout="500000" retries="0"/>
+
+	<dubbo:application name="all-application-provider" />
+	<!-- 使用zookeeper广播注册中心暴露服务地址 -->
+	<!-- <dubbo:registry address="zookeeper://192.168.1.248:2181?backup=192.168.1.248:2182,192.168.1.248:2183" timeout="50000" /> -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" timeout="10000"/>
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<!-- !!!service要放在前面进行初始化，否则facade中的service可能为空!!! -->
+	<dubbo:annotation package="com.hongkun.finance.test" />
+	
+	<!-- 这里可以声明多种协议，rest的协议应该使用内嵌的tomcat -->
+	<dubbo:protocol name="dubbo" port="20999" />
+ </beans>

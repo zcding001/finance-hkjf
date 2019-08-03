@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/security.js" type="text/javascript"></script>
+<!-- 注意common.js的顺序 -->
+<script src="js/common.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var arr = loadPublicKey();
+console.info(arr);
+function reg() {
+	var passwd = encryptData(arr, $("#passwd").val());
+	var login = $("#login").val();
+	var nickName = $("#nickName").val();
+	var calcCode = $("#calcCode").val();
+	var commendNo = $("#commendNo").val();
+	var smsCode = $("#smsCode").val();
+	var data = {
+			login : login,
+			passwd : passwd,
+			nickName : nickName,
+			calcCode : calcCode,
+			smsCode  : smsCode,
+			commendNo : commendNo
+		};
+	console.info(data);
+	$.ajax({
+		type : 'POST',
+		url : "indexController/reg.htm",
+		data : {
+			login : login,
+			passwd : passwd,
+			nickName : nickName,
+			calcCode : calcCode,
+			smsCode  : smsCode,
+			commendNo : commendNo
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data.resStatus == CONSTANTS.SUCCESS) {
+				//登出成功后同步状态
+				//syncState(1, "online");
+				alert("成功登录");
+			}else{
+				alert(data.resMsg);
+			}
+		},
+		error : function(request) {
+
+		}
+	});
+}
+
+//获取验证码
+function getSmsCode(){
+	var login = $("#login").val();
+	$.ajax({
+		type : 'POST',
+		url : "indexController/sendSmsCode.htm",
+		data : {
+			login : login
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data.resStatus == CONSTANTS.SUCCESS) {
+				alert("发送成功");
+			}else{
+				alert(data.resMsg);
+			}
+		}
+	});
+}
+</script>
+
+</head>
+<body>
+	昵称：<input type="text" name="nickName" id="nickName" value="dobe"><br/>
+	tel:<input type="text" name="login" id="login" value="15701230895"><br/>
+            计算验证码：<input type="text" name="calcCode" id="calcCode"> &nbsp; <span class="fl"><img title="点击更换" onclick="javascript:refreshValidateCode(this, 2);" width="92" height="38" src="code/validateCodeServlet?type=2" /></span><br/>
+	短信验证码:<input type="text" name="smsCode" id="smsCode" value="123456"> <a href="javaScript:void(0)" onclick="getSmsCode()">获取验证码</a><br/>
+	密码:<input type="text" name="passwd" id="passwd" value="a12345"><br/>
+	推荐码:<input type="text" name="commendNo" id="commendNo" value="01230895"><br/>
+	<a href="javascript:void(0)" onclick="reg()">注册</a>
+</body>
+</html>

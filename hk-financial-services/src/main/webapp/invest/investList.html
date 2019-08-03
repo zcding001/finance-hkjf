@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/invest.css?v=1.0" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <div class="include" file="${project_base_path}/common/header.html"></div>
+    <!-- 头部结束 -->
+    <!-- 项目列表 -->
+    <div class="list_main">
+        <div class="list_title">
+            <div class="container list_in">
+                <input type="hidden" id="dstUrl" value="investDetails.html">
+                <ul>
+                    <li class="list_active" id="pro1">项目列表</li>
+                    <li id="pro2" class = "hide">债权转让</li>
+                    <li class="rel hide" id="pro3">体验标<i class="iconfont icon-wenhao"></i> </li>
+                    <li id="pro4" class = "hide">散标</li>
+                    <li id="pro5" class = "hide" >乾坤宝</li>
+                </ul>
+            </div>
+        </div>
+        <!--项目列表-->
+        <div class="list_box hide show">
+            <div class="container border clearfix hide" style="margin-top:30px;" id = "productAndRepayway">
+                <div class="chose_tj_left fl">
+                    <ul>
+                        <li>产品类型：</li>
+                        <li>还款方式：</li>
+                    </ul>
+                </div>
+                <div class="chose_tj_right fl">
+                    <div class="clearfix" >
+                        <ul id="product_type"></ul>
+                    </div>
+                    <div class="clearfix" >
+                        <ul id="bid_repayment"></ul>
+                    </div>
+                </div>
+            </div>
+            <!--按条件搜索可投资的标的-->
+            <div class="por_list container">
+                <div class="pro_title bidList"></div>
+            </div>
+            <div class="paging bidList_paging hide"></div>
+        </div>
+        <!-- 债权转让 -->
+        <div class="list_box hide">
+            <div class="por_list container">
+                <div class="pro_title investTransferManualList"></div>
+            </div>
+            <div class="paging investTransferManualList_paging hide"></div>
+        </div>
+        <!-- 体验标 -->
+        <div class="list_box hide">
+            <div class="ty_question container" style="display: none;">
+                <h3>体检标是鸿坤金服为用户提供用体验金投资的标的，体验标满之后，开始计息，到期后利息一次性发放到用户账户。可直接投资或者提现。</h3>
+                <p>体验金使用规则：</p>
+                <p>活动期间，鸿坤金服将赠送体验金给投资人。体验金实际上是一种虚拟体验金红包，不可提现，不可转让，仅可投资本活动体验标，体验标到期后体验金由鸿坤金服自动收回，所产生的收益属于投资人。</p>
+                <p>有效期限：体验金的有效期限为30天，自领取日开始计算（超过期限未使用，鸿坤金服自动收回体验金）。</p>
+                <p>使用方法：不可分次投资，限一次性全额投资。</p>
+                <p>使用范围：体验金仅限用于投资体验标。</p>
+                <p>鸿坤金服拥有本活动及规则的最终解释权。</p>
+                <i class="iconfont icon-guanbi4"></i>
+                <i class="iconfont icon-shangjiantou"></i>
+            </div>
+            <!-- 体验金有标的情况 -->
+            <div class="por_list experienceBidList_class_has  container">
+                <div class="pro_title experienceBidList"></div>
+            </div>
+            <div class="paging experienceBidList_paging hide"></div>
+            <!-- 体验金没有的情况 -->
+            <div  class="por_list  experienceBidList_class_no hide container">
+                <!-- <div class="pro_title"></div> -->
+                <div class="no_data">
+                    <img src="${project_base_path}/src/img/invest/nodata_03.png">
+                    <h3>强大的股东背景</h3>
+                    <div class="js">
+                        <div class="jsleft fl">2002年8月20日成立至今，鸿坤已经发展成为一家拥有地产开发、金融投资和文化旅游三大业务板块的复合型控股集团。</div>
+                        <div class="jsright fl">
+                            成立于2007年，定位于中国行业新一代的综合金融服务商，拥有优秀的资产管理能力，是行业内领先的财富管理机构。
+                        </div>
+                    </div>
+                    <h3 class="mt-50">项目措施，资金安全</h3>
+                    <div class="aq_safe">
+                        与独立的第三方支付机构合作，多重风控手段，保障资金安全。
+                        <br> 平台核心运营团队长期供职于大型互联网金融平台，服务客户群体多样，资金
+                        <br> 管理经验丰富，能有效地强化监控能力，运用多重风控手段，降低坏账风险。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 散标 -->
+        <div class="list_box hide">
+            <div class="por_list container">
+                <div class="pro_title commonBidList" ></div>
+            </div>
+            <div class="paging commonBidList_paging hide"></div>
+        </div>
+        <!-- 钱坤宝 -->
+        <div class="list_box hide">
+            <div class="por_list container">
+                <div class="pro_title qkbBidList" ></div>
+            </div>
+            <div class="paging qkdBidList_paging hide"></div>
+        </div>
+
+    </div>
+    <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+</body>
+<!-- 公共js -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/index/indexBids.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/invest/invest.js"></script>
+<script>
+    $(function() {
+        investController.loadBidList();
+        if(!commonUtil.isLogin()){commonUtil.sessionTimeOut()};
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px">
+                <span style="float: left;">生成卡券详情</span>
+            </div>
+            <div class="panel-body">
+            	<hr>
+                <form id="searchForm">
+                    卡券产品：<select id="couponId" name="couponId" class="form-control"
+                                 style="width: 160px;display: inline-block;">
+                    <option value="">--请选择--</option>
+                    <option ng-repeat="couponProduct in couponProducts" value={{couponProduct.id}}>{{couponProduct.name}}</option>
+                </select>
+                    生成数量:<input id="num" type="text" name="num" class="form-control" validate="int"
+                                style="width: 120px;display: inline-block;">
+                    <a href="javascript:void(0)" class="btn btn-info" ng-click="generateCouponDetailList();"
+                       style="display:inline-block;">生成</a>
+                    <a href="javascript:void(0)" id="excelBtn" class="btn btn-primary"
+                       style="display:inline-block;" ng-click="exportCouponDetailList();">导出</a>
+                </form>
+                <hr>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title:"激活码",data:"avtKey"},
+        {title:"标题",data:"name"},
+        {title:"作用范围",data:"actionScope",render:function (value) {
+            return DIC_CONSTANT.getName("invest","action_scope",value);
+            }},
+        {title:"年化率/价值",data:"worth",render:function (value,type,row) {
+            return value == 0 ? "--" : value + commonUtil.getCouponDetailUnit(row.type);
+        }},
+        {title:"开始时间",data:"beginTime",render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:"截止时间",data:"endTime",render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:"投资范围",data:"amountMin",render:function (value,type,row,meta) {
+            return value > 0 ? value + "-" + row.amountMax : "--";
+        }},
+        {title:"标的范围",data:"bidProductTypeRange",render:function (value) {
+            return commonUtil.isEmpty(value) ? "--" : DIC_CONSTANT.getNames("vas","coupon_bid_product_type",value);
+        }}
+    ]
+    dataTableUtil.createDTNoPageByList(CONFIG.interface.generateCouponDetailList,columns);
+</script>

@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinPayConfig">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinPayConfig" type="com.hongkun.finance.payment.model.FinPayConfig">
+		<result property="id" column="id"/>
+		<result property="sysName" column="sys_name"/>
+		<result property="sysNameCode" column="sys_name_code"/>
+		<result property="platformName" column="platform_name"/>
+		<result property="thirdName" column="third_name"/>
+		<result property="thirdNameCode" column="third_name_code"/>
+		<result property="paywayName" column="payway_name"/>
+		<result property="paywayCode" column="payway_code"/>
+		<result property="merchantNo" column="merchant_no"/>
+		<result property="publicKey" column="public_key"/>
+		<result property="privateKey" column="private_key"/>
+		<result property="payVersion" column="pay_version"/>
+		<result property="businessType" column="business_type"/>
+		<result property="payUrl" column="pay_url"/>
+		<result property="asyncNoticeUrl" column="async_notice_url"/>
+		<result property="syncNoticeUrl" column="sync_notice_url"/>
+		<result property="backUrl" column="back_url"/>
+		<result property="ipAddress" column="ip_address"/>
+		<result property="signStyle" column="sign_style"/>
+		<result property="payMd5Key" column="pay_md5_key"/>
+		<result property="terminalId" column="terminal_id"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,sys_name,sys_name_code,platform_name,third_name,third_name_code,payway_name,payway_code,merchant_no,public_key,private_key,pay_version,business_type,pay_url,async_notice_url,sync_notice_url,back_url,ip_address,sign_style,pay_md5_key,terminal_id,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_pay_config ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				sys_name ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				platform_name ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				third_name_code ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				payway_name ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				payway_code ,
+			</if>
+			<if test="merchantNo != null and merchantNo != ''">
+				merchant_no ,
+			</if>
+			<if test="publicKey != null and publicKey != ''">
+				public_key ,
+			</if>
+			<if test="privateKey != null and privateKey != ''">
+				private_key ,
+			</if>
+			<if test="payVersion != null and payVersion != ''">
+				pay_version ,
+			</if>
+			<if test="businessType != null and businessType != ''">
+				business_type ,
+			</if>
+			<if test="payUrl != null and payUrl != ''">
+				pay_url ,
+			</if>
+			<if test="asyncNoticeUrl != null and asyncNoticeUrl != ''">
+				async_notice_url ,
+			</if>
+			<if test="syncNoticeUrl != null and syncNoticeUrl != ''">
+				sync_notice_url ,
+			</if>
+			<if test="backUrl != null and backUrl != ''">
+				back_url ,
+			</if>
+			<if test="ipAddress != null and ipAddress != ''">
+				ip_address ,
+			</if>
+			<if test="signStyle != null and signStyle != ''">
+				sign_style ,
+			</if>
+			<if test="payMd5Key != null and payMd5Key != ''">
+				pay_md5_key ,
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				terminal_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="sysName != null and sysName != ''">
+				#{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				#{sysNameCode} ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				#{platformName} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				#{thirdNameCode} ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				#{paywayName} ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				#{paywayCode} ,
+			</if>
+			<if test="merchantNo != null and merchantNo != ''">
+				#{merchantNo} ,
+			</if>
+			<if test="publicKey != null and publicKey != ''">
+				#{publicKey} ,
+			</if>
+			<if test="privateKey != null and privateKey != ''">
+				#{privateKey} ,
+			</if>
+			<if test="payVersion != null and payVersion != ''">
+				#{payVersion} ,
+			</if>
+			<if test="businessType != null and businessType != ''">
+				#{businessType} ,
+			</if>
+			<if test="payUrl != null and payUrl != ''">
+				#{payUrl} ,
+			</if>
+			<if test="asyncNoticeUrl != null and asyncNoticeUrl != ''">
+				#{asyncNoticeUrl} ,
+			</if>
+			<if test="syncNoticeUrl != null and syncNoticeUrl != ''">
+				#{syncNoticeUrl} ,
+			</if>
+			<if test="backUrl != null and backUrl != ''">
+				#{backUrl} ,
+			</if>
+			<if test="ipAddress != null and ipAddress != ''">
+				#{ipAddress} ,
+			</if>
+			<if test="signStyle != null and signStyle != ''">
+				#{signStyle} ,
+			</if>
+			<if test="payMd5Key != null and payMd5Key != ''">
+				#{payMd5Key} ,
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				#{terminalId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_pay_config (
+        	id ,
+        	sys_name ,
+        	sys_name_code ,
+        	platform_name ,
+        	third_name ,
+        	third_name_code ,
+        	payway_name ,
+        	payway_code ,
+        	merchant_no ,
+        	public_key ,
+        	private_key ,
+        	pay_version ,
+        	business_type ,
+        	pay_url ,
+        	async_notice_url ,
+        	sync_notice_url ,
+        	back_url ,
+        	ip_address ,
+        	sign_style ,
+        	pay_md5_key ,
+        	terminal_id ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sysName != null and item.sysName != ''">
+					#{item.sysName} ,
+				</if>
+				<if test="item.sysName == null or item.sysName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sysNameCode != null and item.sysNameCode != ''">
+					#{item.sysNameCode} ,
+				</if>
+				<if test="item.sysNameCode == null or item.sysNameCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.platformName != null and item.platformName != ''">
+					#{item.platformName} ,
+				</if>
+				<if test="item.platformName == null or item.platformName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.thirdName != null and item.thirdName != ''">
+					#{item.thirdName} ,
+				</if>
+				<if test="item.thirdName == null or item.thirdName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.thirdNameCode != null and item.thirdNameCode != ''">
+					#{item.thirdNameCode} ,
+				</if>
+				<if test="item.thirdNameCode == null or item.thirdNameCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.paywayName != null and item.paywayName != ''">
+					#{item.paywayName} ,
+				</if>
+				<if test="item.paywayName == null or item.paywayName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.paywayCode != null and item.paywayCode != ''">
+					#{item.paywayCode} ,
+				</if>
+				<if test="item.paywayCode == null or item.paywayCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.merchantNo != null and item.merchantNo != ''">
+					#{item.merchantNo} ,
+				</if>
+				<if test="item.merchantNo == null or item.merchantNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.publicKey != null and item.publicKey != ''">
+					#{item.publicKey} ,
+				</if>
+				<if test="item.publicKey == null or item.publicKey == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.privateKey != null and item.privateKey != ''">
+					#{item.privateKey} ,
+				</if>
+				<if test="item.privateKey == null or item.privateKey == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.payVersion != null and item.payVersion != ''">
+					#{item.payVersion} ,
+				</if>
+				<if test="item.payVersion == null or item.payVersion == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.businessType != null and item.businessType != ''">
+					#{item.businessType} ,
+				</if>
+				<if test="item.businessType == null or item.businessType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.payUrl != null and item.payUrl != ''">
+					#{item.payUrl} ,
+				</if>
+				<if test="item.payUrl == null or item.payUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.asyncNoticeUrl != null and item.asyncNoticeUrl != ''">
+					#{item.asyncNoticeUrl} ,
+				</if>
+				<if test="item.asyncNoticeUrl == null or item.asyncNoticeUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.syncNoticeUrl != null and item.syncNoticeUrl != ''">
+					#{item.syncNoticeUrl} ,
+				</if>
+				<if test="item.syncNoticeUrl == null or item.syncNoticeUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.backUrl != null and item.backUrl != ''">
+					#{item.backUrl} ,
+				</if>
+				<if test="item.backUrl == null or item.backUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.ipAddress != null and item.ipAddress != ''">
+					#{item.ipAddress} ,
+				</if>
+				<if test="item.ipAddress == null or item.ipAddress == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.signStyle != null and item.signStyle != ''">
+					#{item.signStyle} ,
+				</if>
+				<if test="item.signStyle == null or item.signStyle == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.payMd5Key != null and item.payMd5Key != ''">
+					#{item.payMd5Key} ,
+				</if>
+				<if test="item.payMd5Key == null or item.payMd5Key == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.terminalId != null and item.terminalId != ''">
+					#{item.terminalId} ,
+				</if>
+				<if test="item.terminalId == null or item.terminalId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="sysName != null and sysName != ''">
+				sys_name = #{sysName} ,
+			</if>
+			<if test="sysNameCode != null and sysNameCode != ''">
+				sys_name_code = #{sysNameCode} ,
+			</if>
+			<if test="platformName != null and platformName != ''">
+				platform_name = #{platformName} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name = #{thirdName} ,
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode != ''">
+				third_name_code = #{thirdNameCode} ,
+			</if>
+			<if test="paywayName != null and paywayName != ''">
+				payway_name = #{paywayName} ,
+			</if>
+			<if test="paywayCode != null and paywayCode != ''">
+				payway_code = #{paywayCode} ,
+			</if>
+			<if test="merchantNo != null and merchantNo != ''">
+				merchant_no = #{merchantNo} ,
+			</if>
+			<if test="publicKey != null and publicKey != ''">
+				public_key = #{publicKey} ,
+			</if>
+			<if test="privateKey != null and privateKey != ''">
+				private_key = #{privateKey} ,
+			</if>
+			<if test="payVersion != null and payVersion != ''">
+				pay_version = #{payVersion} ,
+			</if>
+			<if test="businessType != null and businessType != ''">
+				business_type = #{businessType} ,
+			</if>
+			<if test="payUrl != null and payUrl != ''">
+				pay_url = #{payUrl} ,
+			</if>
+			<if test="asyncNoticeUrl != null and asyncNoticeUrl != ''">
+				async_notice_url = #{asyncNoticeUrl} ,
+			</if>
+			<if test="syncNoticeUrl != null and syncNoticeUrl != ''">
+				sync_notice_url = #{syncNoticeUrl} ,
+			</if>
+			<if test="backUrl != null and backUrl != ''">
+				back_url = #{backUrl} ,
+			</if>
+			<if test="ipAddress != null and ipAddress != ''">
+				ip_address = #{ipAddress} ,
+			</if>
+			<if test="signStyle != null and signStyle != ''">
+				sign_style = #{signStyle} ,
+			</if>
+			<if test="payMd5Key != null and payMd5Key != ''">
+				pay_md5_key = #{payMd5Key} ,
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				terminal_id = #{terminalId} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_pay_config
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_pay_config 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinPayConfig">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_pay_config 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="sysName != null and sysName !=''">
+			AND sys_name = #{sysName}
+			</if>
+			<if test="sysNameCode != null and sysNameCode !=''">
+			AND sys_name_code = #{sysNameCode}
+			</if>
+			<if test="platformName != null and platformName !=''">
+			AND platform_name = #{platformName}
+			</if>
+			<if test="thirdName != null and thirdName !=''">
+			AND third_name = #{thirdName}
+			</if>
+			<if test="thirdNameCode != null and thirdNameCode !=''">
+			AND third_name_code = #{thirdNameCode}
+			</if>
+			<if test="paywayName != null and paywayName !=''">
+			AND payway_name = #{paywayName}
+			</if>
+			<if test="paywayCode != null and paywayCode !=''">
+			AND payway_code = #{paywayCode}
+			</if>
+			<if test="merchantNo != null and merchantNo !=''">
+			AND merchant_no = #{merchantNo}
+			</if>
+			<if test="publicKey != null and publicKey !=''">
+			AND public_key = #{publicKey}
+			</if>
+			<if test="privateKey != null and privateKey !=''">
+			AND private_key = #{privateKey}
+			</if>
+			<if test="payVersion != null and payVersion !=''">
+			AND pay_version = #{payVersion}
+			</if>
+			<if test="businessType != null and businessType !=''">
+			AND business_type = #{businessType}
+			</if>
+			<if test="payUrl != null and payUrl !=''">
+			AND pay_url = #{payUrl}
+			</if>
+			<if test="asyncNoticeUrl != null and asyncNoticeUrl !=''">
+			AND async_notice_url = #{asyncNoticeUrl}
+			</if>
+			<if test="syncNoticeUrl != null and syncNoticeUrl !=''">
+			AND sync_notice_url = #{syncNoticeUrl}
+			</if>
+			<if test="backUrl != null and backUrl !=''">
+			AND back_url = #{backUrl}
+			</if>
+			<if test="ipAddress != null and ipAddress !=''">
+			AND ip_address = #{ipAddress}
+			</if>
+			<if test="signStyle != null and signStyle !=''">
+			AND sign_style = #{signStyle}
+			</if>
+			<if test="payMd5Key != null and payMd5Key !=''">
+			AND pay_md5_key = #{payMd5Key}
+			</if>
+			<if test="terminalId != null and terminalId !=''">
+			AND terminal_id = #{terminalId}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_pay_config 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinPayConfig">
+		SELECT <include refid="columns" />
+		FROM fin_pay_config 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+</mapper>

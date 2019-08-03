@@ -1,0 +1,139 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">待审核的借款标</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				名称：<input name="title" class="form-control" style="width: 150px;display:inline-block;">
+           				借款人：<input name="borrowerName" class="form-control" style="width: 120px;display:inline-block;">
+           				是否加息：<select name="raiseFlag" class="form-control" style="width: 120px;display:inline-block;">
+           						<option value="-999">全部</option>
+           						<option value="1">是</option>
+           						<option value="0">否</option>
+           					</select>
+           				创建时间：<input type="text" id="start" name="createTimeBegin" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="createTimeEnd" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"标的名称",data: "title", width:140,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		},
+ 		{ title:"借款人",data: "borrowerName", width:100},
+ 		{ title:"产品名称",data: "productName", width:140,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		},
+ 		{ title:"金额(元)",className:"dt-simple",data: "totalAmount"},
+ 		{ title:"年化率(%)",className:"dt-simple",data: "interestRate"},
+ 		{ title:"加息率(%)",data: "raiseRate",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+                return value;
+ 		    }
+ 		},
+ 		{ title:"期限",data: "termValue",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 				return value+DIC_CONSTANT.getName("invest", "bid_term_unit", row.termUnit);
+ 		    }	
+ 		},
+ 		{ title:"本息合计(元)",data: null,className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.toFormatFixed(calculator.culInterests(row.totalAmount, row.interestRate, row.termValue));
+ 		    }
+ 		},
+ 		{ title:"状态",data: "state",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 				return DIC_CONSTANT.getName("invest", "bid_state", value);
+ 		    }
+ 		},
+ 		{ title:"创建时间",data: "createTime",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 		    	return dateUtil.date(value);
+ 			}
+ 		},
+ 		{ title:"进度(%)",data: null,className:"dt-narrow",
+ 			render: function (value, type, row, meta) {
+ 		    	return commonUtil.toFixed((((row.totalAmount - row.residueAmount) * 100)/row.totalAmount), 2);
+ 			}	
+ 		},
+ 		{
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row, meta) {
+ 		    	//详情按钮
+ 		    	var btn =
+					commonUtil.createDirectRequestBtn({param:row.id, target:'bidInfoDeatil'},"详细信息","fa-list",1)+"&nbsp;&nbsp;&nbsp;";
+ 		    	if(row.state == 3){
+ 		    		btn+='<a href="javascript:void(0)" title="审核" onclick="createCheckPanel('+row.id+')" class="fa fa-gavel hide-underline" style="padding-left: 3px;padding-right: 3px;"></a>'
+ 		    	}
+ 			    return btn;
+ 		    }
+ 		}
+ 	];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.auditBidInfoList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+/**
+ * 验证是否填了审核原因
+ * */
+function chackReason() {
+	if(commonUtil.isEmpty($("#reasonMust").val())){
+        $("#checkPacketErro").html("请填写审核原因");
+        return false;
+	}
+	$("#checkPacketErro").html("");
+	return true;
+}
+//满标审核
+var createCheckPanel=function(id) {
+    //修改返回后台的参数名称并赋值
+    $("#ids").attr("name", "id");
+    $("#ids").val(id);
+    var contents = '审核结果：<input  name="state" type="radio" value="4" checked="checked"/>通过 <input name="state" value="8" type="radio" />拒绝 <br><br>';
+    contents+='审核原因：<input id="reasonMust" name="reason" type="text" onblur="chackReason()" class="confirmChildren"/> <br><br>';
+    contents+='<span id="checkPacketErro" style="color: red"></span>'
+    commonUtil.createCustomConfirmBox("满标审核", contents, CONFIG.interface.auditBid,chackReason,commonUtil.customConfirmStandardAfterExecuteFn);
+}
+
+/**
+ * 验证标的是否允许修改
+ */
+function validUpdate(opts){
+	var row = opts.row;
+	var total = row.totalAmount;
+	var residueAmount = row.residueAmount
+	if(residueAmount < total){
+		return {suc:false, msg:'标的已有人投资，不许进行修改!'};
+	}
+	return {suc:true};
+}
+</script>

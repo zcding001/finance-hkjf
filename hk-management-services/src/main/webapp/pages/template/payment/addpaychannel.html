@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+               <span style="float:left;width:30%;">支付模式新增</span> 
+            </div>
+            <form name="payChannelModelForm" id="payChannelModelForm">
+                <div class="panel-body">
+                    <div class="well">
+                            <input type="hidden" name="id" ng-model="payChannelModel.id" value="{{payChannelModel.id}}">
+                            <input type="hidden" name="state" ng-model="payChannelModel.state" value="{{payChannelModel.state}}">
+                            <input type="hidden" name="platformSource" id="platformSource">
+                         <div class="form-group">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>系统名称:</label>
+                          <select class="form-control ng-pristine ng-valid ng-touched textstyle" name="sysName" ng-model="payChannelModel.sysName" validator="required" valid-method="blur" message-id="sysNameError" >
+                                 <option  value="">--请选择</option>
+                                <option ng-repeat="sys in systemNames" value="{{sys.value+''}}">{{sys.name}}</option>
+                            </select>
+                             <span style="color:#F00" class="bid-info" id="sysNameError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="textright" style="width: 160px"><span class="font-red">*&nbsp;</span>支付渠道:</label>
+                          <select class="form-control ng-pristine ng-valid ng-touched textstyle" name="channelNameCode" ng-model="payChannelModel.channelNameCode" validator="required" valid-method="blur" message-id="channelNameCodeError" >
+                                 <option  value="">--请选择</option>
+                                <option ng-repeat="tp in channelNames" value="{{tp.value+''}}">{{tp.name}}</option>
+                            </select>
+                             <span style="color:#F00" class="bid-info" id="channelNameCodeError"></span>
+                        </div>
+                       
+						<div class="form-group">
+		       			  <label class="textright" style="width:157px;"><span class="font-red">*&nbsp;</span>支付模式:</label>
+		       			  <input style="margin-top:9px;" type="radio" name="payStyle" ng-model="payChannelModel.payStyle"  value="10" ng-checked="strConvertArrContains(payChannelModel.payStyle,10)">充值
+                          <input style="margin-top:9px;" type="radio" name="payStyle" ng-model="payChannelModel.payStyle" value="14" ng-checked="strConvertArrContains(payChannelModel.payStyle,14)">提现
+	      			      <span style="color:#F00" class="bid-info" id="titleError"></span>
+						</div>
+						<div class="form-group" style="height: 34px;">
+                            <label class="textright" style="float:left;width:156px;"><span class="font-red">*&nbsp;</span>显示平台:</label>
+                            <div ng-repeat="ps in platformSources" style="float:left;margin-left:5px;margin-top: 0px;">
+                                <input type="checkbox" value="{{ps.value}}" name="channel{{ps.value}}" ng-model="ps.checked" validator="required" validation-group="channelError" style="margin-top:9px;">{{ps.name}}&nbsp;&nbsp;
+                            </div>
+                            <span class="bid-info show-span" id="channelError"></span>
+                        </div>
+						<div class="form-group">
+		       			  <label class="textright" style="width: 156px;"><span class="font-red pos_r">*&nbsp;</span>优先级:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a sort..." name="sort" ng-model="payChannelModel.sort"  type="text"  validator="required,integertext" integertext-error-message="请输入正整数值!" integertext-success-message="" valid-method="blur" message-id="sortError">
+	      			       <span style="color:#F00" class="bid-info" id="sortError"></span>
+		                </div>
+                        <div style="width:70%;padding-left:92px;">
+                         <span ng-show="showPage">
+                        	 <button type="button" class="btn btn-outline btn-success" ng-click="submit(payChannelModelForm)" validator-submit="payChannelModelForm">保存</button>
+			     		</span>
+			     		<span ng-hide="showPage">
+                        	 <button type="button" class="btn btn-outline btn-success" ng-click="submit(payChannelModelForm)" validator-submit="payChannelModelForm">修改</button>
+			     		</span>
+                            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

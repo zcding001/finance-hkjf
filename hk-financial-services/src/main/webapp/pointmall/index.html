@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>积分商城</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/jfsc.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+    <div class="s-banertop">
+        <div class="allbtn">
+            <h2>全部商品分类</h2>
+            <ul class="jspopbox" id="menu" style="display: block"></ul>
+        </div>
+        <div class="icandx"><a href="#" onclick="pointProductCommons.toICanPay()">我能兑换</a></div>
+        <div class="icandx "><a href="${project_base_path}/pointmall/goodsList.html?enginSource=flashSell">限时兑换</a></div>
+        <!-- 登录后积分显示 -->
+         <div class="jifengxqdL hide"><span id="pointUserHas"></span>&nbsp;积分</div>
+        <!-- 未登录显示 -->
+        <div class="jifengxq hide" ><a href="${project_base_path}/register/login.html">登录</a>查看积分</div>
+        <div class="sousouk">
+            <input type="text" id="searchInput" />
+            <button onclick="pointProductCommons.doSearch()">搜索</button>
+        </div>
+    </div>
+    <!--轮播图-->
+    <div class="Homebanner">
+        <ul>
+        </ul>
+        <div class="Homedot">
+        </div>
+    </div>
+    <!--轮播公告-->
+    <div class="pmdrq">
+        <div class="P-Md">
+            <img class="p-laba" src="${project_base_path}/src/img/navBar/laba.png" /><span style="float: left;margin-right: 24px;">公告：</span>
+            <div class="txtMarquee-left">
+                <div class="bd">
+                    <ul class="infoList">
+                      
+                    </ul>
+                </div>
+            </div>
+            <span class="gengduo"><a href="${project_base_path}/common/noticeList.html?type=3&position=2">更多>></a></span>
+        </div>
+    </div>
+    <div class="huiserongqi">
+        <div class="s-darongqi">
+            <!--限时抢购栏目-->
+            <spn id="flashSalesBanner"></spn>
+            <ul class="remdh remdhchange flashSales" style="border-top:3px solid #f39200;border-right:none;border-left:none;border-bottom:none;"></ul> 
+            <!--热门兑换-->
+            <div class="biaoqilan bestSellerUnio">热门兑换</div>
+            <ul class="remdh bestSeller bestSellerUnio"> </ul>
+            <!--推荐商品-->
+            <div class="biaoqilan tuijianspd recommendProductsUnio">推荐商品</div>
+            <ul class="remdh renhdtj recommendProducts recommendProductsUnio" style="border: none;padding: 0;">
+            </ul>
+            <!--其他商品-->
+            <div class="biaoqilan tuijianspd otherProductsUnio" style="border-color: #7ecef4;margin-top: 40px;">其他商品 <span class="qitaspgd"><a href="${project_base_path}/pointmall/goodsList.html?enginSource=otherMoreGoods">更多>></a></span></div>
+            <ul class="remdh renhdtj otherProducts otherProductsUnio" style="border: none;padding: 0;">
+            </ul>
+        </div>
+    </div>
+    <div style="width: 100%;background-color: white;">
+        <ul class="yiwenjieda">
+            <li class="huodejifeng">
+                <div class="s-titie">
+                    <span>如何获取积分</span><em class="s-titiejiantou"><i></i></em>
+                </div>
+                <div class="s-titieneirong">
+                    <img src="${project_base_path}/src/img/navBar/huojian.png" alt="" class="huojianfil" />
+                    <div class="s-touzidejf"><span></span><em>投资得积分</em></div>
+                    <div class="s-jisuank">
+                        <div style="display: inline-block;">
+                            <input type="text" placeholder="请输入投资金额" id="sjine" /><span style="margin: 0 12px;">+</span>
+                            <input type="text" style="width: 128px;" placeholder="请输入投资月数" id="syueshu" /><span style="margin: 0 12px;">=</span></div><span id="suanqujif">？</span>积分
+                        <button id="buttonjs">计算</button>
+                    </div>
+                    <div class="s-touzidejf"><span></span><em>参加平台活动得积分</em></div>
+                    <div class="s-jisuank" style="padding-bottom: 0;">
+                        <p style="font-size: 16px;">用户通过参加平台推出的活动也可以获得积分，具体详情届时参见活动介绍</p>
+                    </div>
+                </div>
+            </li>
+            <li class="huodejifeng">
+                <div class="s-titie">
+                    <span>积分解答</span><em class="s-titiejiantou s-fanhuilai"><i></i></em>
+                </div>
+                <ul class="s-titieneirong" style="display: none">
+                    <li>
+                        <h2>1. 什么是投资积分？什么是活动积分？</h2>
+                        <div class="s-neironp">
+                            <p>（1）投资积分：鸿坤金服用户通过平台进行投资后，系统根据投资额进行自动折算所产生的积分。</p>
+                            <p>（2）活动积分：鸿坤金服用户通过参加我们的推出的活动所产生的积分。</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>2. 积分有何用途？</h2>
+                        <div class="s-neironp">
+                            <p>用户可凭积分在鸿坤金服平台积分商城中兑换商品及物业费。</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>3. 如何查询我的积分兑换记录？</h2>
+                        <div class="s-neironp">
+                            <p>鸿坤金服用户登录平台后，点击 “我的账号” 标签页，再点击 “积分管理” 再点击 “兑换记录”，即可查看兑换商品的明细。</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>4. 如何查询我获取积分的记录？</h2>
+                        <div class="s-neironp">
+                            <p>鸿坤金服用户登录平台后，点击 “我的账号” 标签页，再点击 “积分管理” 再点击 “积分记录”，即可查询您获得积分的明细记录。</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h2>5. 积分有时效性吗？</h2>
+                        <div class="s-neironp">
+                            <p>鸿坤金服用户通过投资或者是参加平台活动所获得的积分是长期有效的。</p>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+</body>
+
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script src="${project_base_path}/src/js/Slide.js"></script>
+<script src="${project_base_path}/lib/jquery/jquery.SuperSlide.2.1.1.js"></script>
+
+
+<script src="${project_base_path}/jslib/pointmall/pointProductCommons.js"></script>
+<script src="${project_base_path}/jslib/pointmall/pointProduct.js"></script>
+</html>
+<script>
+	$(function(){
+		$(".huojianfil").click("on",function(){
+			window.location.href="${project_base_path}/index.html";
+		})
+	})
+</script>

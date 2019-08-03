@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">风险测评答案查询</span>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        电话：<input name="tel" maxlength="11" validate="int" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        { title:"客户姓名",className:"dt-simple",data: "name"},
+        { title:"联系电话",className:"dt-simple",data: "tel"},
+        //{ title:"选项",className:"dt-simple",data: "options"},
+        { title:"分数",className:"dt-simple",data: "score"},
+        { title:"测评结果",className:"dt-simple",data: "resultType"},
+        { title:"测评时间",className:"dt-simple",data: "createTime" ,
+            render: function (value) {
+                return dateUtil.dateTime(value);
+        }},
+        {title:"类型名称",data:"type",className:"dt-simple",
+            render: function (value, type, row) {
+                if(row.type == 1){
+                    return "股权测评";
+                }else{
+                    return "投资测评";
+                }
+            }
+        },
+        {
+            title:"操作",
+            className:"dt-operate",
+            width:150,
+            render: function (data, type, row, meta) {
+                //详情按钮
+                var btn = commonUtil.createDirectRequestBtn({id:row.id, target:'fundEvaluationDetail'},"详细信息","fa-list",1);
+                //btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"fundEvaluationController/deleteEvaluation"}, "删除", "操作(不可恢复)",
+                                   // "确定删除?",
+                                    //"fa fa-remove");
+                return btn;
+            }
+        }
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.fundEvaluationList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+
+</script>

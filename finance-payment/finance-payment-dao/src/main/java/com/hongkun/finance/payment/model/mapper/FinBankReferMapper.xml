@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinBankRefer">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinBankRefer" type="com.hongkun.finance.payment.model.FinBankRefer">
+		<result property="id" column="id"/>
+		<result property="bankCode" column="bank_code"/>
+		<result property="thirdName" column="third_name"/>
+		<result property="thirdCode" column="third_code"/>
+		<result property="bankThirdName" column="bank_third_name"/>
+		<result property="bankThirdCode" column="bank_third_code"/>
+		<result property="paywayCodes" column="payway_codes"/>
+		<result property="regUserType" column="reg_user_type"/>
+		<result property="singleLimit" column="single_limit"/>
+		<result property="singleDayLimit" column="single_day_limit"/>
+		<result property="singleMonthLimit" column="single_month_limit"/>
+		<result property="bankIconAddress" column="bank_icon_address"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,bank_code,third_name,third_code,bank_third_name,bank_third_code,payway_codes,reg_user_type,single_limit,single_day_limit,single_month_limit,bank_icon_address,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_bank_refer ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				bank_code ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				third_code ,
+			</if>
+			<if test="bankThirdName != null and bankThirdName != ''">
+				bank_third_name ,
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode != ''">
+				bank_third_code ,
+			</if>
+			<if test="paywayCodes != null and paywayCodes != ''">
+				payway_codes ,
+			</if>
+			<if test="regUserType != null and regUserType != ''">
+				reg_user_type ,
+			</if>
+			<if test="singleLimit != null">
+				single_limit ,
+			</if>
+			<if test="singleDayLimit != null">
+				single_day_limit ,
+			</if>
+			<if test="singleMonthLimit != null">
+				single_month_limit ,
+			</if>
+			<if test="bankIconAddress != null and bankIconAddress != ''">
+				bank_icon_address ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				#{bankCode} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				#{thirdCode} ,
+			</if>
+			<if test="bankThirdName != null and bankThirdName != ''">
+				#{bankThirdName} ,
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode != ''">
+				#{bankThirdCode} ,
+			</if>
+			<if test="paywayCodes != null and paywayCodes != ''">
+				#{paywayCodes} ,
+			</if>
+			<if test="regUserType != null and regUserType != ''">
+				#{regUserType} ,
+			</if>
+			<if test="singleLimit != null">
+				#{singleLimit} ,
+			</if>
+			<if test="singleDayLimit != null">
+				#{singleDayLimit} ,
+			</if>
+			<if test="singleMonthLimit != null">
+				#{singleMonthLimit} ,
+			</if>
+			<if test="bankIconAddress != null and bankIconAddress != ''">
+				#{bankIconAddress} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_bank_refer (
+        	id ,
+        	bank_code ,
+        	third_name ,
+        	third_code ,
+        	bank_third_name ,
+        	bank_third_code ,
+        	payway_codes ,
+        	reg_user_type ,
+        	single_limit ,
+        	single_day_limit ,
+        	single_month_limit ,
+        	bank_icon_address ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCode != null and item.bankCode != ''">
+					#{item.bankCode} ,
+				</if>
+				<if test="item.bankCode == null or item.bankCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.thirdName != null and item.thirdName != ''">
+					#{item.thirdName} ,
+				</if>
+				<if test="item.thirdName == null or item.thirdName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.thirdCode != null and item.thirdCode != ''">
+					#{item.thirdCode} ,
+				</if>
+				<if test="item.thirdCode == null or item.thirdCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankThirdName != null and item.bankThirdName != ''">
+					#{item.bankThirdName} ,
+				</if>
+				<if test="item.bankThirdName == null or item.bankThirdName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankThirdCode != null and item.bankThirdCode != ''">
+					#{item.bankThirdCode} ,
+				</if>
+				<if test="item.bankThirdCode == null or item.bankThirdCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.paywayCodes != null and item.paywayCodes != ''">
+					#{item.paywayCodes} ,
+				</if>
+				<if test="item.paywayCodes == null or item.paywayCodes == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserType != null and item.regUserType != ''">
+					#{item.regUserType} ,
+				</if>
+				<if test="item.regUserType == null or item.regUserType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.singleLimit != null">
+					#{item.singleLimit} ,
+				</if>
+				<if test="item.singleLimit == null">
+					DEFAULT ,
+				</if>
+				<if test="item.singleDayLimit != null">
+					#{item.singleDayLimit} ,
+				</if>
+				<if test="item.singleDayLimit == null">
+					DEFAULT ,
+				</if>
+				<if test="item.singleMonthLimit != null">
+					#{item.singleMonthLimit} ,
+				</if>
+				<if test="item.singleMonthLimit == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bankIconAddress != null and item.bankIconAddress != ''">
+					#{item.bankIconAddress} ,
+				</if>
+				<if test="item.bankIconAddress == null or item.bankIconAddress == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="bankCode != null and bankCode != ''">
+				bank_code = #{bankCode} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name = #{thirdName} ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				third_code = #{thirdCode} ,
+			</if>
+			<if test="bankThirdName != null and bankThirdName != ''">
+				bank_third_name = #{bankThirdName} ,
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode != ''">
+				bank_third_code = #{bankThirdCode} ,
+			</if>
+			<if test="paywayCodes != null and paywayCodes != ''">
+				payway_codes = #{paywayCodes} ,
+			</if>
+			<if test="regUserType != null and regUserType != ''">
+				reg_user_type = #{regUserType} ,
+			</if>
+			<if test="singleLimit != null ">
+				single_limit = #{singleLimit} ,
+			</if>
+			<if test="singleDayLimit != null ">
+				single_day_limit = #{singleDayLimit} ,
+			</if>
+			<if test="singleMonthLimit != null ">
+				single_month_limit = #{singleMonthLimit} ,
+			</if>
+			<if test="bankIconAddress != null and bankIconAddress != ''">
+				bank_icon_address = #{bankIconAddress} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_bank_refer
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_bank_refer 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinBankRefer">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_bank_refer 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="bankCode != null and bankCode !=''">
+			AND bank_code = #{bankCode}
+			</if>
+			<if test="thirdName != null and thirdName !=''">
+			AND third_name = #{thirdName}
+			</if>
+			<if test="thirdCode != null and thirdCode !=''">
+			AND third_code = #{thirdCode}
+			</if>
+			<if test="bankThirdName != null and bankThirdName !=''">
+			AND bank_third_name = #{bankThirdName}
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode !=''">
+			AND bank_third_code = #{bankThirdCode}
+			</if>
+			<if test="paywayCodes != null and paywayCodes !=''">
+			AND FIND_IN_SET (#{paywayCodes},payway_codes) 
+			</if>
+			<if test="regUserType != null and regUserType !=''">
+			AND FIND_IN_SET(#{regUserType},reg_user_type)
+			</if>
+			<if test="singleLimit != null">
+			AND single_limit = #{singleLimit}
+			</if>
+			<if test="singleDayLimit != null">
+			AND single_day_limit = #{singleDayLimit}
+			</if>
+			<if test="singleMonthLimit != null">
+			AND single_month_limit = #{singleMonthLimit}
+			</if>
+			<if test="bankIconAddress != null and bankIconAddress !=''">
+			AND bank_icon_address = #{bankIconAddress}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_bank_refer 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinBankRefer">
+		SELECT <include refid="columns" />
+		FROM fin_bank_refer 
+		<include refid="findPage_where"/>
+		<if test="groupColumns != null and groupColumns !=''">
+		GROUP BY ${groupColumns}
+		</if>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+		
+	</select>
+	<!-- 查询支付渠道下某个支付方式对应的银行卡信息 -->
+	<select id="findBankInfo" resultMap="_FinBankRefer">
+	SELECT <include refid="columns" />
+		FROM fin_bank_refer 
+		<where>	  
+			1 = 1    				
+			<if test="thirdCode != null and thirdCode !=''">
+			AND third_code = #{thirdCode}
+			</if>
+			<if test="paywayCodes != null and paywayCodes !=''">
+			AND FIND_IN_SET (#{paywayCodes},payway_codes) 
+			</if>
+			<if test="regUserType != null and regUserType !=''">
+			AND FIND_IN_SET(#{regUserType},reg_user_type)
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode !=''">
+			AND bank_third_code = #{bankThirdCode}
+			</if>
+			<if test="bankCode != null and bankCode !=''">
+			AND bank_code = #{bankCode}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据平台银行CODE,或第三方银行CODE,查询支付渠道下某个支付方式对应的银行卡信息 -->
+	<select id="findBankRefer" resultMap="_FinBankRefer">
+	SELECT <include refid="columns" />
+		FROM fin_bank_refer 
+		<where>	  
+			1 = 1    				
+			<if test="thirdCode != null and thirdCode !=''">
+			AND third_code = #{thirdCode}
+			</if>
+			<if test="paywayCodes != null and paywayCodes !=''">
+			AND FIND_IN_SET (#{paywayCodes},payway_codes) 
+			</if>
+			<if test="regUserType != null and regUserType !=''">
+			AND FIND_IN_SET(#{regUserType},reg_user_type)
+			</if>
+			<if test="bankThirdCode != null and bankThirdCode !=''">
+			AND bank_third_code = #{bankThirdCode}
+			</if>
+			<if test="bankCode != null and bankCode !=''">
+			AND bank_code = #{bankCode}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+		</where>
+	</select>
+</mapper>

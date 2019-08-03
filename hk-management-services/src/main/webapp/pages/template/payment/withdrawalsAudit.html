@@ -1,0 +1,158 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				提现审核
+			</div>
+			<!-- /.panel-heading -->
+			<form name="payForm" id="payForm" enctype="multipart/form-data" novalidate>
+				<input type="hidden" name="recordId" id="recordId" ng-model="id"/>
+				<div class="panel-body" >
+					<div class="well">
+						<div class="form-group">
+							<label class="textright">用户姓名:</label><span>{{paymentVo.realName}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">交易账号:</label><span>{{paymentVo.login}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">用户类型:</label><span>{{paymentVo.type}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">交易金额:</label><span>{{paymentVo.transMoney}}</span>
+						</div>
+                        <div class="form-group">
+							<label class="textright">手续费:</label><span>{{paymentVo.commission}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">当前账户余额:</label><span>{{paymentVo.useableMoney}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">交易流水号:</label><span>{{paymentVo.flowId}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户账号:</label><span>{{paymentVo.bankCard}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户姓名:</label><span>{{paymentVo.realName}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户银行:</label><span>{{paymentVo.bankName}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户网点:</label><span>{{paymentVo.branchName}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户行地址:</label><span>{{paymentVo.bankProvince}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户行地域:</label><span>{{paymentVo.bankCity}}</span>
+						</div>
+					</div>
+					<div class="well">
+					   <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+				          <tr>
+				             <td>收入金额</td>
+				             <td>支出金额</td>
+				             <td>可用余额</td>
+				             <td>冻结金额</td>
+				             <td>对账状态</td>
+				          </tr>
+				          <tr>
+				             <td>{{paymentVo.incomeMoney}}</td>
+				             <td>{{paymentVo.outMoney}}</td>
+				             <td>{{paymentVo.useableMoney}}</td>
+				             <td>{{paymentVo.freezeMoney}}</td>
+				             <td>{{paymentVo.reconciliationDesc}}</td>
+				          </tr>
+				       </table>
+					</div>
+					<div class="panel-heading">充值对账</div>
+					<div class="well">
+					   <table id="mDataTableRecharge" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+				       </table>
+					</div>
+					<div class="panel-heading">提现对账</div>
+					<div class="well">
+					   <table id="mDataTableWithDraw" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+				       </table>
+					</div>
+					<div>
+						<button type="button"  class="btn btn-outline btn-success"  ng-click="submit(payForm)" >通过</button>
+						<button type="button"  class="btn btn-outline btn-success"  ng-click="reject()" >拒绝</button>
+						<button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+					</div>
+
+
+
+
+				</div>
+			</form>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+	var columnsRecharge = [
+		{title: "交易流水", data: "flowId", className: "dt-simple"},
+		{title: "交易金额", data: "transMoney", className: "dt-simple"},
+		{title: "交易渠道", data: "payChannel", className: "dt-simple",
+			render: function (value, type, row, meta) {
+ 				return DIC_CONSTANT.getName("payment", "channel", value);
+ 			}	
+		},
+		{
+			title: "交易时间",
+			data: "createTime",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return dateUtil.dateTime(value);
+			}
+		},{
+			title: "对账状态",
+			data: "reconciliationState",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("payment", "pay_reconciliation_state", value);
+			}
+		},
+		{title: "对账描述",data: "reconciliationDesc",className: "dt-simple"}
+	];
+	
+	var columnsWithDraw = [
+     		{title: "交易流水", data: "flowId", className: "dt-simple"},
+     		{title: "交易金额", data: "transMoney", className: "dt-simple"},
+     		{title: "手续费", data: "commission", className: "dt-simple"},
+     		{title: "交易渠道", data: "payChannel", className: "dt-simple",
+     			render: function (value, type, row, meta) {
+     				return DIC_CONSTANT.getName("payment", "channel", value);
+     			}
+     		},
+     		{
+     			title: "交易时间",
+     			data: "createTime",
+     			className: "dt-simple",
+     			render: function (value, type, row, meta) {
+     				return dateUtil.dateTime(value);
+     			}
+     		},{
+     			title: "对账状态",
+     			data: "reconciliationState",
+     			className: "dt-simple",
+     			render: function (value, type, row, meta) {
+     				return DIC_CONSTANT.getName("payment", "pay_reconciliation_state", value);
+     			}
+     		},
+     		{title: "对账描述",data: "reconciliationDesc",className: "dt-simple"}
+      ];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.findUserPayCheck+"?tradeType=10&regUserId="+commonUtil.getRequestParamByUrl().userId,columnsRecharge,"mDataTableRecharge");
+    dataTableUtil.createDT(CONFIG.interface.findUserPayCheck+"?tradeType=14&regUserId="+commonUtil.getRequestParamByUrl().userId,columnsWithDraw,"mDataTableWithDraw");
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+</script>

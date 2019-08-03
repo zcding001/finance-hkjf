@@ -1,0 +1,31 @@
+<div class="modal fade" id="catesModal" tabindex="-1" role="dialog" aria-labelledby="catesHeader" aria-hidden="true">
+  <!-- Nested node template -->
+  <script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-class="{nodrop: node.nodrop}" style="height:32px;">
+      <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)" ><span
+              class="glyphicon"
+              ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+      {{node.title}}
+      <a class="pull-right btn btn-primary btn-xs" ng-if="!node.nodes || node.nodes.length == 0" data-nodrag ng-click="selectCate(this)" style="margin-right: 8px;"><span
+              class="glyphicon glyphicon-plus"></span></a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}" data-nodrop-enabled="true" data-drag-enabled="false">
+      <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+      </li>
+    </ol>
+  </script>
+  <div class="row col-sm-6">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6" style="background-color: white;margin-top: 30px;margin-left: 600px;">
+      <div ui-tree id="tree-root">
+        <ol ui-tree-nodes ng-model="data">
+          <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"  data-collapsed="true" style="margin: 10px 0;"></li>
+        </ol>
+      </div>
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+</div>

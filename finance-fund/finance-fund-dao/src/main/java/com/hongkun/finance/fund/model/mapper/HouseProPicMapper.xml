@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.HouseProPic">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_HouseProPic" type="com.hongkun.finance.fund.model.HouseProPic">
+		<result property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="url" column="url"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+		<result property="state" column="state"/>
+		<result property="infoId" column="info_id"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,type,url,name,sort,state,info_id
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO house_pro_pic ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="url != null and url != ''">
+				url ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="infoId != null">
+				info_id 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="url != null and url != ''">
+				#{url} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="infoId != null">
+				#{infoId} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO house_pro_pic (
+	       	id ,
+	       	type ,
+	       	url ,
+	       	name ,
+	       	sort ,
+	       	state ,
+	       	info_id 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.url != null and item.url != ''">
+					#{item.url} ,
+				</if>
+				<if test="item.url == null or item.url == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.infoId != null">
+					#{item.infoId} 
+				</if>
+				<if test="item.infoId == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="url != null and url != ''">
+				url = #{url} ,
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="sort != null">
+			sort = #{sort} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="infoId != null">
+			info_id = #{infoId} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  house_pro_pic
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM house_pro_pic 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_HouseProPic">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM house_pro_pic 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="url != null and url !=''">
+			AND url = #{url}
+			</if>
+			<if test="name != null and name !=''">
+			AND name = #{name}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="infoId != null">
+			AND info_id = #{infoId}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM house_pro_pic 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_HouseProPic">
+		SELECT <include refid="columns" />
+		FROM house_pro_pic 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

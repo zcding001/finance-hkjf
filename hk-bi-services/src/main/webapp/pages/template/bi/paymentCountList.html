@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+               <span style="float:left;">充值提现统计</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           			<span class="sp-width">姓名：</span><input name="realName" class="form-control" style="width: 120px;display:inline-block;">
+           			<span class="sp-width">手机号：</span><input name="login" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           			<span class="sp-width">交易日期：</span><input type="text" id="start" name="createTimeBegin" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="createTimeEnd" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           			<br>
+           			<br>
+           			  <span class="sp-width">交易流水：</span><input name="flowId" class="form-control" style="width: 120px;display:inline-block;">
+           			<span class="sp-width">交易类型：</span><select name="tradeType" id="tradeType" class="form-control" style="width: 120px;display:inline-block;">
+            			</select>
+            			<span class="sp-width">交易状态：</span><select name="state" id="state" class="form-control" style="width: 120px;display:inline-block;">
+            			</select>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+            			<a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onclick="exportExcel('充值提现统计')" style="display:inline-block;">导出</a>
+            			
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+	var columns = [
+		{title: "交易流水号", data: "flowId", className: "dt-simple"},
+		{title: "姓名", data: "realName", className: "dt-simple"},
+		{title: "手机号", data: "login", className: "dt-simple"},
+		{title: "银行卡号", data: "bankCard", className: "dt-simple"},
+		{title: "开户行", data: "bankName", className: "dt-simple"},
+		{title: "开户行支行", data: "branchName", className: "dt-simple"},
+		{title: "交易金额（元）", data: "transMoney", className: "dt-simple"},
+		{title: "手续费（元）", data: "commission", className: "dt-simple"},
+		{title: "交易类型", data: "tradeType", className: "dt-simple",
+			render: function (value, type, row, meta) {
+		        console.info(value)
+				return DIC_CONSTANT.getName("payment", "pay_style", value);
+			}
+		},
+		{title: "支付渠道", data: "payChannel", className: "dt-simple",
+			render: function (value, type, row, meta) {
+				if(value=='0' || value==0){
+					return "暂无启用的提现渠道";
+				}else{
+					return DIC_CONSTANT.getName("payment", "channel", value);
+				}
+			}
+		},
+		{title: "交易状态", data: "state", className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("payment", "trade_state", value);
+			}
+		},
+		{title: "交易时间", data: "createTime", className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return dateUtil.dateTime(value);
+			}
+		}
+	];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.findPayRecordCountList, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+    DIC_CONSTANT.initSelect("tradeType", "payment", "pay_style");
+    DIC_CONSTANT.initSelect("state", "payment", "trade_state");
+    
+</script>

@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinBankCardUpdate">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinBankCardUpdate" type="com.hongkun.finance.payment.model.FinBankCardUpdate">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="realName" column="real_name"/>
+		<result property="tel" column="tel"/>
+		<result property="bankName" column="bank_name"/>
+		<result property="bankCard" column="bank_card"/>
+		<result property="state" column="state"/>
+		<result property="modifyUserName" column="modify_user_name"/>
+		<result property="cardUp" column="card_up"/>
+		<result property="cardDown" column="card_down"/>
+		<result property="holdingCardUp" column="holding_card_up"/>
+		<result property="holdingCardDown" column="holding_card_down"/>
+		<result property="householdRegister" column="household_register"/>
+		<result property="modifyUserId" column="modify_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="reason" column="reason"/>
+		<result property="remark" column="remark"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,real_name,tel,bank_name,bank_card,state,modify_user_name,card_up,card_down,holding_card_up,holding_card_down,household_register,modify_user_id,create_time,modify_time,reason,remark
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_bank_card_update ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name ,
+			</if>
+			<if test="tel != null">
+				tel ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				bank_name ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				bank_card ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="modifyUserName != null and modifyUserName != ''">
+				modify_user_name ,
+			</if>
+			<if test="cardUp != null and cardUp != ''">
+				card_up ,
+			</if>
+			<if test="cardDown != null and cardDown != ''">
+				card_down ,
+			</if>
+			<if test="holdingCardUp != null and holdingCardUp != ''">
+				holding_card_up ,
+			</if>
+			<if test="holdingCardDown != null and holdingCardDown != ''">
+				holding_card_down ,
+			</if>
+			<if test="householdRegister != null and householdRegister != ''">
+				household_register ,
+			</if>
+			<if test="modifyUserId != null">
+				modify_user_id ,
+			</if>
+				create_time ,
+				modify_time ,
+			<if test="remark != null and remark != ''">
+				remark ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason
+			</if>
+
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				#{realName} ,
+			</if>
+			<if test="tel != null">
+				#{tel} ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				#{bankName} ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				#{bankCard} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="modifyUserName != null and modifyUserName != ''">
+				#{modifyUserName} ,
+			</if>
+			<if test="cardUp != null and cardUp != ''">
+				#{cardUp} ,
+			</if>
+			<if test="cardDown != null and cardDown != ''">
+				#{cardDown} ,
+			</if>
+			<if test="holdingCardUp != null and holdingCardUp != ''">
+				#{holdingCardUp} ,
+			</if>
+			<if test="holdingCardDown != null and holdingCardDown != ''">
+				#{holdingCardDown} ,
+			</if>
+			<if test="householdRegister != null and householdRegister != ''">
+				#{householdRegister} ,
+			</if>
+			<if test="modifyUserId != null">
+				#{modifyUserId} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="remark != null and remark != ''">
+				#{remark} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				#{reason}
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO fin_bank_card_update (
+	       	id ,
+	       	reg_user_id ,
+	       	real_name ,
+	       	tel ,
+	       	bank_name ,
+	       	bank_card ,
+	       	state ,
+	       	modify_user_name ,
+	       	card_up ,
+	       	card_down ,
+	       	holding_card_up ,
+	       	holding_card_down ,
+	       	household_register ,
+	       	modify_user_id ,
+	       	create_time ,
+	       	modify_time ,
+	       	reason ,
+	       	remark 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.realName != null and item.realName != ''">
+					#{item.realName} ,
+				</if>
+				<if test="item.realName == null or item.realName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tel != null">
+					#{item.tel} ,
+				</if>
+				<if test="item.tel == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bankName != null and item.bankName != ''">
+					#{item.bankName} ,
+				</if>
+				<if test="item.bankName == null or item.bankName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCard != null and item.bankCard != ''">
+					#{item.bankCard} ,
+				</if>
+				<if test="item.bankCard == null or item.bankCard == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.modifyUserName != null and item.modifyUserName != ''">
+					#{item.modifyUserName} ,
+				</if>
+				<if test="item.modifyUserName == null or item.modifyUserName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.cardUp != null and item.cardUp != ''">
+					#{item.cardUp} ,
+				</if>
+				<if test="item.cardUp == null or item.cardUp == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.cardDown != null and item.cardDown != ''">
+					#{item.cardDown} ,
+				</if>
+				<if test="item.cardDown == null or item.cardDown == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.holdingCardUp != null and item.holdingCardUp != ''">
+					#{item.holdingCardUp} ,
+				</if>
+				<if test="item.holdingCardUp == null or item.holdingCardUp == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.holdingCardDown != null and item.holdingCardDown != ''">
+					#{item.holdingCardDown} ,
+				</if>
+				<if test="item.holdingCardDown == null or item.holdingCardDown == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.householdRegister != null and item.householdRegister != ''">
+					#{item.householdRegister} ,
+				</if>
+				<if test="item.householdRegister == null or item.householdRegister == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.modifyUserId != null">
+					#{item.modifyUserId} ,
+				</if>
+				<if test="item.modifyUserId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.reason != null and item.reason != ''">
+					#{item.reason} ,
+				</if>
+				<if test="item.reason == null or item.reason == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.remark != null and item.remark != ''">
+					#{item.remark} 
+				</if>
+				<if test="item.remark == null or item.remark == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName} ,
+			</if>
+			<if test="tel != null">
+			tel = #{tel} ,
+		   </if>
+			<if test="bankName != null and bankName != ''">
+				bank_name = #{bankName} ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				bank_card = #{bankCard} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="modifyUserName != null and modifyUserName != ''">
+				modify_user_name = #{modifyUserName} ,
+			</if>
+			<if test="cardUp != null and cardUp != ''">
+				card_up = #{cardUp} ,
+			</if>
+			<if test="cardDown != null and cardDown != ''">
+				card_down = #{cardDown} ,
+			</if>
+			<if test="holdingCardUp != null and holdingCardUp != ''">
+				holding_card_up = #{holdingCardUp} ,
+			</if>
+			<if test="holdingCardDown != null and holdingCardDown != ''">
+				holding_card_down = #{holdingCardDown} ,
+			</if>
+			<if test="householdRegister != null and householdRegister != ''">
+				household_register = #{householdRegister} ,
+			</if>
+			<if test="modifyUserId != null">
+			modify_user_id = #{modifyUserId} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="reason != null and reason != ''">
+				reason = #{reason} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_bank_card_update
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_bank_card_update 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinBankCardUpdate">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_bank_card_update 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="realName != null and realName !=''">
+			AND real_name = #{realName}
+			</if>
+			<if test="tel != null">
+			AND tel = #{tel}
+			</if>
+			<if test="bankName != null and bankName !=''">
+			AND bank_name = #{bankName}
+			</if>
+			<if test="bankCard != null and bankCard !=''">
+			AND bank_card = #{bankCard}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="modifyUserName != null and modifyUserName !=''">
+			AND modify_user_name = #{modifyUserName}
+			</if>
+			<if test="cardUp != null and cardUp !=''">
+			AND card_up = #{cardUp}
+			</if>
+			<if test="cardDown != null and cardDown !=''">
+			AND card_down = #{cardDown}
+			</if>
+			<if test="holdingCardUp != null and holdingCardUp !=''">
+			AND holding_card_up = #{holdingCardUp}
+			</if>
+			<if test="holdingCardDown != null and holdingCardDown !=''">
+			AND holding_card_down = #{holdingCardDown}
+			</if>
+			<if test="householdRegister != null and householdRegister !=''">
+			AND household_register = #{householdRegister}
+			</if>
+			<if test="modifyUserId != null">
+			AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="reason != null and reason !=''">
+			AND reason = #{reason}
+			</if>
+			<if test="remark != null and remark !=''">
+			AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+
+
+	<!-- 查询条件 fuzzy-->
+	<sql id="findPage_where_fuzzy">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="realName != null and realName !=''">
+				AND real_name LIKE CONCAT('%',#{realName},'%')
+			</if>
+			<if test="tel != null and tel !=''">
+				AND tel LIKE CONCAT('%',#{tel},'%')
+			</if>
+			<if test="bankName != null and bankName !=''">
+				AND bank_name = #{bankName}
+			</if>
+			<if test="bankCard != null and bankCard !=''">
+				AND bank_card = #{bankCard}
+			</if>
+			<if test="state != null and state != -999">
+				AND state = #{state}
+			</if>
+			<if test="modifyUserName != null and modifyUserName !=''">
+				AND modify_user_name = #{modifyUserName}
+			</if>
+			<if test="cardUp != null and cardUp !=''">
+				AND card_up = #{cardUp}
+			</if>
+			<if test="cardDown != null and cardDown !=''">
+				AND card_down = #{cardDown}
+			</if>
+			<if test="holdingCardUp != null and holdingCardUp !=''">
+				AND holding_card_up = #{holdingCardUp}
+			</if>
+			<if test="holdingCardDown != null and holdingCardDown !=''">
+				AND holding_card_down = #{holdingCardDown}
+			</if>
+			<if test="householdRegister != null and householdRegister !=''">
+				AND household_register = #{householdRegister}
+			</if>
+			<if test="modifyUserId != null">
+				AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="reason != null and reason !=''">
+				AND reason = #{reason}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_bank_card_update 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinBankCardUpdate">
+		SELECT <include refid="columns" />
+		FROM fin_bank_card_update 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+
+	<!-- 条件检索解绑银行卡记录分页查询数量 -->
+	<select id="findBankCardUpdateListCount" resultType="long">
+		SELECT COUNT(ID) FROM fin_bank_card_update
+		<include refid="findPage_where_fuzzy"/>
+	</select>
+
+	<!-- 条件检索解绑银行卡记录列表 -->
+	<select id="findBankCardUpdateList" resultMap="_FinBankCardUpdate">
+		SELECT <include refid="columns" />
+		FROM fin_bank_card_update
+		<include refid="findPage_where_fuzzy"/>
+		ORDER BY ${sortColumns}
+	</select>
+
+
+	<!--根据用户Id及银行卡Id查询解绑信息-->
+	<select id="findFinBankCardUpdateByBankIdAndUserId" resultType="com.hongkun.finance.payment.model.FinBankCardUpdate" parameterType="java.util.HashMap">
+		SELECT
+			  fbcu.reg_user_id as regUserId,
+			  fbcu.real_name as realName,
+			  fbcu.tel as tel,
+			  fbcu.bank_name as bankName,
+			  fbcu.bank_card as bankCard,
+			  fbcu.state as state,
+			  fbcu.modify_user_name as modifyUserName,
+			  fbcu.card_up as cardUp,
+			  fbcu.card_down as cardDown,
+			  fbcu.holding_card_up as holdingCardUp,
+			  fbcu.holding_card_down as holdingCardDown,
+			  fbcu.household_register as householdRegister,
+			  fbcu.modify_user_id as modifyUserId,
+			  fbcu.create_time as createTime,
+			  fbcu.modify_time as modifyTime,
+			  fbcu.reason as reason,
+			  fbcu.remark as remark
+		FROM fin_bank_card_update fbcu, fin_bank_card fbc
+		WHERE fbc.bank_card = fbcu.bank_card
+			AND fbc.reg_user_id = fbcu.reg_user_id
+			AND fbcu.reg_user_id = #{userId}
+			AND fbc.id = #{bankCardId}
+		ORDER BY fbcu.create_time desc
+	</select>
+
+
+</mapper>

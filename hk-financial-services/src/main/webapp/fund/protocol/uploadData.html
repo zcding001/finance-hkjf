@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>海外基金签署协议——上传资料</title>
+</head>
+
+<body style=" background: #f7f7f7;">
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-606-0229</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40 hide loginShow">
+                            <a href="javascript:void(0)" id="headInforms" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng totalNum"></i>条未读消息</a>
+                        </div>
+                        <div class="fr pr0 loginHide">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide loginShow">
+                            <span>欢迎您 , <i class="nickName"></i></span>
+                            <a href="#" class="logoutBtn" style="color:#ed5345;">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="nav">
+			<div class="container" style="border:none;">
+				<div class="nav_c" style="padding: 10px 0 10px 0">
+					<a class="" href="javascript:void(0)" onclick="commonUtil.jump('/fund/overseasFund.html')">
+						<img src="${project_base_path}/src/img/guquan/logo2.png" onclick="commonUtil.jump('/fund/overseasFund.html')" alt="海外基金" style="margin-top:13px;">
+					</a>
+				</div>
+			</div>
+		</div>
+    </header>
+    <!-- 头部结束 -->
+
+    <!-- 上传资料开始 -->
+    <div class="proinfo_box">
+	   <div class="container proinfo_box_main">
+	      <img src="${project_base_path}/src/img/guquan/icon_stepc.png">
+	      <h3>上传资料</h3>
+		   <form id="userDataForm" name="userDataForm">
+			   <input type="text" name="userInfoId" value="" hidden>
+				<div class="upload_box">
+			          <p class="upload_identfy">本人身份证正反面彩色图片：</p>
+			          <div class="upload_identfyimg">
+			             <ul id="idCard" class="clearfix">
+			                <li class="fl upload_img" id="box1">
+			                   <div id="preview">
+			                    <img id="imghead" border="0" style="margin:15px;" src="${project_base_path}/src/img/guquan/icon_photoimg.png" onclick="$('#previewImg').click();">
+			                   </div>         
+			                   <input type="file" name="file" onchange="previewImage(this)" style="display: none;" id="previewImg">
+			                   <input style="display: none;" id="idUpUrl" name="idUpUrl" value="">
+			                </li> 
+			                <li class="fl upload_img">
+			                   <img src="${project_base_path}/src/img/guquan/icon_cl.png" style="display:none;" class="pa" id="box1">                
+			                   <div id="previewa">
+			                    <img id="imgheada" border="0" style="margin:15px;" src="${project_base_path}/src/img/guquan/icon_photoimg.png" width="90" height="90" onclick="$('#previewImga').click();">
+			                   </div>         
+			                   <input type="file" name="file" onchange="previewImagea(this)" style="display: none;" id="previewImga">
+			                	<input style="display: none;" id="idDownUrl" name="idDownUrl" value="">
+			                </li>
+			             </ul>
+			          </div>
+			          <p class="upload_identfy">本人护照图片</p>
+			          <div class="upload_identfyimg">
+			             <ul style="margin-bottom:30px;" id="passportUl">
+			                <li class="upload_img">
+			                   <img src="${project_base_path}/src/img/guquan/icon_cl.png" style="display:none;" class="pa" id="box1">                
+			                   <div id="previewb">
+			                    <img id="imgheadb" border="0" style="margin:15px;" src="${project_base_path}/src/img/guquan/icon_photoimg.png" width="90" height="90" onclick="$('#previewImgb').click();">
+			                   </div>         
+			                   <input type="file" name="file" onchange="previewImageb(this)" style="display: none;" id="previewImgb">
+			                   <input style="display: none;" id="passportUrl" name="passportUrl" value="">
+			                </li>
+			                <!--<li class="noticeword pl0" style="margin-top:15px;">请检查上传图片格式及大小(小于5M)</li>-->
+			          		<li class="attenttion">注:中国旧版本护照需额外附上签名</li> 
+			             </ul>
+			          </div>
+			          <p class="upload_identfy">护照示意图如下：</p> 
+			          <div class="upload_identfyimg">
+			            <div class="row">
+			            	<div class="row_cotent">
+			            		<a class="test-popup-link" href="${project_base_path}/src/img/guquan/icon_pp2.jpg" id="zoom11">
+			            			<img class="a" src="${project_base_path}/src/img/guquan/icon_pp.png" style="width:204px;height:119px">
+			            		</a>
+			            	</div>
+			          	</div>                  
+				      </div>
+				      <div class="formdiv">
+				         <ul>                        
+				            <li><a href="javascript:void(0);" class="reg_tjbtn" style="text-decoration:none;color:white !important;">确认提交</a></li>
+				          </ul>
+				      </div>				   
+			   </div>
+		   </form>
+	   </div>
+	</div>
+    <!-- 海外基金填写信息结束 -->
+    
+    <!-- 底部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_footer.html"></div>
+    <!-- 底部结束 -->
+    
+    
+    <!-- 弹窗开始 -->
+	<!-- 正在加载 -->
+	<div id="loading" class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="">
+				<div class="modal-body tac pb-30 pt-30">
+					<!-- 所要添加的内容start -->
+					<img src="${project_base_path}/src/img/guquan/loading.gif" alt="正在加载">
+					<p class="mt-15 colr-white">请求处理中，请稍后。。。。</p>
+					<!-- 所要添加的内容end-->
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<!-- 签署协议第三步上传用户资料需要的js -->
+	<script type="text/javascript" src="${project_base_path}/lib/imgUtils/imgFileupload.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/imgUtils/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js?v=123123"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/protocol/uploadData.js?v=1234"></script>
+<script>
+		function previewImage(file)
+		{
+		  var MAXWIDTH  = 90;
+		  var MAXHEIGHT = 90;
+		  var div = document.getElementById('preview');
+		  if (file.files && file.files[0])
+		  {
+		      div.innerHTML ='<img id=imghead onclick=$("#previewImg").click()>';
+		      var img = document.getElementById('imghead');
+		      img.onload = function(){
+		        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		        img.width  =  rect.width;
+		        img.height =  rect.height;
+		      }
+		      var reader = new FileReader();
+		      reader.onload = function(evt){img.src = evt.target.result;}
+		      reader.readAsDataURL(file.files[0]);
+		  }
+		  else //兼容IE
+		  {
+		    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		    file.select();
+		    var src = document.selection.createRange().text;
+		    div.innerHTML = '<img id=imghead>';
+		    var img = document.getElementById('imghead');
+		    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		  }
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		    var param = {top:0, left:0, width:width, height:height};
+		    if( width>maxWidth || height>maxHeight ){
+		        rateWidth = width / maxWidth;
+		        rateHeight = height / maxHeight;
+
+		        if( rateWidth > rateHeight ){
+		            param.width =  maxWidth;
+		            param.height = Math.round(height / rateWidth);
+		        }else{
+		            param.width = Math.round(width / rateHeight);
+		            param.height = maxHeight;
+		        }
+		    }
+		    param.left = Math.round((maxWidth - param.width) / 2);
+		    param.top = Math.round((maxHeight - param.height) / 2);
+		    return param;
+		}
+		
+		//图片上传预览    IE是用了滤镜。
+		function previewImagea(file)
+		{
+		  var MAXWIDTH  = 90;
+		  var MAXHEIGHT = 90;
+		  var div = document.getElementById('previewa');
+		  if (file.files && file.files[0])
+		  {
+		      div.innerHTML ='<img id=imgheada onclick=$("#previewImga").click()>';
+		      var img = document.getElementById('imgheada');
+
+		      img.onload = function(){
+		        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		        img.width  =  rect.width;
+		        img.height =  rect.height;
+//		         img.style.marginLeft = rect.left+'px';
+		        //img.style.marginTop = rect.top+'px';
+		      }
+		      var reader = new FileReader();
+		      reader.onload = function(evt){img.src = evt.target.result;}
+		      reader.readAsDataURL(file.files[0]);
+		  }
+		  else //兼容IE
+		  {
+		    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		    file.select();
+		    var src = document.selection.createRange().text;
+		    div.innerHTML = '<img id=imgheada>';
+		    var img = document.getElementById('imgheada');
+		    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		    div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		  }
+		}
+		
+		//图片上传预览    IE是用了滤镜。
+        function previewImageb(file)
+        {
+          var MAXWIDTH  = 120; 
+          var MAXHEIGHT = 120;
+          var div = document.getElementById('previewb');                    
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imgheadb onclick=$("#previewImgb").click()>';
+              var img = document.getElementById('imgheadb');
+              
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imgheadb>';
+            var img = document.getElementById('imgheadb');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+
+      //查看图片，弹窗直接显示图片并带关闭按钮
+    	$('.test-popup-link').magnificPopup({
+    	    type: 'image'
+    	});
+    	
+
+    	
+    		
+    	
+    	
+      
+</script>
+</html>

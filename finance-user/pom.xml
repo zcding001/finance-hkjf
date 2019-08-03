@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>finance-user</artifactId>
+	<packaging>pom</packaging>
+
+	<name>finance-user</name>
+	<description>The parent project of finance-user</description>
+
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+	<modules>
+		<module>finance-user-api</module>
+		<module>finance-user-dao</module>
+		<module>finance-user-model</module>
+		<module>finance-user-service</module>
+	</modules>
+</project>

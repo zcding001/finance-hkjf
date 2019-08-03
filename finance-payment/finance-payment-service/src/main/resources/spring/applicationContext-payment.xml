@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- 引入框架的配置信息 -->
+	<context:property-placeholder location="classpath*:application.properties,classpath*:env_common.properties,classpath*:application-redis.properties,classpath*:log4j.properties,classpath*:SignVerProp.properties" ignore-unresolvable="true" order="1"
+                                  file-encoding="UTF-8"/>
+	<import resource="classpath:applicationContext-framework.xml" />
+	<!-- 引入框架的配置信息-jms -->
+	<import resource="classpath:applicationContext-jms.xml" />
+	<!-- 引入框架的配置信息-redis -->
+	<import resource="classpath:applicationContext-redis.xml" />
+	<import resource="classpath:spring/task-timer.xml"/>
+	<!-- 启用注解 -->
+	<context:annotation-config />
+	<tx:annotation-driven transaction-manager="frameworkTransactionManager"/>
+	<import resource="classpath:spring/applicationContext-dubbo-provider.xml"/>
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.hongkun.finance.payment" />
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="frameworkTransactionManager" />
+     <!--配置reids缓存（使用注解式缓存）-->
+    <context:component-scan base-package="com.yirun.framework.redis.annotation"/>
+    <context:component-scan base-package="com.yirun.framework.redis.aop.aspectj"/>
+    <!--开启代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
+    <!-- applicationContext工具类 -->
+	<bean id="applicationContextUtils" class="com.yirun.framework.core.utils.ApplicationContextUtils"/>
+	<!-- 创建数据源 -->
+	<bean id="defaultDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、username、password -->
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="20" />
+
+		<!-- 配置获取连接等待超时的时间，单位是毫秒 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+		<property name="filters" value="stat" />
+	</bean>
+
+	<bean id="dataSource" class="com.yirun.framework.dao.datasource.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="demo" value-ref="defaultDataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="defaultDataSource" />
+	</bean>
+
+    <!-- 引入TCC事务  -->
+    <import resource="classpath:tcc-transaction.xml" />
+    <import resource="classpath:tcc-transaction-dubbo.xml" />
+    
+    <!-- tcc事务reids cluster -->
+    <bean id="transactionRepository" class="org.mengyun.tcctransaction.repository.RedisClusterTransactionRepository">
+        <property name="keyPrefix" value="TCC:payment:"/>
+        <property name="jedisClusterExtend" ref="jedisClusterExtend"/>
+    </bean>
+
+    <bean id="jedisClusterExtend" class="org.mengyun.tcctransaction.repository.helper.JedisClusterExtend">
+        <constructor-arg index="0" value="${redis.cluster.ip}" type="java.lang.String"/>
+        <constructor-arg index="1" ref="jedisPoolConfig"/>
+    </bean>
+
+    <!-- 配置JedisPoolConfig实例 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="maxTotal" value="${redis.pool.maxActive}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWait}" />
+        <property name="testOnBorrow" value="false" />
+    </bean>    
+</beans>

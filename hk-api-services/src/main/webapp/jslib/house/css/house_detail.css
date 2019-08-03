@@ -1,0 +1,209 @@
+*{margin:0;padding:0;}
+html,body{min-height:100%;font-family:"Microsoft YaHei",sans-serif;box-sizing:border-box;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body,button,input,select,textarea{outline:0;}
+img{border:0;vertical-align:middle;}
+ul li{list-style: none;}
+a, a:visited {padding:0;margin:0;text-decoration: none;}
+.clearfix::before,.clearfix::after{content:".";display:block;height:0;line-height:0;visibility:hidden;clear:both;}
+.fl{float:left;}.fr{float:right;}
+.swiper-container{width:100%;height:5rem;}
+.swiper-wrapper .swiper-slide img{width:100%;height:100%;display: block;}
+.swiper-pagination-fraction{font-size: .28rem;color: #fff;text-align: right;width:95%;}
+.h_box{width:100% ;border-bottom: 1px solid #ddd;padding-top:.47rem;padding-bottom: .36rem;}
+.h_box .h_box_header {padding:0 .35rem;}
+.h_box_header h3{
+    height: .34rem;
+    font-size: .34rem;
+    font-weight: 600;
+    color: #333;
+    line-height: .34rem;
+    margin-bottom: .40rem;
+}
+.h_box_header p{
+  height: .26rem;
+  font-size: .26rem;
+  line-height: .26rem;
+  color: #f39200;
+  margin-bottom: .38rem;
+}
+.h_box_header p:last-child{color:#999;line-height: .36rem;height:.36rem;}
+.h_box_header p:last-child span{color:#f39200;font-size:.3rem;}
+.h_box_main{padding:0 .35rem;    text-align: justify;}
+.h_box_main h3{
+  height: .32rem;
+  font-size: .32rem;
+  font-weight: 600;
+  line-height: .32rem;
+  letter-spacing: 0px;
+  color: #333;
+  padding: .48rem 0 .3rem 0;
+   }
+  .h_box_main div{font-size:.28rem;line-height: .40rem;color:#999; margin-bottom: .35rem;    text-indent: 2em;}
+  .h_box_main ul li{
+    font-size: .28rem;
+    color:#333;
+    line-height: .36rem;
+    margin-bottom: .35rem;
+  }
+  .h_box_main ul li span{color:#999;display: inline-block;width:25%; }
+  .h_box_main img{width:100%;display: block;}
+  .h_btn{
+    position: fixed;
+    bottom: 0;
+    width:100%;
+  }
+   .h_btn a{
+    width:100%;
+    height: .96rem;
+    text-align: center;
+    line-height: .96rem;
+    color:#fff;
+    background: #f39200;
+    font-size:.34rem;
+    display: block;
+   }
+   
+   .h_btn .notV_h_btn{
+    width:100%;
+    height: .96rem;
+    text-align: center;
+    line-height: .96rem;
+    color:#fff;
+    background: #c0c0c0;
+    font-size:.34rem;
+    display: block;
+   }
+   
+  .y_box{margin:0 5%;padding-top:.8rem;}
+.y_box input[type="text"]{width:100%;border:1px solid #bbb;height:30px;text-align: center;display: block;font-size: .26rem;margin-top: .2rem;}
+.y_box .y_check p{
+  font-size: .24rem;
+  color:#bcbcbc;
+}
+
+
+   .jd_win{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1001;
+}
+
+.jd_win .jd_win_box{
+    width: 85%;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin: 0  auto;
+    padding:0 5%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    top:50%;
+    left:50%;
+}
+.jd_win .jd_win_box .jd_win_box_text{
+    color: #666;
+    font-size: .28rem;
+    height: 8rem;
+    text-align: justify;
+    line-height: .4rem;
+}
+.jd_win .jd_win_box .jd_win_box_text h3{text-align: center;font-size:.32rem; margin:.4rem 0 .35rem 0;position: relative;}
+
+ .jd_win_box_text h3 span{
+      text-align: right;
+    position: absolute;
+    top: 0;
+    right: -.3rem;
+    font-size: .40rem;
+    padding: 0 .3rem;
+ }
+.jd_win .jd_win_box .jd_win_box_text div{
+  margin-bottom: .35rem;
+}
+.jd_win .jd_win_box .jd_win_box_text1{height:auto;margin:.85rem 0 .75rem 0;}
+.jd_btn_box {width:100%;margin:0 auto;margin-bottom: .6rem;}
+.jd_btn_box a{
+  width:100%;
+  height:.80rem;
+  text-align: center;
+  line-height: .80rem;
+  font-size:.34rem;
+  color:#f39200;
+  border:1px solid  #f39200;
+  border-radius: .4rem;
+  display: block;}
+/*跳出来动画*/
+@-webkit-keyframes jumpOut{
+    0%{
+        opacity: 0;
+        transform: translateY(-2000px);
+        -webkit-transform: translateY(-2000px);
+    }
+    60%{
+        opacity: 1;
+        transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+    }
+    75%{
+        transform: translateY(-10px);
+        -webkit-transform: translateY(-10px);
+    }
+    90%{
+        transform: translateY(5px);
+        -webkit-transform: translateY(5px);
+    }
+    100%{
+        opacity: 1;
+        transform: none;
+        -webkit-transform: none;
+    }
+}
+.jumpOut{
+    animation:jumpOut 1s ease;
+}
+
+input[type=checkbox] {
+    width: .26rem;
+    height: .26rem;
+    margin-right: .18rem;
+    margin-top: 2px;
+}
+input[type=checkbox]::before, input[type=checkbox]::after {
+    display: block;
+    content: '';
+    width: .26rem;
+    height: .26rem;
+}
+input[type=checkbox]:checked::before {
+    border-color: #f39200;
+    content: '\2714';
+    font-family: "STSong";
+    background: #f39200;
+    color: #fff;
+    border-radius: 4px;
+    line-height: .27rem;
+    text-align: center;
+    font-size: .24rem;
+}
+.y_btn{
+  width: 100%;
+  margin:0 auto;
+  margin-top:1.3rem;
+}
+.y_btn a{
+  width:100%;
+  height:44px;
+  text-align: center;
+  line-height: 44px;
+  font-size:.28rem;
+  background:#f39200;
+  color:white;
+  border:1px solid  #f39200;
+  border-radius: .48rem;
+  display: block;
+}

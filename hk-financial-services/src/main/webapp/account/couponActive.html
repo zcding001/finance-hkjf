@@ -1,0 +1,84 @@
+<style type="text/css">
+    .jh_tc{position:absolute;left:50%;top:50%;width:466px;height:246px;border:1px solid #d9d8d8;margin-left:-148px;margin-top:-30px;display:none;background: #fff;}
+    .jh_title{width:100%;background:#838383;height:42px;}
+    .jh_title p{flaot:left;display:inline;width:50%;font-size:14px;line-height:42px;color:#fff;padding-left:20px;}
+    .zzfw_close{float:right;display:inline;width:15px;margin-top:13px;cursor:pointer;background:url(../src/img/index/zzfw_close.png) no-repeat left top;height:15px;margin-right:10px;}
+    .jh_text{margin-top:55px;text-align:center;height:27px;font-size:18px;color:#53b32e;vertical-align:middle;line-height:27px;}
+    .jh_text img{vertical-align:middle;margin-right:10px;}
+    .jh_button{margin-top:55px;text-align:center;}
+    .jh_button a{display:inline-block;}
+    .bx_bar_btn_sel a.wd_88{width:88px;}
+    .bx_bar_btn_sel a.zzfw_button{width:77px;height:36px;background:#f39200;font-size:14px;color:#fff;text-align:center;line-height:36px;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;overflow: hidden;behavior: url(PIE.htc);}
+    .bx_bar_btn_sel a.zzfw_gray{background:#bdbdbd;}
+</style>
+<!-- 券卡激活 -->
+<div class="act_right fr">
+    <div class="zzfw za_pr">
+        <div class="zzfw_t">
+            <div class="tx_bar clearfix">
+                <ul class="f-16">
+                    <li class="fl">
+                        <cite class="tx_bar_t fl">卡号（激活码）:</cite>
+                        <cite class="mr-10 ml-10">
+                            <input style="width:200px;padding-left:5px;" id="avtKey">
+                        </cite>
+                    </li>
+                    <li class="fl">
+                        <cite class="bx_bar_btn_sel">
+                            <a class="zzfw_button btn-primary" id="active" data-toggle="modal"
+                               data-target=".bs-example-modal-sm">激活</a>
+                        </cite>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="jh_tc">
+        <div class="jh_title">
+            <p>提示信息</p>
+            <div class="zzfw_close"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="jh_text"><img src="${project_base_path}/src/img/index/zzfw_suceess.png" > 激活成功！</div>
+        <div class="jh_button">
+            <cite class="bx_bar_btn_sel">
+                <a href="javascript:void(0)" onclick="nowUse()" class="zzfw_button wd_88">现在使用</a>
+                <a href="javascript:void(0)" onclick="afterUse()" class="zzfw_button zzfw_gray wd_88">稍后使用</a>
+            </cite>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function () {
+    //点击激活按钮事件
+   $("#active").click(function () {
+        var avtKey = $("#avtKey").val();
+        if (commonUtil.isEmpty(avtKey)){
+            dialogUtil.alert("提示","请您先输入卡券激活码!");
+        };
+        var param = {"avtKey":avtKey};
+        var callBack = function (data) {
+            if (data.resStatus == CONSTANTS.SUCCESS){
+                $(".jh_tc").show();
+            }else {
+                dialogUtil.alert("提示",data.resMsg);
+            }
+        };
+        ajaxUtil.post("/couponController/activeCouponDetail.do",param,callBack);
+   });
+   
+   $(".zzfw_close").click(function () {
+       $(".jh_tc").hide();
+   });
+});
+//跳转至定期投资页面
+function nowUse() {
+    commonUtil.jump("index.html");
+}
+
+//跳转至福利卡券页面
+function afterUse() {
+    commonUtil.jumpToAccount("couponRecord.html");
+}
+</script>

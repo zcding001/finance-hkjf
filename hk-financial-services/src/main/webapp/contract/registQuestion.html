@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1100,user-scalable=yes">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/info/questionaire.css"/>
+    <script type="text/javascript" src="${project_base_path}/jslib/info/registQuestion.js"></script>
+
+    <title>问卷调查</title>
+</head>
+<style>
+.firstsp{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #c3c3c3;
+    display: inline-block;
+    float:left;
+    margin-top:4px;
+    vertical-align: -0.04rem;
+}
+.danxuandiv .danxuanxz {
+    background: url(${project_base_path}/src/img/contract/yes.png) no-repeat;
+    background-size: 100% 100%;
+    border: none;
+}
+</style>
+<body>
+<div class="question_whole" style="position:relative;">
+    <div class="floor" id="litte_window" style="display: none;">
+        <div class="floora"></div>
+        <div class="floor_window">
+            <div class="tj_success" id='alertMsg' style="height:50px;line-height:50px;"></div>
+            <div class="tj_sure" onclick='toiOS()'>确定</div>
+        </div>
+    </div>
+    <div class="question_in">
+
+    </div>
+    <div class="fun_space danxuandiv">
+        <span class="firstsp danxuanann danxuanxz"></span>
+         <!--  <input type="checkbox" id="agree"  class="ip_check" checked="checked" />--> 
+        <span  class="sp_sel selected">本人已经了解并愿意遵守国家有关法律、法规、规章及相关业务规则，本人在此郑重承诺以上填写的内容真实、准确、完整。若本人提供的信息发生任何重大变化，本人将及时书面通知贵公司。</span>
+    </div>
+    <div class="name_regist mt">
+        <p class="mt sign_time">签署日期：<span id="nowdate"></span></p>
+    </div>
+        <div class="sure_btn"><input name="" type="button" value="提交" class="Btn_tj sure_btna "  id="tj_btn"
+    onclick='submitForm()'></div>
+
+</div>
+
+</body>
+</html>

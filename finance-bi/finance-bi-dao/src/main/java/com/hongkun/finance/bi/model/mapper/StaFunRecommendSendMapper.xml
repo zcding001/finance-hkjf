@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaFunRecommendSend">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaFunRecommendSend" type="com.hongkun.finance.bi.model.StaFunRecommendSend">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="login" column="login"/>
+		<result property="realName" column="real_name"/>
+		<result property="commendRegUserId" column="commend_reg_user_id"/>
+		<result property="commendLogin" column="commend_login"/>
+		<result property="commendRealName" column="commend_real_name"/>
+		<result property="recommendSource" column="recommend_source"/>
+		<result property="money" column="money"/>
+		<result property="sendTime" column="send_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,login,real_name,commend_reg_user_id,commend_login,commend_real_name,recommend_source,money,send_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_fun_recommend_send ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="login != null">
+				login ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name ,
+			</if>
+			<if test="commendRegUserId != null">
+				commend_reg_user_id ,
+			</if>
+			<if test="commendLogin != null">
+				commend_login ,
+			</if>
+			<if test="commendRealName != null and commendRealName != ''">
+				commend_real_name ,
+			</if>
+			<if test="recommendSource != null">
+				recommend_source ,
+			</if>
+			<if test="money != null">
+				money ,
+			</if>
+				send_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="login != null">
+				#{login} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				#{realName} ,
+			</if>
+			<if test="commendRegUserId != null">
+				#{commendRegUserId} ,
+			</if>
+			<if test="commendLogin != null">
+				#{commendLogin} ,
+			</if>
+			<if test="commendRealName != null and commendRealName != ''">
+				#{commendRealName} ,
+			</if>
+			<if test="recommendSource != null">
+				#{recommendSource} ,
+			</if>
+			<if test="money != null">
+				#{money} ,
+			</if>
+			<choose>
+				<when test="sendTime != null">
+					#{sendTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO sta_fun_recommend_send (
+        	id ,
+        	reg_user_id ,
+        	login ,
+        	real_name ,
+        	commend_reg_user_id ,
+        	commend_login ,
+        	commend_real_name ,
+        	recommend_source ,
+        	money ,
+        	send_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.login != null">
+					#{item.login} ,
+				</if>
+				<if test="item.login == null">
+					DEFAULT ,
+				</if>
+				<if test="item.realName != null and item.realName != ''">
+					#{item.realName} ,
+				</if>
+				<if test="item.realName == null or item.realName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.commendRegUserId != null">
+					#{item.commendRegUserId} ,
+				</if>
+				<if test="item.commendRegUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.commendLogin != null">
+					#{item.commendLogin} ,
+				</if>
+				<if test="item.commendLogin == null">
+					DEFAULT ,
+				</if>
+				<if test="item.commendRealName != null and item.commendRealName != ''">
+					#{item.commendRealName} ,
+				</if>
+				<if test="item.commendRealName == null or item.commendRealName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.recommendSource != null">
+					#{item.recommendSource} ,
+				</if>
+				<if test="item.recommendSource == null">
+					DEFAULT ,
+				</if>
+				<if test="item.money != null">
+					#{item.money} ,
+				</if>
+				<if test="item.money == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.sendTime != null">
+					#{item.sendTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="login != null">
+			login = #{login} ,
+		   </if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName} ,
+			</if>
+			<if test="commendRegUserId != null">
+			commend_reg_user_id = #{commendRegUserId} ,
+		   </if>
+			<if test="commendLogin != null">
+			commend_login = #{commendLogin} ,
+		   </if>
+			<if test="commendRealName != null and commendRealName != ''">
+				commend_real_name = #{commendRealName} ,
+			</if>
+			<if test="recommendSource != null">
+			recommend_source = #{recommendSource} ,
+		   </if>
+			<if test="money != null ">
+				money =money + #{money} ,
+			</if>
+			<if test="sendTime != null">
+				send_time = #{sendTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_fun_recommend_send
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_fun_recommend_send 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaFunRecommendSend">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_fun_recommend_send 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="login != null">
+			AND login = #{login}
+			</if>
+			<if test="realName != null and realName !=''">
+			AND real_name LIKE CONCAT('%',#{realName},'%')
+			</if>
+			<if test="commendRegUserId != null">
+			AND commend_reg_user_id = #{commendRegUserId}
+			</if>
+			<if test="commendLogin != null">
+			AND commend_login = #{commendLogin}
+			</if>
+			<if test="commendRealName != null and commendRealName !=''">
+			AND commend_real_name LIKE CONCAT('%',#{commendRealName},'%')
+			</if>
+			<if test="recommendSource != null and recommendSource !='-999'">
+			AND recommend_source = #{recommendSource}
+			</if>
+			<if test="money != null">
+			AND money = #{money}
+			</if>
+			<if test="sendTimeBegin != null">
+			AND send_time >= #{sendTimeBegin}
+			</if>
+			<if test="sendTimeEnd != null">
+			AND send_time &lt;= #{sendTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_fun_recommend_send 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaFunRecommendSend">
+		SELECT <include refid="columns" />
+		FROM sta_fun_recommend_send 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="position: relative;">
+    <!-- 轮播图开始 -->
+    <div class="include hideBanner" file="index/bannerPic.html"></div>
+
+    <!-- 轮播图结束 -->
+    <!--欢迎登录开始-->
+    <div class="include accInvest" file="register/fastLoginReg.html"></div>
+    <!--欢迎登录结束-->
+    <!-- 平台介绍开始 -->
+    <div class="include" file="index/notice.html"></div>
+    <!-- 平台介绍结束 -->
+    <!-- 公告开始 -->
+    <div class="include accInvest overseaInvest" file="index/post.html"></div>
+    <!-- 公告结束 -->
+    <!-- 标的信息列表 开始 -->
+    <div class="include accInvest overseaInvest" file="index/bidInfoList.html"></div>
+    <!-- 标的信息列表 结束 -->
+    <!-- 基金&信托产品开始 -->
+    <div class="include" file="index/indexGuquan.html"></div>
+    <!-- 基金&信托产品结束 -->
+    <!-- 公司动态&媒体报道&合作伙伴 开始
+    <div class="include" file="index/information.html"></div> -->
+    <!-- 公司动态&媒体报道&合作伙伴 结束 -->
+</div>
+<!-- banner图加快速登录注册大盒子结束 -->
+</body>
+<script>
+    $(document).ready(function() {
+        // commonUtil.includeOuterHtml("fastLoginReg.html");
+        commonUtil.includeOuterHtml("indexGuquan.html");
+        commonUtil.includeOuterHtml("notice.html");
+        commonUtil.includeOuterHtml("bannerPic.html");
+        // 判断登录框是否可见
+        if(containerUtil.get(CONSTANTS.ACC_INVEST) == 1 || containerUtil.get(CONSTANTS.LOGIN_REG_USER) == null
+            || containerUtil.get(CONSTANTS.LOGIN_REG_USER) == undefined){
+            commonUtil.includeOuterHtml("fastLoginReg.html");
+        }
+        // 判断定期投资可见标识
+        /* if(containerUtil.get(CONSTANTS.ACC_INVEST) == 1 && containerUtil.get(CONSTANTS.OVERSEA_INVEST) == 0){
+            commonUtil.includeOuterHtml("post.html");
+            commonUtil.includeOuterHtml("bidInfoList.html");
+            commonUtil.includeOuterHtml("information.html");
+        } */
+
+    });
+</script>
+</html>

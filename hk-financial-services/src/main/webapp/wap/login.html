@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <meta name="keywords" content="互联网金融，鸿坤金服，投资，理财，个人理财，理财收益，鸿坤，鸿坤财富，鸿坤地产，银行理财">
+    <meta name="description" content="鸿坤金服定位为社区“金融超市”，服务于特定社区及特定人群，被评定为国家AAA级信用等级平台、国家高新技术企业、诚信兴商示范单位、中国经济创新示范企业。">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- 默认依webkit内核渲染页面 -->
+    <meta name="renderer" content="webkit">
+    <!--ios禁止识别电话号-->
+    <meta name="format-detection" content="telephone = no"/>
+    <!--禁止识别邮箱-->
+    <meta name="applicable-device" content="mobile">
+    <!-- 禁止缓存-->
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <!-- 指定标题 -->
+    <meta name="apple-mobile-web-app-title" content="鸿坤金服">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="email=no" name="format-detection"/>
+    <link rel="stylesheet" href="../src/css/wap/loginbg.css">
+    <script src="../src/js/rem.js"></script>
+    <style>
+        body{background: url("../src/img/wap/s_bg.jpg") no-repeat;background-size: 100%;width: 6.4rem;margin: 0 auto;}
+        .s-odiv{width: 5.9rem;margin: 1.8rem auto 0;;}
+        .s-divinput{padding: 0.1rem 0 0.1rem 0.24rem;background-color: white;border-radius: 4px;height: 1.78rem;}
+        .s-div-input1{border-bottom: 1px solid #ededed;height: 0.76rem;;line-height: 0.76rem;}
+        .s-div-input1:last-child{border-bottom: none;}
+        .s-loginimg1{width: 0.2rem;line-height: 0.76rem;display: inline-block;}
+        .s-tel,.s-pasword{height: 0.74rem;;width: 4.7rem;line-height: 0.74rem;display: inline-block;vertical-align: 0.04rem;;font-size: 0.24rem;color: #333333;;margin-left: 0.16rem;background-color: transparent;}
+        .s-closeBtn{width: 0.24rem;display: none}
+        .login{color: white;font-size: 0.3rem;border-radius: 3px; height: 0.78rem;line-height: 0.78rem;text-align: center;display: block;width: 100%;margin-top: 0.6rem;letter-spacing: 1px;border: 1px solid #c27f0a;}
+        .btn-color{background: -webkit-linear-gradient(left, #ffb400, #f39200);  background:
+                -o-linear-gradient(right, #ffb400, #f39200);  background: -moz-linear-gradient(right, #ffb400,
+        #f39200);  background: linear-gradient(to right,#ffb400, #f39200);cursor: pointer}
+        .btn-colorhui{background: -webkit-linear-gradient(left, rgba(255,180,0,.5), rgba(243,146,0,.5));  background: -o-linear-gradient(left, rgba(255,180,0,.5), rgba(243,146,0,.5));  background: -moz-linear-gradient(left, rgba(255,180,0,.5), rgba(243,146,0,.5));  background: linear-gradient(left, rgba(255,180,0,.5), rgba(243,146,0,.5));}
+        .wjmima,.kszz{font-size: 0.24rem;color: white;margin-top: 0.4rem;cursor: pointer}
+    </style>
+
+</head>
+<body>
+    <div class="s-odiv">
+        <div class="s-divinput">
+            <div class="s-div-input1">
+                <img src="../src/img/wap/telBtn.png" alt="" class="s-loginimg1"/>
+                <input type="tel" id="tel" class="s-tel odiv-input" placeholder="手机号" maxlength="11"/>
+                <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+            </div>
+            <div class="s-div-input1">
+                <img src="../src/img/wap/lockBtn.png" alt="" class="s-loginimg1"/>
+                <input type="password" id="password" class="s-pasword odiv-input" placeholder="请输入密码" maxlength="20" />
+                <img src="../src/img/wap/closeBtn.png" alt="" class="s-closeBtn"/>
+            </div>
+        </div>
+        <button class="login btn-color" id="loginBtn">立即登录</button>
+        <span class="wjmima fl" id="forgetPass">忘记密码？</span>
+        <span class="kszz fr" id="quickRegist">快速注册 </span>
+    </div>
+   	<div style="margin-top: 1.5rem;text-align: center;color: #fff;"><a href="../index.html" style="text-decoration: underline;">访问电脑端</a></div>
+    <!--气泡提示框-->
+    <div id="bubbleBtn" class="animated pulse">快速注册快速快速</div>
+    <script src="../src/js/zepto.min.js"></script>
+    <script src="../src/js/publicMethod.js"></script>
+    <script type="text/javascript" src="../src/js/security.js"></script>
+    <script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+
+    <script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+    <script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+    <script type="text/javascript" src="../lib/constants.js"></script>
+    <script type="text/javascript" src="../lib/utils/containerUtil.js"></script>
+
+    <script type="text/javascript" src="../lib/rsa/jsencrypt.min.js"></script>
+    <script type="text/javascript" src="../lib/rsa/rsaUtil.js"></script>
+  <script>
+      var _tel = $("#tel");
+      var _password = $("#password");
+
+      //跳转至忘记密码页面
+      $(function () {
+        $("#forgetPass").click(function () {
+            window.location.href = "findPassword.html";
+        });
+      });
+      //跳转至快速注册页面
+      $(function () {
+         $("#quickRegist").click(function () {
+            window.location.href = "register.html";
+         });
+      });
+
+      _tel.blur(function () {
+          telBlur();
+      });
+      _password.blur(function () {
+          passwordBlur();
+      });
+      function telBlur() {
+          var tel = _tel.val();
+          if (commonUtil.isEmpty(tel)){
+              showbubbleBtn("请输入登录手机号!");
+              return false;
+          }else {
+              if (!validUtil.validTelFormat(tel)){
+                  showbubbleBtn("请输入正确的手机号!");
+                  return false;
+              }
+          }
+          return true;
+      }
+      function passwordBlur() {
+          var password = _password.val();
+          if (commonUtil.isEmpty(password)){
+              showbubbleBtn("请输入登录密码!");
+              return false;
+          }
+          return true;
+      }
+      //进行登录操作
+      $("#loginBtn").click(function () {
+          //判断手机号和密码
+            if(telBlur() && passwordBlur()){
+                commonUtil.pwdStrong(_password.val());
+                ajaxUtil.post("/indexController/fasterLogin.do",{"login":_tel.val(),"passwd":rsaUtil.encryptData(_password.val())},function (data) {
+                    if (data.resStatus == CONSTANTS.SUCCESS){
+                        //登录成功跳转至抽奖活动奖品页
+                        if(!commonUtil.isEmpty(containerUtil.get("LOTTERY_ACTIVITY_ID"))){
+                            commonUtil.jump("/wap/lotteryActivity/lotteryActivityList.html");
+                            containerUtil.remove("LOTTERY_ACTIVITY_ID");
+                        }else if(!commonUtil.isEmpty(commonUtil.getUrlParam("redirectFrom"))){
+                            if(commonUtil.getUrlParam("redirectFrom") == 'lotteryActivity'){
+                                commonUtil.jump("/wap/lotteryActivity/lotteryActivityList.html");
+                            }
+                            //其他参数值调转到相应页面即可
+                        }else{
+                            commonUtil.jump("/index.html");
+                        }
+
+                    }else {
+                        showbubbleBtn(data.resMsg);
+                    }
+                });
+            }
+      });
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 标的开始 -->
+<div class="container clearfix" style="margin-top:60px;" id="show_index_bid">
+	<!-- 左侧 -->
+    <div class="qdz_left advice_bg fl" style="position:relative;">
+        <div class="qdz_left_cont">
+             <h3>定期投资</h3>
+		     <p style="font-size:13px;padding-top:40px;"><a href="https://www.hongkunjinfu.com/hyhdController.do?method=toDownApp" style="color: #fff;">下载APP了解更多&gt;&gt;</a> </p>
+		     <p class="advice_p"><a href="${project_base_path}/invest/investList.html" class="more_Bcont">查看更多</a></p>
+        </div>
+    </div>
+    <!-- 右侧标 -->
+    <div class="advice_biao">
+    	<!-- 新手标开始 -->
+	    <div class="tl_xsb fr">
+	    	<div style="position:relative;"><img src="src/img/index/img_xinshou.png" alt="新手专享" style="position:absolute;left:-2px;;top: -14px;z-index:1;">	</div>
+	        <div class="clearfix" style="height:190px;">
+	            <div class="fl" style="width:67%;">
+	                <div class="xsb_title">
+	                    <p class="xsb_t">限未成功投资过的新用户，建议5000元起投，限投56,800元</p>
+	                </div>
+	                <div class="xsb_cont1 clearfix">
+	                    <ul>
+	                        <li>
+	                            <span style="color:#F39200;font-size:40px;line-height: 50px;" class="span_high grennHandInterestRate"></span>%
+	                            <span class="grennHandRaiseRate colr-org"></span>
+	                    </span>
+	                            <p>预期年化收益率</p>
+	                        </li>
+	                        <li>
+	                            <div>
+	                                <span class="grennHandTermValue"></span><span style="color:#333;" class="grennHandTermUnit"></span>
+	                            </div>
+	                            <p>投资期限</p>
+	                        </li>
+	                        <li>
+	                            <div class="xsb_style grennHandDetail"></div>
+	                        </li>
+	                    </ul>
+	                    <div class="clearfix mt-25">
+	                        <div class="xsb_jdt fl">
+	                            <div class="xsb_jdt_up grennHandProgress-width"></div>
+	                            <div class="cicle_jdt  grennHandProgress-left" ></div>
+	                        </div>
+	                        <p class="xsb_no ml-20 mr-10 fl grennHandProgress-text"></p>
+	                        <div class="colr-gray f-13  fl">剩余可投：<span class="f_16 c_fc grennHandResidueAmount"></span> 元</div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="index_yqyl fr">
+	                <div class="clearfix" style="margin-top:36px;" onclick="window.location.href='activity/yqhy_1.html'">
+	                    <div class="fl" style="margin-right:20px;">
+	                        <img src="src/img/index/ic_yaoqingyoulidexiaoshouji.png" alt="邀请有礼">
+	                    </div>
+	                    <div class="yqyl_font fl">
+	                        <!-- <a href="/hyhdController.do?method=toRecommend"> -->
+	                        <h3>邀请有礼</h3>
+	                        <p class="listMass">邀好友，得奖励
+	                            <br>邀请越多，奖励越多
+	                            <br><a href="activity/yqhy_1.html" class="colr-gray">详情请点击&gt;&gt;</a></p>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!-- 新手标结束 -->
+	    <!-- 爆款标开始 -->
+		<div id="hotBidInfoDiv" class="tl_xsb fr" style="margin-top:16px;height:140px;">
+				<div style="position:relative;"><img src="src/img/index/img_baokuan.png" alt="爆款标" style="position:absolute;left:-2px;;top: -14px;z-index:1;">	</div>
+		        <ul class="clearfix tyb_box">
+		            <li class="fl">
+		                <span style="color:#F39200;font-size:40px;" class="span_high hotInterestRate"></span><i style="color:#F39200;">%</i>
+		                <span class="hotRaiseRate colr-org"></span>
+		                <p>预期年化收益率</p>
+		            </li>
+		            <li class="fl" style="width:98px;">
+		                <span class="span_high hotTermValue"></span><span class="hotTermUnit"></span>
+		                <p>投资期限</p>
+		            </li>
+		            <li class="fl">
+		                <span class="span_high hotTotalAmount"></span>元
+		                <p>投资总额</p>
+		            </li>
+		            <li class="tyb_stye fl">
+		                <div class="clearfix">
+		                    <div class="xsb_jdt fl" style="width:100px;">
+		                        <div class="xsb_jdt_up hotProgress-width" ></div>
+		                        <div class="cicle_jdt_2 hotProgress-left"></div>
+		                    </div>
+		                    <span class="tjb_span fr hotProgress-text pl-10"></span>
+		                </div>
+		                <div class="stye_text">剩余可投：<span class="colr-gray hotResidueAmount"></span> 元</div>
+		            </li>
+		            <li class="fr mr-35 hotDetail"> </li>
+		        </ul>
+		</div>
+		<!-- 爆款标结束 -->
+		
+		<!-- 推荐标开始 -->
+		<div id="recommendBidInfoDiv" class="tl_xsb fr" style="margin-top:16px;height:140px;">
+			<div style="position:relative;"><img src="src/img/index/img_tuijian.png" alt=推荐标" style="position:absolute;left:-2px;;top: -14px;z-index:1;">	</div>
+	        <ul class="clearfix tyb_box">
+	            <li class="fl">
+	                <span style="color:#F39200;font-size:40px;" class="span_high recommendInterestRate">   </span><i style="color:#F39200;">%</i>
+	                <span class="recommendRaiseRate colr-org" ></span>
+	                <p>预期年化收益率</p>
+	            </li>
+	            <li class="fl" style="width:98px;">
+	                <span class="span_high recommendTermValue"></span><span class="recommendTermUnit"></span>
+	                <p>投资期限</p>
+	            </li>
+	            <li class="fl">
+	                <span class="span_high recommendTotalAmount"></span>元
+	                <p>投资总额</p>
+	            </li>
+	            <li class="tyb_stye fl">
+	                <div class="clearfix">
+	                    <div class="xsb_jdt fl" style="width: 100px;">
+	                        <div class="xsb_jdt_up recommendProgress-width" ></div>
+	                        <div class="cicle_jdt_2 recommendProgress-left"></div>
+	                    </div>
+	                    <span class="tjb_span fr recommendProgress-text pl-10"></span>
+	                </div>
+	                <div class="stye_text">剩余可投：<span class="colr-gray recommendResidueAmount"></span> 元</div>
+	            </li>
+	            <li class="fr mr-35 recommendDetail"> </li>
+	        </ul>
+    	</div>
+		<!-- 推荐标结束 -->
+	    <!-- 按月付息开始 -->
+	    <div class="fr mt-16" >
+	        <div class="clearfix">
+	            <!-- 月月盈 -->
+	            <div class="fl dq_border">
+	                <div class="dq_top">
+	                    <h3 class="repayByMonth-month-name"></h3>
+	                    <p class="repayByMonth-month-supportCoupon"> </p>
+	                </div>
+	                <div class="dq_bot">
+	                    <div class="dq_biao">
+	                        <div class="dq_shouyi">
+	                            <p>
+	                                <span class="repayByMonth-month-InterestRate"></span>%
+	                                <span class="repayByMonth-month-RaiseRate"></span>
+	                            </p>
+	                            <p>预期年化收益率</p>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix sd_sy">
+	                        <p class="fl">锁定期：<span class="repayByMonth-month-TermValue" style="color:#333;"></span><span class="repayByMonth-month-TermUnit"></span></p>
+	                        <p class="fr">万元收益：<span class="repayByMonth-month-TenThousandIncome"> </span>元</p>
+	                    </div>
+	                    <div class="xsb_stye repayByMonth-month-Progress">
+	                        <div class="clearfix">
+	                            <div class="xsb_jdt fl" style="margin-left:5%;">
+	                                <div class="xsb_jdt_up   repayByMonth-month-Progress-width"></div>
+	                                <div class="cicle_jdt_1  repayByMonth-month-Progress-left"></div>
+	                            </div>
+	                            <span class="tjb_span fr repayByMonth-month-Progress-text" ></span>
+	                        </div>
+	                        <div class="stye_text">剩余可投：<span class="colr-gray repayByMonth-month-ResidueAmount"></span> 元</div>
+	                    </div>
+	                </div>
+	                <div class="ljtz_btn repayByMonth-month-Detail">
+	                </div>
+	            </div>
+	            <!-- 季季赢 -->
+	            <div class="fl dq_border" style="margin-left:9px;margin-right:9px;">
+	                <div class="dq_top">
+	                    <h3 class="repayByMonth-quarter-name"></h3>
+	                    <p class="repayByMonth-quarter-supportCoupon"> </p>
+	                </div>
+	                <div class="dq_bot">
+	                    <div class="dq_biao">
+	                        <div class="dq_shouyi">
+	                            <p>
+	                                <span class="repayByMonth-quarter-InterestRate"></span>%
+	                                 <span class="repayByMonth-quarter-RaiseRate"></span>
+	                            </p>
+	                           
+	                            <p>预期年化收益率</p>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix sd_sy">
+	                        <p class="fl">锁定期：<span class="repayByMonth-quarter-TermValue" style="color:#333;"></span><span class="repayByMonth-quarter-TermUnit"></span></p>
+	                        <p class="fr">万元收益：<span class="repayByMonth-quarter-TenThousandIncome"></span>元</p>
+	                    </div>
+	                    <div class="xsb_stye">
+	                        <div class="clearfix">
+	                            <div class="xsb_jdt fl" style="margin-left:5%;">
+	                                <div class="xsb_jdt_up repayByMonth-quarter-Progress-width"></div>
+	                                <div class="cicle_jdt_1  repayByMonth-quarter-Progress-left"></div>
+	                            </div>
+	                            <span class="tjb_span fr repayByMonth-quarter-Progress-text" ></span>
+	                        </div>
+	                        <div class="stye_text">剩余可投：<span class="colr-gray repayByMonth-quarter-ResidueAmount"></span> 元</div>
+	                    </div>
+	                </div>
+	                <div class="ljtz_btn repayByMonth-quarter-Detail">
+	                </div>
+	            </div>
+	            <!-- 年年盈 -->
+	            <div class="fl dq_border">
+	                <div class="dq_top">
+	                    <h3 class="repayByMonth-year-name"></h3>
+	                    <p class="repayByMonth-year-supportCoupon"> </p>
+	                </div>
+	                <div class="dq_bot">
+	                    <div class="dq_biao">
+	                        <div class="dq_shouyi">
+	                            <p>
+	                                <span class="repayByMonth-year-InterestRate"></span>%
+	                                <span class="repayByMonth-year-RaiseRate"></span>
+	                            </p>
+	                            <p>预期年化收益率</p>
+	                        </div>
+	                    </div>
+	                    <div class="clearfix sd_sy">
+	                        <p class="fl">锁定期：<span class="repayByMonth-year-TermValue" style="color:#333;"></span><span class="repayByMonth-year-TermUnit"></span></p>
+	                        <p class="fr">万元收益：<span class="repayByMonth-year-TenThousandIncome"> </span>元</p>
+	                    </div>
+	                    <div class="xsb_stye">
+	                        <div class="clearfix">
+	                            <div class="xsb_jdt fl" style="margin-left:5%;">
+	                                <div class="xsb_jdt_up repayByMonth-year-Progress-width"></div>
+	                                <div class="cicle_jdt_1  repayByMonth-year-Progress-left"></div>
+	                            </div>
+	                            <span class="tjb_span fr repayByMonth-year-Progress-text" ></span>
+	                        </div>
+	                        <div class="stye_text">剩余可投：<span class="colr-gray repayByMonth-year-ResidueAmount"></span> 元</div>
+	                    </div>
+	                </div>
+	                <div class="ljtz_btn repayByMonth-year-Detail">
+	                </div>
+	            </div>
+	        </div>
+    	</div>
+    	<!-- 按月付息结束 -->
+    	<!-- 体验金开始 -->
+	    <div id="experienceDiv" class="tl_xsb fr  mt-16" style="height:140px;">
+	    	<div style="position:relative;"><img src="src/img/index/img_tiyanbiao.png" alt="体验标" style="position:absolute;left:-2px;;top: -14px;z-index:1;">	</div>
+	        <ul class="clearfix tyb_box">
+	            <li class="fl">
+	                <span><span style="color:#F39200;font-size:42px;" class="span_high experienceInterestRate"></span><i style="color:#F39200;">%</i>
+	                <span class="experienceRaiseRate colr-org"></span></span>
+	                <p>预期年化收益率</p>
+	            </li>
+	            <li class="fl">
+	                <span class="span_high experienceTermValue"> </span><span class="experienceTermUnit"></span>
+	                <p>投资期限</p>
+	            </li>
+	            <li class="fl">
+	                <span class="span_high experienceTotalAmount"></span>元
+	                <p>投资总额</p>
+	            </li>
+	            <li class="tyb_stye fl">
+	                <div class="clearfix">
+	                    <div class="xsb_jdt fl" style="width:100px;">
+	                        <div class="xsb_jdt_up experienceProgress-width"></div>
+	                        <div class="cicle_jdt_2 experienceProgress-left"></div>
+	                    </div>
+	                    <span class="tjb_span fr experienceProgress-text pl-10"></span>
+	                </div>
+	                <div class="stye_text">剩余可投：<span class="colr-gray experienceResidueAmount"></span> 元</div>
+	            </li>
+	            <li class="fr mr-35 experienceDetail"> </li>
+	        </ul>
+	    </div>
+		<!-- 体验金结束 -->
+    </div>
+</div>
+
+<!-- 一次本息开始  暂时隐藏-->
+<div class="container clearfix" style="margin-top:60px;" id = "repayOnceBidDiv">
+    <!-- 左侧开始 -->
+    <div class="qdz_left fl" style="background: url(src/img/index/img_yicibenxidebeijing.png) no-repeat;height:330px;">
+        <div class="qdz_left_cont">
+            <h3 style="margin-top: 49px;">一次本息</h3>
+            <p onclick="window.location.href='navBar/DownApp.html'" style="cursor: pointer;">下载手机APP了解更多>> </p>
+            <p><a href="invest/investList.html?biddRepaymentWay=3" class="more_Bcont">查看更多</a></p>
+        </div>
+    </div>
+    <!-- 左侧结束-->
+    <!-- 右侧 -->
+    <div class="fr">
+        <div class="clearfix">
+            <!-- 月月盈 -->
+            <div class="fl dq_border">
+                <div class="dq_top">
+                    <h3 class="repayOnceBid-month-name"></h3>
+                    <p class="repayOnceBid-month-supportCoupon"> </p>
+                </div>
+                <div class="dq_bot">
+                    <div class="clearfix dq_biao" style="margin:0 8% 0 40px;">
+                        <div class="fl dq_shouyi">
+                            <p>
+                                <span class="repayOnceBid-month-InterestRate"></span>%
+                            </p>
+                            <span class="repayOnceBid-month-RaiseRate"></span>
+                            <p>预期年化收益率</p>
+                        </div>
+                        <div class="fr dq_qixian">
+                            <p><span class="repayOnceBid-month-TermValue" style="color:#333;"></span><span class="repayOnceBid-month-TermUnit"  style="font-size:13px;"></span></p>
+                            <p>锁定期</p>
+                        </div>
+                    </div>
+                    <div class="xsb_stye" style="margin-bottom: 15px;">
+                        <div class="clearfix">
+                            <div class="xsb_jdt fl" style="margin-top:30px;margin-left: 5%;">
+                                <div class="xsb_jdt_up repayOnceBid-month-Progress-width"></div>
+                                <div class="cicle_jdt_1  repayOnceBid-month-Progress-left"></div>
+                            </div>
+
+                            <span class="tjb_span fr" style=" margin-top: 20px;margin-right:8%;"><span class="repayOnceBid-quarter-Progress-text"></span></span>
+                        </div>
+                        <div class="wysy">万元收益：<span class="repayOnceBid-month-TenThousandIncome"> </span>元</div>
+                        <div class="stye_text" style="text-align: center;margin-left: 0;">剩余可投：<span class="colr-gray"><span class="colr-gray repayOnceBid-month-ResidueAmount"></span></span> 元</div>
+                    </div>
+
+                </div>
+                <!-- 立即投资按钮 -->
+                <div class="ljtz_btn repayOnceBid-month-Detail"></div>
+            </div>
+            <!--季季盈-->
+            <div class="fl dq_border" style="margin-left:9px;margin-right:9px;">
+                <div class="dq_top">
+                    <h3 class="repayOnceBid-quarter-name"></h3>
+                    <p class="repayOnceBid-quarter-supportCoupon"> </p>
+                </div>
+                <div class="dq_bot">
+                    <div class="clearfix dq_biao" style="margin:0 8% 0 40px;">
+                        <div class="fl dq_shouyi">
+                            <p>
+                                <span class="repayOnceBid-quarter-InterestRate"></span>%
+                            </p>
+                            <span class="repayOnceBid-quarter-RaiseRate"></span>
+                            <p>预期年化收益率</p>
+                        </div>
+                        <div class="fr dq_qixian">
+                            <p><span class="repayOnceBid-quarter-TermValue" style="color:#333;"></span><span class="repayOnceBid-quarter-TermUnit"  style="font-size:13px;"></span></p>
+                            <p>锁定期</p>
+                        </div>
+                    </div>
+                    <div class="xsb_stye" style="margin-bottom: 15px;">
+                        <div class="clearfix">
+                            <div class="xsb_jdt fl" style="margin-top:30px;margin-left: 5%;">
+                                <div class="xsb_jdt_up repayOnceBid-quarter-Progress-width"></div>
+                                <div class="cicle_jdt_1  repayOnceBid-quarter-Progress-left"></div>
+                            </div>
+
+                            <span class="tjb_span fr" style=" margin-top: 20px;margin-right:8%;"><span class="repayOnceBid-quarter-Progress-text"></span></span>
+                        </div>
+                        <div class="wysy">万元收益：<span class="repayOnceBid-quarter-TenThousandIncome"> </span>元</div>
+                        <div class="stye_text" style="text-align: center;margin-left: 0;">剩余可投：<span class="colr-gray"><span class="colr-gray repayOnceBid-quarter-ResidueAmount"></span></span> 元</div>
+                    </div>
+
+                </div>
+                <!-- 立即投资按钮 -->
+                <div class="ljtz_btn repayOnceBid-quarter-Detail"></div>
+            </div>
+            <!--年年盈-->
+            <div class="fl dq_border">
+                <div class="dq_top">
+                    <h3 class="repayOnceBid-year-name"></h3>
+                    <p class="repayOnceBid-year-supportCoupon"> </p>
+                </div>
+                <div class="dq_bot">
+                    <div class="clearfix dq_biao" style="margin:0 8% 0 40px;">
+                        <div class="fl dq_shouyi">
+                            <p>
+                                <span class="repayOnceBid-year-InterestRate"></span>%
+                            </p>
+                            <span class="repayOnceBid-year-RaiseRate"></span>
+                            <p>预期年化收益率</p>
+                        </div>
+                        <div class="fr dq_qixian">
+                            <p><span class="repayOnceBid-year-TermValue" style="color:#333;"></span><span class="repayOnceBid-year-TermUnit" style="font-size:13px;"></span></p>
+                            <p>锁定期</p>
+                        </div>
+                    </div>
+                    <div class="xsb_stye" style="margin-bottom: 15px;">
+                        <div class="clearfix">
+                            <div class="xsb_jdt fl" style="margin-top:30px;margin-left: 5%;">
+                                <div class="xsb_jdt_up repayOnceBid-year-Progress-width"></div>
+                                <div class="cicle_jdt_1  repayOnceBid-year-Progress-left"></div>
+                            </div>
+
+                            <span class="tjb_span fr" style=" margin-top: 20px;margin-right:8%;"><span class="repayOnceBid-quarter-Progress-text"></span></span>
+                        </div>
+                        <div class="wysy">万元收益：<span class="repayOnceBid-year-TenThousandIncome"> </span>元</div>
+                        <div class="stye_text" style="text-align: center;margin-left: 0;">剩余可投：<span class="colr-gray"><span class="colr-gray repayOnceBid-year-ResidueAmount"></span></span> 元</div>
+                    </div>
+
+                </div>
+                <!-- 立即投资按钮 -->
+                <div class="ljtz_btn repayOnceBid-year-Detail"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 一次本息结束 -->
+
+</body>
+
+</html>
+<script type="text/javascript" src="jslib/index/indexBids.js"></script>
+<script>
+    $(function () {
+        //首页是否展示标的信息
+        ajaxUtil.post("/indexController/isExchangeUser.do", null , function(data){
+            if (data.resMsg != 1 ){
+                //初始化标的
+                // indexBids.initIndexBidInfo();
+                commonUtil.isLogin();
+                if(!commonUtil.isLogin()){commonUtil.sessionTimeOut();return false};
+
+                //定期投资左侧背景图高度
+                setTimeout(function(){
+                    var $adviceBiao = $(".advice_biao").height();
+                    $(".advice_bg").height($adviceBiao);
+                    console.log($adviceBiao);
+                },100)
+			}else{
+                $("#show_index_bid").hide();
+			}
+		});
+
+    });
+</script>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.HouseProDetail">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_HouseProDetail" type="com.hongkun.finance.fund.model.HouseProDetail">
+		<result property="id" column="id"/>
+		<result property="landArea" column="land_area"/>
+		<result property="buildArea" column="build_area"/>
+		<result property="capRate" column="cap_rate"/>
+		<result property="greenRate" column="green_rate"/>
+		<result property="parkSpace" column="park_space"/>
+		<result property="floorNum" column="floor_num"/>
+		<result property="doorNum" column="door_num"/>
+		<result property="proCompany" column="pro_company"/>
+		<result property="proFee" column="pro_fee"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,land_area,build_area,cap_rate,green_rate,park_space,floor_num,door_num,pro_company,pro_fee
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO house_pro_detail ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="landArea != null and landArea != ''">
+				land_area ,
+			</if>
+			<if test="buildArea != null and buildArea != ''">
+				build_area ,
+			</if>
+			<if test="capRate != null and capRate != ''">
+				cap_rate ,
+			</if>
+			<if test="greenRate != null and greenRate != ''">
+				green_rate ,
+			</if>
+			<if test="parkSpace != null and parkSpace != ''">
+				park_space ,
+			</if>
+			<if test="floorNum != null and floorNum != ''">
+				floor_num ,
+			</if>
+			<if test="doorNum != null and doorNum != ''">
+				door_num ,
+			</if>
+			<if test="proCompany != null and proCompany != ''">
+				pro_company ,
+			</if>
+			<if test="proFee != null">
+				pro_fee 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="landArea != null and landArea != ''">
+				#{landArea} ,
+			</if>
+			<if test="buildArea != null and buildArea != ''">
+				#{buildArea} ,
+			</if>
+			<if test="capRate != null and capRate != ''">
+				#{capRate} ,
+			</if>
+			<if test="greenRate != null and greenRate != ''">
+				#{greenRate} ,
+			</if>
+			<if test="parkSpace != null and parkSpace != ''">
+				#{parkSpace} ,
+			</if>
+			<if test="floorNum != null and floorNum != ''">
+				#{floorNum} ,
+			</if>
+			<if test="doorNum != null and doorNum != ''">
+				#{doorNum} ,
+			</if>
+			<if test="proCompany != null and proCompany != ''">
+				#{proCompany} ,
+			</if>
+			<if test="proFee != null">
+				#{proFee} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO house_pro_detail (
+	       	id ,
+	       	land_area ,
+	       	build_area ,
+	       	cap_rate ,
+	       	green_rate ,
+	       	park_space ,
+	       	floor_num ,
+	       	door_num ,
+	       	pro_company ,
+	       	pro_fee 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.landArea != null and item.landArea != ''">
+					#{item.landArea} ,
+				</if>
+				<if test="item.landArea == null or item.landArea == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.buildArea != null and item.buildArea != ''">
+					#{item.buildArea} ,
+				</if>
+				<if test="item.buildArea == null or item.buildArea == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.capRate != null and item.capRate != ''">
+					#{item.capRate} ,
+				</if>
+				<if test="item.capRate == null or item.capRate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.greenRate != null and item.greenRate != ''">
+					#{item.greenRate} ,
+				</if>
+				<if test="item.greenRate == null or item.greenRate == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.parkSpace != null and item.parkSpace != ''">
+					#{item.parkSpace} ,
+				</if>
+				<if test="item.parkSpace == null or item.parkSpace == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.floorNum != null and item.floorNum != ''">
+					#{item.floorNum} ,
+				</if>
+				<if test="item.floorNum == null or item.floorNum == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.doorNum != null and item.doorNum != ''">
+					#{item.doorNum} ,
+				</if>
+				<if test="item.doorNum == null or item.doorNum == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.proCompany != null and item.proCompany != ''">
+					#{item.proCompany} ,
+				</if>
+				<if test="item.proCompany == null or item.proCompany == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.proFee != null and item.proFee != ''">
+					#{item.proFee} 
+				</if>
+				<if test="item.proFee == null or item.proFee == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="landArea != null">
+				land_area = #{landArea} ,
+			</if>
+			<if test="buildArea != null">
+				build_area = #{buildArea} ,
+			</if>
+			<if test="capRate != null">
+				cap_rate = #{capRate} ,
+			</if>
+			<if test="greenRate != null">
+				green_rate = #{greenRate} ,
+			</if>
+			<if test="parkSpace != null">
+				park_space = #{parkSpace} ,
+			</if>
+			<if test="floorNum != null">
+				floor_num = #{floorNum} ,
+			</if>
+			<if test="doorNum != null">
+				door_num = #{doorNum} ,
+			</if>
+			<if test="proCompany != null">
+				pro_company = #{proCompany} ,
+			</if>
+			<if test="proFee != null">
+				pro_fee = #{proFee} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  house_pro_detail
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM house_pro_detail 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_HouseProDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM house_pro_detail 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="landArea != null and landArea !=''">
+			AND land_area = #{landArea}
+			</if>
+			<if test="buildArea != null and buildArea !=''">
+			AND build_area = #{buildArea}
+			</if>
+			<if test="capRate != null and capRate !=''">
+			AND cap_rate = #{capRate}
+			</if>
+			<if test="greenRate != null and greenRate !=''">
+			AND green_rate = #{greenRate}
+			</if>
+			<if test="parkSpace != null and parkSpace !=''">
+			AND park_space = #{parkSpace}
+			</if>
+			<if test="floorNum != null and floorNum !=''">
+			AND floor_num = #{floorNum}
+			</if>
+			<if test="doorNum != null and doorNum !=''">
+			AND door_num = #{doorNum}
+			</if>
+			<if test="proCompany != null and proCompany !=''">
+			AND pro_company = #{proCompany}
+			</if>
+			<if test="proFee != null and proFee !=''">
+			AND pro_fee = #{proFee}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM house_pro_detail 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_HouseProDetail">
+		SELECT <include refid="columns" />
+		FROM house_pro_detail 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-x: hidden;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>定向及合格投资者认定</title>
+    <link rel="stylesheet" href="../src/css/wap/reset.css">
+    <link rel="stylesheet" href="../src/css/wap/index.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/wap/qslistcss.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/wap/apdemo.css">
+
+	<script type="text/javascript" src="../src/js/rem.js"></script>
+	<script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+    <script src="../src/js/JQRadio.js" type="text/javascript"></script>
+    <script src="../src/js/win_alert.js" type="text/javascript"></script>
+	<script src="../lib/utils/dateUtil.js"></script>
+    <style>
+    	.tj_btn_gray{margin:0 auto;width:100%;height:46px;line-height:46px;display:block;border-radius:5px;-webkit-border-radius:5px;background:#cccccc;color:white !important;text-decoration:none;font-size:16px;text-align:center;}
+    </style>
+    <script>
+		$(function() {
+			$("#radio01").JQRadio({});
+		});
+    </script>
+    
+</head>
+
+<body style="overflow-x: hidden;">
+     <header class="z-prompt-header" style="border-bottom: none;" id="head">
+        <a href="javascript:" onclick = "goBack()"></a>
+        <h3>
+            <span style="display: inline-block;padding-left: 5px;">定向及合格投资者认定</span>
+        </h3>
+    </header>
+
+	<div class="inpage" style = "z-index: 1002; padding-top:10px;margin-top:60px;">
+	   <div class="inpagecontent ap">
+	       <div class="contentword">
+	           本问卷旨在了解定向及合格投资者（合作物业员工或业主）可承受的风险程度等情况，借此协助您选择合适的产品或服务类别，以符合您的风险承受能力, 其目的是使本公司所提供的产品或服务与您的风险承受能力等级相匹配。</div>
+		   <div class="contentword">
+	          本公司在此承诺，对于您在本问卷中所提供的一切信息，本公司将严格按照法律法规要求承担保密义务。本公司保证不会将涉及您的任何信息提供、泄露给任何第三方，或者将相关信息用于违法、不当用途。	   
+		   </div>
+			<div class="radio_box" id="radio01" style="height:auto;overflow:hidden;">
+				<!--隐藏表单 radioVal 的值即为选中项li的id值-->
+				<input type="hidden" value="" class="radioVal" name="" />
+				<p class="qs_title mt">1. 您是否为合作物业员工或业主：</p>
+				 <ul id = "question1">
+				   <li id="r1s" name = "A|1">A. 是</li>
+				   <li id="r2" name = "B|0">B. 不是</li>
+				 </ul>			
+				<p class="qs_title mt">2. 您的主要收入来源是：</p>
+				 <ul id = "question2">
+				   <li id="r1" name = "A|3">A.工资、劳务报酬</li>
+				   <li id="r2" name = "B|2">B.生产经营所得</li>
+				   <li id="r3" name = "C|1">C.利息、股息、转让证券等金融性资产收入</li>
+				   <li id="r4" name = "D|1">D. 出租、出售房地产等非金融性资产收入</li>	
+				   <li id="r5" name = "E|0">E. 无固定收入，或者个人或家庭人均收入低于当地城乡居民最低生活保障标准 </li>		   
+				 </ul>			
+				 <p class="qs_title mt">3. 您是否有尚未清偿的数额较大的债务，如有，其性质是：</p>
+				 <ul id = "question3">
+				   <li id="r6" name = "A|3">A. 没有</li>
+				   <li id="r7" name = "B|2">B. 有，住房抵押贷款等长期定额债务</li>
+				   <li id="r8" name = "C|1">C. 有，信用卡欠款、消费信贷等短期信用债务 </li>
+				   <li id="r9" name = "D|0">D. 有，亲朋之间借款 </li>		   
+				 </ul>
+				 <p class="qs_title mt">4. 您可用于投资的资产数额（包括金融资产和不动产）为：</p>
+				 <ul id = "question4">
+				   <li id="r10" name = "A|5">A. 不超过50万元人民币</li>
+				   <li id="r11" name = "B|5">B. 50万-300万元（不含）人民币 </li>
+				   <li id="r12" name = "C|5">C. 300万-1000万元（不含）人民币 </li>
+				   <li id="r13" name = "D|0">D. 1000万元人民币以上</li>	
+				 </ul>
+				 <p class="qs_title mt">5. 有一位投资者一个月内做了15笔交易（同一品种买卖各一次算一笔），您认为这样的交易频率：</p>
+				 <ul id = "question5">
+				   <li id="r14" name = "A|1">A. 太高了</li>
+				   <li id="r15" name = "B|2">B. 偏高 </li>
+				   <li id="r16" name = "C|3">C. 正常</li>
+				   <li id="r17" name = "D|5">D. 偏低</li>		   
+				 </ul>
+				 <p class="qs_title mt">6. 当您进行投资时，您的首要目标是：</p>
+				 <ul id = "question6">
+				   <li id="r18" name = "A|0">A. 尽可能保证本金安全，不在乎收益率比较低 </li>
+				   <li id="r19" name = "B|2">B. 产生一定的收益，可以承担一定的投资风险 </li>
+				   <li id="r20" name = "C|3">C. 产生较多的收益，可以承担较大的投资风险 </li>
+				   <li id="r21" name = "D|5">D. 实现资产大幅增长，愿意承担很大的投资风险 </li>	
+				 </ul>
+				 <dl style="width:100%;margin-top:50px;">
+				   <dt id="r22" style="width:1%;float:left;margin:0;height:34px;" class="selected"></dt>
+				   <span style="display:block;float:right;font-size:14px;color:#333;width:88%;">本人已经了解并愿意遵守国家有关法律、法规、规章及相关业务规则，本人在此郑重承诺以上填写的内容真实、准确、完整。若本人提供的信息发生任何重大变化，本人将及时书面通知贵公司。</span>
+				 </dl>
+			</div>
+	       <div class="name_regist mt">
+			  <p class="mt" id="signDate"></p>
+		   </div> 	   
+	   </div>
+	   <div class="btn_zero">
+	      <a href="javascript:" onclick = "toEvalution()" id="btn" class="tj_btn">确认</a>
+	   </div>
+	</div>
+</body>
+
+
+<script>
+ // 保存风险测评信息
+ function toEvalution(){
+	 // 校验是否选中承诺
+	 var _acceptBoo = $("#btn").hasClass("tj_btn");
+	 if(!_acceptBoo){
+		 return false;
+	 }
+	 // 拼接 有效信息 
+	 var answers = "";
+	 var scores = "";
+	 for(var i = 0; i < 6; i++){
+		var _temp =  $("#question"+ (i+1)).find(".selected").attr("name");
+		var _tempLength = $("#question"+ (i+1)).find(".selected").length;
+		if(_tempLength == 0){
+			alert("您有未答完的题目！");
+			return ;
+		}
+		var _tempStr = _temp.split("|");
+		answers += _tempStr[0] + "|";
+		scores += _tempStr[1] + "|";
+	 }
+	 if(!$("#r1s").hasClass("selected")){
+	 	 alert("您不是我们的定向及合格投资者，<br/>如有疑问请拨打客服电话：<br/>400-900-9630/400-099-0229");
+		 return false;
+	 }
+	 answers = answers.substring(0,answers.length-1);
+	 scores = scores.substring(0,scores.length-1);
+	 
+	 window.sessionStorage.setItem("userInvestAnswer",answers);
+	 window.sessionStorage.setItem("userInvestScores",scores);
+	 //将用户的答案和分数保存至,并返回上一个页面
+	 window.history.back();
+ }
+ 
+ function goBack(){
+	 window.history.back();
+ }
+
+ $(function() {
+     //设置签署日期内容；
+	 $("#signDate").text("签署日期：" +  dateUtil.currDate("yyyy-MM-dd"));
+    // 回显后台传过来的答案
+    var answer = "A|A|A|C|D|C";
+    if(answer != null && answer != ""){
+    	var arr = answer.split("|");
+    	for(var i=0; i<arr.length; i++){
+    	       $("#question" + (i+1) + " li").each(function(index, e){
+    	         var name = $(this).attr("name");
+    	         if(name.indexOf(arr[i]) > -1){
+    	           $(this).addClass("selected");
+    	         }
+    	       });
+    	     }
+    }
+    
+     // 判断选中情况
+	 $("#r22").click(function(){
+		 var _this = $(this);
+		 var _btn = $("#btn");
+		 if(_this.hasClass('selected')){
+			  _this.removeClass("selected");
+			 _btn.removeClass('tj_btn').addClass('tj_btn_gray');
+		 }else{
+			 _this.addClass("selected");
+			 _btn.removeClass('tj_btn_gray').addClass('tj_btn');
+		 }
+	 });
+    
+    
+ });
+</script>
+
+</html>

@@ -1,0 +1,118 @@
+   <style>
+	   span{ color: #3f903f}
+   </style>
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body" >
+	                <div class="well">
+						<table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>标题：【<span  ng-bind="product.name" ></span>】</label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>描述：<span ng-bind="product.comments"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>商品图片</label>
+										<span id="images"></span>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>IOS是否展示：<span ng-bind="product.iosShow"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>是否推荐商品：<span ng-bind="product.recommend"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>所需积分：<span ng-bind="product.point"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>是否为限时抢购：<span ng-bind="product.flashSale"></span></label>
+									</div>
+								</td>
+							</tr>
+							
+							<tr ng-show="product.flashSales==1">
+								<td>
+									<div class="form-group">
+										<label>活动折扣价格：<span ng-bind="product.discountPoint"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>展示开始时间：<span ng-bind="product.showTimeStart"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;
+										<label>展示结束时间：<span ng-bind="product.showTimeEnd"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>配送方式：<span ng-bind="product.sendWay"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>库存：<span ng-bind="product.number"></span></label>
+									</div>
+								</td>
+								
+							</tr>
+
+							<tr>
+							    <td>
+									<div class="form-group">
+										<label>所属类目：<span ng-bind="product.productCategoryName"></span></label>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<label>排序号：<span ng-bind="product.sort"></span></label>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div class="form-group">
+										<label>产品详情：<span id="goodsDetails"></span></label>
+									</div>
+								</td>
+								<td>
+								<div class="form-group">
+										<label>产品信息：<span id="prductInfo"></span></label>
+									</div>
+								</td>
+							</tr>
+
+						</table>
+		     		 </div>
+	              </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>

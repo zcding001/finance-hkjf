@@ -1,0 +1,109 @@
+  <div class="hytj">
+                    <div class="hytj_title"><i class="iconfont icon-touxiang"></i>我的奖金:<span class="f-30 colr-org" id="earnMoney"></span>元</div>
+                    <ul class="hytj_menu clearfix">
+                        <li class="hover"><a href="#">立即推荐</a></li>
+                        <li><a href="#">已推荐用户</a></li>
+                        <li><a href="#">奖金明细</a></li>
+                    </ul>
+                    <!-- 一级和二级好友start -->
+                    <div id="con_bt_1" class="con_bt hide show">
+                        <div class="hytj_cont1">
+                            <!--二级好友邀请图-->
+                            <div><img src="${project_base_path}/src/img/account/reyqtwo.png" height="250px" /></div>
+                            <div class="hytj_a">
+                                <p class="add_text">推荐好友，以下推荐方式任选其一：</p>
+                                <div class="hytj_t"><i class="iconfont icon-xuhao101"></i>复制自己专属的邀请链接，发送给好友，便可邀请好友注册并投资。</div>
+                                <div class="hytj_copy">
+                                    <input type="text" class="hytj_input" id="recommend_link" >
+                                    <button type="button" class="hytj_button" id="copy" data-clipboard-target="#recommend_link">复制链接</button>
+                                </div>
+                                <div class="hytj_t">
+                                    <i class="iconfont icon-xuhao201"></i>将下方您的专属邀请码发给好友，好友注册时，在注册页面填写邀请码处，填写此邀请码即可完成邀请。</div>
+                                <div class="hytj_copy2">
+                                    <span>您的专属推荐码：</span>
+                                    <input type="text" class="hytj_input2" value="">
+                                </div>
+                                <div class="hytj_t">
+                                    <i class="iconfont icon-xuhao301"></i> 微信扫一扫，将打开的页面分享给好友注册，也可以将此二维码截图或拍照后，将二维码图片分享给好友注册。
+                                </div>
+                                <div class="hytj_copy2">
+                                    <img src="">
+                                </div>
+                            </div>
+                            <div class="hy_gz">
+                                <h6>推荐规则：</h6>
+                                <p>
+                                    <span>1、<span id="recomDate"></span>之前完成邀请的用户不参与本次活动。</span>
+                                    <br/> 2、好友购买定期产品，即可获得他首次投资金额(折标后金额)的<span id="recomRate">0.0%</span>作为佣金奖励，佣金可直接提现。折标后金额=(投资期限/12)*投资金额。
+                                    <br/> 3、好友购买钱袋子(仅限移动端)，每日可获得该好友当天钱袋子结算金额预期年化的<span id="qdzRate">0.0%</span>作为佣金奖励。即：钱袋子佣金奖励=好友当天结算金额*<span id="qdzRate1">0.2%</span>/360。
+                                    <br/> 4、本活动不包含投资体验标。
+                                    <br/> 5、定期产品的佣金将于满标放款后1-3个工作日内发放；钱袋子的佣金每日发放；佣金直接打入鸿坤金服可用余额中。
+                                    <br/> 6、最终解释权在法律允许范围内归鸿坤金服所有。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--一级二级好友end  -->
+                    <!-- 我的推荐好友 -->
+                    <div id="con_bt_2" class="con_bt hide">
+                        <div class="yyh">
+                            <div class="yyrh_from">
+                                    <span>姓名：</span>
+                                    <span>
+                                    <input type="text" class="from_c" name="referraName" id="referraName" value=""></span>
+                                    <span>好友关系：</span>
+                                    <span>
+					                    <select class="from_c" name="friendLevel" id="friendLevel">
+					                        <option value="0" selected="">请选择</option>
+					                        <option value="1">一级好友</option>
+					                        <option value="2">二级好友</option>
+					                    </select>
+                					</span>
+                                    <span><button type="button" class="from_but" >查询</button></span>
+                            </div>
+                        </div>
+                        <table class="hy_table">
+                            <tbody>
+            
+                            </tbody>
+                        </table>
+                        <div class="paging recommendList_paging">
+                        
+                        </div>
+                    </div>
+                    <!-- 奖金明细 -->
+                    <div id="con_bt_3" class="con_bt hide">
+                        <table class="hy_table mt-20" id="recommendEarn">
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                        <div class="paging recommendEarnList_paging">
+                        </div>
+                    </div>
+                </div>
+<script type="text/javascript" src="${project_base_path}/jslib/vas/recommend.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/clipboard/clipboard.min.js"></script>
+
+
+<script>
+$(function() {
+	recommendController.atOnceRecommend();
+	$(".hytj_menu li").click(function() {
+	    var $this = $(this);
+	    index = $this.index();
+	    $this.addClass("hover").siblings("li").removeClass("hover");
+	    $(".con_bt").eq(index).addClass("show").siblings(".con_bt").removeClass("show");
+	    if(index == 0){
+	    	recommendController.atOnceRecommend();
+	    }
+	    if(index == 1){
+	    	recommendController.myRecommendFriend();
+	    }
+	    if(index == 2){
+	    	recommendController.earnInfo();
+	    }
+	});
+	
+});
+</script>

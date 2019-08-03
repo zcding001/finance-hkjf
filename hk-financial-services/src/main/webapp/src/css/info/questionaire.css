@@ -1,0 +1,86 @@
+@charset "utf-8";
+.question_in {
+    width: 96%;
+    height: auto;
+    margin: 1% 2%;
+}
+.question_title {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.case_title {
+    min-height: 4em;
+    width: 100%;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    text-align: center;
+    height: auto;
+    font-size: 1.2em;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.question_in >p {
+    font-size: 16px;
+    height: auto;
+    line-height: 1.8em;
+}
+.question_chose {
+    width: 96%;
+    margin: 0 auto;
+    height: auto;
+    overflow: hidden;
+    padding: 0.5em 0;
+}
+.question_chose ul {
+    height: auto;
+    width: 100%;
+}
+.question_chose ul li {
+    float: left;
+    display: block;
+    margin: 0.5em 0;
+    width: 50%;
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+.question_chose ul li lable {
+    float: left;
+    display: block;
+    line-height: 1.4em;
+    width: 82%;
+    margin: 0 0.5em;
+}
+.sign_time{font-size:14px;margin: 2% 0 0 72%;}
+#tj_btn{
+    display: block;margin:0 auto;
+    width: 240px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    background: linear-gradient(to right, #ffb400, #f39200);
+    color: #fff;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+.ip_check{
+    font-size:14px;width:1%;float:left;margin:0;height:34px;
+}
+input[type=checkbox]::before, input[type=checkbox]::after {
+    display: block;
+    content: '';
+    width: 18px;
+    margin-top: 0px;
+    height: 18px;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 1px\9;
+    width:18px;
+    line-height: normal;
+}
+.fun_space{width: 98%;height: auto;overflow: hidden;margin-left: 2%;}
+.sp_sel{display:block;float:left;font-weight:bold;font-size:14px;color:#333;width:88%;margin-left: 2%;}

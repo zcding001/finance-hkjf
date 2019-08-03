@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUser">
+
+    <!-- POJO类与数据库字段对应关系 -->
+    <resultMap id="_RegUser" type="com.hongkun.finance.user.model.RegUser">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="login" column="login"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="passwd" column="passwd"/>
+        <result property="identify" column="identify"/>
+        <result property="type" column="type"/>
+        <result property="headPortrait" column="head_portrait"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="vipFlag" column="vip_flag"/>
+    </resultMap>
+
+    <resultMap id="userWithDetailMap" type="com.hongkun.finance.user.model.vo.UserVO" extends="_RegUser">
+        <result property="realName" column="real_name"/>
+        <result property="enterpriseName" column="enterprise_name"/>
+        <result property="idCard" column="id_card"/>
+        <result property="contactAddress" column="contact_address"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="bankCard" column="bank_card"/>
+        <result property="inviteNo" column="invite_no"/>
+        <result property="commendNo" column="commend_no"/>
+        <result property="type" column="type"/>
+        <result property="extenSource" column="exten_source"/>
+        <result property="groupCode" column="group_code"/>
+        <result property="registSource" column="regist_source"/>
+        <result property="state" column="state"/>
+        <result property="investFlag" column="invest_flag"/>
+        <result property="vipFlag" column="vip_flag"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        <![CDATA[
+		     id,code,login,nick_name,identify,type,head_portrait,last_login_time,state,create_time,modify_time,vip_flag
+             ]]>
+	</sql>
+    <!-- 使用queryColumnId管理的列 -->
+    <sql id="queryColumns">
+        <if test="queryColumnId==null or queryColumnId==''">
+            <![CDATA[
+		     id,code,login,nick_name,identify,type,head_portrait,last_login_time,state,create_time,modify_time,vip_flag
+             ]]>
+        </if>
+        <!-- nameTelType -->
+        <if test="queryColumnId=='nameTelType'">
+            <![CDATA[
+		     id,login,nick_name,type
+             ]]>
+        </if>
+        <!-- idAndName -->
+        <if test="queryColumnId=='idAndName'">
+            <![CDATA[
+		     id,nick_name
+             ]]>
+        </if>
+    </sql>
+    <!-- 插入 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reg_user (
+        <if test="id != null">
+            id ,
+        </if>
+        <if test="code != null and code != ''">
+            code ,
+        </if>
+        <if test="login != null">
+            login ,
+        </if>
+        <if test="nickName != null and nickName != ''">
+            nick_name ,
+        </if>
+        <if test="passwd != null and passwd != ''">
+            passwd ,
+        </if>
+        <if test="identify != null">
+            identify ,
+        </if>
+        <if test="type != null">
+            type ,
+        </if>
+        <if test="headPortrait != null">
+            head_portrait ,
+        </if>
+        last_login_time ,
+        <if test="state != null">
+            state ,
+        </if>
+        <if test="vipFlag != null">
+            vip_flag ,
+        </if>
+        create_time ,
+        modify_time
+        ) VALUES (
+        <if test="id != null">
+            #{id} ,
+        </if>
+        <if test="code != null and code != ''">
+            #{code} ,
+        </if>
+        <if test="login != null">
+            #{login} ,
+        </if>
+        <if test="nickName != null and nickName != ''">
+            #{nickName} ,
+        </if>
+        <if test="passwd != null and passwd != ''">
+            #{passwd} ,
+        </if>
+        <if test="identify != null">
+            #{identify} ,
+        </if>
+        <if test="type != null">
+            #{type} ,
+        </if>
+        <if test="headPortrait != null">
+            #{headPortrait} ,
+        </if>
+        <choose>
+            <when test="lastLoginTime != null">
+                #{lastLoginTime} ,
+            </when>
+            <otherwise>
+                NOW() ,
+            </otherwise>
+        </choose>
+        <if test="state != null">
+            #{state} ,
+        </if>
+        <if test="vipFlag != null">
+            #{vipFlag} ,
+        </if>
+        <choose>
+            <when test="createTime != null">
+                #{createTime} ,
+            </when>
+            <otherwise>
+                NOW() ,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="modifyTime != null">
+                #{modifyTime}
+            </when>
+            <otherwise>
+                NOW()
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO reg_user (
+        <if test="id != null">
+            id ,
+        </if>
+        <if test="code != null and code != ''">
+            code ,
+        </if>
+        <if test="login != null">
+            login ,
+        </if>
+        <if test="nickName != null and nickName != ''">
+            nick_name ,
+        </if>
+        <if test="passwd != null and passwd != ''">
+            passwd ,
+        </if>
+        <if test="identify != null">
+            identify ,
+        </if>
+        <if test="type != null">
+            type ,
+        </if>
+        last_login_time ,
+        <if test="state != null">
+            state ,
+        </if>
+        <if test="vipFlag != null">
+            vip_flag ,
+        </if>
+        create_time ,
+        modify_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <if test="id != null">
+                #{id} ,
+            </if>
+            <if test="code != null and code != ''">
+                #{code} ,
+            </if>
+            <if test="login != null">
+                #{login} ,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                #{nickName} ,
+            </if>
+            <if test="passwd != null and passwd != ''">
+                #{passwd} ,
+            </if>
+            <if test="identify != null">
+                #{identify} ,
+            </if>
+            <if test="type != null">
+                #{type} ,
+            </if>
+            <choose>
+                <when test="lastLoginTime != null">
+                    #{lastLoginTime} ,
+                </when>
+                <otherwise>
+                    NOW() ,
+                </otherwise>
+            </choose>
+            <if test="state != null">
+                #{state} ,
+            </if>
+            <if test="vipFlag != null">
+                #{vipFlag} ,
+            </if>
+            <choose>
+                <when test="createTime != null">
+                    #{createTime} ,
+                </when>
+                <otherwise>
+                    NOW() ,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="modifyTime != null">
+                    #{modifyTime}
+                </when>
+                <otherwise>
+                    NOW()
+                </otherwise>
+            </choose>
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新字段列表 -->
+    <sql id="update_sql">
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code} ,
+            </if>
+            <if test="login != null">
+                login = #{login} ,
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName} ,
+            </if>
+            <if test="passwd != null and passwd != ''">
+                passwd = #{passwd} ,
+            </if>
+            <if test="identify != null">
+                identify = #{identify} ,
+            </if>
+            <if test="headPortrait != null">
+                head_portrait = #{headPortrait} ,
+            </if>
+            <if test="type != null">
+                type = #{type} ,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime} ,
+            </if>
+            <if test="state != null and state != -999">
+                state = #{state} ,
+            </if>
+            <if test="vipFlag != null and vipFlag != -999">
+                vip_flag = #{vipFlag} ,
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime} ,
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime}
+            </if>
+        </set>
+    </sql>
+
+    <!-- 更新 -->
+    <update id="update">
+        UPDATE reg_user
+        <include refid="update_sql"/>
+        <where>
+        	1 = 1
+        	<if test="id != null">
+	            AND id = #{id}
+	        </if>
+	        <if test="login != null">
+	            AND login = #{login}
+	        </if>
+	        <if test="id == null and login == null">
+	            AND 1 = -1
+	        </if>
+        </where>
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user 
+		WHERE
+			id = #{id} 
+
+        ]]>
+	</delete>
+
+    <!-- 根据ID查询 -->
+    <select id="getById" resultMap="_RegUser">
+        SELECT
+        <include refid="columns"/>
+        <![CDATA[
+		FROM reg_user 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="findPage_where">
+        <where>
+            state !=0
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="code != null and code !=''">
+                AND code = #{code}
+            </if>
+            <if test="login != null">
+                AND login = #{login}
+            </if>
+            <if test="nickName != null and nickName !=''">
+                AND nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="passwd != null and passwd !=''">
+                AND passwd = #{passwd}
+            </if>
+            <if test="identify != null">
+                AND identify = #{identify}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="lastLoginTimeBegin != null">
+                AND last_login_time >= #{lastLoginTimeBegin}
+            </if>
+            <if test="lastLoginTimeEnd != null">
+                AND last_login_time &lt;= #{lastLoginTimeEnd}
+            </if>
+            <if test="state != null and state != -999">
+                AND state = #{state}
+            </if>
+            <if test="createTimeBegin != null">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="modifyTimeBegin != null">
+                AND modify_time >= #{modifyTimeBegin}
+            </if>
+            <if test="modifyTimeEnd != null">
+                AND modify_time = #{modifyTimeEnd}
+            </if>
+            <if test="vipFlag != null">
+                AND vip_flag = #{vipFlag}
+            </if>
+            <if test="userIds != null and userIds.size > 0">
+                AND id IN
+                <foreach collection="userIds" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <!-- 查询条件 -->
+    <sql id="findPage_where_userAndDetail">
+        <where>
+            1=1
+            <if test="nickName != null and nickName != ''">
+                AND a.nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="state != null and state != -999">
+                AND a.state LIKE CONCAT('%',#{state},'%')
+            </if>
+            <if test="identify != null">
+                AND a.identify = #{identify}
+            </if>
+            <if test="realName != null and realName != ''">
+                AND (b.real_name LIKE CONCAT('%',#{realName},'%') or c.enterprise_name LIKE CONCAT('%',#{realName},'%'))
+            </if>
+            <if test="idCard != null and idCard != ''">
+                AND b.id_card LIKE CONCAT('%',#{idCard},'%')
+            </if>
+            <if test="inviteNo != null">
+                AND b.invite_no LIKE CONCAT('%',#{inviteNo},'%')
+            </if>
+            <if test="commendNo != null">
+                AND b.commend_no = #{commendNo}
+            </if>
+            <if test="login != null">
+                AND a.login LIKE CONCAT('%',#{login},'%')
+            </if>
+            <if test="createTimeStart != null">
+                AND a.create_time >= #{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null">
+                AND a.create_time &lt;= DATE_ADD(#{createTimeEnd}, INTERVAL 1 DAY)
+            </if>
+            <if test="type != null and type != -999">
+                AND a.type = #{type}
+            </if>
+            <if test="types != null and types.size > 0">
+                AND a.type IN
+                <foreach collection="types" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+            </if>
+            <if test="userIds != null and userIds.size > 0">
+                AND a.id IN
+                <foreach collection="userIds" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+            </if>
+            <if test="notIncludeIds != null and notIncludeIds.size > 0">
+                AND a.id NOT IN
+                <foreach collection="notIncludeIds" open="(" separator="," close=")" item="nid">
+                    ${nid}
+                </foreach>
+            </if>
+
+            <if test="userGroup != null and userGroup != -999"><!-- 用于检索需要发送短信的用户-->
+                <if test="userGroup == 1"><!-- 查询已投资 -->
+                    AND b.invest_flag = 1
+                </if>
+                <if test="userGroup == 2"><!-- 查询实名未投资 -->
+                    AND a.identify = 1 AND b.invest_flag = 0
+                </if>
+                <if test="userGroup == 3"><!-- 查询未实名 -->
+                    AND a.identify = 0
+                </if>
+                <if test="userGroup == 4"><!-- 查询男性用户 -->
+                    <![CDATA[ AND ((length(b.id_card)=18 and substring(b.id_card,17,1)*1%2=1)  or (length(b.id_card)=15 and right(b.id_card,1)*1%2=1)) ]]>
+                </if>
+                <if test="userGroup == 5"><!-- 查询女性用户 -->
+                    <![CDATA[ AND ((length(b.id_card)=18 and substring(b.id_card,17,1)*1%2=0)  or (length(b.id_card)=15 and right(b.id_card,1)*1%2=0)) ]]>
+                </if>
+                <if test="userGroup == 6"><!-- 查询不活跃用户 -->
+                    <![CDATA[ AND DATE_ADD(date(a.last_login_time),INTERVAL 30 DAY)<CURRENT_DATE ]]>
+                </if>
+                <if test="userGroup == 7"><!-- 查询导入型用户 -->
+                    AND b.regist_source = 99
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询数量 -->
+    <select id="findPage_count" resultType="long">
+        SELECT COUNT(ID) FROM reg_user
+        <include refid="findPage_where"/>
+    </select>
+
+    <!-- 查询分页 -->
+    <select id="findPage" resultMap="_RegUser">
+        SELECT
+        <include refid="queryColumns"/>
+        FROM reg_user
+        <include refid="findPage_where"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <select id="findDeletedUser" resultMap="_RegUser">
+        SELECT
+        <include refid="queryColumns"/>
+        FROM reg_user
+        <where>
+            state =0
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="code != null and code !=''">
+                AND code = #{code}
+            </if>
+            <if test="login != null">
+                AND login = #{login}
+            </if>
+            <if test="nickName != null and nickName !=''">
+                AND nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="passwd != null and passwd !=''">
+                AND passwd = #{passwd}
+            </if>
+            <if test="identify != null">
+                AND identify = #{identify}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="lastLoginTimeBegin != null">
+                AND last_login_time >= #{lastLoginTimeBegin}
+            </if>
+            <if test="lastLoginTimeEnd != null">
+                AND last_login_time &lt;= #{lastLoginTimeEnd}
+            </if>
+            <if test="createTimeBegin != null">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="modifyTimeBegin != null">
+                AND modify_time >= #{modifyTimeBegin}
+            </if>
+            <if test="modifyTimeEnd != null">
+                AND modify_time = #{modifyTimeEnd}
+            </if>
+        </where>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+
+    <select id="findUserIdsByTel" resultType="java.lang.Integer">
+		SELECT id
+		FROM reg_user
+		WHERE login LIKE  CONCAT('%',#{userTel},'%')
+	</select>
+
+    <select id="findUserIdsByFuzzyName" resultType="java.lang.Integer">
+		SELECT reg_user_id
+		FROM reg_user_detail
+		WHERE real_name LIKE  CONCAT('%',#{userName},'%')
+	</select>
+
+    <select id="findUserIdsByUserVO" resultType="java.lang.Integer">
+        SELECT ru.id
+        FROM reg_user ru join reg_user_detail rud on ru.id = rud.reg_user_id
+        <where>
+            1=1
+            <if test="nickName != null and nickName !=''">
+                AND ru.nick_name LIKE CONCAT('%',#{nickName},'%')
+            </if>
+            <if test="realName != null and realName !=''">
+                AND rud.real_name LIKE CONCAT('%',#{realName},'%')
+            </if>
+            <if test="login != null">
+                AND ru.login LIKE CONCAT('%',#{login},'%')
+            </if>
+            <if test="groupCode != null">
+                AND rud.group_code LIKE CONCAT('%',#{groupCode},'%')
+            </if>
+             <if test="inviteNo != null">
+                AND rud.invite_no = #{inviteNo}
+            </if>
+            <if test="idCard != null and idCard !=''">
+                AND rud.id_card = #{idCard}
+            </if>
+        </where>
+    </select>
+
+    <select id="findRegUserTelAndRealNameById" resultMap="userWithDetailMap">
+		SELECT a.login,b.real_name
+		FROM reg_user a
+		LEFT JOIN reg_user_detail b
+		ON a.id=b.reg_user_id
+		WHERE a.id=#{userId}
+	</select>
+
+    <!-- 根据user和detail的联合信息查询数量 -->
+    <select id="listConditionPageCount" resultType="long">
+        SELECT COUNT(a.ID)
+        FROM reg_user a
+        LEFT JOIN reg_user_detail b
+        ON a.id=b.reg_user_id
+        LEFT JOIN reg_company_info c
+        ON a.id=c.reg_user_id
+        <include refid="findPage_where_userAndDetail"/>
+    </select>
+
+    <!--  根据user和detail的联合信息查询分页 -->
+    <select id="listConditionPage" resultMap="userWithDetailMap">
+        SELECT
+        a.id AS userId,
+        a.nick_name,
+        b.real_name,
+        c.enterprise_name,
+        b.id_card,
+        a.login,
+        b.invite_no,
+        a.create_time,
+        a.state,
+        a.type,
+        a.head_portrait,
+        b.regist_source,
+        b.group_code,
+        b.exten_source,
+        b.commend_no
+        FROM reg_user a
+        LEFT JOIN reg_user_detail b
+        ON a.id=b.reg_user_id
+        LEFT JOIN reg_company_info c
+        ON a.id=c.reg_user_id
+        <include refid="findPage_where_userAndDetail"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 通过条件查询用户信息 -->
+    <select id="findUserWithDetailByInfo" resultMap="userWithDetailMap">
+        SELECT
+        a.id AS userId,
+        a.nick_name,
+        b.real_name,
+        a.identify,
+        c.enterprise_name,
+        b.id_card,
+        a.login,
+        a.head_portrait,
+        b.invite_no,
+        a.create_time,
+        a.state,
+        a.type,
+        b.regist_source,
+        b.group_code,
+        b.exten_source,
+        b.commend_no
+        FROM reg_user a
+        LEFT JOIN reg_user_detail b
+        ON a.id=b.reg_user_id
+        LEFT JOIN reg_company_info c
+        ON a.id=c.reg_user_id
+        <include refid="findPage_where_userAndDetail"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <select id="findUserWithDetailById" resultMap="userWithDetailMap">
+		SELECT 
+			a.id AS userId,
+			a.nick_name,
+			b.real_name,
+			b.id_card,
+			a.login,
+			b.invite_no,
+			a.create_time,
+			a.state,
+			a.type,
+            a.head_portrait,
+			b.regist_source,
+			b.group_code,
+			b.exten_source,
+			b.commend_no,
+			d.email
+		FROM reg_user a
+		INNER JOIN reg_user_detail b  ON a.id=b.reg_user_id 
+		INNER JOIN reg_user_info d    ON a.id = d.reg_user_id 
+		where a.id = #{userId}
+	</select>
+
+    <select id="findPropertyDicDataList" resultType="java.util.Map">
+		SELECT 
+			a.id as value, 
+			b.enterprise_name as name
+		FROM reg_user a
+		LEFT JOIN reg_company_info b  ON a.id=b.reg_user_id
+		where a.type = 3 AND a.state=1
+	</select>
+
+    <select id="findOperatorCount" resultType="java.lang.Long">
+		SELECT COUNT(id)
+		FROM reg_user
+		WHERE
+		login=#{login}
+		AND
+		`type`=5
+		AND
+		state  IN (1,2)
+	</select>
+
+    <select id="findUserMenuByLogin" resultType="java.lang.Integer">
+        select  id from sys_menu sm where sm.id in (
+            SELECT DISTINCT
+                 rmr.sys_menu_id
+            FROM
+                sys_role_menu_rel rmr
+            WHERE
+                rmr.state = 1
+            AND rmr.sys_role_id IN (
+                    SELECT DISTINCT
+                        urr.sys_role_id
+                    FROM
+                        sys_user_role_rel urr
+                    WHERE
+                        urr.state = 1
+                    AND urr.reg_user_id = (
+                            SELECT DISTINCT
+                                id
+                            FROM
+                                reg_user u
+                            WHERE
+                                u.state = 1
+                            AND u.type = #{userType}
+                            AND u.login = #{login}
+                    )
+                )
+         )
+        <if test="sysType != null">
+            AND sm.type = #{sysType}
+        </if>
+	</select>
+
+    <!--根据菜单找到用户的权限-->
+    <select id="findUserAuthIdByMenus" resultType="java.lang.Integer">
+        SELECT DISTINCT
+            mpr.sys_pri_id
+        FROM
+            sys_menu_pri_rel mpr
+        WHERE
+           mpr.state=1
+           AND
+           mpr.sys_menu_id IN
+           <foreach collection="list" open="(" separator="," close=")" item="mid">
+               ${mid}
+           </foreach>
+    </select>
+
+    <select id="findUserSimpleVoList" resultType="com.hongkun.finance.user.model.vo.UserSimpleVo">
+        SELECT ru.id as id ,ru.login as login,rud.real_name as realName
+        FROM
+            reg_user  ru inner join reg_user_detail  rud on ru.id = rud.reg_user_id
+        WHERE
+        	ru.id in 
+           <foreach collection="list" open="(" separator="," close=")" item="val">
+               ${val}
+           </foreach>
+    </select>
+    
+    <select id="findUserWithPwdByLogin" resultMap="_RegUser" parameterType="java.lang.Long">
+        SELECT
+        id,code,login,nick_name,passwd,identify,type,head_portrait,last_login_time,state,create_time,modify_time,vip_flag
+        FROM reg_user
+        <![CDATA[
+        WHERE  1 = 1 AND  login = #{login}
+		]]>
+    </select>
+
+    <select id="findRegUserByLogin" resultMap="_RegUser" parameterType="java.lang.Long">
+        SELECT
+        id,code,login,nick_name,identify,type,head_portrait,last_login_time,state,create_time,modify_time,vip_flag
+        FROM reg_user
+        <![CDATA[
+        WHERE  1 = 1 AND  login = #{login}
+		]]>
+    </select>
+    <!--根据用户id集合获取用户信息-->
+    <select id="findUserSimpleVoByIdList" resultType="com.hongkun.finance.user.model.vo.UserSimpleVo">
+        SELECT
+            a.id,
+            a.login,
+            b.email,
+            b.contact_address as contactAddress,
+            c.real_name as realName,
+            c.id_card as idCard
+        FROM
+            reg_user a
+            LEFT JOIN reg_user_info b ON a.id = b.reg_user_id
+            LEFT JOIN reg_user_detail c ON a.id = c.reg_user_id WHERE a.id IN
+            <foreach collection="collection" open="(" separator="," close=")" item="val">
+                ${val}
+            </foreach>
+    </select>
+
+    <select id="findEmailsByRegUserIds" resultType="java.lang.String">
+		SELECT email
+		FROM reg_user_info
+		WHERE reg_user_id in
+            <foreach collection="collection" open="(" separator="," close=")" item="val">
+                ${val}
+           </foreach>
+	</select>
+    <select id="findCommonRecommendUser" resultType="java.lang.Integer">
+        SELECT id
+        FROM reg_user
+        WHERE 1=1
+        <if test="userIds != null">
+            AND id not in
+            <foreach collection="userIds" open="(" separator="," close=")" item="regUserId">
+                ${regUserId}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 根据user和detail的联合信息查询数量 -->
+    <select id="findRegUserVipRecordListCount" resultType="long">
+        SELECT
+                COUNT(*)
+        FROM
+                reg_user AS a
+        INNER JOIN reg_user_vip_record AS b ON b.reg_user_id = a.id
+        INNER JOIN reg_user_detail AS c ON a.id = c.reg_user_id
+        <include refid="findRegUserVipRecordList_where"/>
+               
+    </select>
+
+    <!--  根据user和detail的联合信息查询分页 -->
+    <select id="findRegUserVipRecordList" resultType="com.hongkun.finance.user.model.vo.UserVO">
+        SELECT
+            a.id AS userId,
+            a.login AS login,
+            c.real_name AS realName,
+            b.now_money AS nowMoney,
+            b.times AS times,
+            b.create_time AS createTime
+        FROM
+        reg_user AS a
+        INNER JOIN reg_user_vip_record AS b ON b.reg_user_id = a.id
+        INNER JOIN reg_user_detail AS c ON a.id = c.reg_user_id
+        <include refid="findRegUserVipRecordList_where"/>
+        ORDER BY b.create_time DESC, b.times DESC
+    </select>
+    <!--根据用户邀请码获取用户信息-->
+    <select id="getUserInfoByInviteNo" resultMap="userWithDetailMap">
+        SELECT
+        a.id AS userId,
+        a.nick_name,
+        b.real_name,
+        b.id_card,
+        a.login,
+        b.invite_no,
+        a.create_time,
+        a.state,
+        a.type,
+        a.head_portrait,
+        b.regist_source,
+        b.group_code,
+        b.exten_source,
+        b.commend_no
+        FROM reg_user a
+        INNER JOIN reg_user_detail b  ON a.id=b.reg_user_id
+        INNER JOIN reg_user_info d    ON a.id = d.reg_user_id
+        where b.invite_no = #{inviteNo} AND b.state = 1
+    </select>
+
+    <sql id="findRegUserVipRecordList_where">
+        <where>
+            a.vip_flag = 1 
+            <if test="login != null">
+                AND a.login = #{login} 
+            </if>
+            <if test="realName != null and realName !=''">
+                AND c.real_name LIKE CONCAT('%',#{realName},'%')
+            </if>
+            <if test="times != null">
+                AND b.times = #{times}
+            </if>
+        </where>
+    </sql>
+
+    <!--根据菜单找到用户的权限-->
+    <select id="findAccountSecondMenuIdsByMenuName" resultType="java.lang.Integer">
+       select id
+       from sys_menu
+       where pid = (select id from sys_menu where menu_name = #{menuName} and type =2 and pid =0);
+    </select>
+
+</mapper>

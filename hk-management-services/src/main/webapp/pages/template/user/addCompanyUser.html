@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px; margin-bottom: 20px;">
+                <span style="float:left; font-size: 18px;">添加企业账号</span>
+            </div>
+            <!-- /.panel-heading -->
+			<form name="companyUserForm" id="companyUserForm" enctype="multipart/form-data" novalidate>
+				<div class="panel-body">
+					<div class="well">
+						<div class="form-group">
+							<label class="textright">昵称:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="nickName" ng-model="companyUser.nickName" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>手机号:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入手机号" name="login" ng-model="companyUser.login" type="text"
+								   validator="required,tel" valid-method="blur" message-id="loginError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="loginError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>密码:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入密码" name="passwd" ng-model="companyUser.passwd" type="password"
+								   validator="required" valid-method="blur" message-id="passwdError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="passwdError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>重复密码:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入确认密码" name="rePasswd" ng-model="companyUser.rePasswd" type="password"
+								   validator="required" valid-method="blur" message-id="rePasswdError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="rePasswdError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>企业名称:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="enterpriseName" ng-model="companyUser.enterpriseName" type="text" validator="required" valid-method="blur" message-id="enterpriseNameError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="enterpriseNameError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright">企业类型:</label>
+							<select class="form-control ng-pristine ng-valid ng-touched textstyle" name="type" ng-model="companyUser.type" ng-init="companyUser.type = types[0].value" ng-options="x.value as x.name for x in types"></select>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户行名称:</label>
+							 <select class="form-control ng-pristine ng-valid ng-touched textstyle" name="bankCode" ng-model="companyUser.bankCode" validator="required" valid-method="blur" message-id="bankCodeError" >
+                                 <option  value="">--请选择</option>
+                                <option ng-repeat="tp in bankNames" value="{{tp.value+''}}">{{tp.name}}</option>
+                            </select>
+                             <span style="color:#F00" class="bid-info" id="bankCodeError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>开户行地址:</label>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="bankProvince" ng-model="companyUser.bankProvince" ng-change="bankProvincesChange()" style="width: 20%;">
+								<option  value="">省</option>
+								<option ng-repeat="bp in bankProvinces" value="{{bp.areaCode}}">{{bp.areaName}}</option>
+							</select>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="bankCity" ng-model="companyUser.bankCity" style="width: 24.7%;">
+								<option  value="">市</option>
+								<option ng-repeat="tmp in bankCitys" value="{{tmp.areaCode}}">{{tmp.areaName}}</option>
+							</select>
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="bankError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>银行账号:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入银行卡号" name="bankCard" ng-model="companyUser.bankCard" type="text"
+								   validator="required" valid-method="blur" message-id="bankCardError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="bankCardError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>支行名称:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入支行名称" name="branchName" ng-model="companyUser.branchName" type="text"
+								   validator="required" valid-method="blur" message-id="branchNameError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="branchNameError"></span>
+						</div>
+						<div class="form-group" ng-if="companyUser.type == 3">
+							<label class="textright"><span class="font-red">*&nbsp;</span>机构码:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入机构码" name="groupCode" ng-model="companyUser.groupCode" type="text"
+								   validator="required,lengtext" min="4" max="4" lengtext-error-message="请填写4位机构码！" valid-method="blur" message-id="groupCodeError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="groupCodeError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright">开户行许可证:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="bankLicenseUrl" ng-model="companyUser.bankLicenseUrl" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">组织机构代码:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="orgNo" ng-model="companyUser.orgNo" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">注册省市区:</label>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="registerProvince" ng-model="companyUser.registerProvince" ng-change="registerProvincesChange()" style="width: 11.5%;">
+								<option  value="">省</option>
+								<option ng-repeat="tmp in registerProvinces" value="{{tmp.areaCode}}">{{tmp.areaName}}</option>
+							</select>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="registerCity" ng-model="companyUser.registerCity" ng-change="registerCitysChange()" style="width: 16.5%;">
+								<option  value="">市</option>
+								<option ng-repeat="tmp in registerCitys" value="{{tmp.areaCode}}">{{tmp.areaName}}</option>
+							</select>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle" name="registerCountry" ng-model="companyUser.registerCountry" style="width: 16.5%;">
+								<option  value="">县</option>
+								<option ng-repeat="tmp in registerCountrys" value="{{tmp.areaCode}}">{{tmp.areaName}}</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="textright">注册详细地址:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="registerAddress" ng-model="companyUser.registerAddress" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">法人代表:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="corporate" ng-model="companyUser.corporate" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>法人手机号:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle"
+								   placeholder="请输入法人手机号" name="legalTel" ng-model="companyUser.legalTel" type="text"
+								   validator="required,tel" valid-method="blur" message-id="legalTelError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="legalTelError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>法人身份证号:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="legalldNo" ng-model="companyUser.legalldNo"  type="text"  validator="required" valid-method="blur" message-id="legalldNoError">
+							<span style="color:#F00;display:inline-block;" class="bid-info" id="legalldNoError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright">代理人:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="agent" ng-model="companyUser.agent" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">营业执照:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="licenseNo" ng-model="companyUser.licenseNo" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">税务登记号:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="taxNo" ng-model="companyUser.taxNo" type="text">
+						</div>
+						<div class="form-group">
+							<label class="textright">邮箱:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" name="email" ng-model="companyUser.email" type="text">
+						</div>
+
+						<div>
+							<button type="button" class="btn btn-outline btn-success"
+									ng-click="submit(companyUserForm)" validator-submit="companyUserForm">保存
+							</button>
+							<button type="button" class="btn btn-outline btn-success" onclick="window.history.go(-1)">返回</button>
+						</div>
+					</div>
+				</div>
+			</form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

@@ -1,0 +1,206 @@
+<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/rdcss.css">
+<div class="box">
+	<div class="fhb_tips">发送的红包总额不能超过您的鸿坤金服账户余额</div>
+	<div class="fhb_main">
+		<div class="fhb_list">
+			<p class="zd_name">您的鸿坤金服账户余额：</p>
+			<div class="zd_cont lh">
+				<span id="useAbleMoney"></span>元
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="fhb_list">
+			<p class="zd_name">红包名称：</p>
+			<div class="zd_cont">
+				<input type="text" class="fhb_input" maxlength="20" name="redPageName" id="redPageName">
+				<span id="err_redPageName" style="color:red"></span>
+				<p class="zd_tips">最多输入20个字符(限英文字母或汉字)</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="fhb_list">
+			<p class="zd_name">面额：</p>
+			<div class="zd_cont">
+				<input type="text" class="fhb_input" name="redPageValue" id="redPageValue" maxlength="12"
+					   onkeydown="if(event.keyCode==13) return false;" autocomplete="off" placeholder="">元&nbsp;
+				<span id="err_redPageValue" style="color:red"></span>
+				<p class="zd_tips">面额最多两位小数</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="fhb_list">
+			<p class="zd_name">添加接受对象： </p>
+			<div class="zd_cont">
+				<p class="lh"><span>手动输入鸿坤金服账号/手机号， 最多可添加3个。</span></p>
+				<div class="add_tle">
+					<div class="tle_c">
+						<p class="zd_tips mlr_20"></p>
+						<input type="text" class="fhb_input fl" name="gainerTel" id="gainerTel">
+						<button type="button" class="add_button fl" id="add_button">添加</button>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<p class="zd_tips mt_10" id="zredpageValue"></p>
+				<button type="button" class="add_button w_240" id="fhbcj">发送红包</button>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script>
+    var telArr = new Map();
+    //红包接收人列表
+    var $add_tle = $(".add_tle");
+    var $redPageName = $("#redPageName");
+    var $redPageValue = $("#redPageValue");
+    var $useAbleMoney = $("#useAbleMoney");
+    var $gainerTel = $("#gainerTel");
+    var $zredpageValue = $("#zredpageValue");
+    $(function () {
+        //获取用户可用余额
+        ajaxUtil.post("/userController/getUseAbleMoney.do",null,function (data) {
+            if (data.resStatus == CONSTANTS.SUCCESS){
+                $useAbleMoney.text(data.params.useAbleMoney);
+            }else {
+                dialogUtil.msg("获取可用余额异常","获取可用余额异常，请稍后重试！",true);
+            }
+        });
+
+        //红包名称校验
+        $redPageName.blur(function () {
+            checkRedPageName();
+        });
+        //红包金额校验
+        $redPageValue.blur(function () {
+            checkRedPageValue();
+        });
+
+        //红包名称校验
+        function checkRedPageName() {
+            var redPageName = $redPageName.val();
+            var reg = /^[\u4E00-\u9FFFa-zA-Z]+$/;
+            if(!reg.test(redPageName)){
+                $("#err_redPageName").addClass("Validform_wrong").text("您输入的格式有误，请重新输入！");
+                return false;
+            }
+            $("#err_redPageName").removeClass("Validform_wrong").addClass("Validform_right").text("");
+            return true;
+        }
+
+        //添加红包接收人
+        $("#add_button").click(function () {
+            if (telArr.size >= 3){
+                dialogUtil.alert("提示","最多可添加3个用户！");
+                return;
+            }
+            var gainerTel = $gainerTel.val();
+            if (commonUtil.isEmpty(gainerTel)) {
+                dialogUtil.alert("提示","请输入手机号！");
+                return;
+            }
+            // 手机号校验，平台账户手机号不进行校验
+			if (gainerTel != "88800000000"){
+                var reg = new RegExp(/^0{0,1}(13[0-9]|15[0-9]|18[0-9]|14[0-9]|16[0-9]|17[0-9])[0-9]{8}$/);
+                if(!reg.test(gainerTel)) {
+                    dialogUtil.alert("提示","请输入正确的手机号！");
+                    return;
+                }
+            }
+            //判断手机号是否已经存在
+            if (telArr.has(gainerTel)){
+                dialogUtil.alert("提示","该手机号已经添加过了！");
+                return;
+            }
+            //后台查询该手机号是否合法
+            ajaxUtil.post("/userController/findPointReceiveUserByTel.do",{"tel":gainerTel},function (result) {
+                if (result.resStatus == CONSTANTS.SUCCESS){
+                    $gainerTel.val("");
+                    //用户信息查询成功，添加到map中
+					telArr.set(result.resMsg.tel,result.resMsg.id);
+					//将用户数据渲染出来
+                    var userHtml = '<dl class="tle_list">' +
+                        '<dd>'+result.resMsg.name+'</dd>' +
+                        '<dd class="tel">'+result.resMsg.tel+'</dd>' +
+                        '<dd> <div class="dd_close" tel="'+result.resMsg.tel+'" style="cursor: pointer" onclick="delUser(this)">×</div> </dd> </dl>';
+                    $add_tle.append(userHtml);
+                    //重新计算消耗的金额
+                    checkRedPageValue();
+                }else {
+                    dialogUtil.alert("提示",result.resMsg);
+                }
+            });
+        });
+
+        //发送红包
+        $("#fhbcj").click(function () {
+            if (telArr.size == 0){
+                dialogUtil.alert("提示","请选择红包接收人！");
+                return;
+			}
+            var acceptUsers = "";
+            telArr.forEach(function (data) {
+                acceptUsers = data + "," +  acceptUsers ;
+            });
+            acceptUsers = acceptUsers.substring(0,acceptUsers.length-1);//去除最后一个逗号
+			if (checkRedPageValue() && checkRedPageName()){
+			    var confirmBtn = function(){
+					//sendReason 因为参数非空校验传递，并不保存该字段的值
+                    var params = {"value":$redPageValue.val(),"endTime": dateUtil.dateTime(dateUtil.addDay(15,new Date())),
+                        "userIds":acceptUsers,"sendReason":"个人发送红包","name":$redPageName.val()};
+
+                    ajaxUtil.post("/redPacketController/distributeRedPacketToUser.do",params,function (result) {
+                        if (result.resStatus == CONSTANTS.SUCCESS){
+                            var callBack = function () {
+                                commonUtil.jumpAccountMenu("sendRedPage.html");
+                            };
+                            dialogUtil.alert("提示","红包发送成功",callBack);
+                        }else {
+                            dialogUtil.alert("提示",result.resMsg);
+                        }
+                    })
+				};
+			    //确定发送红包弹窗
+				dialogUtil.confirm("信息提示","发送红包将冻结资金，是否继续？",confirmBtn);
+
+			}
+        });
+    });
+
+    //红包金额校验
+    function checkRedPageValue() {
+        var useAbleMoney = $useAbleMoney.text();
+        var redPageValue = $redPageValue.val();
+        var regex = /^(^(0\.0[1-9]$)|(^0\.[1-9][0-9]{0,1}$)$)|(^[1-9]{1}[0-9]{0,8}\.{0,1}[0-9]{0,2}$)$/;
+        if (commonUtil.isEmpty(redPageValue)){
+            $("#err_redPageValue").addClass("Validform_wrong").text("请输入发送金额！");
+            return false;
+        }
+        if (!regex.test(redPageValue)){
+            $("#err_redPageValue").addClass("Validform_wrong").text("请输入有效发送金额(保留两位小数)！");
+            return false;
+        }
+        if (parseFloat(parseFloat(redPageValue).toFixed(2))*telArr.size > parseFloat(parseFloat(useAbleMoney).toFixed(2))){
+            $("#err_redPageValue").addClass("Validform_wrong").text("对不起，你的可用余额不足！");
+            return false;
+        }
+        $("#err_redPageValue").removeClass("Validform_wrong").addClass("Validform_right").text("");
+        var num = telArr.size;
+        if (num > 0){
+            //面额
+            var value = $redPageValue.val();
+            //总额
+            var sumValue = value*num;
+            $zredpageValue.html("总额：<span class='ft_18'>"+sumValue+"</span>元（面额："+value+"元 × 接收成员："+num+"个)");
+		} else {
+            $zredpageValue.html("");
+		}
+        return true;
+    }
+
+    function delUser(obj) {
+        var tel = $(obj).attr("tel");
+        telArr.delete(tel);
+        $(obj).parent().parent().remove();
+        checkRedPageValue();
+    }
+</script>

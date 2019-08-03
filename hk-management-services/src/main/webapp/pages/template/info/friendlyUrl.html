@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+               <span style="float:left;width:30%;">友情链接</span> 
+            </div>
+            <!-- /.panel-heading -->
+            <form name="InfoFriendForm" id="infoFriendForm" novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                  <input type="hidden" name="type" value="4"/>
+	                   <input type="hidden" name="infomationId" id="infomationId"/>
+	                   <input type="hidden" name="channel" id="channel">
+	                   
+	                   <div class="form-group">
+	       			       <label class="textright" style="width: 150px;"><span class="font-red pos_r">*&nbsp;</span>友情链接名称:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a title..." name="title" ng-model="title"  type="text"  validator="required,lengtext" min="1" max="150" lengtext-error-message="标题至少1个字符,最多150个字符！" lengtext-success-message="" valid-method="blur" message-id="titleError">
+	      			       <span style="color:#F00" class="bid-info" id="titleError"></span>
+	              	   </div>
+	              	    <div class="form-group">
+	       			       <label class="textright" style="width: 150px;"><span class="font-red pos_r">*&nbsp;</span>友情链接URL:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a url..." name="url" ng-model="url"  type="text"  validator="required,url" valid-method="blur" message-id="urlError">
+	      			       <span style="color:#F00" class="bid-info" id="urlError"></span>
+	              	   </div>
+	              	   <div class="form-group" style="height: 34px;">
+                            <label class="textright" style="float:left;width:149px;"><span class="font-red">*&nbsp;</span>显示平台:</label>
+                            <div ng-repeat="ch in channels" style="float:left;margin-left:5px;margin-top: 0px;">
+                                <input type="checkbox" value="{{ch.value}}" name="channel{{ch.value}}" ng-model="ch.checked" validator="required" validation-group="channelError" style="margin-top:9px;">{{ch.name}}&nbsp;&nbsp;
+                            </div>
+                            <span class="bid-info show-span" id="channelError"></span>
+                        </div>
+		     		   <div class="form-group">
+		       			  <label class="textright" style="width: 150px;"><span class="font-red pos_r">*&nbsp;</span>网站排序值:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="Enter a sort..." name="sort" ng-model="sort"  type="text"  validator="required,integertext" integertext-error-message="请输入正整数值!" integertext-success-message="" valid-method="blur" message-id="sortError">
+	      			       <span style="color:#F00" class="bid-info" id="sortError"></span>
+		                </div>
+		     		  <div style="width:70%;padding-left:125px;">
+		     		    <span ng-show="showPage">
+			     		    <button type="button" class="btn btn-outline btn-success" ng-click="submit(InfoFriendForm)" validator-submit="InfoFriendForm">保存</button>
+			     		</span>
+			     		<span ng-hide="showPage">
+			     		    <button type="button" class="btn btn-outline btn-success" ng-click="update(InfoFriendForm)" validator-submit="InfoFriendForm">修改</button>
+			     		</span>
+				     	<button type="button" class="btn btn-outline btn-success" ng-click="preview()">预览</button>
+				     	<button type="button" class="btn btn-outline btn-success" ng-click="reset(InfoFriendForm)">重置</button>
+			            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+		           </div>
+		     		 
+		     		 
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

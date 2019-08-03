@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.roster.model.RosNotice">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RosNotice" type="com.hongkun.finance.roster.model.RosNotice">
+		<result property="id" column="id"/>
+		<result property="type" column="type"/>
+		<result property="noticeWay" column="notice_way"/>
+		<result property="receiveEmail" column="receive_email"/>
+		<result property="receiveTel" column="receive_tel"/>
+		<result property="receiveTelTime" column="receive_tel_time"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="note" column="note"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,type,notice_way,receive_email,receive_tel,receive_tel_time,create_time,modify_time,note
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ros_notice ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="noticeWay != null">
+				notice_way ,
+			</if>
+			<if test="receiveEmail != null and receiveEmail != ''">
+				receive_email ,
+			</if>
+			<if test="receiveTel != null and receiveTel != ''">
+				receive_tel ,
+			</if>
+			<if test="receiveTelTime != null and receiveTelTime != ''">
+				receive_tel_time ,
+			</if>
+			<if test="note != null and note != ''">
+				note
+			</if>
+				create_time ,
+				modify_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="noticeWay != null">
+				#{noticeWay} ,
+			</if>
+			<if test="receiveEmail != null and receiveEmail != ''">
+				#{receiveEmail} ,
+			</if>
+			<if test="receiveTel != null and receiveTel != ''">
+				#{receiveTel} ,
+			</if>
+			<if test="receiveTelTime != null and receiveTelTime != ''">
+				#{receiveTelTime} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO ros_notice (
+	       	id ,
+	       	type ,
+	       	notice_way ,
+	       	receive_email ,
+	       	receive_tel ,
+	       	receive_tel_time ,
+	       	create_time ,
+	       	modify_time ,
+	       	note 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.noticeWay != null">
+					#{item.noticeWay} ,
+				</if>
+				<if test="item.noticeWay == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiveEmail != null and item.receiveEmail != ''">
+					#{item.receiveEmail} ,
+				</if>
+				<if test="item.receiveEmail == null or item.receiveEmail == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.receiveTel != null and item.receiveTel != ''">
+					#{item.receiveTel} ,
+				</if>
+				<if test="item.receiveTel == null or item.receiveTel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.receiveTelTime != null and item.receiveTelTime != ''">
+					#{item.receiveTelTime} ,
+				</if>
+				<if test="item.receiveTelTime == null or item.receiveTelTime == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} 
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="noticeWay != null">
+			notice_way = #{noticeWay} ,
+		   </if>
+			<if test="receiveEmail != null and receiveEmail != ''">
+				receive_email = #{receiveEmail} ,
+			</if>
+			<if test="receiveTel != null and receiveTel != ''">
+				receive_tel = #{receiveTel} ,
+			</if>
+			<if test="receiveTelTime != null">
+				receive_tel_time = #{receiveTelTime} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="note != null and note != ''">
+				note = #{note} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  ros_notice
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM ros_notice 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RosNotice">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM ros_notice 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="type != null and type != -999">
+			AND type = #{type}
+			</if>
+			<if test="noticeWay != null and  noticeWay != -999 ">
+			AND notice_way = #{noticeWay}
+			</if>
+			<if test="receiveEmail != null and receiveEmail !=''">
+			AND receive_email = #{receiveEmail}
+			</if>
+			<if test="receiveTel != null and receiveTel !=''">
+			AND receive_tel = #{receiveTel}
+			</if>
+			<if test="receiveTelTimeBegin != null">
+			AND receive_tel_time >= #{receiveTelTimeBegin}
+			</if>
+			<if test="receiveTelTimeEnd != null">
+			AND receive_tel_time &lt;= #{receiveTelTimeEnd}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM ros_notice 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RosNotice">
+		SELECT <include refid="columns" />
+		FROM ros_notice 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

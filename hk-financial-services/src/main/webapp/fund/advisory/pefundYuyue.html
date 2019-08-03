@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>立即预约</title>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_header.html"></div>
+    <!-- 头部结束 -->
+    <div class="topimgrq">
+	    <img src="${project_base_path}/src/img/guquan/topimg.jpg" alt="" class="topimg">
+	</div>
+	<!-- 预约产品开始 -->
+	<div style="width: 1030px;margin: 0 auto;">
+	    <div class="biaotihuang"><b></b>预约产品</div>
+	    <div id="check_css3">
+			<ul class="infoBoxes">
+				 <!--<li class="check-li">
+				      <label title="产业协同系列"><input type="checkbox" class="input_check" value="4" checked>产业协同系列</label>
+				 </li>-->
+			</ul>
+	    </div>
+		<!-- 预约产品结束 -->
+	    <div class="biaotihuang" style="margin-top: 35px;"><b></b>其他要求</div>
+	    <div style="position: relative;margin-bottom: 45px;">
+	        <span class="maxtext">最多可输入100字（选填）</span>
+	        <textarea class="DIVCSS5" maxlength="100" id="remark"></textarea>
+	    </div>
+	    <div class="xingmintext clearfix">
+	       <ul>
+		       	<li>姓名：<input type="text" class="xingininput" maxlength="25"><br>
+					<p class="p_mess" id="gqUsername">请输入正确的中文名或英文名</p></li>
+		       	<li style="float: right;"> 手机号：<input type="text" class="xingininput" style="width: 446px;" maxlength="11" value=""><br>
+		           <p class="p_mess p_mess_1" id="qgTel">请输入正确的手机号</p>
+		        </li>
+	       </ul>
+	    </div>
+	    <input type="text" class="xingininput" id="projectUtype" hidden="" value="1">
+		<input type="text" class="xingininput" id="projectIds" hidden="" value="">
+		<input type="text" class="xingininput" hidden="" value="">
+		<input type="text" class="xingininput" id="token" hidden="" value="">
+	    <button class="lijiyuybuton">立即预约</button>
+	</div>
+
+	<!--遮罩-->
+	<div class="bgzz" style="display: none;"></div>
+	<!-- 预约成功-->
+	<div class="yuyuecg adviSuccess" style="display: none;">
+		<img src="${project_base_path}/src/img/guquan/yuyuecg.png" alt="预约成功">
+		<button class="quedingbut">确定</button>
+	</div>
+	<!-- 预约失败 -->
+	<div class="yuyuecg adviFail" style="display: none;">
+		<img src="${project_base_path}/src/img/guquan/yuyuesb.png" alt="预约失败">
+		<p class="f-14 tac" style="color: #999999;margin: 15px auto 33px">请联系客服：400-900-9630</p>
+		<button class="quedingbut">重新预约</button>
+	</div>
+	<!--次数限制-->
+	<div class="yuyuecg adviTip" style="display: none;">
+		<h3 style="font-size: 24px;color: #333333;text-align: center;margin-top: 25px;" id="tipMsg">每天只能预约3次</h3>
+		<button class="quedingbut" style="width: 200px;">关闭</button>
+	</div>
+	
+    <!-- 底部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_footer.html"></div>
+    <!-- 底部结束 -->
+
+</body>
+	<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/advisory/pefundYuyue.js?v=12322"></script>
+
+	
+<script>
+	$(function(){   
+		
+	})
+    	
+    		
+    	
+    	
+      
+</script>
+</html>

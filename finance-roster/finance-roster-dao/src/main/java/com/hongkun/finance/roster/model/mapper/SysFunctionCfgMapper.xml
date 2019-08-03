@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.roster.model.SysFunctionCfg">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_SysFunctionCfg" type="com.hongkun.finance.roster.model.SysFunctionCfg">
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="funcCode" column="func_code"/>
+		<result property="isEnable" column="isEnable"/>
+		<result property="note" column="note"/>
+		<result property="createdTime" column="created_time"/>
+		<result property="modifiedTime" column="modified_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,title,func_code,isEnable,note,created_time,modified_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_function_cfg (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="title != null and title != ''">
+			title ,
+		</if>
+		<if test="funcCode != null and funcCode != ''">
+			func_code ,
+		</if>
+		<if test="isEnable != null">
+			isEnable ,
+		</if>
+		<if test="note != null and note != ''">
+			note ,
+		</if>
+		created_time ,
+		modified_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="title != null and title != ''">
+				#{title} ,
+			</if>
+			<if test="funcCode != null and funcCode != ''">
+				#{funcCode} ,
+			</if>
+			<if test="isEnable != null">
+				#{isEnable} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<choose>
+				<when test="createdTime != null">
+					#{createdTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifiedTime != null">
+					#{modifiedTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sys_function_cfg (
+	       	id ,
+	       	title ,
+	       	func_code ,
+	       	isEnable ,
+	       	note ,
+	       	created_time ,
+	       	modified_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.title != null and item.title != ''">
+					#{item.title} ,
+				</if>
+				<if test="item.title == null or item.title == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.funcCode != null and item.funcCode != ''">
+					#{item.funcCode} ,
+				</if>
+				<if test="item.funcCode == null or item.funcCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.isEnable != null">
+					#{item.isEnable} ,
+				</if>
+				<if test="item.isEnable == null">
+					DEFAULT ,
+				</if>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} ,
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createdTime != null">
+					#{item.createdTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifiedTime != null">
+					#{item.modifiedTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="title != null and title != ''">
+				title = #{title} ,
+			</if>
+			<if test="funcCode != null and funcCode != ''">
+				func_code = #{funcCode} ,
+			</if>
+			<if test="isEnable != null">
+			isEnable = #{isEnable} ,
+		   </if>
+			<if test="note != null and note != ''">
+				note = #{note} ,
+			</if>
+			<if test="createdTime != null">
+				created_time = #{createdTime} ,
+			</if>
+			<if test="modifiedTime != null">
+				modified_time = #{modifiedTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sys_function_cfg
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sys_function_cfg 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_SysFunctionCfg">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sys_function_cfg 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="title != null and title !=''">
+			AND title = #{title}
+			</if>
+			<if test="funcCode != null and funcCode !=''">
+			AND func_code = #{funcCode}
+			</if>
+			<if test="isEnable != null and isEnable != -999">
+			AND isEnable = #{isEnable}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+			<if test="createdTimeBegin != null">
+			AND created_time >= #{createdTimeBegin}
+			</if>
+			<if test="createdTimeEnd != null">
+			AND created_time &lt;= #{createdTimeEnd}
+			</if>
+			<if test="modifiedTimeBegin != null">
+			AND modified_time >= #{modifiedTimeBegin}
+			</if>
+			<if test="modifiedTimeEnd != null">
+			AND modified_time &lt;= #{modifiedTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sys_function_cfg 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_SysFunctionCfg">
+		SELECT <include refid="columns" />
+		FROM sys_function_cfg 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

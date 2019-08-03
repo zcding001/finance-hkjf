@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaIncome">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaIncome" type="com.hongkun.finance.bi.model.StaIncome">
+		<result property="id" column="id"/>
+		<result property="flowId" column="flow_id"/>
+		<result property="borrowerName" column="borrower_name"/>
+		<result property="borrowerId" column="borrower_id"/>
+		<result property="borrowerTel" column="borrower_tel"/>
+		<result property="tradeType" column="trade_type"/>
+		<result property="transMoney" column="trans_money"/>
+		<result property="pureMoney" column="pure_money"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="transTime" column="trans_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,flow_id,borrower_name,borrower_id,borrower_tel,trade_type,trans_money,pure_money,state,create_time,trans_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_income ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				flow_id ,
+			</if>
+			<if test="borrowerName != null and borrowerName != ''">
+				borrower_name ,
+			</if>
+			<if test="borrowerId != null">
+				borrower_id ,
+			</if>
+			<if test="borrowerTel != null and borrowerTel != ''">
+				borrower_tel ,
+			</if>
+			<if test="tradeType != null">
+				trade_type ,
+			</if>
+			<if test="transMoney != null">
+				trans_money ,
+			</if>
+			<if test="pureMoney != null">
+				pure_money ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				trans_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				#{flowId} ,
+			</if>
+			<if test="borrowerName != null and borrowerName != ''">
+				#{borrowerName} ,
+			</if>
+			<if test="borrowerId != null">
+				#{borrowerId} ,
+			</if>
+			<if test="borrowerTel != null and borrowerTel != ''">
+				#{borrowerTel} ,
+			</if>
+			<if test="tradeType != null">
+				#{tradeType} ,
+			</if>
+			<if test="transMoney != null">
+				#{transMoney} ,
+			</if>
+			<if test="pureMoney != null">
+				#{pureMoney} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="transTime != null">
+					#{transTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sta_income (
+	       	id ,
+	       	flow_id ,
+	       	borrower_name ,
+	       	borrower_id ,
+	       	borrower_tel ,
+	       	trade_type ,
+	       	trans_money ,
+	       	pure_money ,
+	       	state ,
+	       	create_time ,
+	       	trans_time 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.flowId != null and item.flowId != ''">
+					#{item.flowId} ,
+				</if>
+				<if test="item.flowId == null or item.flowId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.borrowerName != null and item.borrowerName != ''">
+					#{item.borrowerName} ,
+				</if>
+				<if test="item.borrowerName == null or item.borrowerName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.borrowerId != null">
+					#{item.borrowerId} ,
+				</if>
+				<if test="item.borrowerId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.borrowerTel != null and item.borrowerTel != ''">
+					#{item.borrowerTel} ,
+				</if>
+				<if test="item.borrowerTel == null or item.borrowerTel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tradeType != null">
+					#{item.tradeType} ,
+				</if>
+				<if test="item.tradeType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transMoney != null">
+					#{item.transMoney} ,
+				</if>
+				<if test="item.transMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.pureMoney != null">
+					#{item.pureMoney} ,
+				</if>
+				<if test="item.pureMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.transTime != null">
+					#{item.transTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="flowId != null and flowId != ''">
+				flow_id = #{flowId} ,
+			</if>
+			<if test="borrowerName != null and borrowerName != ''">
+				borrower_name = #{borrowerName} ,
+			</if>
+			<if test="borrowerId != null">
+			borrower_id = #{borrowerId} ,
+		   </if>
+			<if test="borrowerTel != null and borrowerTel != ''">
+				borrower_tel = #{borrowerTel} ,
+			</if>
+			<if test="tradeType != null">
+			trade_type = #{tradeType} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="pureMoney != null ">
+				pure_money =pure_money + #{pureMoney} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="transTime != null">
+				trans_time = #{transTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_income
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_income 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaIncome">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_income 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="flowId != null and flowId !=''">
+			AND flow_id = #{flowId}
+			</if>
+			<if test="borrowerName != null and borrowerName !=''">
+			AND borrower_name = #{borrowerName}
+			</if>
+			<if test="borrowerId != null">
+			AND borrower_id = #{borrowerId}
+			</if>
+			<if test="borrowerTel != null and borrowerTel !=''">
+			AND borrower_tel = #{borrowerTel}
+			</if>
+			<if test="tradeType != null and tradeType != -999">
+			AND trade_type = #{tradeType}
+			</if>
+			<if test="transMoney != null">
+			AND trans_money = #{transMoney}
+			</if>
+			<if test="pureMoney != null">
+			AND pure_money = #{pureMoney}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null and createTimeBegin!= '' ">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd != ''">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="transTimeBegin != null and transTimeBegin != ''">
+			AND trans_time >= #{transTimeBegin}
+			</if>
+			<if test="transTimeEnd != null and transTimeEnd != '' ">
+			AND trans_time &lt;= #{transTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_income 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaIncome">
+		SELECT <include refid="columns" />
+		FROM sta_income 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="getSumCharge" resultType="java.math.BigDecimal">
+		SELECT ifnull(sum(trans_money),0)
+		FROM sta_income
+		<include refid="findPage_where"/>
+	</select>
+
+	<select id="getSumPureMoney" resultType="java.math.BigDecimal">
+		SELECT ifnull(sum(pure_money),0)
+		FROM sta_income
+		<include refid="findPage_where"/>
+	</select>
+</mapper>

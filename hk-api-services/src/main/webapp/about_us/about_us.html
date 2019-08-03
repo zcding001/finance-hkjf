@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>关于我们</title>
+    <style>
+         *{margin:0;padding:0;}
+          html,body{width: 100%;height:100%;font-family:"Microsoft YaHei",sans-serif;box-sizing:border-box;background: url(../imageLib/company/aboutUs-bj.png) no-repeat center bottom;background-size: contain;}
+          html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+          .aboutUs_logo{width: 100%;margin:0 auto;text-align: center;font-size: 0;padding-top: 1rem;}
+          .aboutUs_logo img{width: 2.61rem;}
+          .bank_cont{margin-left: .65rem;margin-right: .65rem;margin-top:1.09rem;}
+          .bank_cont p{
+            font-size: .26rem;
+            line-height: .48rem;
+            color: #312e27;
+            text-align: justify;
+            text-indent: 2em;
+          }
+      </style>
+  <script>
+    (function(doc, win) { // font-size.js
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = (clientWidth >= 750 ? 100 : clientWidth / 7.5) + 'px';
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+  </script>
+</head>
+
+<body>
+<div class="aboutUs_logo"><img src="../imageLib/company/aboutsUs-logo.png" alt="鸿坤金服logo"></div>
+<div class="bank_cont">
+<p>“鸿坤金服”是由鸿坤控股集团与亿润投资集团联合为高净值人群打造的高端金融服务平台，服务团队由国内外金融精英组成，在中国北京、中国海南、美国新泽西等城市设立分部，旨在为每一位会员提供高端权益定制、增值服务等专属性礼遇，为会员创造财富、管理财富、传承财富提供不竭助力。</p>
+<p>我们的专享客服电话：<font color="#c08b33">400-088-9938</font>，工作时间周一到周日09:00-22:00。</p>
+</div>
+
+</body>
+</html>

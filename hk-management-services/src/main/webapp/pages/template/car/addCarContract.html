@@ -1,0 +1,181 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span style="float:left;width:30%;">合同管理</span>
+            </div>
+            <!-- /.panel-heading -->
+            <form name="carContractForm" id="carContractForm" novalidate>
+                <div class="panel-body" >
+                    <div class="well">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">甲方信息</h3>
+                            </div>
+                            <br>
+                            <div class="panel-body">
+                                <input type="hidden" name="partyAid" id="partyAid" ng-model="carContract.partyAid"/>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>联系电话:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="partyAtel" id="partyAtel" ng-model="carContract.partyAtel" ng-blur="autofill(carContract.partyAtel,'a')"  type="text"  validator="required" lengtext-success-message="" valid-method="blur" message-id="partyAtelError">
+                                    <span style="color:#F00" class="bid-info" id="partyAtelError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>甲方（质押权人）名称：</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="partyAname" id="partyAname" ng-model="carContract.partyAname"  type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>身份证号码:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="idcard" id="idcardA" ng-model="partyA.idCard"  type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>住址:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="address" id="addressA" ng-model="partyA.userAdress"  type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>开户行:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="branchName" id="branchNameA" ng-model="partyA.bankAdress"  type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>银行账号:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="bankCard" id="bankCardA" ng-model="partyA.bankCardNo"  type="text" readonly="readonly">
+                                </div>
+                                </br>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">乙方信息</h3>
+                            </div>
+                            <br>
+                            <div class="panel-body">
+                                <input type="hidden" name="partyBid" id="partyBid" ng-model="carContract.partyBid"/>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>联系电话:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="partyBtel" id="partyBtel" ng-model="carContract.partyBtel" ng-blur="autofill(carContract.partyBtel,'b')"  type="text"  validator="required" lengtext-success-message="" valid-method="blur" message-id="partyAtelError">
+                                    <span style="color:#F00" class="bid-info" id="partyBtelError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>乙方（质押权人）名称：</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="partyBname" id="partyBname" ng-model="carContract.partyBname"  type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>法定代表人：</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="corporate" id="corporate" ng-model="partyB.corporate" type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>企业代码：</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="license" id="license" ng-model="partyB.license" type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>身份证号码:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="idcard" id="idcardB" ng-model="partyB.idCard" type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>住址:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="address" id="addressB" ng-model="partyB.userAdress" type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>开户行:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="branchName" id="branchNameB" ng-model="partyB.bankAdress" ng-model="partyB.corporate" type="text" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>银行账号:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="bankCard" id="bankCardB" ng-model="partyB.bankCardNo" type="text" readonly="readonly">
+                                </div>
+                                </br>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">借款信息</h3>
+                            </div>
+                            <br>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>借款金额:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle" name="amount"
+                                           placeholder="请输入金额范围内的整数值" id="amount"
+                                           ng-model="carContract.amount" type="text"
+                                           validator="required,range,integertext" min="1"
+                                           max="99999999" valid-method="blur"
+                                           range-error-message="请输入介于 1至99999999 的整数值!"
+                                           range-success-message="" message-id="amountError">&nbsp;元
+                                    <span style="color:#F00" class="bid-info" id="amountError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>借款期限：</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                           placeholder="借款期限仅限整数" name="duration" ng-model="carContract.duration"
+                                           type="text"  validator="required,integertextIf" id="duration"
+                                           valid-method="blur" message-id="durationError" style="width: 20%;">&nbsp;（月）
+                                    <span style="color:#F00" class="bid-info" id="durationError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>借款利率:</label>
+                                    <input class="form-control ng-pristine ng-valid ng-touched textstyle"
+                                           placeholder="请输入年利率范围内至多两位小数的数值" name="rate" ng-model="carContract.rate"
+                                           type="text" validator="required,range,rate" id="rate"
+                                           min="0" max="99" range-error-message="请输入年利率范围内至多两位小数的数值!"
+                                           valid-method="blur" message-id="rateError">%
+                                    <span style="color:#F00" class="bid-info" id="rateError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>借款起始日:</label>
+                                    <input type="text" id="loanStartTime"
+                                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                                           class="Wdate form-control" ng-model="carContract.loanStartTime" name="loanStartTime"
+                                           ng-blur="calLoanEndTime()" readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="textright" style="width: 100px;"><span class="font-red">&nbsp;</span>借款截止日:</label>
+                                    <input type="text" id="loanEndTime"
+                                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'loanStartTime\')}',maxDate:'#F{$dp.$D(\'loanEndTime\',{d:'+window.duration+'})}'})"
+                                           class="Wdate form-control" ng-model="carContract.loanEndTime" name="loanEndTime"
+                                           readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>
+                                    </br>
+                                    </br>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">委托信息</h3>
+                                </div>
+                                <br>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="textright" style="width: 100px;"><span class="font-red">&nbsp;</span>委托截止日:</label>
+                                        <input type="text" id="endTime"
+                                               onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endDate\')}'})"
+                                               class="Wdate form-control" ng-model="carContract.endTime" name="endTime"
+                                               readonly="readonly" style="width:20%;height:30px;display:inline-block;"/>
+                                    </div>
+                                    </br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:70%;padding-left:125px;">
+                            <span ng-hide="editable">
+                                <span ng-show="showPage">
+                                    <button type="button" class="btn btn-outline btn-success" ng-click="submit(carContractForm)" validator-submit="carContractForm">保存</button>
+                                </span>
+                                <span ng-hide="showPage">
+                                    <button type="button" class="btn btn-outline btn-success" ng-click="submit(carContractForm)" validator-submit="carContractForm">提交</button>
+                                </span>
+                                    <button type="button" class="btn btn-outline btn-success" ng-click="reset(carContractForm)">重置</button>
+                            </span>
+                                <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

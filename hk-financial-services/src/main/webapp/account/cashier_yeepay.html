@@ -1,0 +1,133 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+</head>
+<title>易宝支付</title>
+<link type="text/css" rel="stylesheet" media="all" href="${project_base_path}/src/css/cashier.css?version=1.0"/>
+<style>
+
+</style>
+<div class="yibaozftop">
+    <div>
+        <img src="${project_base_path}/src/img/account/cashier_logo.png" alt="" class="yiblog">
+    </div>
+</div>
+
+<div style="background-color: #f5f5f5;padding: 46px 0 120px;">
+    <div class="zonrongqia">
+        <ul class="zongrto">
+           <li class="zonoli">
+              <span>交易时间</span>
+                <em id="transDate"></em>
+           </li>
+            <li class="zonoli" style="margin-left: 203px;">
+                <span>支付金额</span>
+                <em><i class="uyuayin"></i><strong class="yunsodf"></strong></em>
+            </li>
+           
+        </ul>
+        <input type="hidden" id="paymentFlowId" name="paymentFlowId"/>
+        <div class="xuanxiangad">
+            <div class="s-div5-div1">
+                <li class="oldfali">
+                    <span class="s-ospan-s">银行卡：</span>
+                    <div class="s-input-s neirongs">
+                        <img src="${project_base_path}/src/img/account/ABC.jpg" alt="" id="bankimg">
+                        <span class="kahaoa">储蓄卡 | ********<span id ="entityNo"></span></span>
+                    </div>
+                </li>
+                <li class="oldfali">
+                    <span class="s-ospan-s">身份证号：</span>
+                    <input id ="idCard" type="text" class="s-input-s" maxlength="50" value="" >
+                </li>
+                <li class="oldfali" style="position: relative">
+                    <span class="s-ospan-s">银行预留手机号码：</span>
+                    <input type="text" class="s-input-s s-intu-3" maxlength="11" id="bankTel" placeholder="请输入银行预留手机号码" value="" >
+                    <div class="wenhao">？</div>
+                    <div class="kaitontj">
+                        <h3>开通条件</h3>
+                        <p>办理银行卡时在柜台开通快捷支付功能，并使用首次在银行办卡时预留的手机号码（银行预留手机号唯一且与姓名身份证绑定，即使办理新的银行卡，预留手机号如未修改过，则始终以第一次在银行办卡时所预留的号码为准）。</p>
+                    </div>
+                </li>
+                <li class="oldfali" style="position: relative;">
+                    <span class="s-ospan-s">验证码：</span>
+                    <input type="text" class="s-input-s s-intu-3" maxlength="8" id="verifyContent" placeholder="请输入短信验证码">
+                    <button class="huoquyzm">获取验证码</button>
+                </li>
+            </div>
+            <div class="xiamixieyi">
+                <button class="onbutton">同意协议并付款</button>
+                <p class="opxieyi">《支付服务协议》</p>
+            </div>
+        </div>
+    </div>
+    <div class="oolisdf1">
+        <h3 class="zhyudwn">支付遇到问题</h3>
+        <p class="wenti">姓名，身份证，和银行卡信息不匹配</p>
+        <p class="yands">失败原因一般为：银行预留手机号码不正确，需去银行柜台更改。</p>
+
+    </div>
+<form method="post" id="recharge_result" action="safeCenterFinanceFront.do?method=cashierResult">
+	<input type="hidden" id="message" name="message"/>
+	<input type="hidden" id="result_type" name="result_type"/>
+	<input type="hidden" id="unique_code" name="unique_code"/>
+	<input type="hidden" id="pay_name" name="pay_name" value="易宝"/>
+</form>
+
+</div>
+
+
+<!--遮罩-->
+<div class="zhezhao"></div>
+<!--协议-->
+<div class="tanchuango">
+    <h5>支付服务协议 <img src="${project_base_path}/src/img/account/guanbihui.png" alt="" class="guanbihui"></h5>
+    <div class="xieyineirong">
+        <h1>支付服务协议</h1>
+        <p>本协议是用户（以下简称“您”）与霍尔果斯鸿坤理想科技发展有限公司（以下简称为“鸿坤金服”）之间所订立的契约，请您仔细阅读本协议。用户通过网络页面勾选确认或以其他方式选择接受本协议，即表示用户与鸿坤金服已达成协议并同意接受本协议的全部约定内容。</p>
+        <p>请您审慎阅读并选择是否接受本协议。除非您接受本协议的所有条款，否则您无权使用本服务。您一经使用本服务，即视为您已理解并接受本协议。您理解并同意，鸿坤金服有权随时对本协议内容进行单方面的变更，并以在本网站公告的方式予以公布，无需另行通知您；若您于本协议或附属协议公告变更后继续使用本服务的，表示您已充分阅读、理解并同意接受修改后的协议内容，也将遵循变更后的协议内容使用本服务；若您不同意变更后的协议内容，您应主动立即停用使用本服务。</p>
+        <p>为了使用我们提供的服务，我们有权要求您配合完成相关信息验证工作，并以验证后的个人身份信息为依据向您分配我们的注册账户。根据所涉服务内容的不同，我们需要收集、使用和验证的您的信息包括但不限于下述范围。若您不同意向我们提供或许可我们收集相应信息的，我们有权拒绝向您提供所涉服务：</p>
+        <p>(1) 您应在个人账户页面输入您本人的真实姓名、身份证号、银行卡卡号、银行预留手机号等信息，待前述信息经鸿坤金服及您的开户银行校验通过后，方能使用。若因您非法使用银行账号造成的损失，应由您负责赔偿，鸿坤金服有权采取包括但不限于冻结您全部或部分鸿坤金服账户(含该账户之关联账户)及资金、从您的前述鸿坤金服账户中扣除相应的款项等措施。</p>
+        <p>(2) 您理解并同意，本服务的上述流程，可能因适用场景和功能存续情况的变化而发生调整，所以具体以鸿坤金服实际提供的服务流程为准。</p>
+        <p>(3) 您同意鸿坤金服有权依据其自身判断对涉嫌欺诈或被他人控制并用于欺诈目的的鸿坤金服账户采取相应的措施，上述措施包括但不限于冻结账户及资金、处置涉嫌欺诈的资金等。</p>
+        <p>(4)您应妥善保管银行卡、卡号、密码、发卡行预留的手机号码以及鸿坤金服账号、登入密码、鸿坤金服账户绑定的手机号码、来自于发卡行和/或鸿坤金服向您发送的校验码等与银行卡或与鸿坤金服账户有关的一切信息和设备，并确保您的手机等移动终端设备在安全、无病毒、未被入侵、未被监控、未被非法控制的环境下运行和使用。</p>
+        <p>(5)如您泄露了上述信息中的任意一项或遗失了上述硬件设备，由此导致的风险和损失应由您自行承担。</p>
+        <p>(6)您理解并同意，鸿坤金服无法提供资金即时到账服务，您认可资金于途中流转需要合理时间。</p>
+        <p>(7)您认可鸿坤金服账户的使用记录数据、交易金额数据等均以鸿坤金服系统平台记录的数据为准。</p>
+        <p>(8)您授权鸿坤金服有权留存您在鸿坤金服填写的相应信息，并授权鸿坤金服查询该银行卡信息，包括且不限于借记卡余额、信用卡账单等内容，以供后续向您持续性地提供相应服务（包括但不限于将本信息用于向您推广、提供其他更加优质的产品或服务）。</p>
+        <p>您同意，为了提供本服务的技术需要，鸿坤金服有权采集、获取或在系统内保存您的部分支付信息，鸿坤金服将严格确保您的个人信息和支付信息的安全。您知晓，您如使用本服务进行支付，应当在确认支付金额后输入交易密码及动态密码（如需）进行支付。您认可和同意：输入交易密码及动态密码（如需）即视为您确认交易和交易金额并已不可撤销地向鸿坤金服支付系统发出指令，鸿坤金服有权根据您的指令委托银行或第三方从您绑定的银行卡中将您确认的交易资金划扣给平台账户或平台交易对象。您不应以非本人意愿交易或其他任何原因要求退款或承担其他责任。您承诺，对使用本服务过程中您发出的所有指令的真实性、有效性承担全部责任；鸿坤金服依照您的指令进行操作的一切风险由您自行承担。</p>
+        <p>如您发现有他人冒用或盗用您的账户及密码或任何其他未经合法授权之情形时，应立即以书面方式通知鸿坤金服并要求本公司暂停本服务。我们将积极响应您的要求，但您理解，对您的要求采取行动需要合理期限，在此之前，本公司对已执行的指令及(或)所导致的您的损失不承担任何责任。若您的支付信息变更而您未及时更新资料，导致本服务无法提供或提供时发生任何错误，您不得将此作为取消交易、拒绝付款的理由，您将承担因此产生的一切后果，鸿坤金服不承担任何责任。</p>
+        <p>出现下列情况之一的，鸿坤金服有权立即终止您使用鸿坤金服相关服务而无需承担任何责任：</p>
+        <p>（1）将本服务用于非法目的;</p>
+        <p>（2）违反本协议的约定;</p>
+        <p>（3）鸿坤金服认为向您提供本服务存在风险的;</p>
+        <p>（4）您的银行卡有效期届满（如有）。</p>
+        <p>系统因下列状况无法正常运作，使您无法使用各项服务时，鸿坤金服不承担损害赔偿责任，该状况包括但不限于：</p>
+        <p>1、鸿坤金服在本网站公告之系统停机维护期间。</p>
+        <p>2、电信设备出现故障不能进行数据传输的。</p>
+        <p>3、因台风、地震、海啸、洪水、停电、战争、恐怖袭击等不可抗力之因素，造成鸿坤金服系统障碍不能执行业务的。</p>
+        <p>4、由于黑客攻击、电信部门技术调整或故障、网站升级、银行方面的问题等原因而造成的服务中断或者延迟。</p>
+        <p>就我们要求您所提供的相关个人信息，我们将会尽最大努力予以妥善保管，采取包括但不限于按月定期更换存储您所提供的相应信息的强密码、严格控制登陆和管理后台的权限分配和加密等技术手段对您的信息采取保密措施；除法定或约定事由或获得您的明确许可外，我们不会将您的个人信息予以公开或编辑或向任何第三方提供用户前述信息。</p>
+        <p>具体服务产品中的隐私保护承诺应参见相应产品的隐私条款。</p>
+        <p>基于我们的服务特性，我们将与第三方开展合作以共同向您提供服务或改善服务。我们和第三方对可能出现的纠纷在法律规定和约定的范围内各自承担责任。为了完全地进入和使用这些服务，您可能被要求向第三方注册或提供一些信息和数据。如因合规经营的要求，您在此确认并同意我们就您提供的上述信息在我司合作的第三方支付平台开立虚拟账户，我们有权根据第三方的合作情况更换第三方合作机构，此等变更的通知以“鸿坤金服”平台公告为准，不再另行通知。同时为了更为精确和优质地提供您所要求的服务，您知晓并同意这类信息和数据将不得不被该第三方服务提供者收集和使用，他们可能将处理或更新这些数据和信息，然后传送回我们。在选择第三方提供者时，我们是非常审慎的，他们也仅仅被允许按照合同约定的目的和方式在提供服务中使用您的数据和信息。需要提请您注意的是，在第三方所提供的服务中，您须受该第三方服务条款和隐私权政策的约束。</p>
+        <p>我们始终在不断更改和改进其所提供的服务。我们可能会增加或删除某项服务功能，也可能暂停或彻底停止某项服务。用户可以随时停止使用我们的服务，我们也可能随时停止向用户提供服务，或随时对我们的服务增加或设置新的限制。但是，如果我们停止某项服务，我们会尽力向用户发出合理的提前通知，并让用户有机会备份和转移其留存在我们服务中的信息。用户违反其在本服务条款及使用条件中的行为规范的，我们有权随时终止向用户提供所述服务。</p>
+        <p>您同意本服务条款和使用条件以及您和我们之间发生的任何争议均适用中华人民共和国法律。有关与您和我们之间发生的任何形式的争议均应友好协商解决，协商不成的，任一方有权将争议提交北京市海淀区人民法院诉讼解决。</p>
+    </div>
+</div>
+<!--提示-->
+<!--气泡提示框-->
+<div id="bubbleBtn" class="animated pulse">快速注册快速快速</div>
+
+<div class="yibaopalydh"><img src="${project_base_path}/src/img/account/yibaopaly.gif" alt=""></div>
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js?version=1.0"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/payment/cashier_yeepay.js?version=1.0"></script>
+
+<script>
+	
+	
+</script>
+</html>

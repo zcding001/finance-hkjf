@@ -1,0 +1,144 @@
+<body>
+<div class="info_con1">
+    <div class="info_yl clearfix">
+        <ul class="fl">
+            <li class="f-18">为了更好的为您服务，请填写以下详细信息</li>
+            <li class="info_t">以下信息仅作为投资分析数据使用，我们在任何情况下都不会泄露您的个人隐私。</li>
+        </ul>
+        <div class="info_cz fr">
+            <a href="javascript:void(0)" id="preUpdate">修改</a>
+            <a href="javascript:void(0)" id="submitBtn" style="display: none;">保存</a>
+            <a href="javascript:void(0)" class="info_cancel" id="cancelUpdate" style="display: none;">取消</a>
+        </div>
+    </div>
+    <div class="info_p clearfix userInfoDiv">
+        <ul>
+            <li class="fl">
+                <span class="fb">性别：</span>
+                <span class="sexView"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">生日：</span>
+                <span class="birthday"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">个人电话：</span>
+                <span class="login"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">邮箱地址：</span>
+                <span class="email"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">职业：</span>
+                <span class="job"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">年收入：</span>
+                <span class="workIncomeView"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">公司名称：</span>
+                <span class="company"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">公司电话：</span>
+                <span class="companyTel"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">公司地址：</span>
+                <span class="companyAddress"></span>
+            </li>
+            <li class="fl">
+                <span class="fb">所在地：</span>
+                <span class="address"></span>
+            </li>
+        </ul>
+    </div>
+    <!-- 更新个人信息 -->
+    <div class="info_xg clearfix modifiedDiv" style="display: none">
+        <form id="dataForm">
+            <ul>
+                <li class="fl">
+                    <span class=" acc_t">性别</span>
+                    <span>
+                        <input type="radio" value="1" name="sex" checked="true">&nbsp;男
+                        <input type="radio" value="2" name="sex">&nbsp;女
+                    </span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">生日</span>
+                    <span class="acc_time">
+                    <input class="Wdate tb_time" style="width:198px;" id="birthday" nanme="birthday" onclick="WdatePicker()" nullmsg="请填写日期!">
+                    <span class="Validform_checktip"></span>
+                </span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">个人电话</span>
+                    <span class="login"></span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">邮箱地址</span>
+                    <span><input type="text" name="email" datatype="e" nullmsg="请输入您的常用邮箱" errormsg="邮箱地址不正确！" placeholder="请输入邮箱" ></span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">职业</span>
+                    <span><input name="job" type="text" datatype="*" nullmsg="请输入职业" placeholder="请输入职业"></span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">年收入</span>
+                    <span class="acc_select">
+                            <select name="workIncome">
+                                <option value="0">--请选择--</option>
+                                <option value="1" selected="selected">1万元以下</option>
+                                <option value="2">1-2万元</option>
+                                <option value="3">2-5万元</option>
+                                <option value="4">10万元</option>
+                                <option value="5">10万元以上</option>
+                            </select>
+                            <span class="Validform_checktip"></span>
+                    </span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">公司名称</span>
+                    <span><input name="company" type="text" value="" placeholder="请输入公司名称"></span>
+                </li>
+                <li class="fl">
+                    <span class="acc_t fl">公司电话</span>
+                    <span> <input name="companyTel" type="text" placeholder="请输入公司电话"></span>
+                </li>
+                <li class="fl"><span class="acc_t fl">公司地址</span>
+                    <span><input name="companyAddress" type="text" placeholder="请输入公司地址"></span>
+                </li>
+                <li class="fl" style="width:100%;">
+                    <span class="acc_t fl">所在地</span>
+                    <span>
+                        <select name="birthProvince" id="birthProvince"></select>
+                        <select name="birthCity" id="birthCity"></select>
+                        <select name="birthCountry" id="birthCountry"></select>
+                    </span>
+                </li>
+                
+                <div>
+                    <cite class="colr-red blh-30" id="resErrMsg"></cite>
+                </div>
+                <div class="clear"></div>
+            </ul>
+            <div class="clear"></div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+<script src="${project_base_path}/jslib/account/userInfo.js"></script>
+
+<script>
+    $(function(){
+        userInfoController.loadUserInfo();
+    });
+</script>
+</html>

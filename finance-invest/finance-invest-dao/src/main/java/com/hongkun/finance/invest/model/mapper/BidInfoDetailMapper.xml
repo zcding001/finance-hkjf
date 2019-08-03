@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.invest.model.BidInfoDetail">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_BidInfoDetail" type="com.hongkun.finance.invest.model.BidInfoDetail">
+		<result property="id" column="id"/>
+		<result property="biddInfoId" column="bidd_info_id"/>
+		<result property="autidNote" column="autid_note"/>
+		<result property="description" column="description"/>
+		<result property="projectDescription" column="project_description"/>
+		<result property="assureDescription" column="assure_description"/>
+		<result property="repaymentSource" column="repayment_source"/>
+		<result property="legalFiles" column="legal_files"/>
+		<result property="fundUse" column="fund_use"/>
+		<result property="billNo" column="bill_no"/>
+		<result property="ruleId" column="rule_id"/>
+		<result property="recommendState" column="recommend_state"/>
+		<result property="givingPointState" column="giving_point_state"/>
+		<result property="advanceRepayState" column="advance_repay_state"/>
+		<result property="punishState" column="punish_state"/>
+		<result property="reserveInterest" column="reserve_interest"/>
+		<result property="withholdState" column="withhold_state"/>
+		<result property="matchState" column="match_state"/>
+		<result property="nextMatchDate" column="next_match_date"/>
+		<result property="matchType" column="match_type"/>
+		<result property="bourseFlg" column="bourse_flg"/>
+		<result property="returnCapWay" column="return_cap_way"/>
+		<result property="returnCapDays" column="return_cap_days"/>
+		<result property="returnCapAmount" column="return_cap_amount"/>
+		<result property="creditorDays" column="creditor_days"/>
+		<result property="dealRepayDays" column="deal_repay_days"/>
+		<result property="convertRateStart" column="convert_rate_start"/>
+		<result property="convertRateEnd" column="convert_rate_end"/>
+		<result property="overflowRateStart" column="overflow_rate_start"/>
+		<result property="overflowRateEnd" column="overflow_rate_end"/>
+		<result property="maturityRemind" column="maturity_remind"/>
+		<result property="mostTransferCount" column="most_transfer_count"/>
+		<result property="transferRate" column="transfer_rate"/>
+		<result property="createdUserId" column="created_user_id"/>
+		<result property="modifiedUserId" column="modified_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="creditorState" column="creditor_state"/>
+		<result property="transferDays" column="transfer_days"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,bidd_info_id,autid_note,description,project_description,creditor_state,transfer_days,assure_description,repayment_source,legal_files,fund_use,bill_no,rule_id,recommend_state,giving_point_state,advance_repay_state,punish_state,reserve_interest,withhold_state,match_state,next_match_date,match_type,bourse_flg,return_cap_way,return_cap_days,return_cap_amount,creditor_days,deal_repay_days,convert_rate_start,convert_rate_end,overflow_rate_start,overflow_rate_end,maturity_remind,most_transfer_count,transfer_rate,created_user_id,modified_user_id,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bid_info_detail ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="biddInfoId != null">
+				bidd_info_id ,
+			</if>
+			<if test="autidNote != null and autidNote != ''">
+				autid_note ,
+			</if>
+			<if test="description != null and description != ''">
+				description ,
+			</if>
+			<if test="projectDescription != null and projectDescription != ''">
+				project_description ,
+			</if>
+			<if test="assureDescription != null and assureDescription != ''">
+				assure_description ,
+			</if>
+			<if test="repaymentSource != null and repaymentSource != ''">
+				repayment_source ,
+			</if>
+			<if test="legalFiles != null and legalFiles != ''">
+				legal_files ,
+			</if>
+			<if test="fundUse != null and fundUse != ''">
+				fund_use ,
+			</if>
+			<if test="billNo != null and billNo != ''">
+				bill_no ,
+			</if>
+			<if test="ruleId != null">
+				rule_id ,
+			</if>
+			<if test="recommendState != null">
+				recommend_state ,
+			</if>
+			<if test="givingPointState != null">
+				giving_point_state ,
+			</if>
+			<if test="advanceRepayState != null">
+				advance_repay_state ,
+			</if>
+			<if test="punishState != null">
+				punish_state ,
+			</if>
+			<if test="reserveInterest != null">
+				reserve_interest ,
+			</if>
+			<if test="creditorState != null">
+				creditor_state ,
+			</if>
+			<if test="withholdState != null">
+				withhold_state ,
+			</if>
+			<if test="matchState != null">
+				match_state ,
+			</if>
+				next_match_date ,
+			<if test="matchType != null">
+				match_type ,
+			</if>
+			<if test="bourseFlg != null">
+				bourse_flg ,
+			</if>
+			<if test="returnCapWay != null">
+				return_cap_way ,
+			</if>
+			<if test="returnCapDays != null">
+				return_cap_days ,
+			</if>
+			<if test="returnCapAmount != null">
+				return_cap_amount ,
+			</if>
+			<if test="creditorDays != null">
+				creditor_days ,
+			</if>
+			<if test="dealRepayDays != null">
+				deal_repay_days ,
+			</if>
+			<if test="convertRateStart != null">
+				convert_rate_start ,
+			</if>
+			<if test="convertRateEnd != null">
+				convert_rate_end ,
+			</if>
+			<if test="overflowRateStart != null">
+				overflow_rate_start ,
+			</if>
+			<if test="overflowRateEnd != null">
+				overflow_rate_end ,
+			</if>
+			<if test="maturityRemind != null">
+				maturity_remind ,
+			</if>
+			<if test="mostTransferCount != null">
+				most_transfer_count ,
+			</if>
+			<if test="transferRate != null">
+				transfer_rate ,
+			</if>
+			<if test="transferDays != null">
+				transfer_days ,
+			</if>
+			<if test="createdUserId != null">
+				created_user_id ,
+			</if>
+			<if test="modifiedUserId != null">
+				modified_user_id ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="biddInfoId != null">
+				#{biddInfoId} ,
+			</if>
+			<if test="autidNote != null and autidNote != ''">
+				#{autidNote} ,
+			</if>
+			<if test="description != null and description != ''">
+				#{description} ,
+			</if>
+			<if test="projectDescription != null and projectDescription != ''">
+				#{projectDescription} ,
+			</if>
+			<if test="assureDescription != null and assureDescription != ''">
+				#{assureDescription} ,
+			</if>
+			<if test="repaymentSource != null and repaymentSource != ''">
+				#{repaymentSource} ,
+			</if>
+			<if test="legalFiles != null and legalFiles != ''">
+				#{legalFiles} ,
+			</if>
+			<if test="fundUse != null and fundUse != ''">
+				#{fundUse} ,
+			</if>
+			<if test="billNo != null and billNo != ''">
+				#{billNo} ,
+			</if>
+			<if test="ruleId != null">
+				#{ruleId} ,
+			</if>
+			<if test="recommendState != null">
+				#{recommendState} ,
+			</if>
+			<if test="givingPointState != null">
+				#{givingPointState} ,
+			</if>
+			<if test="advanceRepayState != null">
+				#{advanceRepayState} ,
+			</if>
+			<if test="punishState != null">
+				#{punishState} ,
+			</if>
+			<if test="reserveInterest != null">
+				#{reserveInterest} ,
+			</if>
+			<if test="creditorState != null">
+				#{creditorState} ,
+			</if>
+			<if test="withholdState != null">
+				#{withholdState} ,
+			</if>
+			<if test="matchState != null">
+				#{matchState} ,
+			</if>
+			<choose>
+				<when test="nextMatchDate != null">
+					#{nextMatchDate} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="matchType != null">
+				#{matchType} ,
+			</if>
+			<if test="bourseFlg != null">
+				#{bourseFlg} ,
+			</if>
+			<if test="returnCapWay != null">
+				#{returnCapWay} ,
+			</if>
+			<if test="returnCapDays != null">
+				#{returnCapDays} ,
+			</if>
+			<if test="returnCapAmount != null">
+				#{returnCapAmount} ,
+			</if>
+			<if test="creditorDays != null">
+				#{creditorDays} ,
+			</if>
+			<if test="dealRepayDays != null">
+				#{dealRepayDays} ,
+			</if>
+			<if test="convertRateStart != null">
+				#{convertRateStart} ,
+			</if>
+			<if test="convertRateEnd != null">
+				#{convertRateEnd} ,
+			</if>
+			<if test="overflowRateStart != null">
+				#{overflowRateStart} ,
+			</if>
+			<if test="overflowRateEnd != null">
+				#{overflowRateEnd} ,
+			</if>
+			<if test="maturityRemind != null">
+				#{maturityRemind} ,
+			</if>
+			<if test="mostTransferCount != null">
+				#{mostTransferCount} ,
+			</if>
+			<if test="transferRate != null">
+				#{transferRate} ,
+			</if>
+			<if test="transferDays != null">
+				#{transferDays} ,
+			</if>
+			<if test="createdUserId != null">
+				#{createdUserId} ,
+			</if>
+			<if test="modifiedUserId != null">
+				#{modifiedUserId} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO bid_info_detail (
+        	id ,
+        	bidd_info_id ,
+        	autid_note ,
+        	description ,
+        	project_description ,
+        	assure_description ,
+        	repayment_source ,
+        	legal_files ,
+        	fund_use ,
+        	bill_no ,
+        	rule_id ,
+        	recommend_state ,
+        	giving_point_state ,
+        	advance_repay_state ,
+        	punish_state ,
+        	reserve_interest ,
+        	creditor_state,
+        	withhold_state ,
+        	match_state ,
+        	next_match_date ,
+        	match_type ,
+        	bourse_flg ,
+        	return_cap_way ,
+        	return_cap_days ,
+        	return_cap_amount ,
+        	creditor_days ,
+        	deal_repay_days ,
+        	convert_rate_start ,
+		    convert_rate_end ,
+		    overflow_rate_start ,
+        	overflow_rate_end ,
+        	maturity_remind ,
+        	most_transfer_count ,
+        	transfer_rate ,
+        	transfer_days,
+        	created_user_id ,
+        	modified_user_id ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.biddInfoId != null">
+					#{item.biddInfoId} ,
+				</if>
+				<if test="item.biddInfoId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.autidNote != null and item.autidNote != ''">
+					#{item.autidNote} ,
+				</if>
+				<if test="item.autidNote == null or item.autidNote == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.description != null and item.description != ''">
+					#{item.description} ,
+				</if>
+				<if test="item.description == null or item.description == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.projectDescription != null and item.projectDescription != ''">
+					#{item.projectDescription} ,
+				</if>
+				<if test="item.projectDescription == null or item.projectDescription == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.assureDescription != null and item.assureDescription != ''">
+					#{item.assureDescription} ,
+				</if>
+				<if test="item.assureDescription == null or item.assureDescription == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.repaymentSource != null and item.repaymentSource != ''">
+					#{item.repaymentSource} ,
+				</if>
+				<if test="item.repaymentSource == null or item.repaymentSource == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.legalFiles != null and item.legalFiles != ''">
+					#{item.legalFiles} ,
+				</if>
+				<if test="item.legalFiles == null or item.legalFiles == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.fundUse != null and item.fundUse != ''">
+					#{item.fundUse} ,
+				</if>
+				<if test="item.fundUse == null or item.fundUse == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.billNo != null and item.billNo != ''">
+					#{item.billNo} ,
+				</if>
+				<if test="item.billNo == null or item.billNo == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.ruleId != null">
+					#{item.ruleId} ,
+				</if>
+				<if test="item.ruleId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.recommendState != null">
+					#{item.recommendState} ,
+				</if>
+				<if test="item.recommendState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.givingPointState != null">
+					#{item.givingPointState} ,
+				</if>
+				<if test="item.givingPointState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceRepayState != null">
+					#{item.advanceRepayState} ,
+				</if>
+				<if test="item.advanceRepayState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.punishState != null">
+					#{item.punishState} ,
+				</if>
+				<if test="item.punishState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.reserveInterest != null">
+					#{item.reserveInterest} ,
+				</if>
+				<if test="item.reserveInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.creditorState != null">
+					#{item.creditorState} ,
+				</if>
+				<if test="item.creditorState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.withholdState != null">
+					#{item.withholdState} ,
+				</if>
+				<if test="item.withholdState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.matchState != null">
+					#{item.matchState} ,
+				</if>
+				<if test="item.matchState == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.nextMatchDate != null">
+					#{item.nextMatchDate} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.matchType != null">
+					#{item.matchType} ,
+				</if>
+				<if test="item.matchType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bourseFlg != null">
+					#{item.bourseFlg} ,
+				</if>
+				<if test="item.bourseFlg == null">
+					DEFAULT ,
+				</if>
+				<if test="item.returnCapWay != null">
+					#{item.returnCapWay} ,
+				</if>
+				<if test="item.returnCapWay == null">
+					DEFAULT ,
+				</if>
+				<if test="item.returnCapDays != null">
+					#{item.returnCapDays} ,
+				</if>
+				<if test="item.returnCapDays == null">
+					DEFAULT ,
+				</if>
+				<if test="item.returnCapAmount != null">
+					#{item.returnCapAmount} ,
+				</if>
+				<if test="item.returnCapAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.creditorDays != null">
+					#{item.creditorDays} ,
+				</if>
+				<if test="item.creditorDays == null">
+					DEFAULT ,
+				</if>
+				<if test="item.dealRepayDays != null">
+					#{item.dealRepayDays} ,
+				</if>
+				<if test="item.dealRepayDays == null">
+					DEFAULT ,
+				</if>
+				<if test="item.convertRateStart != null">
+					#{item.convertRateStart} ,
+				</if>
+				<if test="item.convertRateStart == null">
+					DEFAULT ,
+				</if>
+				<if test="item.overflowRateEnd != null">
+					#{item.overflowRateEnd} ,
+				</if>
+				<if test="item.overflowRateEnd == null">
+					DEFAULT ,
+				</if>
+				<if test="item.maturityRemind != null">
+					#{item.maturityRemind} ,
+				</if>
+				<if test="item.maturityRemind == null">
+					DEFAULT ,
+				</if>
+				<if test="item.mostTransferCount != null">
+					#{item.mostTransferCount} ,
+				</if>
+				<if test="item.mostTransferCount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transferRate != null">
+					#{item.transferRate} ,
+				</if>
+				<if test="item.transferRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transferDays != null">
+					#{item.transferDays} ,
+				</if>
+				<if test="item.transferDays == null">
+					DEFAULT ,
+				</if>
+				<if test="item.createdUserId != null">
+					#{item.createdUserId} ,
+				</if>
+				<if test="item.createdUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.modifiedUserId != null">
+					#{item.modifiedUserId} ,
+				</if>
+				<if test="item.modifiedUserId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="biddInfoId != null">
+			bidd_info_id = #{biddInfoId} ,
+		   </if>
+			<if test="autidNote != null and autidNote != ''">
+				autid_note = #{autidNote} ,
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description} ,
+			</if>
+			<if test="projectDescription != null and projectDescription != ''">
+				project_description = #{projectDescription} ,
+			</if>
+			<if test="assureDescription != null and assureDescription != ''">
+				assure_description = #{assureDescription} ,
+			</if>
+			<if test="repaymentSource != null and repaymentSource != ''">
+				repayment_source = #{repaymentSource} ,
+			</if>
+			<if test="legalFiles != null and legalFiles != ''">
+				legal_files = #{legalFiles} ,
+			</if>
+			<if test="fundUse != null and fundUse != ''">
+				fund_use = #{fundUse} ,
+			</if>
+			<if test="billNo != null and billNo != ''">
+				bill_no = #{billNo} ,
+			</if>
+			<if test="ruleId != null">
+			rule_id = #{ruleId} ,
+		   </if>
+			<if test="recommendState != null">
+			recommend_state = #{recommendState} ,
+		   </if>
+			<if test="givingPointState != null">
+			giving_point_state = #{givingPointState} ,
+		   </if>
+			<if test="advanceRepayState != null">
+			advance_repay_state = #{advanceRepayState} ,
+		   </if>
+			<if test="punishState != null">
+			punish_state = #{punishState} ,
+		   </if>
+			<if test="reserveInterest != null">
+			reserve_interest = #{reserveInterest} ,
+		   </if>
+		   <if test="creditorState != null">
+			creditor_state = #{creditorState} ,
+		   </if>
+			<if test="withholdState != null">
+			withhold_state = #{withholdState} ,
+		   </if>
+			<if test="matchState != null">
+			match_state = #{matchState} ,
+		   </if>
+			<if test="nextMatchDate != null">
+				next_match_date = #{nextMatchDate} ,
+			</if>
+			<if test="matchType != null">
+			match_type = #{matchType} ,
+		   </if>
+			<if test="bourseFlg != null">
+			bourse_flg = #{bourseFlg} ,
+		   </if>
+			<if test="returnCapWay != null">
+			return_cap_way = #{returnCapWay} ,
+		   </if>
+			<if test="returnCapDays != null">
+			return_cap_days = #{returnCapDays} ,
+		   </if>
+			<if test="returnCapAmount != null ">
+				return_cap_amount =return_cap_amount + #{returnCapAmount} ,
+			</if>
+			<if test="creditorDays != null">
+			creditor_days = #{creditorDays} ,
+		   </if>
+			<if test="dealRepayDays != null">
+			deal_repay_days = #{dealRepayDays} ,
+		   </if>
+			<if test="convertRateStart != null">
+			convert_rate_start = #{convertRateStart} ,
+		   </if>
+			<if test="convertRateEnd != null">
+				convert_rate_end = #{convertRateEnd} ,
+			</if>
+			<if test="overflowRateStart != null">
+				overflow_rate_start = #{overflowRateStart} ,
+			</if>
+			<if test="overflowRateEnd != null">
+			overflow_rate_end = #{overflowRateEnd} ,
+		   </if>
+			<if test="maturityRemind != null">
+			maturity_remind = #{maturityRemind} ,
+		   </if>
+			<if test="mostTransferCount != null">
+			most_transfer_count = #{mostTransferCount} ,
+		   </if>
+			<if test="transferRate != null ">
+				transfer_rate = #{transferRate} ,
+			</if>
+			<if test="transferDays != null ">
+				transfer_days = #{transferDays} ,
+			</if>
+			<if test="createdUserId != null">
+			created_user_id = #{createdUserId} ,
+		   </if>
+			<if test="modifiedUserId != null">
+			modified_user_id = #{modifiedUserId} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<choose>
+				<when test="modifyTime != null">
+					modify_time = #{modifyTime} ,
+				</when>
+				<otherwise>
+					modify_time = NOW() ,
+				</otherwise>
+			</choose>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  bid_info_detail
+		<include refid="update_sql"/>
+		WHERE 
+			1 = 1 
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="biddInfoId != null">
+			AND bidd_info_id = #{biddInfoId}
+		</if>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM bid_info_detail 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_BidInfoDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bid_info_detail 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 根据BidID查询 -->
+	<select id="findByBiddInfoId" resultMap="_BidInfoDetail">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bid_info_detail 
+		WHERE 1 = 1
+			AND bidd_info_id = #{biddInfoId}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="biddInfoId != null">
+			AND bidd_info_id = #{biddInfoId}
+			</if>
+			<if test="autidNote != null and autidNote !=''">
+			AND autid_note = #{autidNote}
+			</if>
+			<if test="description != null and description !=''">
+			AND description = #{description}
+			</if>
+			<if test="projectDescription != null and projectDescription !=''">
+			AND project_description = #{projectDescription}
+			</if>
+			<if test="assureDescription != null and assureDescription !=''">
+			AND assure_description = #{assureDescription}
+			</if>
+			<if test="repaymentSource != null and repaymentSource !=''">
+			AND repayment_source = #{repaymentSource}
+			</if>
+			<if test="legalFiles != null and legalFiles !=''">
+			AND legal_files = #{legalFiles}
+			</if>
+			<if test="fundUse != null and fundUse !=''">
+			AND fund_use = #{fundUse}
+			</if>
+			<if test="billNo != null and billNo !=''">
+			AND bill_no = #{billNo}
+			</if>
+			<if test="ruleId != null">
+			AND rule_id = #{ruleId}
+			</if>
+			<if test="recommendState != null">
+			AND recommend_state = #{recommendState}
+			</if>
+			<if test="givingPointState != null">
+			AND giving_point_state = #{givingPointState}
+			</if>
+			<if test="advanceRepayState != null">
+			AND advance_repay_state = #{advanceRepayState}
+			</if>
+			<if test="punishState != null">
+			AND punish_state = #{punishState}
+			</if>
+			<if test="reserveInterest != null">
+			AND reserve_interest = #{reserveInterest}
+			</if>
+			<if test="creditorState != null">
+			AND creditor_state = #{creditorState}
+			</if>
+			<if test="withholdState != null">
+			AND withhold_state = #{withholdState}
+			</if>
+			<if test="matchState != null">
+			AND match_state = #{matchState}
+			</if>
+			<if test="nextMatchDateBegin != null">
+			AND next_match_date >= #{nextMatchDateBegin}
+			</if>
+			<if test="nextMatchDateEnd != null">
+			AND next_match_date &lt;= #{nextMatchDateEnd}
+			</if>
+			<if test="matchType != null">
+			AND match_type = #{matchType}
+			</if>
+			<if test="bourseFlg != null">
+			AND bourse_flg = #{bourseFlg}
+			</if>
+			<if test="returnCapWay != null">
+			AND return_cap_way = #{returnCapWay}
+			</if>
+			<if test="returnCapDays != null">
+			AND return_cap_days = #{returnCapDays}
+			</if>
+			<if test="returnCapAmount != null">
+			AND return_cap_amount = #{returnCapAmount}
+			</if>
+			<if test="creditorDays != null">
+			AND creditor_days = #{creditorDays}
+			</if>
+			<if test="dealRepayDays != null">
+			AND deal_repay_days = #{dealRepayDays}
+			</if>
+			<if test="convertRateStart != null">
+			AND convert_rate_start = #{convertRateStart}
+			</if>
+			<if test="convertRateEnd != null">
+				AND convert_rate_end = #{convertRateEnd}
+			</if>
+			<if test="overflowRateStart != null">
+				AND overflow_rate_start = #{overflowRateStart}
+			</if>
+			<if test="overflowRateEnd != null">
+			AND overflow_rate_end = #{overflowRateEnd}
+			</if>
+			<if test="maturityRemind != null">
+			AND maturity_remind = #{maturityRemind}
+			</if>
+			<if test="mostTransferCount != null">
+			AND most_transfer_count = #{mostTransferCount}
+			</if>
+			<if test="transferRate != null">
+			AND transfer_rate = #{transferRate}
+			</if>
+			<if test="transferDays != null">
+			AND transfer_days = #{transferDays}
+			</if>
+			<if test="createdUserId != null">
+			AND created_user_id = #{createdUserId}
+			</if>
+			<if test="modifiedUserId != null">
+			AND modified_user_id = #{modifiedUserId}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM bid_info_detail 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_BidInfoDetail">
+		SELECT <include refid="columns" />
+		FROM bid_info_detail 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>实名认证</title>
+</head>
+
+<body style="padding-right:0 !important;">
+    <!-- 头部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_header.html"></div>
+    <!-- 头部结束 -->
+
+    <!-- 实名认证 开始-->
+    <div class="reg_main">
+	   <!--  <img src="${project_base_path}/src/img/guquan/icon_rzjdt.png" class="reg_img">-->
+	    <img src="${project_base_path}/src/img/guquan/icon_rzb.png" class="reg_img">
+		<img src="${project_base_path}/src/img/guquan/icon_rzjdt.png" style="display: none" class="reg_img">
+
+		<form id="dataForm">
+			<input type="hidden" name="login" id="login"/>
+			<input type="hidden" name="passwd" id="passwd"/>
+	    <div class="reg_forma">   
+		    <div class="tal">
+		                    为了维护您的合法权益，《私募投资基金募集行为管理办法》规定，只向特定的合格投资者宣传推介私募投资基金产品。我们谨遵协会之规定，您需要先完成实名认证和风险测评后才能访问。
+			</div>
+	        <ul>
+	        	<!--真实姓名-->
+	          <li class="q_text">
+				  <input type="text" class="reg_tel" name="realName" id="realName" value="请输入您的真实姓名" style="color:#ccc" datatype="s2-18" nullmsg="请输入您的真实姓名" errormsg="姓名2-18个字符！">
+	          	<span class="Validform_checktip"></span>
+	          </li>
+	          <!--身份证号码-->
+	          <li class="q_text">
+				  <input type="text" class="reg_password" name="idCard" id="idCard" value="请输入您的身份证号码" style="color:#ccc" maxlength="19" datatype="idcard" nullmsg="请输入您的身份证号码" errormsg="身份证号不正确！">
+	          	<span class="Validform_checktip"></span>
+	          </li>
+		  	  <span id="resErrMsg" class="Validform_checktip colr-red mt-10" style="display:block;"></span>
+
+	          <li class="tongyixuanz" style="padding-left:10px;text-align:left;">
+	                <span id="agreeOn" class="neirong neizhuanl" style="width:19px;height:19px;"></span>
+	                <span class="">我声明为中国税收公民
+	            	</span>&nbsp;&nbsp;<span id="err_check" class="Validform_checktip"></span>
+	            </li>
+	          <a class="next_step" id="submitBtn" href="javascript:void(0)">下一步</a>
+	          <div class="jump"><a href="javascript:void(0);" class="reg_jumpbtn">跳过 ></a></div>
+	        </ul>
+	    </div>
+		</form>
+	</div>
+    <!--实名认证结束-->
+    
+    <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+    
+    <!-- 注册成功 -->
+	<div class="bgzz" style="display: none"></div>
+	<div class="yuyuecg" style="display: none">
+        <img src="${project_base_path}/src/img/guquan/registSuccess.png" alt="注册成功">
+        <button class="quedingbut">确认</button>
+    </div>
+       
+	
+
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js?v=1231"></script>
+	
+	
+<script>
+	$(function(){
+		//首先获取utype
+		utype = commonUtil.getUrlParam("utype");//检查url中是否指定，优先级1
+		utype = fundCommon.initUtype(utype);//检查参数中是否指定，优先级2
+
+		//设置分步图片
+		var entrance = commonUtil.getUrlParam("entrance");
+		fundCommon.setStepPic(entrance , "reg_img");
+		if(entrance == 1){
+			//四步显示跳过
+			//$(".bgzz , .yuyuecg").show();
+			$(".reg_jumpbtn").show();
+		}else{
+			//隐藏
+			$(".reg_jumpbtn").hide();
+		}
+
+        fundCommon.regForRealName();
+		
+        //勾选单选框
+        $(".neirong").click(function(){
+        	$(this).toggleClass("neizhuanl");
+        	if($(this).hasClass("neizhuanl")){
+        		$(".dengluodiv").find("button").eq(0).addClass("denglubut");
+        		$(".dengluodiv").find("button").eq(1).addClass("zhucebut");
+        	}else{
+        		$(".dengluodiv").find("button").eq(0).removeClass("denglubut");
+        		$(".dengluodiv").find("button").eq(1).removeClass("zhucebut");
+        	}
+        	
+        })
+
+		//点击注册成功的按钮跳转到主页
+        $(".quedingbut").on("click",function(){
+            $(".bgzz").hide();
+            $(".yuyuecg").hide();
+
+			//跳转到首页
+			fundCommon.jumpIndex(utype);
+        })
+
+		//跳过显示注册成功
+		$(".reg_jumpbtn").on("click",function () {
+			$(".bgzz").show();
+			$(".yuyuecg").show();
+		})
+
+        
+	})
+    	
+    		
+    	
+    	
+      
+</script>
+</html>

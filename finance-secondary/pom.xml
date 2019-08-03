@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>finance-secondary</artifactId>
+	<packaging>pom</packaging>
+	<name>finance-secondary</name>
+	<description>finance-secondary</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<modules>
+        <module>../finance-qdz</module>
+        <module>../finance-sms</module>
+        <module>../finance-vas</module>
+        <module>../finance-contract</module>
+        <module>../finance-point</module>
+        <module>../finance-roster</module>
+        <module>../finance-property</module>
+        <module>../finance-info</module>
+        <module>../finance-monitor</module>
+        <module>../finance-bi</module>
+        <module>../finance-fund</module>
+        <module>../finance-activity</module>
+		<module>finance-secondary-service</module>
+        
+	</modules>
+</project>

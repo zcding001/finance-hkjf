@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.monitor.model.MonitorOperateRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_MonitorOperateRecord" type="com.hongkun.finance.monitor.model.MonitorOperateRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="operateType" column="operate_type"/>
+		<result property="operateDesc" column="operate_desc"/>
+		<result property="operateState" column="operate_state"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,operate_type,operate_desc,operate_state,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO monitor_operate_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="operateType != null">
+				operate_type ,
+			</if>
+			<if test="operateDesc != null and operateDesc != ''">
+				operate_desc ,
+			</if>
+			<if test="operateState != null">
+				operate_state ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="operateType != null">
+				#{operateType} ,
+			</if>
+			<if test="operateDesc != null and operateDesc != ''">
+				#{operateDesc} ,
+			</if>
+			<if test="operateState != null">
+				#{operateState} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO monitor_operate_record (
+        	id ,
+        	reg_user_id ,
+        	operate_type ,
+        	operate_desc ,
+        	operate_state ,
+        	create_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.operateType != null">
+					#{item.operateType} ,
+				</if>
+				<if test="item.operateType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.operateDesc != null and item.operateDesc != ''">
+					#{item.operateDesc} ,
+				</if>
+				<if test="item.operateDesc == null or item.operateDesc == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.operateState != null">
+					#{item.operateState} ,
+				</if>
+				<if test="item.operateState == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="operateType != null">
+			operate_type = #{operateType} ,
+		   </if>
+			<if test="operateDesc != null and operateDesc != ''">
+				operate_desc = #{operateDesc} ,
+			</if>
+			<if test="operateState != null">
+			operate_state = #{operateState} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  monitor_operate_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM monitor_operate_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_MonitorOperateRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM monitor_operate_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="operateType != null">
+			AND operate_type = #{operateType}
+			</if>
+			<if test="operateDesc != null and operateDesc !=''">
+			AND operate_desc = #{operateDesc}
+			</if>
+			<if test="operateState != null">
+			AND operate_state = #{operateState}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM monitor_operate_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_MonitorOperateRecord">
+		SELECT <include refid="columns" />
+		FROM monitor_operate_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,94 @@
+<style>
+	span{ color: #3f903f}
+</style>
+<div>
+	<div class="panel panel-default">
+		<div class="panel-body" >
+			<div class="well">
+				<table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+					<tr>
+						<td >
+							<div class="form-group">
+								<label>审核意见：【<span  ng-bind="bankCardUpdateInfo.remark" ></span>】</label>
+							</div>
+						</td>
+						<td >
+							<div class="form-group">
+								<label>申请原因：【<span  ng-bind="bankCardUpdateInfo.reason" ></span>】</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							<div class="form-group">
+								<label>姓名：<span ng-bind="bankCardUpdateInfo.realName"></span></label>
+							</div>
+						</td>
+						<td >
+							<div class="form-group">
+								<label>手机号：<span ng-bind="bankCardUpdateInfo.tel"></span></label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group">
+								<label>银行名称：<span ng-bind="bankCardUpdateInfo.bankName"></span></label>
+							</div>
+						</td>
+						<td>
+							<div class="form-group">
+								<label>银行卡号：<span ng-bind="bankCardUpdateInfo.bankCard"></span></label>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="form-group">
+								<label>身份证正面：</label>
+								<input type="hidden"  id="Pic_cardUp"/>
+							</div>
+						</td>
+						<td>
+							<div class="form-group">
+								<label>身份证反面： </label>
+								<input type="hidden"  id="Pic_cardDown"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group">
+								<label>手持身份证半身照正面：</label>
+								<input type="hidden"  id="Pic_holdingCardUp"/>
+							</div>
+						</td>
+						<td>
+							<div class="form-group">
+								<label>手持身份证半身照反面： </label>
+								<input type="hidden"  id="Pic_holdingCardDown"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							<div class="form-group">
+								<label>户口簿本人页：</label>
+								<input type="hidden"  id="Pic_householdRegister"/>
+							</div>
+						</td>
+						<td >
+							<div class="form-group">
+								<!--<label>户口簿本人页：</label>-->
+								<!--<input type="hidden"  id="Pic_householdRegister"/>-->
+							</div>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- /.panel-body -->
+</div>

@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/invest.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <script type="text/javascript" src="${project_base_path}/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${project_base_path}/lib/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <div class="include" file="${project_base_path}/common/header.html"></div>
+    <!-- 头部结束 -->
+    
+    <!-- 债权转让详情页 -->
+    <div class="mt-25">
+        <div class="container">
+            <div class="detail_head clearfix">
+                我要投资 &gt; 债权转让 &gt; <a href="#" class="colr-org bidNameString"></a>
+            </div>
+            <div class="ty_con clearfix">
+                <div class="TY_CON_LEFT fl"><img src="${project_base_path}/src/img/invest/bid_default.png" width="260" height="210" alt="体验金图片"></div>
+                <div class="ty_con_mid fl">
+                    <div class="ml-30">
+                        <div class="item_tit">
+                            <span class="itemtit bidNameString"></span>
+                        </div>
+                        <div class="ty_col_1 clearfix">
+                            <span class="debt_sp">
+                                <h3><i class="interestRateNum"></i>%</h3>
+                                <p>原年化收益率</p>
+                            </span>
+                            <span class="debt_sp">
+                                <h3><i class="buyerRateNum"></i>%</h3>
+                                <p>预期年化收益率</p>
+                            </span>
+                            <span class="debt_sp">
+                                <h3 class="creditorAmountNum"></h3>
+                                <p>转让金额</p>
+                            </span>
+                            <span class="debt_sp">
+                                <h3 class="transferPriceNum"></h3>
+                                <p>转让价格</p>
+                            </span>
+                        </div>
+                        <div class="ty_col_2 clearfix">
+                            <p class=" debt_info fl">剩余期限：<span class="resuTransferDaysNum"></span>天</p>
+                            <p class="debt_info fl">过期时间：<span class=""></span>
+                                <span id="day_show"></span>
+                                <span id="hour_show"><s id="h"></s></span>
+                                <span id="minute_show"><s></s></span>
+                                <span id="second_show"><s></s></span>
+                            </p>
+                            <span class="debt_info fl">还款方式：<i class="biddRepaymentWayString"></i></span>
+                            <!--<span class=" debt_info fl">还款日期：<i class="nextRepayTimeDate"></i></span>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- 转让中 -->
+                <div class="ty_con_right fr" id="transferStateBtn" style="display:none;">
+                    <div class="item_tyj_tlie">转让中</div>
+                    <div class="item_kt">
+                        <p>购买价格（元）</p>
+                        <h3>￥<i class="transferPriceNum"></i></h3>
+                    </div>
+                    <div class="item_ye clearfix">
+                        <p class="fl blh-26 blk-26">可用余额:<span class="pl-5 useableMoneyNum"></span> 元</p>
+                        <a id="incomeBtn" href="#" class="debt_regit fr" style="display:none">充值</a>
+                    </div>
+                    <div class="colr-red f-12 pl-10 mt-5" id="incomeMsg"></div>
+                    <div class="item_ye">
+                        <p class="blh-26 blk-26">预期收益:<span class="pl-5 expectAmountNum"></span> 元</p>
+                    </div>
+                    <div class="btn-invest">
+                        <a href="#" data-toggle="modal" id="showModel" >购买债权</a>
+                    </div>
+                </div>
+                <!-- 已失效-->
+                <div class="ty_con_right fr " id="loseStateBtn" style="display:none;">
+                    <div class="item_tyj_tlie" style="background: #ccc;">已失效</div>
+                    <div class="item_kt">
+                        <p>购买价格（元）</p>
+                        <h3>￥<i class="transferPriceNum"></i></h3>
+                    </div>
+                    <div class="item_ye clearfix blk-30">
+                    </div>
+                    <div class="btn-invest">
+                        <a href="#" style="background: #ccc;">此债权筹集期已过，不能认购</a>
+                    </div>
+                </div>
+                
+                 <!-- 原债权人访问此页面-->
+                <div class="ty_con_right fr " id="mineStateBtn" style="display:none;">
+                    <div class="item_tyj_tlie" style="background: #ccc;"><span class="stateShowString"></span></div>
+                    <div class="item_kt">
+                        <p>购买价格（元）</p>
+                        <h3><i class="transferPriceNum"></i></h3>
+                    </div>
+                    <div class="item_ye clearfix blk-30">
+                    </div>
+                    <div class="btn-invest">
+                        <a href="#" style="background: #ccc;">不能认购自己发布的债权</a>
+                    </div>
+                </div>
+                
+                <!-- 登录失效-->
+<!--                 <div class="ty_con_right fr"> -->
+<!--                     <div class="item_tyj_tlie">转让中</div> -->
+<!--                     <div class="item_kt"> -->
+<!--                         <p>购买价格（元）</p> -->
+<!--                         <h3>￥15000.00</h3> -->
+<!--                     </div> -->
+<!--                     <div class="btn-invest"> -->
+<!--                         <a href="#">免费注册</a> -->
+<!--                         <a href="#" class="mt-10">登录</a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+            </div>
+            <div class="infor container">
+                <div class="infor_title clearfix">
+                    <ul>
+                        <li class="in_active">债权信息</li>
+                        <li>还款计划</li>
+                        <li>转让记录</li>
+                    </ul>
+                </div>
+                <!--债权信息-->
+                <div class="infor_cont hide show">
+                    <table class="jh_table table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>债权人</td>
+                                <td><span class="investUserNameString"></span></td>
+                            </tr>
+                            <tr>
+                                <td>持有金额</td>
+                                <td><span class="holdMoneyNum"></span>元 </td>
+                            </tr>
+                            <tr>
+                                <td>转让金额</td>
+                                <td><span class="creditorAmountNum"></span>元</td>
+                            </tr>
+                            <tr>
+                                <td>转让价格</td>
+                                <td><span class="transferPriceNum"></span>元 </td>
+                            </tr>
+                            <tr>
+                                <td>预期年化收益率 </td>
+                                <td><span class="buyerRateNum"></span>%</td>
+                            </tr>
+                            <tr>
+                                <td>预期收益</td>
+                                <td><span class="expectAmountNum"></span>元</td>
+                            </tr>
+                            <tr>
+                                <td>起息日期</td>
+                                <td><span class="lendingTimeDate"></span></td>
+                            </tr>
+                            <tr>
+                                <td>到期日期</td>
+                                <td><span class="endDateDate"></span></td>
+                            </tr>
+                            <tr>
+                                <td>到期期限</td>
+                                <td><span class="buyerHoldDaysNum"></span>天</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--还款计划-->
+                <div class="infor_cont hide">
+                    <table class="jl_table table table-hover" id="repayPlanTable"></table>
+                </div>
+                <!--转让记录-->
+                <div class="infor_cont hide">
+                    <table class="jl_table table table-hover" id="transferRecordTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content border-radius">
+                <div class="modal-header  bg-block border-radius">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="gridModalLabel">确认债权信息</h4>
+                </div>
+                <div class="modal-body" style="width: 95%;">
+                    <div class="row blk-30 blh-30 bg-block pl-15">项目信息</div>
+                    <div class="row colr-gray">
+                        <div class="col-md-6">
+                            <p>项目名称：<i class="bidNameString"></i></p>
+                            <p>原年化收益率：<i class="interestRateNum"></i> %</p>
+                            <p>认购后年化收益率： <i class="buyerRateNum"></i>%</p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-2">
+                            <p> 还款方式：<i class="biddRepaymentWayString"></i></p>
+<!--                             <p> 还款时间：<i class="nextRepayTimeDate"></p> -->
+<!--                             <p>到期时间：<i class="endDateDate"></p> -->
+                        </div>
+                    </div>
+                    <div class="row blk-30 blh-30 bg-block pl-15">债权信息</div>
+                    <div class="row colr-gray">
+                        <div class="col-md-6">
+                            <!--<p>债权编号：<i class="firstInvestIdNum"></i></p>-->
+                            <p>原债权人：<i class="investUserNameString"></i></p>
+<!--                             <p>新债权人：<i class="newRealNameString"></i></p> -->
+                        </div>
+                        <div class="col-md-4 col-md-offset-2">
+                            <p> 转让金额：<i class="creditorAmountNum"></i> 元</p>
+                            <p> 转让价格：<i class="transferPriceNum"></i> 元</p>
+                        </div>
+                    </div>
+                    <div class="row blk-30 blh-30 bg-block pl-15">回款信息</div>
+                    <div class="row colr-gray">
+                        <div class="col-md-6">
+                            <p>认购金额：<i class="creditorAmountNum"></i> 元</p>
+                            <p>到期回款总额：<i class="buyerRepayMoneyNum"></i> 元</p>
+                            <p>认购后净收益：<i class="expectAmountNum"></i> 元</p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-2">
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer tac">
+                	<input id="transferId" type="hidden" ></input>
+                    <button id="submitBtn" type="button" class="btn btn-warning mr-20"  style="width: 100px;">确认支付</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px;">取消</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+     <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/invest/creditorTransferDetail.js"></script>
+<script>
+$(function() {
+    $(".infor_title li").on("click", function() {
+        $this = $(this);
+        index = $this.index();
+        $this.addClass("in_active").siblings().removeClass("in_active");
+        $(".infor_cont").eq(index).addClass("show").siblings().removeClass("show");
+    })
+    creditorTransferDetailController.loadToInvest();
+})
+</script>
+
+</html>

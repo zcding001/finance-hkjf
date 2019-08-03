@@ -1,0 +1,28 @@
+<!-- 已发红包 -->
+<div class="act_right fr">
+    <div style="overflow-x: auto;width:818px;">
+        <table class="table table-hover ellipsis" id="dataTable">
+        </table>
+    </div>
+    <div class="paging">
+    </div>
+</div>
+<script>
+    var columns = [
+        {title:'红包名称',data:'name',tdClass:'tac',thClass:'tac'},
+        {title:'红包金额',data:'value',tdClass:'tac',thClass:'tac',render:function (value) {
+            return value + "元";
+        }},
+        {title:'发送时间',data:'createTime',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:'领取对象',data:'acceptorName',tdClass:'tac',thClass:'tac'},
+        {title:'状态',data:'state',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dictionaryUtil.getName('vas','redpacket_state',value);
+        }},
+        {title:'红包类型',data:'redpacketSource',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dictionaryUtil.getName('vas','redpacket_source',value);
+        }}
+    ]
+    renderUtil.renderList("/redPacketController/getUserSendOutRedPacketInfo.do",columns);
+</script>

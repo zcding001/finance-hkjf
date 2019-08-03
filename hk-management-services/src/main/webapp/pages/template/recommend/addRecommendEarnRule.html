@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               好友推荐规则
+            </div>
+            <!-- /.panel-heading -->
+            <form name="RecommendRuleForm" id="recommendRuleForm"  ng-submit="submit()" ng-class="{ 'ng-submitted': submitted }" novalidate>
+				<input type="hidden" name="vasRebatesRuleId" id="vasRebatesRuleId"/>
+            <div class="panel-body" >
+	                <div class="well">
+                     <div class="form-group">
+		       			  <label class="textright" style="width: 100px;">活动时间:</label>
+		       			 <input  type="text" id="startDate" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endDate\')}'})"  class="Wdate form-control" ng-model="recommendRule.beginTime" name="beginTime" readonly="readonly" style="width:17%;height:30px;display:inline-block;margin-left:10px;"/>
+						  -
+		       			  <input  type="text" id="endDate" onclick="WdatePicker({minDate:'#F{$dp.$D(\'startDate\')}'})" class="Wdate form-control" ng-model="recommendRule.endTime" name="endTime" readonly="readonly" style="width:17%;height:30px;display:inline-block;"/>
+					</div>
+					<div class="form-group">
+		       			   <label class="textright" style="width: 100px;">转化周期:</label>
+		       			  <input class="form-control ng-pristine ng-valid ng-touched textstyle"  placeholder="Enter a switchCycle..." name="switchCycle" ng-model="recommendRule.switchCycle"  type="text">
+					</div>
+					<div class="form-group">
+	    					 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>用户角色: </label>
+	    					<select class="form-control ng-pristine ng-valid ng-touched textstyle"  style="margin-bottom: 3px;" name="userType" ng-change="changeUserType(userType)" ng-model="userType">  
+	    					   <option ng-repeat="ty in userTypes" value="{{ty.value+''}}">{{ty.name}}</option>
+					        </select>    
+					</div>
+					
+					<div class="alert alert-info fade in">
+	        	        <div class="form-group">
+	        	        <label><span class="font-red">*&nbsp;</span>一级好友:</label><span style="color:#F00" class="bid-info" id="friendLevelOneError"></span>
+					      <button class="btn" type="button" style="margin-left:25px;" ng-click="addOption($index)">添加一级好友选项</button>  
+	        	       </div>
+	        	       
+	        	       
+	        	       <div class="alert alert-info fade in" ng-repeat="opt in options">
+		    				 <ng-form name="repeatForm{{$index}}">
+		    				  <div class="form-group">
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>投资笔数:</label>
+									第<input  style="width:15%;margin: 0 5px;" name="invNumOne" ng-model="opt.invNumOne" type="text"   required ng-pattern="/^[0-9]*[0-9][0-9]*$/" >笔
+									<span class="validation-message" ng-show="repeatForm{{$index}}.invNumOne.$error.required">
+				                    <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="repeatForm{{$index}}.invNumOne.$error.pattern">
+				                   <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>返利汇率:</label>
+									<input style="width:15%" name="rebatesRateOne" ng-model="opt.rebatesRateOne" type="text" required ng-pattern="/^(\d{1,2}|\d{1,2}\.\d{1,2})$/">%
+									<span class="validation-message" ng-show="repeatForm{{$index}}.rebatesRateOne.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="repeatForm{{$index}}.rebatesRateOne.$error.pattern">
+				                   <span style="color:#F00" class="bid-info">请输入两位小数的数值</span>
+				               		 </span>
+						      </div>
+						      </ng-form>
+        	         		<button class="btn" type="button" style="float: right;margin-top: -48px;" ng-click="delOption($index)">删除</button>  
+                 	</div>  
+                 	 <div class="form-group">
+			       			      <label><span class="font-red">*&nbsp;</span>默认利率:</label><span style="color:#F00" class="bid-info" ></span>
+									第<input  style="width:15%;margin: 0 5px;" name="fromInvNumOne" ng-model="recommendRule.fromInvNumOne" type="text" required ng-pattern="/^[0-9]*[0-9][0-9]*$/"></span>&nbsp&nbsp-&nbsp
+									<span class="validation-message" ng-show="RecommendRuleForm.fromInvNumOne.$error.required">
+				                    <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="RecommendRuleForm.fromInvNumOne.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									第<input style="width:15%;margin: 0 5px;" name="toInvNumOne" ng-model="recommendRule.toInvNumOne" type="text"  required ng-pattern="/^[0-9]*[0-9][0-9]*$/">笔
+									<span class="validation-message" ng-show="RecommendRuleForm.toInvNumOne.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="RecommendRuleForm.toInvNumOne.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>返利汇率:</label>
+									<input  style="width:15%" name="rebatesRateLevelOne" ng-model="recommendRule.rebatesRateLevelOne" type="text"  required ng-pattern="/^(\d{1,2}|\d{1,2}\.\d{1,2})$/" >%
+									<span class="validation-message" ng-show="RecommendRuleForm.rebatesRateLevelOne.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="RecommendRuleForm.rebatesRateLevelOne.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入两位小数的数值</span>
+				               		 </span>
+					</div>
+        	       </div>
+					
+					 <div class="alert alert-info fade in">
+	                   <div class="form-group">
+	                   <label><span class="font-red">*&nbsp;</span>二级好友:</label><span style="color:#F00" class="bid-info" id="friendLevelTwoError"></span>
+					      <button class="btn" type="button" style="margin-left:25px;" ng-click="addFriendTwoOption($index)">添加二级好友选项</button>  
+	        	       </div>
+	        	       <div class="alert alert-info fade in" ng-repeat="ost in optionsTwo">
+	        	       		<ng-form name="repeatForm2{{$index}}">
+		    				  <div class="form-group">
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>投资笔数:</label>
+									第<input  style="width:15%;margin: 0 5px;" name="invNumTwo" ng-model="ost.invNumTwo" type="text"   required ng-pattern="/^[0-9]*[0-9][0-9]*$/">笔
+									<span class="validation-message" ng-show="repeatForm2{{$index}}.invNumTwo.$error.required">
+				                    <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="repeatForm2{{$index}}.invNumTwo.$error.pattern">
+				                   <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>返利汇率:</label>
+									<input style="width:15%" name="rebatesRateTwo" ng-model="ost.rebatesRateTwo" type="text" required ng-pattern="/^(\d{1,2}|\d{1,2}\.\d{1,2})$/">%
+									<span class="validation-message" ng-show="repeatForm2{{$index}}.rebatesRateTwo.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="repeatForm2{{$index}}.rebatesRateTwo.$error.pattern">
+				                     <span style="color:#F00" class="bid-info">请输入两位小数的数值</span>
+				               		 </span>
+						      </div>
+						      </ng-form>
+        	         		<button class="btn" type="button" style="float: right;margin-top: -48px;" ng-click="delFriendTwoOption($index)">删除</button>  
+        	         	</div>
+        	         	<div class="form-group">
+			       			      <label><span class="font-red">*&nbsp;</span>默认利率:</label><span style="color:#F00" class="bid-info" ></span>
+									第<input  style="width:15%;margin: 0 5px;" name="fromInvNumTwo" ng-model="recommendRule.fromInvNumTwo" type="text" required ng-pattern="/^[0-9]*[0-9][0-9]*$/"></span>&nbsp&nbsp-&nbsp
+									<span class="validation-message" ng-show="RecommendRuleForm.fromInvNumTwo.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="RecommendRuleForm.fromInvNumTwo.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									第<input style="width:15%;margin: 0 5px;" name="toInvNumTwo" ng-model="recommendRule.toInvNumTwo" type="text"  required ng-pattern="/^[0-9]*[0-9][0-9]*$/">笔
+									<span class="validation-message" ng-show="RecommendRuleForm.toInvNumTwo.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               		 <span class="validation-message" ng-show="RecommendRuleForm.toInvNumTwo.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入正整数</span>
+				               		 </span>
+									<label style="margin-left: 10px;"><span class="font-red">*&nbsp;</span>返利汇率:</label>
+									<input  style="width:15%" name="rebatesRateLevelTwo" ng-model="recommendRule.rebatesRateLevelTwo" type="text"  required ng-pattern="/^(\d{1,2}|\d{1,2}\.\d{1,2})$/">%
+									<span class="validation-message" ng-show="RecommendRuleForm.rebatesRateLevelTwo.$error.required">
+				                     <span style="color:#F00" class="bid-info">元素不能为空</span>
+				              	  </span>
+				               	 <span class="validation-message" ng-show="RecommendRuleForm.rebatesRateLevelTwo.$error.pattern">
+				                    <span style="color:#F00" class="bid-info">请输入两位小数的数值</span>
+				                	</span>
+					      </div>
+        	       </div> 
+        	       
+		     		<div>
+		     		 	<button type="submit" class="btn btn-outline btn-success" ng-disabled="submitting" ng-switch="submitting">
+				          <span ng-switch-default >保存</span>
+				          <span ng-switch-when="true">Submitting...</span>
+       					 </button>
+	                     <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+	                 </div>
+            </div>
+           </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

@@ -1,0 +1,39 @@
+<div class="row">
+   <div style="height: 30px"></div>
+</div>
+<div class="row">
+    <div class="col-xs-3">
+        <input class="form-control"  id="searchFilter"  placeholder="请输入过滤菜单..."  type="text" >
+    </div>
+    <div class="col-xs-3">
+        <button type="button" class="btn btn-success" onclick="angular.element(this).scope().filterOptions(true)">过滤</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-5">
+        <h3>全部菜单:</h3>
+        <select name="from" id="multiselect" class="form-control" size="30" multiple="multiple" ></select>
+    </div>
+
+    <div class="col-xs-2">
+        <h3 align="center">操作</h3>
+        <!--<button type="button" id="multiselect_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>-->
+        <button type="button" id="multiselect_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+        <button type="button" id="multiselect_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+        <!--<button type="button" id="multiselect_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>-->
+        <button type="button"  class="btn btn-block" onclick="angular.element(this).scope().saveAuths()">提交</button>
+    </div>
+
+    <h3> 已绑定菜单:</h3>
+    <div class="col-xs-5">
+        <select name="to" id="multiselect_to" class="form-control" size="30" multiple="multiple"></select>
+    </div>
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#multiselect').multiselect();
+    });
+</script>

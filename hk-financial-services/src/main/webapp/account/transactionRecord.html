@@ -1,0 +1,75 @@
+<!-- 交易记录 -->
+<div class="act_right fr">
+    <form id="dataTableForm">
+        <div class="tx_bar">
+            <ul class="clearfix">
+
+                <li class="fl">
+                    <cite class="fl">交易类型：</cite>
+                    <cite>
+                        <select name="tradeTypeFlag" class="fl">
+                            <option value="-999" selected="selected">全部</option>
+                            <option value="1">充值</option>
+                            <option value="2">投资</option>
+                            <option value="3">提现</option>
+                            <option value="4">其他</option>
+                          
+                        </select>
+                    </cite>
+                </li>
+                <li class="fl ml-10 in_time">
+                    <cite class="tx_bar_t fl">交易时间：</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+                    </cite>
+                    </cite>
+                    <cite class="fl">&nbsp;-&nbsp;</cite>
+                    <cite class="fl rel">
+                        <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+                    </cite>
+                </li>
+                <li class="fl ml-10">
+                    <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table class="table table-hover ellipsis" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+    var columns = [
+		{
+		    title: '交易时间', data: 'createTime', tdClass: 'tac', thClass: 'tac',render: function (value,row) {
+		        return dateUtil.dateTime(value);
+		    }
+		},{
+            title: '交易描述', data: 'subCodeDesc', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                return value;
+            }
+        }, {
+            title: '收支(元)', data: 'transMoney', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+            	if(row.sumSubFlag == '1'){
+            		  return "+" + value;
+            	}else{
+            		return "-" + value
+            	}
+            }
+        }, {
+            title: '账户可用余额(元)', data: 'afterMoney', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                return value;
+            }
+        }
+    ];
+
+    $("#start").val(dateUtil.dateByFormat(dateUtil.addMonth(-1), "yyyy-MM-dd"));
+    $("#end").val(dateUtil.currDate("yyyy-MM-dd"));
+
+    renderUtil.renderList("/finPaymentController/listTransactionRecord.do", columns, "dataTable");
+</script>

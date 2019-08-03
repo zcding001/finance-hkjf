@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.point.model.PointProductCategory">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_PointProductCategory" type="com.hongkun.finance.point.model.PointProductCategory">
+		<result property="id" column="id"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="name" column="name"/>
+		<result property="state" column="state"/>
+		<result property="sort" column="sort"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,parent_id,name,sort,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO point_product_category ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="parentId != null and parentId != ''">
+				parent_id ,
+			</if>
+			<if test="name != null">
+				name ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="parentId != null and parentId != ''">
+				#{parentId} ,
+			</if>
+			<if test="name != null">
+				#{name} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO point_product_category (
+        	id ,
+        	parent_id ,
+        	name ,
+        	sort ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.parentId != null and item.parentId != ''">
+					#{item.parentId} ,
+				</if>
+				<if test="item.parentId == null or item.parentId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="parentId != null and parentId != ''">
+				parent_id = #{parentId} ,
+			</if>
+			<if test="name != null">
+			name = #{name} ,
+		   </if>
+		   <if test="sort != null">
+			sort = #{sort} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  point_product_category
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM point_product_category 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_PointProductCategory">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM point_product_category 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			state != 0
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="parentId != null and parentId !=''">
+			AND parent_id = #{parentId}
+			</if>
+			<if test="name != null">
+			AND name = #{name}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM point_product_category 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_PointProductCategory">
+		SELECT <include refid="columns" />
+		FROM point_product_category 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<update id="deleteoncascade">
+		UPDATE point_product_category
+		SET state=0
+		WHERE
+		id IN
+		<foreach collection="list" item="did" open="(" separator="," close=")" >
+			${did}
+		</foreach>
+
+	</update>
+
+</mapper>

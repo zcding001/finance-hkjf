@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">匹配记录</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"优选标",data: "goodBidName", width:140,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		}
+ 		,
+ 		{ title:"优选标期数",data: "goodTermValue", width:100},
+ 		{ title:"优选标金额",data: "goodTotalAmount", width:100},
+ 		{ title:"散标",data: "commonBidName", width:140,
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 10);
+ 		    }	
+ 		},
+ 		{ title:"散标期数",data: "commonTermValue", width:100},
+ 		{ title:"散标金额",data: "commonTotalAmount", width:100},
+ 		{ title:"优选标匹配天数",data: "goodTerm", width:100},
+ 		{ title:"散标匹配天数",data: "commonTerm", width:100},
+ 		{ title:"匹配金额",className:"dt-simple",data: "matchMoney"},
+ 		{ title:"修改时间",data: "modifyTime",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 		    	return dateUtil.dateTime(value);
+ 			}	
+ 		}
+//  		,
+//  		{
+//  			title:"操作",
+//  			data: null,
+//  			className:"dt-operate",
+//  		    render: function (data, type, row, meta) {
+//  			    return '<a href="javascript:;" onclick="showCommonInvest();">+</a>';
+//  		    }
+//  		}
+ 	]; 
+
+dataTableUtil.createDTNoPageByPager(CONFIG.interface.bidMatchRecord+'?bidId='+ commonUtil.getRequestParamByUrl().param, columns);
+
+function showCommonInvest(){
+	$.ajax({
+        url : url,
+        data : data,
+        type : 'post',
+        dataType : 'json',
+        async : false,
+        success : function(resultData) {
+        	var returnData = {};
+        	var result = resultData.resMsg;
+            returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
+			returnData.recordsTotal = result.totalRows;
+			returnData.recordsFiltered = result.totalRows;
+			returnData.data = result.data;
+			//渲染响应结果
+			custFnCallback(returnData);
+        },
+        error : function(msg) {
+        	alert("数据加载失败" + msg);
+        }
+    });
+}
+</script>

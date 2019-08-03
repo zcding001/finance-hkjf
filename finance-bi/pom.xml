@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>finance-bi</artifactId>
+	<packaging>pom</packaging>
+	<name>finance-bi</name>
+	<description>finance-bi</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<modules>
+		<module>finance-bi-api</module>
+		<module>finance-bi-dao</module>
+		<module>finance-bi-model</module>
+		<module>finance-bi-service</module>
+	</modules>
+</project>

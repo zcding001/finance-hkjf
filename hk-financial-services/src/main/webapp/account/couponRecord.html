@@ -1,0 +1,321 @@
+<!-- 券卡查询 -->
+<div class="act_right fr">
+    <div class="zzfw">
+        <form action="" method="post">
+            <!--查询条件-->
+            <div class="tx_bar clearfix">
+                <ul class="f-16">
+                    <li class="fl">
+                        <cite class="tx_bar_t fl">类型：</cite>
+                        <cite class="mr-10">
+                            <select class="zz_select" name="type">
+                            </select>
+                        </cite>
+                    </li>
+                    <li class="fl"> 
+                        <cite class="bx_bar_btn_sel"> 
+                            <a href="javascript:void(0)" id="search">查询</a>
+                            <a href="javascript:void(0)" id="cancel" class="wd73_jf">取消</a>
+                        </cite>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div class="zzfw_list clearfix">
+            <ul>
+                <li class="zzfw_active fl" state="1"><a herf="#">未使用</a></li>
+                <li class="fl" state="2"><a herf="#">已使用</a></li>
+                <li class="fl" state="3"><a herf="#">已过期</a></li>
+                <li class="fl" state="4"><a herf="#">可转赠</a></li>
+            </ul>
+        </div>
+        <ul class="zzfw1_yhq clearfix hide show"></ul>
+        <div id="couponDonationRule" class="pl-20 pt-40">
+            <div>
+                卡券转赠规则
+                <br>
+                <br> 1、好友券和投资红包的接收对象必须是您推荐的好友，且实名认证；
+                <br> 2、好友券接收对象如果有可用好友券和加息券，则不可接收；
+                <br> 3、好友券的原始拥有人不可使用，只可转发给好友，接收到好友转发的好友券方可使用。
+                <br> 4、投资红包接收对象如果有可用投资红包，则不可接收；
+                <br>
+                <br> 卡券一旦转赠，将无法追回
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+     <!-- 弹窗 -->
+        <div class="modal fade bs-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document" style="width:400px;">
+                <div class="modal-content">
+	                <div class="modal-header" style="border-bottom:none;">
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			            <h4 class="modal-title tac" id="exampleModalLabel">我的一级好友</h4>
+			        </div>   
+                    <div class="modal-body" style="padding: 15px 0;">
+		                 <div class="form-group form-group-1">
+				            <label for="filter" class="control-label" id="filterUserFriend"></label>
+				            <input type="text" class="form-control pl-30"
+                                   id="filter" >
+                             <i id="cancelFilter" style="position: absolute;top: 0;right: 10px;
+                                     width: 15px;height: 34px;line-height: 34px;
+                                     cursor: pointer;color: #aaa;">X</i>
+                            <input type="hidden" id="couponId">
+				         </div>
+				         <div class="name_list">
+					         <ul>
+					            <li>姓名</li>
+					            <li>手机号</li>
+					         </ul>
+					      </div>
+					      <div class="card-people">
+					          <ul id="_friendSearch_ul">
+                              </ul>
+					      </div>
+                    </div>
+                    <div class="modal-footer" style="text-align:center;">
+                            <button type="button" class="btn btn-warning btn-lg" id="confirmDonation"
+                                    style="padding:10px 20px;">确定
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+<script>
+    var userArr = [];
+$(function() {
+    //查询按钮事件
+    $("#search").click(function() {
+        //获取要查询卡券的状态
+        var state = $(".zzfw_active").attr("state");
+        //获取要查询卡券产品类型
+        var type = $("select[name='type']").val();
+        _getUserCouponDetailList(state,type);
+    });
+
+    //取消按钮事件,默认查询所有
+    $("#cancel").click(function () {
+        //获取要查询卡券的状态
+        var state = $(".zzfw_active").attr("state");
+        //设置产品类型为全部
+        $("select[name='type']").val("");
+        _getUserCouponDetailList(state,"");
+    });
+
+    //tab标签页点击事件，展示tab对应的内容
+    $(".zzfw_list li").click(function() {
+        $("#couponDonationRule").hide();
+        var $this = $(this);
+        //获取要查询卡券的状态
+        var state = $this.attr("state");
+        //获取要查询卡券产品类型
+        var type = $("select[name='type']").val();
+        _getUserCouponDetailList(state,type);
+        $this.addClass("zzfw_active").siblings("li").removeClass("zzfw_active");
+    });
+
+    //点击确认赠送按钮触发事件
+    $("#confirmDonation").click(function () {
+        //判断是否选中卡券
+        if (commonUtil.isEmpty($("#couponId").val())){
+            dialogUtil.alert("提示","请您选择要赠送的卡券！");
+            return;
+        };
+        var toUserId = $("input[name='toUserId']:checked").val();
+        //判读是否选中用户
+        if (commonUtil.isEmpty(toUserId)){
+            dialogUtil.alert("提示","请您选择要进行赠予的好友！");
+            return;
+        };
+        //获取用户手机号
+        var tel = $("input[name='toUserId']:checked").parent().siblings(".third-child").text();
+        // 获取用户的名称
+        var name = $("input[name='toUserId']:checked").parent().next().text();
+        var userInfo = name == "未实名" ? tel : name;
+        //传递到后台的参数
+        var param = {"acceptorId":toUserId,"couponId":$("#couponId").val()};
+        var callBack = function () {
+            ajaxUtil.post("/couponController/couponDonation.do",param,function(result){
+                dialogUtil.alert("提示",result.resMsg);
+                if (result.resStatus == CONSTANTS.SUCCESS){
+                    //刷新可转赠卡券列表
+                    $(".zzfw_list li")[3].click();
+                    $("#exampleModal").modal('hide');
+                }
+            });
+        };
+        //弹出确认框
+        dialogUtil.confirm("确认","确认将<span style='color: red'>"+$('#couponId').attr('name')+"</span>赠送给用户<span style='color: red'>"+userInfo+"</span>么？,卡券赠送成功后将无法追回",callBack);
+    });
+    //选择用户时，根据过滤条件进行过滤
+    $("#filterUserFriend").click(function () {
+        var filter = $("#filter").val();
+        var dataArr = [];
+        if (!commonUtil.isEmpty(filter)){
+            userArr.forEach(function (data) {
+                //判断数据的名称或手机号是否包含该输入条件
+                if (data.tel.toString().includes(filter) || data.realName.includes(filter)){
+                    dataArr.push(data);
+                }
+            });
+            //将过滤出来的数据渲染至好友列表页
+            _renderUserFirstLevelFriends(dataArr);
+        }else {
+            //所有好友数据渲染至选择好友列表页
+            _renderUserFirstLevelFriends(userArr);
+        }
+    });
+    //用户在输入框写入内容的时候就开始进行过滤一级好友
+    $("#filter").keyup(function () {
+        var filter = $("#filter").val();
+        var dataArr = [];
+        if (!commonUtil.isEmpty(filter)){
+            userArr.forEach(function (data) {
+                //判断数据的名称或手机号是否包含该输入条件
+                if (data.tel.toString().includes(filter) || data.realName.includes(filter)){
+                    dataArr.push(data);
+                }
+            });
+            //将过滤出来的数据渲染至好友列表页
+            _renderUserFirstLevelFriends(dataArr);
+        }else {
+            //所有好友数据渲染至选择好友列表页
+            _renderUserFirstLevelFriends(userArr);
+        }
+    });
+    //取消条件过滤
+    $("#cancelFilter").click(function () {
+        //清空过滤条件
+        $("#filter").val("");
+        //将所有好友数据渲染至选择好友列表页
+        _renderUserFirstLevelFriends(userArr);
+    });
+    //初始化类型查询条件
+    $("select[name='type']").append(dictionaryUtil.getOption("vas","coupon_product_type","empty"));
+    //默认隐藏转赠规则
+    $("#couponDonationRule").hide();
+    //默认点击第一个tab页
+    $(".zzfw_list li")[0].click();
+    //初始化用户一级好友列表
+    _getUserFirstLevelFriends();
+});
+    function _getUserCouponDetailList(state,type) {
+        //组装查询用户卡券信息参数
+        var param = {"state":state,"type":type};
+
+        var cornerClass = "";//卡券详情角标的class
+        if(state == "1"){
+            cornerClass = "zzfw_jb zzfw_wsy";//卡券状态为未使用时，角标为未使用
+        }else if (state == "2"){
+            cornerClass = "zzfw_jb zzfw_ysy";//卡券状态为已使用状态，角标为已使用
+        }else if (state == "3"){
+            cornerClass = "zzfw_jb zzfw_ysx";//卡券状态为已失效状态,角标为已失效
+        }else if (state == "4"){
+            cornerClass = "zzfw_jb zzfw_wsy";//卡券状态为可转赠时，角标为未使用
+            $("#couponDonationRule").show();
+        };
+        var callBack = function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS){
+                var dataArr = result.resMsg;
+                var couponDetailHtml = "";
+                dataArr.forEach(function (data) {
+                    if (data.type == "2"){//为免费提现券时
+                        couponDetailHtml = couponDetailHtml + '<li class="txj">' +
+                            '<div class="' + cornerClass + '"></div>' +
+                            '<div class="zzfw_yhq_cont">' +
+                            '<h1><span>'+dictionaryUtil.getName("vas","coupon_product_type",data.type)+'</span></h1>' +
+                            '<p>' +
+                            '有效期限： ' + dateUtil.dateByFormat(data.beginTime,"yyyy.MM.dd") +
+                            '<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 至'+ dateUtil.dateByFormat(data.endTime,"yyyy.MM.dd") +
+                            '</p> </div> </li>';
+                    }else {
+                        var couponDetailClass = "";
+                        var couponDetailWorth = "";
+                        if (data.type == "0"){//为加息券时
+                            couponDetailClass = "jxj";
+                            couponDetailWorth = data.worth + "%";
+                        }else if (data.type == "1"){//为投资红包时
+                            couponDetailClass = "tzhb";
+                            couponDetailWorth = data.worth + "元";
+                        }else if(data.type == "3"){//为好友券时
+                            couponDetailClass = "txj";
+                            couponDetailWorth = data.worth + "%";
+                        }
+                        //如果为可转赠卡券，1:样式上设置为可点击，2:点击后跳转至卡券转赠页面
+                        if (state == "4"){
+                            couponDetailHtml =
+                                couponDetailHtml + '<li class="'+couponDetailClass+'" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal"onclick="toDonationPage('+data.id+',`'+couponDetailWorth+dictionaryUtil.getName('vas','coupon_product_type',data.type)+'`)">';
+                        }else {
+                            couponDetailHtml = couponDetailHtml + '<li class="'+couponDetailClass+'">';
+                        }
+                        couponDetailHtml = couponDetailHtml + '<div class="'+cornerClass+'"></div>' +
+                            '<div class="zzfw_yhq_cont">' +
+                            '<h1><span>'+couponDetailWorth+'</span>'+dictionaryUtil.getName("vas","coupon_product_type",data.type)+'</h1>' +
+                            '<p>' +
+                            '适用于： '+dictionaryUtil.getNames("vas","coupon_bid_product_type",data.bidProductTypeRange,"&nbsp;") +
+                            '<br> 单笔投资满：'+data.amountMin+'元' +
+                            '<br> 有效期限：'+dateUtil.dateByFormat(data.beginTime,"yyyy.MM.dd")+'-'+dateUtil.dateByFormat(data.endTime,"yyyy.MM.dd") +
+                            '</p> </div> </li>';
+                    };
+                });
+                $(".zzfw1_yhq").html(couponDetailHtml);
+            }
+        };
+        ajaxUtil.post("/couponController/getUserCouponDetailList.do",param,callBack);
+    };
+
+    /**
+     * 跳转至卡券转赠页面
+     * @param id    卡券的id
+     * @param name  卡券的名称
+     */
+    function toDonationPage(id,name) {
+        //取消好友列表单选按钮选中效果
+        $("input[name='toUserId']:checked").removeAttr("checked");
+        //将选中卡券的id赋值到赠送页面
+        $("#couponId").val(id);
+        $("#couponId").attr("name",name);
+        //清空过滤条件
+        $("#filter").val("");
+        //将所有好友数据渲染至选择好友列表页
+        _renderUserFirstLevelFriends(userArr);
+    };
+
+    /**
+     * 获取用户一级好友列表
+     */
+    function _getUserFirstLevelFriends() {
+        //回调方法将一级好友数据渲染到弹出框中
+        var callBack = function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS) {
+                userArr = result.resMsg;
+            }
+        }
+        ajaxUtil.post("/userController/findUserFirstLevelFriends.do",null,callBack);
+    };
+
+    /**
+     * @param arr    好友数据集合
+     * 将好友数据集合渲染至选择好友页面
+     */
+    function _renderUserFirstLevelFriends(arr) {
+        var friendDiv = $("#_friendSearch_ul");
+        var friend = '';
+        arr.forEach(function (data) {
+            var realName = commonUtil.isEmpty(data.realName) ? "未实名" : data.realName;
+            friend = friend + '<li><ul>' +
+                '<li><input name="toUserId" type="radio" value='+data.regUserId+'></li>' +
+                '<li>'+realName+'</li>' +
+                '<li class="third-child">'+data.tel+'</li>' +
+                '</ul></li>';
+        });
+        friendDiv.html(friend);
+    };
+</script>

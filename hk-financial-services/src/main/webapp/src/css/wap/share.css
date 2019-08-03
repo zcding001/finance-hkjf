@@ -1,0 +1,75 @@
+*{margin:0px;padding:0px;border:0px; -webkit-tap-highlight-color: transparent !important;}
+body{position:static;font-family:"微软雅黑";width:100%;font-size:62.5%;background: #fff1d7;}
+html,body{width:100%;height:100%;}
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.relative{ position:relative;}
+ul,li{list-style-type:none;}
+input,button{font-family:"微软雅黑";}
+.clear{clear:both;}
+.tc{text-align: center;}
+.tr{text-align: right;}
+.tl{text-align: left;}
+a{text-decoration: none;}
+input{border: none;outline: none;-webkit-appearance: none;}
+.zc_main{margin: 5%;margin-bottom:15%;}
+.zc_text{font-size: 0.9em;color:#666;line-height: 150%}
+.c_red{color:#e01f1f;}
+.zc_from{margin-top:8%;width:100%;background:#fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;overflow: hidden;}
+.zc_phone{width:15%;margin:10px 0;height:30px;border-right:1px solid #e5e5e5;background:#ccc;background:url(../../img/wap/phone.jpg) no-repeat center center;background-size:40% auto;}
+.zc_input{width:76%;height:50px;line-height:50px;font-size:0.8em;color:#999;}
+.zc_button{display: block;margin-top:10%;width:100%;background:#ffd07b;font-size:1em;color:#ec8c1a;padding:5% 0;text-align:center;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;overflow: hidden;font-weight: bold;}
+.zc_button:active{background: #ee7a4e;color:#fff;}
+
+
+/*注册第二个页面样式*/
+.register{margin-top:5%;}
+.register li{margin-bottom:5%;}
+.tip_text{font-size:0.8em; color:#666;margin-bottom:10px;}
+.re_lt{width:60%;}
+.yzm{width:35%;}
+.re_button{width:100%;background:#ffd07b;font-size:0.9em;color:#ec8c1a;height:50px;line-height:50px;text-align:center;-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;overflow: hidden;font-weight: bold;}
+.ckeck2{width:33px;/*background:url(../../mobile/img/appregist/button.jpg) no-repeat left top; height:16px; background-size:100% auto;*/}
+.ckeck3{width:33px;height:16px;background-size:100% auto;}
+.yzm span{display:inline-block;font-size:0.85em;color:#999;}
+.wd100{width:95%;padding-left:5%; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;overflow: hidden;}
+
+.re_text {width: 85%; font-size: 0.85em; color: #000; margin-left: 5px; }
+input[type=checkbox] {-webkit-appearance:none;width: 18px; height: 18px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background: url(../../img/wap/checkbox2.jpg) no-repeat center center; background-size: 18px auto; }
+input[type=checkbox].dg_bg{background:url(../../img/wap/checkbox.jpg) no-repeat center center; background-size: 18px auto;}
+
+/*注册成功页面样式*/
+
+.success_text{font-size:1em;text-align:center;line-height:180%;color:#f68358;font-weight: bold;padding-top:5%;}
+.success_text2{font-size:0.8em;text-align:center;line-height:180%;color:#f68358;margin-top:3%;}
+.ewb{width:100%;margin-top:5%;}
+.ewb a{display: inline-block;width:49%;text-align: center;font-size: 0.8em;color: #666;line-height: 180%}
+
+
+/*遮罩层*/
+.jd_win{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1001;
+}
+
+.jd_win .jd_win_box{
+    width: 15%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    margin-top: -25%;
+    padding:5px 0;
+    background:#000;
+    border-radius:15px;
+}
+.jd_win .jd_win_box img{
+  	width: 90%;
+  	margin-left:5%;
+}
+

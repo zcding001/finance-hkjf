@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/jfsc.css"/>
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+<form id="exchangeForm" name="exchangeForm" class="exchangeForm"
+      action="pointMarketController.do?method=savePointProductExchange" method="post">
+    <div>
+        <div class="container">
+            <div class="kfservice-header">
+                <i class="glyphicon glyphicon-home"></i>
+                <span style="font-size: 14px;color: #666666;">积分商城 > 商品兑换确认</span>
+            </div>
+            <div class="shop-kuaidi">
+                <h4>收货地址</h4>
+                <ul>
+                    <li>
+                        <font>配送方式：</font>
+                        <span class="sendWay1">
+                              <input type="radio" id="sw1" name="sendWay" value="1" style="margin-top: -2px;"
+                                     onclick="orderHandle.selectSendWay(1)"><i style="font-style:normal;padding:0 8px;">自取</i>
+                            </span>
+                        <span class="sendWay2">
+                               <input type="radio" id="sw2" name="sendWay" value="2" style="margin-top: -2px;"
+                                      onclick="orderHandle.selectSendWay(2)"><i
+                                style="font-style:normal;padding:0 8px;">快递</i>
+                            </span>
+                    </li>
+                    <!--选择地址-->
+                    <span id="selectAddress" class="sendWay2 ">
+                        <li id="addressRadioLi" style="padding-left:40px;"></li>
+                        <li id="addAddressLi" style="padding-left:40px;width:120px;" class="new_address">
+                            <a href="#" class="btn btn-default" onclick="$('.jfzf-tc-1').show()"
+                               style="width:120px;height:35px;background:#eee;font-size:16px;line-height:18px;">
+                            <span style="color:green;font-weight:bold;font-size:20px;">＋</span>新增地址</a>
+                        </li>
+                         </span>
+                    <!--选择小区-->
+                    <span id="selectPropertyLi" class="sendWay1 ">
+                        <li id="propertyLi">
+                            <font>物业公司：</font>
+                            <select id="propertyId" datatype="*" onchange="orderHandle.selectproperty(this.value)">
+                            </select>
+                        </li>
+                        <li id="communityLi">
+                            <font>门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;店：</font>
+                            <select id="communityId" name="communityId2" datatype="*"
+                                    onchange="orderHandle.copyToOrderInfoAddress()">
+                            </select>
+                        </li>
+                        </span>
+                </ul>
+            </div>
+            <div class="transitionMsg">
+                <h4>确认兑换信息</h4>
+                <table class="table">
+                    <tr style="background-color: #f8f8f8;">
+                        <td>礼品名称</td>
+                        <td>地址</td>
+                        <td>兑换数量</td>
+                        <td>所需积分</td>
+                    </tr>
+                    <tr>
+                        <td style="width:45%;padding:20px;line-height: 70px;"><img id="productImg" src="" alt="兑换商品图片">
+                            <span id="productTitle"></span>
+                        </td>
+                        <td id="tdAddress"></td>
+                        <td id="productOrderNum"></td>
+                        <td id="productNeedPoint"></td>
+                    </tr>
+                </table>
+                <div class="tsmsgTijiao">
+                    订单消费总计：<span><span id="orderTotalSpan"></span>&nbsp;&nbsp;&nbsp;积分</span>
+                    <button type="button" id="subbtn" data-toggle="modal" data-target=".bs-example-modal-sm">提交订单
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--一个弹窗-->
+<div class="mask">
+    <div class="Popupwindow animated bounceIn">
+        <div id="text">系统提示 <img src="${project_base_path}/src/img/navBar/tuihuancggb.png" alt="" id="zhengtigbaa"/></div>
+        <div class="yes">
+            <img src="${project_base_path}/src/img/navBar/duihuancgtxt.png" alt=""/>
+            <div id="chakandio">查看订单</div>
+        </div>
+    </div>
+</div>
+<!-- 新增收货地址弹窗 -->
+<div class="jfzf-tc-1">
+    <div class="jxq-tc-box1" style="margin:100px auto;width:50%;">
+        <div class="jf-wenda shop-kuaidi">
+            <h3>新增收货地址</h3>
+            <ul style="border:none;">
+                <li>
+                    <font>收&nbsp;货&nbsp;&nbsp;人：</font>
+                    <input type="text" value="" id="reciviceUserName">
+                </li>
+                <li>
+                    <font>所在地区：</font>
+                    <select id="province" name="addressProvince" datatype="*" style="width:100px;"></select>
+                    <select id="city" name="addressCity" style="width:100px;"></select>
+                </li>
+                <li>
+                    <font>详细地址：</font>
+                    <input type="text" id="addrDetail" datatype="*" maxlength='50' name="addrDetail"/>
+                </li>
+                <li>
+                    <font>手机号码：</font>
+                    <input type="text" id="userTel" name="tel"/>
+                </li>
+            </ul>
+            <a href="javascript:;" class="btn btn-warning btn-rengou" style="margin-left:165px;"
+               onclick="orderHandle.addUserAddress()">保存</a>
+        </div>
+        <div class="jf-quxiao">×</div>
+        <!--积分规则弹框关闭-->
+    </div>
+</div>
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel">商城订单提交</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30">
+                <!-- 所要添加的内容start -->
+                <div class="fhb_tc">
+                    <h1 class="fhb_text">确定要提交该订单吗?</h1>
+                    <div class="fhb_button">
+                        <button class="fs_button" onclick="orderHandle.createOrder()">确认</button>
+                        <button class="fs_button bor_33" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script src="${project_base_path}/jslib/pointmall/pointProductCommons.js"></script>
+<script src="${project_base_path}/jslib/pointmall/orderHandle.js"></script>
+</html>

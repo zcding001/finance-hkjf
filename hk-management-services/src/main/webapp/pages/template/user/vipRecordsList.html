@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">VIP降级记录</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+						<input name="userIds" type="hidden" id="userIds"/>
+           				<div>
+           				姓名：<input name="realName" class="form-control" style="width: 120px;display:inline-block;">
+           				手机号：<input name="login" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           				次数：<input name="times" class="form-control" style="width: 120px;display:inline-block;">
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+						</div>           				
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<script>
+	var columns = [
+		{title: "手机号", data: "login", className: "dt-simple"},
+		{title: "姓名", data: null, className: "dt-simple",
+            render: function (value, type, row, meta) {
+		        if(row.type == 2 || row.type == 3){
+		            return row.enterpriseName;
+                }
+                return row.realName;
+            }
+        },
+		{title: "账户资产(元)", data: "nowMoney", className: "dt-simple"},
+		{title: "次数", data: "times", className: "dt-simple"},
+		{
+			title: "时间",
+			data: "createTime",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return dateUtil.date(value);
+			}
+		}
+		// {
+		// 	title: "操作",
+		// 	data: null,
+		// 	className: "dt-operate",
+		// 	render: function (data, type, row, meta) {
+		// 		return commonUtil.createDirectRequestBtn({id: row.userId, target: "vipRecordsDetailList"}, "详情", "fa-search", 1);
+		// 	}
+		// }
+	];
+	//创建dataTable列表
+	dataTableUtil.createDT(CONFIG.interface.vipRecordsList, columns);
+	//初始化查询条件form
+	dataTableUtil.initDTSearchForm();
+</script>

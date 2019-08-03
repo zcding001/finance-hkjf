@@ -1,0 +1,36 @@
+<div class="bankCardStyle">
+    <div class="bc_t">
+        <span class="w_150">银行名称</span>
+        <span class="w_180">开户地址</span>
+        <span class="w_150">卡号</span>
+        <span class="w_120">状态</span>
+    </div>
+    <div class="bc_add" style="display: none">
+        <div class="bc_ts tc f14">您需要先绑定提现银行卡才能提现</div>
+        <div class="bc_add_btn tac"><img src="${project_base_path}/src/img/account/bc_add_img.jpg" style="cursor:pointer;" width="241" height="138" id="bankAdd"/></div>
+    </div>
+    <div class="bc_list"  style="display: none">
+        <ul>
+            <li class="bc_li2">
+                <span class="w_150 bankNameString" >中国农业银行</span>
+                <span class="w_180"><span id="province" class="bankProvinceString">北京</span> <span id="city" class="bankCityString">海淀</span> <span class="branchNameString">上地支行</span></span>
+                <span class="w_150 bankCardString">6228****6879</span>
+                <span class="w_120 stateNum">未认证</span>
+            </li>
+        </ul>
+        <div class="bc_btn tc"><a href="#" id="bankUpdate">维护开户行信息</a></div>
+    </div>
+    <div class="bank_ts2" style="display:none;">温馨提示:
+        <br>1、您绑定的银行卡通过第三方平台审核。
+        <br> 2、每周只能申请更换银行卡2次，逾次不受理。
+        <br> 3、申请更换银行卡被拒后，请24小时后重新申请。
+        <br> 4. 如果提现时遇到问题，请联系客服 400-900-9630 或 400-099-0229。
+    </div>
+</div>
+
+<script type="text/javascript" src="${project_base_path}/jslib/payment/bankCard.js"></script>
+<script>
+    $(function(){
+        bankController.initData();
+    });
+</script>

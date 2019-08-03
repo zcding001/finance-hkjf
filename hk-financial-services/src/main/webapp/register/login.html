@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/register.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" href="${project_base_path}/lib/validform/css/style.css" />
+	<style>
+		.footer{margin-top:0 !important;}
+	</style>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <div class="include" file="${project_base_path}/common/header.html"></div>
+    <!-- 头部结束 -->
+    <!-- 登录页面 -->
+    <form id="dataForm" method="POST">
+        <input type="hidden" name="login" id="login">
+        <input type="hidden" name="passwd" id="passwd">
+        <div class="login_bg">
+            <div class="login_main">
+                <div class="container">
+                    <div class="login_con">
+                        <ul>
+                            <div class="login_ts"></div>
+                            <li class="q_text rel">
+                                <input id="loginTmp" class="regist" type="text" tabindex="1"
+                                       datatype="mobile" value="请输入您的手机号" nullmsg="请输入您的手机号" errormsg="请填写正确的手机号码！">
+                            </li>
+                            <li class="q_text rel">
+                                <input id="passwdTmp" class="regist pl-10" type="text" style="width: 400px;" value="请填写密码" isPasswd="true" tabindex="1"
+                                       datatype="ns6-16" nullmsg="请填写密码" errormsg="请输入6至16位英文字母或数字！">
+                            </li>
+                            <li class="q_yzm">
+                                <cite>
+                                    <input type="text" name="randomCode" id="randomCode" class="rand" size="12" value="请输入验证码" datatype="ns4-4" nullmsg="请输入验证码" errormsg="请输入4位字母或数字" tabindex="4" maxlength="4">
+                                    <span><img id="validCode" title="点击更换" onclick="javascript:commonUtil.loadValidateCode(this, 1);" width="92" height="38" src="" /></span>
+                                </cite>
+                            </li>
+                            <li class="clearfix">
+                                <p class="fl">
+                                    <input id="rememberMe" type="checkbox" tabindex="5" checked="checked" style="width:18px;height:18px;margin-top:2px;">
+                                </p>
+                                <p class="fl pl-10">记住用户名</p>
+                                <p class="fr"><a href="password.html">忘记密码？</a></p>
+                            </li>
+                            <li class="clearfix">
+                                <div class="colr-red blh-30" id="resErrMsg"></div>
+                            </li>
+                            <li class="login_btn"><a href="javascript:void(0)" id="submitBtn" tabindex="6">立即登录</a></li>
+                            <li class="tac mb-30">没有账号？<a href="register.html" tabindex="7" class="colr-blue">免费注册&gt;&gt;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/cookieUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/constants.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/containerUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/commonUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/ajaxUtil.js"></script>
+
+<script type="text/javascript" src="${project_base_path}/lib/rsa/rsaUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/jsencrypt.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/user/loginReg.js"></script>
+<script>
+    $(function(){
+        loginRegController.login();
+    });
+</script>
+
+</html>

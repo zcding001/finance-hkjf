@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">资金流动统计</span>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+                        <div class="bs-example" data-example-id="simple-nav-pills" >
+                        	<input type="hidden" id="period" name="period" value="1">
+                      		<span style="display:inline-block;vertical-align:top;padding:10px 0;">日期：</span>
+	                        <ul class="nav nav-pills" style="display:inline-block;">
+	                        	<li role="presentation" class="active"><a href="javascript:void(0)" onclick="chgPeriod(1)">昨天</a></li>
+	                        	<li role="presentation"><a href="javascript:void(0)" onclick="chgPeriod(2)">近三天</a></li>
+	                        	<li role="presentation"><a href="javascript:void(0)" onclick="chgPeriod(3)">近七天</a></li>
+	                        	<li role="presentation"><a href="javascript:void(0)" onclick="chgPeriod(4)">近一个月</a></li>
+	                        </ul>
+                        </div>
+						<br/><input type="text" id="start" name="startTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;margin-left:45px;"/>
+									-<input type="text" id="end" name="endTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="cust-searchForm-cleanBtn" style="display:inline-block;">清空</a>
+						<a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('资金流动统计')" style="display:inline-block;">导出</a>
+           			</form>
+            		<hr>
+            	</div>
+
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+		{ title:"资金类型",className:"dt-simple",data: "type",
+            render: function (value, type, row, meta) {
+            	console.log(value);
+            	if(value == "money"){
+            		return "金额(元)"
+            	}else if(value == "nums"){
+            		return "笔数";
+            	}else{
+            		return "人数";
+            	}
+            }
+        },
+		{ title:"普通充值",className:"dt-simple",data: "recharge"},
+        { title:"红包充值",className:"dt-simple",data: "redPacketRecharge"},
+        { title:"投资",className:"dt-simple",data: "invest"},
+   		{ title:"提现",className:"dt-simple",data: "withdraw"},
+		{ title:"转入",className:"dt-simple",data: "turnIn"},
+        { title:"转出",className:"dt-simple",data: "turnOut"}
+       
+ 	];
+//创建dataTable列表
+dataTableUtil.createDTNoPageByList(CONFIG.interface.findTransfterCountList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+
+function chgPeriod(val){
+    $("#period").val(val);
+    $("#mDataTable").DataTable().search("").draw();
+}
+
+$("#cust-searchForm-cleanBtn").click(function(){
+    $("#searchForm input[type != 'hidden']").val("");
+    $("#period").val(1);
+    $("#mDataTable").DataTable().search("").draw();
+});
+//tab栏切换
+$(".nav-pills li").click(function(){
+	$this = $(this);
+	$this.addClass("active").siblings("li").removeClass("active");
+})
+</script>

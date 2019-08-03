@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.DicData">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_DicData" type="com.hongkun.finance.user.model.DicData">
+		<result property="id" column="ID"/>
+		<result property="businessName" column="business_name"/>
+		<result property="subjectName" column="subject_name"/>
+		<result property="value" column="value"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		ID,business_name,subject_name,value,name
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO dic_data ( 
+			<if test="id != null">
+				ID ,
+			</if>
+			<if test="businessName != null and businessName != ''">
+				business_name ,
+			</if>
+			<if test="subjectName != null and subjectName != ''">
+				subject_name ,
+			</if>
+			<if test="value != null">
+				value ,
+			</if>
+			<if test="name != null and name != ''">
+				name 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="businessName != null and businessName != ''">
+				#{businessName} ,
+			</if>
+			<if test="subjectName != null and subjectName != ''">
+				#{subjectName} ,
+			</if>
+			<if test="value != null">
+				#{value} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+		INSERT INTO dic_data (
+			<if test="id != null">
+				ID ,
+			</if>
+			<if test="businessName != null and businessName != ''">
+				business_name ,
+			</if>
+			<if test="subjectName != null and subjectName != ''">
+				subject_name ,
+			</if>
+			<if test="value != null">
+				value ,
+			</if>
+			<if test="name != null and name != ''">
+				name 
+			</if>
+		) VALUES 
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="businessName != null and businessName != ''">
+				#{businessName} ,
+			</if>
+			<if test="subjectName != null and subjectName != ''">
+				#{subjectName} ,
+			</if>
+			<if test="value != null">
+				#{value} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} 
+			</if>
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="businessName != null and businessName != ''">
+				business_name = #{businessName} ,
+			</if>
+			<if test="subjectName != null and subjectName != ''">
+				subject_name = #{subjectName} ,
+			</if>
+			<if test="value != null">
+				value = #{value} ,
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  dic_data
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			ID = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM dic_data 
+		WHERE
+			ID = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_DicData">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM dic_data 
+		WHERE 1 = 1
+			AND ID = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND ID = #{id}
+			</if>
+			<if test="businessName != null and businessName !=''">
+			AND business_name = #{businessName}
+			</if>
+			<if test="subjectName != null and subjectName !=''">
+			AND subject_name = #{subjectName}
+			</if>
+			<if test="value != null">
+			AND value = #{value}
+			</if>
+			<if test="name != null and name !=''">
+			AND name = #{name}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM dic_data 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_DicData">
+		SELECT <include refid="columns" />
+		FROM dic_data 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,27 @@
+.contract_box .hkjt_gz {
+    position: absolute;
+    bottom: -20px;
+    left: 12%;
+    width: 150px;
+    height: 150px;
+    background: url(../../src/img/contract/hkjt_gz.png) no-repeat;
+    background-size: 100% 100%;
+}
+.contract_box .hrgs_gz {
+    position: absolute;
+    top: 200px;
+    left: 15px;
+    width: 150px;
+    height: 150px;
+    background: url(../../src/img/contract/gongzhang_hrgs.png) no-repeat;
+    background-size: 100% 100%;
+}
+.contract_box .szlx_gz {
+    position: absolute;
+    top: 200px;
+    left: 15px;
+    width: 150px;
+    height: 150px;
+    background: url(../../src/img/contract/gongzhang_szlx.png) no-repeat;
+    background-size: 100% 100%;
+}

@@ -1,0 +1,82 @@
+<div class="tx_bar">
+    <form id="dataTableForm">
+    <ul class="clearfix">
+        <li class="fl">
+            <cite class="fl">状态：</cite>
+            <cite class="mr10">
+                <select name="state" id="state" class="fl">
+                    <option value="1" selected="selected">进行中</option>
+                    <option value="2">成功</option>
+                    <option value="3">失败</option>
+                </select>
+            </cite>
+        </li>
+        <li class="fl">
+            <cite class="fl">交易类型：</cite>
+            <cite class="mr10">
+                <select name="tradeType" class="fl">
+                    <option value="-999" selected="selected">全部</option>
+                    <option value="10">充值</option>
+                    <option value="14">提现</option>
+                </select>
+            </cite>
+        </li>
+        <li class="fl ml-10 in_time">
+            <cite class="tx_bar_t fl">时间：</cite>
+            <cite class="fl rel">
+                <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+            </cite>
+            </cite>
+            <cite class="fl">&nbsp;-&nbsp;</cite>
+            <cite class="fl rel">
+                <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+            </cite>
+        </li>
+        <li class="fl ml-10">
+            <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+        </li>
+    </ul>
+    </form>
+</div>
+
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table class="table table-hover ellipsis" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+    var columns = [
+        {
+            title: '交易流水号', data: 'flowId', tdClass: 'tac', thClass: 'tac'
+        }, {
+            title: '交易金额', data: 'transMoney', tdClass: 'tac', thClass: 'tac'
+        }, {
+            title: '交易类型', data: 'tradeType', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                return dictionaryUtil.getName("payment", "trade_type", value);
+            }
+        },{
+            title: '状态', data: 'state', tdClass: 'tac', thClass: 'tac',
+            render: function (value, row) {
+                if(value=='1'|| value=='2'|| value=='5' || value=='9'){
+                    return "进行中";
+                }
+                if(value=='6'|| value=='8'){
+                    return "成功";
+                }
+                if(value=='3'|| value=='4'|| value=='7'){
+                    return "失败";
+                }
+            }
+        },{
+            title: '交易时间', data: 'createTime', tdClass: 'tac', thClass: 'tac',render: function (value,row) {
+                return dateUtil.dateTime(value);
+            }
+        }
+    ];
+
+    $("#start").val(dateUtil.dateByFormat(dateUtil.addMonth(-1), "yyyy-MM-dd"));
+    $("#end").val(dateUtil.currDate("yyyy-MM-dd"));
+
+    renderUtil.renderList("/finPaymentController/listPaymentRecord.do", columns, "dataTable");
+</script>

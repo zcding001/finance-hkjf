@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserAddress">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserAddress" type="com.hongkun.finance.user.model.RegUserAddress">
+		<result property="id" column="id"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="county" column="county"/>
+		<result property="consignee" column="consignee"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="district" column="district"/>
+		<result property="mobilePhone" column="mobile_phone"/>
+		<result property="telephone" column="telephone"/>
+		<result property="state" column="state"/>
+		<result property="alias" column="alias"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,province,city,county,consignee,reg_user_id,district,mobile_phone,telephone,state,alias,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_address (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="province != null and province != ''">
+			province ,
+		</if>
+		<if test="city != null and city != ''">
+			city ,
+		</if>
+		<if test="county != null and county != ''">
+			county ,
+		</if>
+		<if test="consignee != null and consignee != ''">
+			consignee ,
+		</if>
+		<if test="regUserId != null">
+			reg_user_id ,
+		</if>
+		<if test="district != null and district != ''">
+			district ,
+		</if>
+		<if test="mobilePhone != null">
+			mobile_phone ,
+		</if>
+		<if test="telephone != null and telephone != ''">
+			telephone ,
+		</if>
+		<if test="state != null">
+			state ,
+		</if>
+		<if test="alias != null and alias != ''">
+			alias ,
+		</if>
+		create_time ,
+		modify_time
+		) VALUES (
+		<if test="id != null">
+			#{id} ,
+		</if>
+		<if test="province != null and province != ''">
+			#{province} ,
+		</if>
+		<if test="city != null and city != ''">
+			#{city} ,
+		</if>
+		<if test="county != null and county != ''">
+			#{county} ,
+		</if>
+		<if test="consignee != null and consignee != ''">
+			#{consignee} ,
+		</if>
+		<if test="regUserId != null">
+			#{regUserId} ,
+		</if>
+		<if test="district != null and district != ''">
+			#{district} ,
+		</if>
+		<if test="mobilePhone != null">
+			#{mobilePhone} ,
+		</if>
+		<if test="telephone != null and telephone != ''">
+			#{telephone} ,
+		</if>
+		<if test="state != null">
+			#{state} ,
+		</if>
+		<if test="alias != null and alias != ''">
+			#{alias} ,
+		</if>
+		<choose>
+			<when test="createTime != null">
+				#{createTime} ,
+			</when>
+			<otherwise>
+				NOW() ,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="modifyTime != null">
+				#{modifyTime}
+			</when>
+			<otherwise>
+				NOW()
+			</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO reg_user_address (
+		id ,
+		province ,
+		city ,
+		county ,
+		consignee ,
+		reg_user_id ,
+		district ,
+		mobile_phone ,
+		telephone ,
+		state ,
+		alias ,
+		create_time ,
+		modify_time
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="item.id != null">
+				#{item.id} ,
+			</if>
+			<if test="item.id == null">
+				DEFAULT ,
+			</if>
+			<if test="item.province != null and item.province != ''">
+				#{item.province} ,
+			</if>
+			<if test="item.province == null or item.province == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.city != null and item.city != ''">
+				#{item.city} ,
+			</if>
+			<if test="item.city == null or item.city == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.county != null and item.county != ''">
+				#{item.county} ,
+			</if>
+			<if test="item.county == null or item.county == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.consignee != null and item.consignee != ''">
+				#{item.consignee} ,
+			</if>
+			<if test="item.consignee == null or item.consignee == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.regUserId != null">
+				#{item.regUserId} ,
+			</if>
+			<if test="item.regUserId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.district != null and item.district != ''">
+				#{item.district} ,
+			</if>
+			<if test="item.district == null or item.district == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.mobilePhone != null">
+				#{item.mobilePhone} ,
+			</if>
+			<if test="item.mobilePhone == null">
+				DEFAULT ,
+			</if>
+			<if test="item.telephone != null and item.telephone != ''">
+				#{item.telephone} ,
+			</if>
+			<if test="item.telephone == null or item.telephone == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.state != null">
+				#{item.state} ,
+			</if>
+			<if test="item.state == null">
+				DEFAULT ,
+			</if>
+			<if test="item.alias != null and item.alias != ''">
+				#{item.alias} ,
+			</if>
+			<if test="item.alias == null or item.alias == ''">
+				DEFAULT ,
+			</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="province != null and province != ''">
+				province = #{province} ,
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city} ,
+			</if>
+			<if test="county != null and county != ''">
+				county = #{county} ,
+			</if>
+			<if test="consignee != null and consignee != ''">
+				consignee = #{consignee} ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+			</if>
+			<if test="district != null and district != ''">
+				district = #{district} ,
+			</if>
+			<if test="mobilePhone != null">
+				mobile_phone = #{mobilePhone} ,
+			</if>
+			<if test="telephone != null and telephone != ''">
+				telephone = #{telephone} ,
+			</if>
+			<if test="state != null">
+				state = #{state} ,
+			</if>
+			<if test="alias != null and alias != ''">
+				alias = #{alias} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_user_address
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE
+			id = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_address
+		WHERE
+			id = #{id}
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserAddress">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_user_address
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="province != null and province !=''">
+				AND province = #{province}
+			</if>
+			<if test="city != null and city !=''">
+				AND city = #{city}
+			</if>
+			<if test="county != null and county !=''">
+				AND county = #{county}
+			</if>
+			<if test="consignee != null and consignee !=''">
+				AND consignee = #{consignee}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="district != null and district !=''">
+				AND district = #{district}
+			</if>
+			<if test="mobilePhone != null">
+				AND mobile_phone = #{mobilePhone}
+			</if>
+			<if test="telephone != null and telephone !=''">
+				AND telephone = #{telephone}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="alias != null and alias !=''">
+				AND alias = #{alias}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_address
+		<include refid="findPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserAddress">
+		SELECT <include refid="columns" />
+		FROM reg_user_address
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,32 @@
+
+<div class="tx_bar">
+    <form id="dataTableForm">
+        <ul class="clearfix">
+            <li class="fl">
+                <cite class="fl">商品名称：</cite>
+                <input  name="name" />
+            </li>
+
+            <li class="fl ml-10">
+                <a href="javascript:;" id="dataTableSearchBtn">检索</a>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table>
+        <!--<tr><td colspan="6">金额单位(元)</td></tr>-->
+    </table>
+    <table class="table table-hover" id="dataTable"></table>
+</div>
+<div class="paging"></div>
+</body>
+<!--<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>-->
+<script src="${project_base_path}/jslib/account/userPointOrders.js"></script>
+<script>
+    $(function(){
+        pointProductOrdersController.initOrders();
+    });
+</script>
+</html>

@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">app版本更新规则维护</span>
+                    <a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addAppVersionRule')"
+                       style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="panel-body" >
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <span class="sp-width" style="width:50px;">平台：</span><select id="platform" name="platform" class="form-control"
+                                                                                     style="width: 80px;display:inline-block;"></select>
+                        <span class="sp-width" style="width:50px;">状态：</span><select id="state" name="state" class="form-control"
+                                                                                     style="width: 80px;display:inline-block;"></select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title:'平台',data:"platform",render:function (data) {
+            return DIC_CONSTANT.getNames("vas","app_version_platform",data,",");
+        }},
+        {title:'app更新版本范围',data:null,render:function (data,type,row) {
+            return row.minVersion + " <= version <= " + row.maxVersion;
+        }},
+        {title:"app更新内容",data:"content"},
+        {title:"状态",data:"state",render:function (data) {
+            let text = "下线";
+            if(data === 1){
+                text = "上线";
+            }
+            return text;
+        }},
+        {title:"创建时间",data:"createTime",render:function (data) {
+            return dateUtil.dateTime(data);
+        }},
+        {title:"上线时间",data:"uptime",render:function (data) {
+            return data > 0 ? dateUtil.dateTime(data) : "--";
+        }},
+        {title:"下线时间",data:"downtime",render:function (data) {
+            return data > 0 ? dateUtil.dateTime(data) : "--";
+        }},
+        {title:'操作',data:null,className:"dt-operate",render:function (data,type,row,meta) {
+            if (row.state === 0){
+                return commonUtil.createConfirmRequestBtn({ajaxUrl:CONFIG.interface.upAppVersionRule,id:row.id},
+                    "上线","上线操作","确认要上线该规则么？","fa fa-arrow-up");
+            }
+            return commonUtil.createConfirmRequestBtn({ajaxUrl:CONFIG.interface.downAppVersionRule,id:row.id},
+                    "下线","下线操作","确认要下线该规则么？","fa fa-arrow-down");
+        }}
+    ];
+
+    dataTableUtil.createDT(CONFIG.interface.appVersionRuleList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+    $("#state").append(DIC_CONSTANT.getOption("vas","app_version_state","empty"));
+    $("#platform").append(DIC_CONSTANT.getOption("vas","app_version_platform","empty"));
+</script>

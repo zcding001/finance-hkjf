@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>鸿坤金服用户登录</title>
+    
+    <link href="csslib/startbootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box;-webkit-tap-highlight-color: transparent;}
+        body{font-family: "microsoft yahei";font-size:16px; background: #fff;position: relative;min-height: 1121px; }
+        input,button{ border: none;outline: 0; -webkit-appearance: none;}
+        .clearfix::before, .clearfix::after {content: ".";display: block;height: 0; line-height: 0;visibility: hidden;clear: both; }
+        .fl {float: left;}
+        .fr { float: right;}
+        .cxj_box{
+            width: 100%;
+            min-height:1121px;
+            background: url(imageLib/loginwbg.png) no-repeat center bottom;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right:0;
+
+        }
+        .cxj_container{
+            width: 1100px;
+            margin: 0 auto;
+        }
+        .cxj_logo{
+            width: 100%;
+            padding-top:50px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+        .cxj_tab{
+            width: 441px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px 23.8px 0.2px rgba(212, 177, 112, 0.25);
+            border-radius: 3px 3px 3px 3px;
+            margin: 0 auto;
+        }
+        .cxj_tab h3{
+            font-size: 24px;
+            color: #f39200;
+            text-align: center;
+            padding-top: 36px;
+            font-weight: normal;
+            padding-bottom: 33px;
+        }
+        .cxj_inp{
+            width: 323px;
+            margin:0 auto;
+        }
+        .cxj_inp label{
+            position: absolute;
+            font-size: 16px;
+            line-height: 48px;
+            margin-left: 16px;
+            color: #666;
+        }
+        .cxj_inp input{
+            width: 323px;
+            height: 48px;
+            border-radius: 3px 3px 3px 3px;
+            border: solid 1px rgba(216, 216, 216, 1);
+            font-size: 16px;
+            padding-left: 55px;
+            color: #333;
+        }
+        .cxj_inp input[type="text"]{
+            background: url(imageLib/img_zhanghao.png) no-repeat center right 14px;
+        }
+        .cxj_inp input[type="password"]{
+            background: url(imageLib/img_mima.png) no-repeat center right 14px;
+        }
+        button{
+            width: 323px;
+            height: 48px;
+            background:#f39200;
+            border-radius: 3px 3px 3px 3px;
+            font-size: 18px;
+            color: #ffffff;
+            text-align:center;
+            line-height: 48px;
+            margin-top: 17px;
+            margin-bottom: 54px;
+        }
+        /*.cxj_inp span{*/
+            /*display: block;*/
+            /*font-size: 14px;*/
+            /*color: #ed5345;*/
+        /*}*/
+
+        .error_span2{
+            display: block;
+            font-size: 14px;
+            color: #ed5345;
+            visibility: hidden;
+        }
+
+        .error_span{
+            display: block;
+            font-size: 14px;
+            color: #ed5345;
+        }
+
+        .cxj_info{
+            margin-top:220px;
+        }
+        .cxj_info p{
+            text-align: center;
+            font-size: 14px;
+            line-height: 36px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="cxj_box">
+    <div class="cxj_container">
+        <div class="cxj_logo"><img src="imageLib/managenlogo.png" alt="鸿坤金服logo" /></div>
+
+        <div class="cxj_tab">
+            <h3>用户登录</h3>
+            <div class=" cxj_inp" style="position:relative;">
+                <img src="imageLib/icon_p.png" style="position:absolute;z-index:100;top:15px;right:10px;">
+                <img src="imageLib/icon_lock.png" style="position:absolute;z-index:100;top:80px;right:10px;">
+                <label for="  ">账号</label><input id="login" type="text"  required="required" class="form-control"/>
+                <span class="error_span2"> 账号错误，请重新输入</span>
+                <label for="  ">密码</label><input type="password"  id="password" class="form-control" required="required"/>
+                <span class="error_span2"> 密码错误，请重新输入</span>
+                <span id="errorMsg" class="error_span"></span>
+                <button id="submit" type="submit">  登录</button>
+            </div>
+        </div>
+        <div class="cxj_info">
+            <p>@2015鸿坤理想（深圳）科技发展有限公司 </p>
+            <p> 粤ICP备17063530号-1</p>
+            <p>风险提示：一切投资交易都依法进行，投资交易都有风险，投资者应风险自担。 投资有风险，操作须谨慎！ </p>
+        </div>
+    </div>
+</div>
+
+<script src="jslib/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="csslib/startbootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="jslib/common/commonUtil.js"></script>
+
+<!--encord-->
+<script src="jslib/common/config.js"></script>
+<script src="jslib/rsa/rsaUtil.js"></script>
+<script src="jslib/rsa/jsencrypt.min.js"></script>
+<script src="jslib/common/cookieUtil.js"></script>
+<script src="jslib/common/ssoUtil.js"></script>
+<script src="jslib/common/containerUtil.js"></script>
+<script src="jslib/common/validUtil.js"></script>
+</body>
+<script>
+
+    $(function () {
+        //判断ticket是否存在
+        if (validUtil.validNotEmpty(cookieUtil.getCookie("ticket_bi-admin"))) {
+            console.info("检测到ticket存在");
+            /**
+             * ticket登录
+             */
+            //查询登录信息
+            $.ajax({
+                type: 'POST',
+                url: commonUtil.getUrl() + "managementLoginController/validTicket",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    if (data.resStatus == CONFIG.CONSTANTS.SUCCESS_STATE) {
+                        console.info("ticket验证登录成功，渲染页面。。。")
+                        var parms= commonUtil.getRequestParamByUrl();
+                        if(parms!=null&&parms.targetUrlAfterLogin!=null){
+                            window.location.href = parms.targetUrlAfterLogin;
+                            return ;
+                        }
+                        var reDirectUrl =commonUtil.getUrl() + "index.html";
+                        window.location.href = reDirectUrl;
+                        return;
+                    } else {
+                        console.info("ticket验证登录失败，原因：" + data.resMsg);
+                        if(data.resMsg != "未登录"){
+                            alert(data.resMsg);
+                        }
+                    }
+                },
+                error: function (request) {
+                }
+            });
+        }
+    })
+   $("#submit").click(function () {
+       var loginData = {};
+       loginData.randomCode = 123;
+       loginData.rememberMe = 0;
+
+       loginData.login = $("#login").val().trim();
+       //encode
+       loginData.passwd = rsaUtil.encryptData($("#password").val().trim());
+
+       $.ajax({
+           url : commonUtil.getUrl() +"managementLoginController/login",
+           data : loginData,
+           type : 'POST',
+           dataType : 'JSON',
+           async : false,
+           success : function(msg) {
+               if(msg.resStatus==999 || msg.resStatus == 2005){
+                   //用户名密码错误
+                   // alert("用户名密码错误")
+                   $("#errorMsg").html('用户名密码错误');
+                   $("#errorMsg").show();
+               }
+               if(msg.resStatus==CONFIG.CONSTANTS.SUCCESS_STATE){
+                   //缓存登录信息
+                   console.info(cookieUtil.getCookie("ticket_admin"));
+                   containerUtil.set(CONFIG.CONSTANTS.LOGIN_REG_USER, cookieUtil.getCookie("ticket_admin"));
+                   //同步登录状态
+                   ssoUtil.syncState(CONFIG.CONSTANTS.SSO_STATE_RETRY_TIMES, CONFIG.CONSTANTS.SSO_STATE_ONLINE);
+                  var parms= commonUtil.getRequestParamByUrl();
+                   if(parms!=null&&parms.targetUrlAfterLogin!=null){
+                       window.location.href = parms.targetUrlAfterLogin;
+                       return ;
+                   }
+                  var reDirectUrl =commonUtil.getUrl() + "index.html";
+                   window.location.href = reDirectUrl;
+                   return;
+               }
+           },
+           error : function(msg) {
+               //do nothing...
+           }
+       });
+       return false;
+   })
+
+    //回车提交
+    document.onkeydown=function(event){
+        e = event ? event :(window.event ? window.event : null);
+        if(e.keyCode==13){
+            $("#password").blur();
+
+            //执行的方法
+            $("#submit").click();
+        }
+    }
+</script>
+</html>

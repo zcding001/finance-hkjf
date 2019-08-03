@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinBankCard">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinBankCard" type="com.hongkun.finance.payment.model.FinBankCard">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="bankCode" column="bank_code"/>
+		<result property="bankName" column="bank_name"/>
+		<result property="bankCard" column="bank_card"/>
+		<result property="branchName" column="branch_name"/>
+		<result property="bankProvince" column="bank_province"/>
+		<result property="bankCity" column="bank_city"/>
+		<result property="bankTel" column="bank_tel"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	<!-- bankCardVo参数列表 -->
+	<sql id="bankCardVo">
+		<![CDATA[
+		fc.reg_user_id as regUserId,
+		fc.bank_name as bankName,
+		fc.bank_card as bankCard,
+		fc.branch_name as branchName,
+		fc.bank_province as bankProvince,
+		fc.bank_city as bankCity,
+		fc.bank_tel as bankTel,
+		fc.bank_code as bankCode,
+		fb.id as id,
+		fb.fin_bank_card_id as finBankCardId,
+		fb.bank_third_code as bankThirdCode,
+		fb.third_account as thirdAccount,
+		fb.pay_channel as payChannel,
+		fb.state as state
+		]]>
+	</sql>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,bank_code,bank_name,bank_card,branch_name,bank_province,bank_city,bank_tel,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_bank_card ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				bank_code ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				bank_name ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				bank_card ,
+			</if>
+			<if test="branchName != null and branchName != ''">
+				branch_name ,
+			</if>
+			<if test="bankProvince != null and bankProvince != ''">
+				bank_province ,
+			</if>
+			<if test="bankCity != null and bankCity != ''">
+				bank_city ,
+			</if>
+			<if test="bankTel != null and bankTel != ''">
+				bank_tel ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				#{bankCode} ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				#{bankName} ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				#{bankCard} ,
+			</if>
+			<if test="branchName != null and branchName != ''">
+				#{branchName} ,
+			</if>
+			<if test="bankProvince != null and bankProvince != ''">
+				#{bankProvince} ,
+			</if>
+			<if test="bankCity != null and bankCity != ''">
+				#{bankCity} ,
+			</if>
+			<if test="bankTel != null and bankTel != ''">
+				#{bankTel} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_bank_card (
+        	id ,
+        	reg_user_id ,
+        	bank_code ,
+        	bank_name ,
+        	bank_card ,
+        	branch_name ,
+        	bank_province ,
+        	bank_city ,
+        	bank_tel ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCode != null and item.bankCode != ''">
+					#{item.bankCode} ,
+				</if>
+				<if test="item.bankCode == null or item.bankCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankName != null and item.bankName != ''">
+					#{item.bankName} ,
+				</if>
+				<if test="item.bankName == null or item.bankName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCard != null and item.bankCard != ''">
+					#{item.bankCard} ,
+				</if>
+				<if test="item.bankCard == null or item.bankCard == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.branchName != null and item.branchName != ''">
+					#{item.branchName} ,
+				</if>
+				<if test="item.branchName == null or item.branchName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankProvince != null and item.bankProvince != ''">
+					#{item.bankProvince} ,
+				</if>
+				<if test="item.bankProvince == null or item.bankProvince == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankCity != null and item.bankCity != ''">
+					#{item.bankCity} ,
+				</if>
+				<if test="item.bankTel != null and item.bankTel != ''">
+					#{item.bankTel} ,
+				</if>
+				<if test="item.bankCity == null or item.bankCity == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bankTel == null or item.bankTel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="bankCode != null and bankCode != ''">
+				bank_code = #{bankCode} ,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				bank_name = #{bankName} ,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				bank_card = #{bankCard} ,
+			</if>
+			<if test="branchName != null and branchName != ''">
+				branch_name = #{branchName} ,
+			</if>
+			<if test="bankProvince != null and bankProvince != ''">
+				bank_province = #{bankProvince} ,
+			</if>
+			<if test="bankCity != null and bankCity != ''">
+				bank_city = #{bankCity} ,
+			</if>
+			<if test="bankTel != null and bankTel != ''">
+				bank_tel = #{bankTel} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_bank_card
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_bank_card 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinBankCard">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_bank_card 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="bankCode != null and bankCode !=''">
+			AND bank_code = #{bankCode}
+			</if>
+			<if test="bankName != null and bankName !=''">
+			AND bank_name = #{bankName}
+			</if>
+			<if test="bankCard != null and bankCard !=''">
+			AND bank_card = #{bankCard}
+			</if>
+			<if test="branchName != null and branchName !=''">
+			AND branch_name = #{branchName}
+			</if>
+			<if test="bankProvince != null and bankProvince !=''">
+			AND bank_province = #{bankProvince}
+			</if>
+			<if test="bankCity != null and bankCity !=''">
+			AND bank_city = #{bankCity}
+			</if>
+			<if test="bankTel != null and bankTel !=''">
+			AND bank_tel = #{bankTel}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="stateList != null and stateList.size > 0">
+				AND state in
+				<foreach collection="stateList" open="(" separator="," close=")" item="state">
+					#{state}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_bank_card 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinBankCard">
+		SELECT <include refid="columns" />
+		FROM fin_bank_card 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 根据用户ID获取用户银行信息 -->
+	<select id="findByUserId" resultMap="_FinBankCard">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_bank_card 
+		WHERE 1 = 1
+			AND reg_user_id = #{regUserId} AND state NOT IN(3,4)
+		]]>
+	</select>
+		<!-- 根据银行卡号获取用户银行信息 -->
+	<select id="findByCradNo" resultMap="_FinBankCard">
+		SELECT <include refid="columns" />
+		FROM fin_bank_card 
+		<include refid="findPage_where"/> 
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if> 
+	</select>
+	<!-- 根据条件组合查询银行卡所有信息 -->
+	<select id="findBankCardInfo" resultType="com.hongkun.finance.payment.model.vo.BankCardVo">
+	   SELECT <include refid="bankCardVo" />
+		FROM fin_bank_card AS fc INNER JOIN fin_bank_card_binding  AS fb on fc.id=fb.fin_bank_card_id 
+		<include refid="find_where_findBankCardInfo"/>
+		ORDER BY fc.id DESC
+	</select>
+	<!-- 根据条件组合查询银行卡所有信息的查询条件 -->
+	<sql id="find_where_findBankCardInfo">
+		<where>
+			1=1
+			<if test="regUserId != null ">
+				  AND fc.reg_user_id = #{regUserId}
+			</if>
+			<if test="finBankCardId != null">
+				  AND fb.fin_bank_card_id =#{finBankCardId}
+			</if>
+			<if test="payChannel != null">
+				 AND fb.pay_channel = #{payChannel}
+			</if>
+			<if test="state != null">
+				AND  fb.state 
+			</if>
+		</where>
+	</sql>
+
+	<!--根据用户id集合获取用户银行卡信息-->
+	<select id="findBankCardInfoListByUserIds" resultMap="_FinBankCard">
+		SELECT <include refid="columns" />
+		FROM fin_bank_card
+		where reg_user_id in
+		<foreach collection="collection" open="(" separator="," close=")" item="val">
+			${val}
+		</foreach>
+	</select>
+
+	<!-- 解绑银行卡更新 -->
+	<update id="updateBankCardForUnBinding">
+		UPDATE  fin_bank_card
+		SET state = #{state},bank_tel=""
+		WHERE reg_user_id = #{regUserId}
+			AND bank_card = #{bankCard}
+			AND state = 2
+	</update>
+
+</mapper>

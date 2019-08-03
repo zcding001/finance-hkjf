@@ -1,0 +1,93 @@
+	<!-- 物业管理banner图片 -->
+	<div class="wy-banner">
+	 	<img src="${project_base_path}/src/img/account/wyBanner.jpg" height="180" width="818">
+	</div> 
+	<div class="wy-check" id="recommendList" style="display:none;">
+		 <button type="button" class="info-check" onclick="closeRecommendDetails();">返回</button>
+		 <table class="table table-hover ellipsis" id="recommendListTable"></table>
+		 <div class="manu"></div>
+	</div>
+	<!-- 物业查询 -->
+	<div class="wy-check" id="salersList">
+		<div class="check-line">物业销售查询</div>
+		<form id="dataTableForm">
+		<div class="wy-info">
+	        <div class="yg-info">
+	         	<span>员工姓名:</span>
+	             <input type="text" id="realName" name="realName" >
+	             <span>员工手机号:</span>
+	             <input type="text"  id="login" name="login" >
+	             <span id="telErrorMsg"></span>
+	        </div>
+	        <div class="info-date">
+	              <span class="info-span">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间:</span>
+	              <input class="Wdate tb_time" readonly="readonly" id="start" name="startTime" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})">
+	              <cite class="cite-fl">&nbsp;-&nbsp;</cite><cite>
+	              	<input class="Wdate tb_time" readonly="readonly" id="end" name="endTime" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})">
+	              </cite>
+	               <button type="button" class="info-check" id="dataTableSearchBtn">查询</button>
+	      	</div>    
+	     </div>
+	     </form>
+	     <div class="wy-touzi">
+	          <div>合计：推荐投资总金额：<span  class="investAmountSumNum">0</span>元 ;
+				  （包含物业公司投资金额<span  class="enterPriseInvestSumNum">0</span>元）
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  推荐折标后总金额：<span class="investBackStepMoneySumNum">0</span>元   
+	          </div>
+	     </div>
+	     <div style="overflow-x: auto;width:818px;">
+             <table class="table table-hover ellipsis" id="dataTable"></table>
+         </div>
+        <div class="paging"></div>
+	</div> 
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+</body>
+<script>
+var columns = [
+               {title:'序号', data:'_index', tdClass:'tac', thClass:'tac'},
+               {title:'员工/销售手机', data:'login', tdClass:'tac', thClass:'tac'},
+               {title:'员工/销售姓名', data:'realName', tdClass:'tac', thClass:'tac'},
+               {title:'推荐累积投资（元）', data:'investSumMoney', tdClass:'tac', thClass:'tac'},
+               {title:'推荐折标金额（元）', data:'investBackStepMoney', tdClass:'tac', thClass:'tac'},
+               {title:'操作', data:'regUserId', tdClass:'tac', thClass:'tac',
+            		render:function(value,row){
+            			if(row.investSumMoney>0){
+            				return '<a href="javascript:;" onclick="showRecommendDetails(\''+row.regUserId+'\');">详情</a>';	
+            			}else{
+            				return '--';
+            			}
+            		}
+               }
+       ];
+       
+var recommendColumns = [
+               {title:'序号', data:'_index', tdClass:'tac', thClass:'tac'},
+               {title:'被推荐人手机', data:'tel', tdClass:'tac', thClass:'tac'},
+               {title:'被推荐人', data:'realName', tdClass:'tac', thClass:'tac'},
+               {title:'投资金额（元）', data:'investAmount', tdClass:'tac', thClass:'tac'},
+               {title:'折标后投资金额（元）', data:'investBackStepMoney', tdClass:'tac', thClass:'tac'},
+               {title:'标的名称', data:'bidName', tdClass:'tac', thClass:'tac'},
+               {title:'投资时间', data:'investTime', tdClass:'tac', thClass:'tac',
+            	   render:function(value,row){
+           			  return dateUtil.dateTime(value);
+           		  }
+               }
+       ];
+
+renderUtil.renderList("/propertyManagementController/findPropertySales.do",columns,'',function(data){
+	 renderUtil.renderElement(data.params);
+});	
+
+function showRecommendDetails(regUserId){
+    renderUtil.renderList("/propertyManagementController/findRecommendFriends.do?regUserId="+regUserId,recommendColumns,'recommendListTable',null,'manu');
+    $("#salersList").hide();
+    $("#recommendList").show();
+}
+
+function closeRecommendDetails(){
+	$("#recommendList").hide();
+	$("#recommendListTable").html("");
+	$("#salersList").show();
+}
+</script>
+</html>             

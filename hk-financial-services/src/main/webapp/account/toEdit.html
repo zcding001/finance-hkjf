@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css" />
+    <link rel="stylesheet" href="${project_base_path}/lib/My97DatePicker/skin/WdatePicker.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <script type="text/javascript" src="${project_base_path}/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${project_base_path}/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-606-9610</span>
+                        </div>
+                        <ul class="hd_top_lt fl">
+                            <li class="borderLine fl" style="height: 21px;">
+                                <a href="${project_base_path}/navBar/integralShop.html">
+                                    <i class="iconfont icon-shangcheng2" style="margin-left:20px;"></i> 积分商城
+                                </a>
+                            </li>
+                            <li class="fl lal">
+                                <a href="${project_base_path}/navBar/DownApp.html">
+                                <i class="iconfont icon-shouji1" style="margin-left:20px;"></i>
+                                手机APP</a>
+                                <div class="qkd_ewm" style="left: -100px;">
+                                    <p class="pt-16 colr-org f-16">扫描下方二维码下载手机APP</p>
+                                    <img src="${project_base_path}/src/img/index/app_ewm.png" style="width:247px;height:247px;">
+                                    <p style="padding-bottom:2px;">打开微信，使用微信扫一扫</p>
+                                    <p class="pb-11">即可下载鸿坤金服APP</p>
+                                </div>
+                            </li>
+                            <li class="borderLine fl lal_1">
+                                <a href="javascript:void(0);" class="ewm_a">
+                                    <i class="iconfont icon-weixin" style="margin-left:20px;"></i> 官方微信
+                                </a>
+                                <div class="qkd_ewm">
+                                    <p>关注鸿坤金服官方微信</p>
+                                    <img src="${project_base_path}/src/img/index/hkgw.jpg" style="width:247px;height:247px;">
+                                    <p style="padding-bottom:2px;">打开微信，使用微信扫一扫</p>
+                                    <p class="pb-11">即可关注鸿坤金服官方微信</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40">
+                            <a href="${project_base_path}/account/newsRecord.html" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng"></i>1条未读消息</a>
+                        </div>
+                        <div class=" fr pr0">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide">
+                            <span>欢迎您：<i>至秦</i></span>
+                            <a href="#" class="colr-org">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="container clearfix">
+                <div class="logo fl">
+                    <a href="#" title="鸿坤金服">
+                        <img src="${project_base_path}/src/img/index/img_logo.png">
+                    </a>
+                </div>
+                <ul class="nav_c fr">
+                    <li><a class="nav_selected" href="${project_base_path}/index.html">
+            首页</a></li>
+                    <li><a class="" href="${project_base_path}/invest/invest_list.html">
+            我要投资</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/businessFinance.html">
+           企业理财</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/safeguard.html">
+            安全保障</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/aboutUs.html">
+            关于我们</a></li>
+                    <li><a class="" href="${project_base_path}/account/actIndex.html">
+            我的账号</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- 头部结束 -->
+    <!-- 左侧开始 -->
+    <div>
+        <div class="containerArea clearfix">
+            <div>上次登录时间：2017-07-02 18:27</div>
+              <!-- 左侧菜单开始 -->
+            <div class="act_left fl">
+                <div class="act_head"><a href="#">我的鸿坤金服</a></div>
+                <ul class="menu-one">
+                    <li>
+                        <div> <span>我的投资<i class="iconfont icon-arrow"></i></span></div>
+                        <ul class="menu-two">
+                            <li><a href="receivedPayments.html">回款计划</a></li>
+                            <li><a href="investmentRecord.html">投资记录</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>资金管理<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="recharge.html">充值</a></li>
+                            <li><a href="Withdrawals.html">提现</a></li>
+                            <li><a href="transactionRecord.html">交易记录</a></li>
+                            <li><a href="ExperienceRecord.html">体验金记录</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>账户管理<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="SecurityCenter.html">安全中心</a></li>
+                            <li><a href="directCard.html">银行卡管理</a></li>
+                            <li><a href="userInfo.html">个人基本信息</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>自动投资<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="autoInvest.html">自动投资</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>消息中心<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="newsRecord.html">消息记录</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>红包管理<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="cashRedpacket.html">红包兑换</a></li>
+                            <li><a href="cashRedPacket_1.html">已发红包</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>借款管理<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="loanApplication.html">借款申请</a></li>
+                            <li><a href="myLoan.html">我的借款</a></li>
+                            <li><a href="RepaymentPlan.html">还款计划</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>平台活动<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li><a href="WinningInfo.html">中奖信息</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>购房宝<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li class="firstChild"><a href="transactionRecord.html">交易记录</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div id="pointMenu"> <span>积分管理<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li id="sendPoint"><a href="IntegralTransfer.html">积分转赠</a></li>
+                            <li id="pointRecord"><a href="IntegralRecord.html">积分记录</a></li>
+                            <li id=""><a href="changeRecord.html">兑换记录</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>增值服务<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li class="firstChild" id="searchCoupon"><a href="checkCard.html">券卡查询</a></li>
+                            <li id="activeCoupon"><a href="activeCard.html">券卡激活</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div> <span>我的推荐<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li class="firstChild"><a href="hytj.html">推荐好友</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <div> <span>收货地址<i class="iconfont icon-arrow"></i></span> </div>
+                        <ul class="menu-two">
+                            <li class="firstChild"><a href="shipAddress.html">收货地址</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- 左侧菜单结束 -->
+            <div class="act_right fr">
+                <div class="autoinvest_main" style="margin-top:-20px;">
+                    <!--自动编辑-->
+                    <div class="autovestment_rule">
+                        <div class="autovestment_rule_title">
+                            <span class="ml-20">设置自动投资<font>(最多只允许添加一个方案)</font></span>
+                        </div>
+                        <div class="autovestment_edit">
+                            <form action="" method="post" name="" id="" target="_self">
+                                <ul>
+                                    <li>
+                                        <label class="liabel">最低预期年化收益率：</label>
+                                        <input id="rateAtm" type="text" name="rateAtm" value="" class="bdeep_line income_input" onblur="checkRateAtm()"> %
+                                        <span id="err_rateAtm" style="color:red"></span>
+                                    </li>
+                                    <li>
+                                        <label class="liabel">投资期限范围：</label>
+                                        <input type="text" id="investTermLower" name="investTermLower" value="" class="bdeep_line income_input" onblur="checkInvestTerm(this)"> 个月 ——
+                                        <input type="text" id="investTermUpper" name="investTermUpper" value="" class="bdeep_line income_input" onblur="checkInvestTerm(this)"> 个月
+                                        <span id="err_investTerm" style="color:red"></span>
+                                    </li>
+                                    <li>
+                                        <label class="liabel" style="width:17.5%;">还款方式：</label>
+                                        <input type="checkbox" id="a1" name="replyType" value="1" class="checkout">
+                                        <label for="a1" class="checkout"></label>按月付息，到期还本
+                                        <input type="checkbox" id="a2" name="replyType" value="2" class="checkout">
+                                        <label for="a2" class="checkout"></label>到期还本付息
+                                        <span id="err_replyType" style="color:red"></span>
+                                    </li>
+                                    <li>
+                                        <label class="liabel">账户预留金额：</label>
+                                        <input type="text" id="reserveAmount" name="reserveAmount" value="" class="cun_input bdeep_line" onblur="validateAmount(true)"> 元
+                                        <span id="err_reserveAmount" style="color:red"></span>
+                                    </li>
+                                    <li>
+                                        <label class="liabel" style="width:17.4%;">自动投资有效期：</label>
+                                        <label class="liabel" style="width:14%;">
+                                            <input type="radio" onclick="checkCustom()" name="timeRange" id="longRange" class="radio" checked="checked">
+                                            <label for="longRange" class="radio"></label> 长期有效
+                                        </label>
+                                        <label class="liabel" style="width:14%;">
+                                            <input type="radio" name="timeRange" id="customRange" class="radio">
+                                            <label for="customRange" class="radio"></label> 自定义
+                                        </label>
+                                        <label class="liabel" name="time" style="margin-right: 20px; ">
+                                            <input class="Wdate tb_time fl" style="margin-top:15px;" onclick="WdatePicker({minDate:'%y-%M-%d'});setMaxday('investEndTimes')" startdate="#investEndTimes" id="investStartTimes" name="investStartTimes" readonly="readonly" value="">
+                                        </label>
+                                        <label class="liabel" name="time" style="">
+                                            <input class="Wdate tb_time fl" style="margin-top:15px;" onclick="setMinday('investStartTimes')" startdate="#investStartTimes" id="investEndTimes" name="investEndTimes" readonly="readonly" value="">
+                                        </label>
+                                        &nbsp;<span id="err_time" style="color:red"></span>
+                                    </li>
+                                    <li style="position:relative;margin:20px 0 0 0;">
+                                        <label class="liabel" style="width:17.4%">使用红包和加息券：</label>
+                                        <div class="icon_content wenhao" style="display: block;">?</div>
+                                        <div class="icon_content system" style="display: none;">系统会根据投资匹配最合适的红包和加息券</div>
+                                        <img src="${project_base_path}/src/img/account/icon_wenhanjiao.png" class="icon_question">
+                                        <!--<img src="/css/yrtz/images/account/icon_content.png" >-->
+                                        <input type="radio" name="useHj" id="a5" class="radio" value="1" checked="checked">
+                                        <label for="a5" class="radio"></label><span>是</span>
+                                        <input type="radio" name="useHj" id="a6" class="radio" value="0">
+                                        <label for="a6" class="radio"></label><span>否</span>
+                                    </li>
+                                    <li>
+                                        <label class="liabel" style="width:15%;">投资优先级设置</label>
+                                        <font style="color:#666;">(系统会根据标的类型优先级设置匹配最优标的进行投资)</font>
+                                    </li>
+                                    <li style="height:100px;padding-left:28px;">
+                                        <label class="liabel">标的优先级：</label>
+                                        <div class="kind_select fl">
+                                            <div class="select_chose">
+                                                <ul class="clearfix">
+                                                    <li>
+                                                        <label>月月盈</label>
+                                                        <div class="select_box">
+                                                            <select id="yyy" name="yyy" onchange="validate(0)" >
+                                                                <option value="" selected="selected">--请选择优先级--</option>
+                                                                <option value="1">最高</option>
+                                                                <option value="2">高</option>
+                                                                <option value="3">中</option>
+                                                                <option value="4">低</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <label>季季盈</label>
+                                                        <div class="select_box">
+                                                            <select id="jjy" name="jjy" onchange="validate(1)" >
+                                                                <option value="" selected="selected">--请选择优先级--</option>
+                                                                <option value="1">最高</option>
+                                                                <option value="2">高</option>
+                                                                <option value="3">中</option>
+                                                                <option value="4">低</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="select_chose">
+                                                <ul>
+                                                    <li>
+                                                        <label>年年盈</label>
+                                                        <div class="select_box">
+                                                            <select id="nny" name="nny" onchange="validate(2)" >
+                                                                <option value="" selected="selected">--请选择优先级--</option>
+                                                                <option value="1">最高</option>
+                                                                <option value="2">高</option>
+                                                                <option value="3">中</option>
+                                                                <option value="4">低</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                    <li id="xsbId" style="display: none;">
+                                                        <label>新手标</label>
+                                                        <div class="select_box">
+                                                            <select id="xsb" name="xsb" onchange="validate(3)" style="background:#f5f5f5;width:140px;height:25px;line-height:25px;">
+                                                                <option value="" selected="selected">--请选择优先级--</option>
+                                                                <option value="1">最高</option>
+                                                                <option value="2">高</option>
+                                                                <option value="3">中</option>
+                                                                <option value="4">低</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li  class="pl-28;">
+                                        <label style="width:32%;font-weight: normal;">预期年化收益率和投资期限优先级：</label>
+                                        <input type="radio" name="priorityField" id="a7" value="1" class="radio" checked="checked">
+                                        <label for="a7" class="radio"></label>预期年化收益率优先
+                                        <input type="radio" name="priorityField" id="a8" value="2" class="radio">
+                                        <label for="a8" class="radio"></label>投资期限优先
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                        <div class="agreement_Protocol">
+                            <input id="conformContract" onclick="conformContract()" type="checkbox" value="" checked="checked">我已阅读并同意<a href="/biddInvestAutoController.do?method=showContract" class="hkjf_Protocol">《鸿坤金服自动投资协议》</a>
+                            <span id="err_conformContract" style="color:red"></span>
+                        </div>
+                    </div>
+                    <div class="sever_btn"><a href="javascript:;" onclick="saveAutoInvest();">保存</a></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部开始 -->
+        <!-- 底部结束 -->
+</body>
+<script>
+$(document).ready(function() {
+// 问号提示：系统会根据投资匹配最合适的红包和加息券
+    $(".wenhao").mouseover(function(){
+                 $(".system").fadeIn().siblings(".wenhao").fadeOut();
+            });
+            $(".system").mouseout(function(){
+               $(".system").fadeOut().siblings(".wenhao").fadeIn();
+            })
+});
+</script>
+
+</html>

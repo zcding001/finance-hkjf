@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserFriends">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserFriends" type="com.hongkun.finance.user.model.RegUserFriends">
+		<result property="id" column="id"/>
+		<result property="groupId" column="group_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="realName" column="real_name"/>
+		<result property="tel" column="tel"/>
+		<result property="memoName" column="memo_name"/>
+		<result property="remarks" column="remarks"/>
+		<result property="grade" column="grade"/>
+		<result property="investState" column="invest_state"/>
+		<result property="recommendId" column="recommend_id"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifiedTime" column="modified_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,group_id,reg_user_id,real_name,tel,memo_name,remarks,grade,invest_state,recommend_id,state,create_time,modified_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_friends ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="groupId != null">
+				group_id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel ,
+			</if>
+			<if test="memoName != null and memoName != ''">
+				memo_name ,
+			</if>
+			<if test="remarks != null and remarks != ''">
+				remarks ,
+			</if>
+			<if test="grade != null">
+				grade ,
+			</if>
+			<if test="investState != null">
+				invest_state ,
+			</if>
+			<if test="recommendId != null">
+				recommend_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modified_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="groupId != null">
+				#{groupId} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				#{realName} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				#{tel} ,
+			</if>
+			<if test="memoName != null and memoName != ''">
+				#{memoName} ,
+			</if>
+			<if test="remarks != null and remarks != ''">
+				#{remarks} ,
+			</if>
+			<if test="grade != null">
+				#{grade} ,
+			</if>
+			<if test="investState != null">
+				#{investState} ,
+			</if>
+			<if test="recommendId != null">
+				#{recommendId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifiedTime != null">
+					#{modifiedTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO reg_user_friends (
+        	id ,
+        	group_id ,
+        	reg_user_id ,
+        	real_name ,
+        	tel ,
+        	memo_name ,
+        	remarks ,
+        	grade ,
+        	invest_state ,
+        	recommend_id ,
+        	state,
+        	create_time ,
+        	modified_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.groupId != null">
+					#{item.groupId} ,
+				</if>
+				<if test="item.groupId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.realName != null and item.realName != ''">
+					#{item.realName} ,
+				</if>
+				<if test="item.realName == null or item.realName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tel != null and item.tel != ''">
+					#{item.tel} ,
+				</if>
+				<if test="item.tel == null or item.tel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.memoName != null and item.memoName != ''">
+					#{item.memoName} ,
+				</if>
+				<if test="item.memoName == null or item.memoName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.remarks != null and item.remarks != ''">
+					#{item.remarks} ,
+				</if>
+				<if test="item.remarks == null or item.remarks == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.grade != null">
+					#{item.grade} ,
+				</if>
+				<if test="item.grade == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investState != null">
+					#{item.investState} ,
+				</if>
+				<if test="item.investState == null">
+					DEFAULT ,
+				</if>
+				<if test="item.recommendId != null">
+					#{item.recommendId} ,
+				</if>
+				<if test="item.recommendId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifiedTime != null">
+					#{item.modifiedTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="groupId != null">
+			group_id = #{groupId} ,
+		   </if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel = #{tel} ,
+			</if>
+			<if test="memoName != null and memoName != ''">
+				memo_name = #{memoName} ,
+			</if>
+			<if test="remarks != null and remarks != ''">
+				remarks = #{remarks} ,
+			</if>
+			<if test="grade != null">
+			grade = #{grade} ,
+		   </if>
+			<if test="investState != null">
+			invest_state = #{investState} ,
+		   </if>
+			<if test="recommendId != null">
+			recommend_id = #{recommendId} ,
+		   </if>
+		   <if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifiedTime != null">
+				modified_time = #{modifiedTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  reg_user_friends
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_friends 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserFriends">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM reg_user_friends 
+		WHERE 1 = 1
+			AND id = #{id}
+			AND state = 1
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="groupId != null">
+			AND group_id = #{groupId}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="regUserIdList != null">
+			 AND reg_user_id IN
+                <foreach collection="regUserIdList" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+			</if>
+			<if test="realName != null and realName !=''">
+			AND real_name = #{realName}
+			</if>
+			<if test="tel != null and tel !=''">
+			AND tel = #{tel}
+			</if>
+			<if test="memoName != null and memoName !=''">
+			AND memo_name = #{memoName}
+			</if>
+			<if test="remarks != null and remarks !=''">
+			AND remarks = #{remarks}
+			</if>
+			<if test="grade != null">
+			AND grade = #{grade}
+			</if>
+			<if test="investState != null">
+			AND invest_state = #{investState}
+			</if>
+			<if test="recommendId != null">
+			AND recommend_id = #{recommendId}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifiedTimeBegin != null">
+			AND modified_time >= #{modifiedTimeBegin}
+			</if>
+			<if test="modifiedTimeEnd != null">
+			AND modified_time &lt;= #{modifiedTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_friends 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserFriends">
+		SELECT <include refid="columns" />
+		FROM reg_user_friends 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<!-- 查询分页 -->
+	<select id="findFirstFriendsByRecommendIds" resultMap="_RegUserFriends">
+		SELECT <include refid="columns" />
+		FROM reg_user_friends 
+        where grade=1 and recommend_id IN
+                <foreach collection="list" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+	</select>
+	
+	<select id="findRegUserFriendsNotInvestList" resultType="java.lang.Integer">
+		SELECT ruf.id
+		FROM reg_user_friends   ruf 
+		INNER JOIN reg_user_friends_group rufg on ruf.group_id = rufg.id  
+        where ruf.invest_state= 0 
+              and rufg.type = 1 
+              and ruf.reg_user_id IN
+                <foreach collection="list" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+	</select>
+	
+	<update id="updateStateAndGroupIdForInvest">
+		UPDATE  reg_user_friends ruf,reg_user_friends_group rufg 
+		SET ruf.group_id = rufg.id
+		where ruf.recommend_id =  rufg.reg_user_id 
+		and rufg.type = 2 
+		and ruf.id in 
+			<foreach collection="list" open="(" separator="," close=")" item="val">
+		    	${val}
+		    </foreach>
+	</update>
+
+	<delete id="delBatch" parameterType="java.util.List">
+		DELETE FROM reg_user_friends 
+		WHERE
+			id IN
+                <foreach collection="list" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+	</delete>
+	
+	<select id="findUserFriendsUnGrouped" resultType="com.hongkun.finance.user.model.RegUserFriends">
+		SELECT ru.id as id,ru.group_id as groupId,ru.reg_user_id as regUserId,ru.real_name as realName,
+		       ru.tel as tel,ru.memo_name as memoName,ru.remarks as remarks,ru.grade as grade,
+		       ru.invest_state as investState,rg.name as groupName 
+		FROM reg_user_friends  ru left join reg_user_friends_group rg  
+		ON ru.group_id = rg.id 
+		WHERE  ru.state = 1  AND ru.recommend_id = #{recommendId} and rg.type in (1,2) 
+	</select>
+	
+	
+	<select id="findUserFriendsByCondition" resultType="com.hongkun.finance.user.model.RegUserFriends">
+		SELECT rf.id as id,rf.reg_user_id as regUserId,rf.real_name as realName,rf.tel as tel,rf.memo_name as memoName,
+			   rf.remarks as remarks,rf.grade as grade,rf.invest_state as investState,rg.name  as groupName 
+		 FROM reg_user_friends rf left join reg_user_friends_group rg on rf.group_id = rg.id  
+		WHERE  state = 1  AND recommend_id = #{recommendId} 
+		AND  (
+			tel like CONCAT('%',#{tel},'%') 
+			or real_name like CONCAT('%',#{realName},'%') 
+			or memo_name like CONCAT('%',#{memoName},'%') 
+		) 
+	</select>
+	
+	<select id="findRegUserFriendsAndGroup" resultType="com.hongkun.finance.user.model.RegUserFriends">
+		SELECT rf.id as id,rf.reg_user_id as regUserId,rf.real_name as realName,rf.tel as tel,rf.memo_name as memoName,
+			   rf.remarks as remarks,rf.grade as grade,rf.invest_state as investState,rg.name  as groupName,rg.type as groupType,rf.recommend_id as recommendId
+		FROM reg_user_friends rf left join reg_user_friends_group rg on rf.group_id = rg.id
+		where 1=1 and rf.state = 1 
+		 <if test="regUserId != null">
+			AND rf.reg_user_id = #{regUserId}
+		</if>
+		<if test="regUserIdList != null">
+		 AND rf.reg_user_id IN
+               <foreach collection="regUserIdList" open="(" separator="," close=")" item="val">
+                   ${val}
+               </foreach>
+		</if>
+		<if test="recommendId != null">
+			AND rf.recommend_id = #{recommendId}
+		</if>
+	</select>
+
+	<!-- 查询投资人id与推荐人id集合 -->
+	<select id="findRecommendFriendsByRegUserIds" resultMap="_RegUserFriends">
+		SELECT <include refid="columns" />
+		FROM reg_user_friends
+		where grade = 1 and reg_user_id IN
+		<foreach collection="collection" open="(" separator="," close=")" item="val">
+			${val}
+		</foreach>
+	</select>
+</mapper>

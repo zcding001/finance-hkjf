@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasBidRecommendEarn">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasBidRecommendEarn" type="com.hongkun.finance.vas.model.VasBidRecommendEarn">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="recommendRegUserId" column="recommend_reg_user_id"/>
+		<result property="bidId" column="bid_id"/>
+		<result property="resourceId" column="resource_id"/>
+		<result property="type" column="type"/>
+		<result property="ruleId" column="rule_id"/>
+		<result property="investAmount" column="invest_amount"/>
+		<result property="earnAmount" column="earn_amount"/>
+		<result property="friendLevel" column="friend_level"/>
+		<result property="grantTime" column="grant_time"/>
+		<result property="note" column="note"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,recommend_reg_user_id,bid_id,resource_id,type,rule_id,invest_amount,earn_amount,friend_level,grant_time,note,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_bid_recommend_earn ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="recommendRegUserId != null">
+				recommend_reg_user_id ,
+			</if>
+			<if test="bidId != null">
+				bid_id ,
+			</if>
+			<if test="resourceId != null">
+				resource_id ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="ruleId != null">
+				rule_id ,
+			</if>
+			<if test="investAmount != null">
+				invest_amount ,
+			</if>
+			<if test="earnAmount != null">
+				earn_amount ,
+			</if>
+			<if test="friendLevel != null">
+				friend_level ,
+			</if>
+				grant_time ,
+			<if test="note != null and note != ''">
+				note ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="recommendRegUserId != null">
+				#{recommendRegUserId} ,
+			</if>
+			<if test="bidId != null">
+				#{bidId} ,
+			</if>
+			<if test="resourceId != null">
+				#{resourceId} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="ruleId != null">
+				#{ruleId} ,
+			</if>
+			<if test="investAmount != null">
+				#{investAmount} ,
+			</if>
+			<if test="earnAmount != null">
+				#{earnAmount} ,
+			</if>
+			<if test="friendLevel != null">
+				#{friendLevel} ,
+			</if>
+			<choose>
+				<when test="grantTime != null">
+					#{grantTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO vas_bid_recommend_earn (
+        	id ,
+        	reg_user_id ,
+        	recommend_reg_user_id ,
+        	bid_id ,
+        	resource_id ,
+        	type ,
+        	rule_id ,
+        	invest_amount ,
+        	earn_amount ,
+        	friend_level ,
+        	grant_time ,
+        	note ,
+        	state ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.recommendRegUserId != null">
+					#{item.recommendRegUserId} ,
+				</if>
+				<if test="item.recommendRegUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidId != null">
+					#{item.bidId} ,
+				</if>
+				<if test="item.bidId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.resourceId != null">
+					#{item.resourceId} ,
+				</if>
+				<if test="item.resourceId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.ruleId != null">
+					#{item.ruleId} ,
+				</if>
+				<if test="item.ruleId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investAmount != null">
+					#{item.investAmount} ,
+				</if>
+				<if test="item.investAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.earnAmount != null">
+					#{item.earnAmount} ,
+				</if>
+				<if test="item.earnAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.friendLevel != null">
+					#{item.friendLevel} ,
+				</if>
+				<if test="item.friendLevel == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.grantTime != null">
+					#{item.grantTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} ,
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="recommendRegUserId != null">
+			recommend_reg_user_id = #{recommendRegUserId} ,
+		   </if>
+			<if test="bidId != null">
+			bid_id = #{bidId} ,
+		   </if>
+			<if test="resourceId != null">
+			resource_id = #{resourceId} ,
+		   </if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="ruleId != null">
+			rule_id = #{ruleId} ,
+		   </if>
+			<if test="investAmount != null">
+			invest_amount = #{investAmount} ,
+		   </if>
+			<if test="earnAmount != null">
+			earn_amount = #{earnAmount} ,
+		   </if>
+			<if test="friendLevel != null">
+			friend_level = #{friendLevel} ,
+		   </if>
+			<if test="grantTime != null">
+				grant_time = #{grantTime} ,
+			</if>
+			<if test="note != null and note != ''">
+				note = #{note} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_bid_recommend_earn
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_bid_recommend_earn 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasBidRecommendEarn">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_bid_recommend_earn 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="recommendRegUserId != null">
+			AND recommend_reg_user_id = #{recommendRegUserId}
+			</if>
+			<if test="bidId != null">
+			AND bid_id = #{bidId}
+			</if>
+			<if test="resourceId != null">
+			AND resource_id = #{resourceId}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="ruleId != null">
+			AND rule_id = #{ruleId}
+			</if>
+			<if test="investAmount != null">
+			AND invest_amount = #{investAmount}
+			</if>
+			<if test="earnAmount != null">
+			AND earn_amount = #{earnAmount}
+			</if>
+			<if test="friendLevel != null">
+			AND friend_level = #{friendLevel}
+			</if>
+			<if test="grantTimeBegin != null">
+			AND grant_time >= #{grantTimeBegin}
+			</if>
+			<if test="grantTimeEnd != null">
+			AND grant_time &lt;= #{grantTimeEnd}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="stateList != null">
+                AND state IN
+                <foreach collection="stateList" open="(" separator="," close=")" item="states">
+                    ${states}
+                </foreach>
+            </if>
+            <if test="regUserIdList != null">
+                AND reg_user_id IN
+                <foreach collection="regUserIdList" open="(" separator="," close=")" item="regUserIds">
+                    ${regUserIds}
+                </foreach>
+            </if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_bid_recommend_earn 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasBidRecommendEarn">
+		SELECT <include refid="columns" />
+		FROM vas_bid_recommend_earn 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 后台推荐奖记录分页查询数量 -->
+	<select id="searchPageListsCount" resultType="long" parameterType="java.util.HashMap">
+		SELECT COUNT(ID) FROM
+		<if test="groupColumns != null and groupColumns !=''">
+			(select <include refid="columns" />  from vas_bid_recommend_earn 
+				<if test="groupColumns != null and groupColumns !=''">
+				  GROUP BY ${groupColumns}
+				</if> 
+			)vb
+		</if>
+		<if test="groupColumns == null or groupColumns ==''">
+			vas_bid_recommend_earn 
+		</if>
+		 <include refid="findPageInfo_where"/> 
+	</select>
+	<!-- 后台推荐奖记录分页查询 -->
+	<select id="searchPageLists" resultMap="_VasBidRecommendEarn">
+		SELECT <include refid="columns" /> from 
+		<if test="groupColumns != null and groupColumns !=''">
+			(select <include refid="columns" />  from vas_bid_recommend_earn 
+				<if test="groupColumns != null and groupColumns !=''">
+				  GROUP BY ${groupColumns}
+				</if> 
+			)vb
+		</if>
+		<if test="groupColumns == null or groupColumns ==''">
+			vas_bid_recommend_earn 
+		</if>
+		<include refid="findPageInfo_where"/>  
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 查询条件 -->
+	<sql id="findPageInfo_where">
+		<where>	  
+			1 = 1    				
+			<if test="regUserId != null">
+			AND reg_user_id in
+				<foreach collection="regUserId" item="regUserId"  open="(" separator="," close=")">
+						${regUserId}
+				</foreach>
+			</if>
+			<if test="recommendRegUserId != null">
+			AND recommend_reg_user_id in
+				<foreach collection="recommendRegUserId" item="recomRegUserId"  open="(" separator="," close=")">
+					${recomRegUserId}
+				</foreach>
+			</if>
+			<if test="biddIdList != null">
+			AND bid_id  in
+			<foreach collection="biddIdList" item="blists"  open="(" separator="," close=")">
+				${blists}
+			</foreach>
+			</if>			
+			<if test="state != null and state != -999">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="recommendState != null" >
+			  <if test="recommendState ==0" >
+			  AND state in (0,3,4,7)
+			  </if>
+			  <if test="recommendState ==1" >
+			  AND state in (1,2,3,5,6)
+			  </if>
+			</if>
+		</where> 
+	</sql>
+
+	<select id="bidRecommendEarnInfoCount" resultType="java.util.HashMap">
+	    SELECT count(DISTINCT(reg_user_id))  as sumFriendLevel,COALESCE(sum(earn_amount),0) as sumEarnAmount
+		FROM vas_bid_recommend_earn
+		<include refid="findPage_where"/>
+	</select>
+    
+    <select id="recommendEarnListForAppCount" resultType="java.lang.Long">
+	    SELECT count(1)
+		FROM vas_bid_recommend_earn
+		where recommend_reg_user_id = #{recommendRegUserId}
+    </select>
+    <select id="recommendEarnListForApp" resultType="com.hongkun.finance.vas.model.vo.RecommendEarnForAppVo">
+	    SELECT reg_user_id as regUserId,recommend_reg_user_id as recommendRegUserId,earn_amount as earnAmount,grant_time as grantTime,type  as type
+		FROM vas_bid_recommend_earn
+		where recommend_reg_user_id = #{recommendRegUserId}  and state in  (1,5)
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+    </select>
+    
+    
+    
+</mapper>

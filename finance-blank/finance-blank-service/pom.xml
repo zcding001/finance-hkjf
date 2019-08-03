@@ -1,0 +1,197 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+         blank-step 5: ① 请把下面涉及到blank的名称修改为服务名称
+                       ② 请把service项目下resource/spring下的applicationContext-balnk.xml改为需要的服务名称,并把此文件中的启动文件修改争取
+                       3. 请把env中的配置文件以及相关配置文件中的注释修改正确
+                       4. 如果本项目中涉及到指定以的配置属性，请联系构建着将其加入到249以及线上等文件中增加相应的配置
+    -->
+	<parent>
+		<groupId>com.hongkun.finance</groupId>
+		<artifactId>finance-blank</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>finance-blank-service</artifactId>
+<!-- 	<packaging>jar</packaging> -->
+	<name>${project.artifactId}</name>
+	<description>finance-blank-service</description>
+
+	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<!-- jar libs import -->
+	<dependencies>
+
+
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-blank-api</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hongkun.finance</groupId>
+			<artifactId>finance-blank-dao</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<!--build config about-->
+	<!--打包配置文件 profiles-->
+	<profiles>
+		<!-- 本地环境 -->
+		<profile>
+			<id>env-dev</id>
+			<properties>
+				<env>env_dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>env-test</id>
+			<properties>
+				<env>env_blank</env>
+			</properties>
+		</profile>
+	</profiles>
+	<!--java -Xms256m -Xmx512m -jar wagon-1.0-SNAPSHOT.jar-->
+	<build>
+		<!--打包配置,以dubbo方式打包-start-->
+		<finalName>blank-1.0-SNAPSHOT</finalName>
+		<!--指定变量替换文件所在位置-->
+		<filters>
+			<filter>src/main/resources/env/env_common.properties</filter>
+			<filter>src/main/resources/env/${env}.properties</filter>
+		</filters>
+		<resources>
+			<!--替换properties中的占位符-->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+				<!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
+				<excludes>
+					<exclude>env/*</exclude>
+					<exclude>spring/*</exclude>
+				</excludes>
+			</resource>
+			<!--把xml文件包含进来-->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+			<!--启动主配置文件-->
+			<resource>
+				<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+				<directory>src/main/resources/spring</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>applicationContext-blank.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/classes/</classesDirectory>
+					<archive>
+						<manifest>
+							<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+							<useUniqueVersions>false</useUniqueVersions>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--打包配置,以dubbo方式打包-end-->
+		</plugins>
+	</build>
+</project>

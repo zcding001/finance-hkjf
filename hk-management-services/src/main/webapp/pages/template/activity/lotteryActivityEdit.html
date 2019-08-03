@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               抽奖活动
+            </div>
+            <!-- /.panel-heading -->
+            <form name="lotteryActivityForm" id="lotteryActivityForm" enctype="multipart/form-data" novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                   <input type="hidden" name="id" id="id" ng-value="lotteryActivityInfo.id"/>
+		                <br/>
+		                 <div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>活动名称:</label>
+		       			     <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="请填写活动名称" name="name"
+									ng-model="lotteryActivityInfo.name" type="text"  validator="required" valid-method="blur" message-id="nameError" style="width:40%;">
+						 <span style="color:#F00;display:inline-block;" class="bid-info" id="nameError"></span>
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>开始时间:</label>
+							<input type="text" id="startTime"
+								   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})"
+								   class="Wdate form-control" ng-model="lotteryActivityInfo.startTime" name="startTime"
+								   readonly="readonly" valid-method="blur" style="width:20%;height:30px;display:inline-block;"
+								   validator="required"  message-id="startTimeError"
+								   ng-focus="timeChange('startTime')"/>
+							<span style="color:#F00" class="bid-info" id="startTimeError"></span>
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>结束时间:</label>
+							<input type="text" id="endTime"
+								   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})"
+								   class="Wdate form-control" valid-method="blur" ng-model="lotteryActivityInfo.endTime" name="endTime"
+								   readonly="readonly" validator="required" valid-method="blur" message-id="endTimeError"
+								   style="width:20%;height:30px;display:inline-block;" ng-focus="timeChange('endTime')"/>
+							<span style="color:#F00" class="bid-info" id="endTimeError"></span>
+						</div>
+
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>每日抽奖次数:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="正整数"
+								   name="limitDayTimes" ng-model="lotteryActivityInfo.limitDayTimes"  type="text"
+								   validator="required,range" min="1" max="100000000"
+								   range-error-message="请输入介于 1至100000000的整数值!"
+								   valid-method="blur" message-id="limitDayTimesError" style="width:40%;">
+							<span style="color:#F00" class="bid-info" id="limitDayTimesError"></span>
+						</div>
+
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>每人抽奖次数:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="正整数"
+								   name="limitUserTimes" ng-model="lotteryActivityInfo.limitUserTimes"  type="text"
+								   validator="required,range" min="1" max="100000000"
+								   range-error-message="请输入介于 100至100000000的整数值!"
+								   valid-method="blur" message-id="limitUserTimesError" style="width:40%;">
+							<span style="color:#F00" class="bid-info" id="limitUserTimesError"></span>
+						</div>
+
+						<div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>背景图片:</label>
+		       			    <input  file-model="lotteryActivityInfo.backgroundUrl"  id="Pic_backgroundUrl" type="file" onchange="angular.element(this).scope().upload('Pic_backgroundUrl')"  style="display:inline-block;">
+	      			       <span style="color:#F00" class="bid-info" id="backgroundUrlError"></span>
+						 </div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>转盘图片:</label>
+							<input  file-model="lotteryActivityInfo.itemsUrl"  id="Pic_itemsUrl" type="file" onchange="angular.element(this).scope().upload('Pic_itemsUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="itemsUrlError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>指针图片:</label>
+							<input file-model="lotteryActivityInfo.pointerUrl"  id="Pic_pointerUrl" type="file" onchange="angular.element(this).scope().upload('Pic_pointerUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="pointerUrlError"></span>
+						</div>
+						<div class="clearfix">
+							<label class="textright" style="float:left;width: 100px;"><span class="font-red pos_r">*&nbsp;</span>活动规则:</label>
+							<textarea  name = "activityRule" id="activityRule"  ng-model="lotteryActivityInfo.activityRule" message-id="activityRuleError"
+									   style="width:600px; height: 300px; margin: 0 auto;"></textarea>
+							<span style="color:#F00" class="bid-info" id="activityRuleError"></span>
+						</div>
+
+						<br/>
+						<div class="clearfix">
+							<label class="textright" style="float:left;width: 100px;"><span class="font-red pos_r">*&nbsp;</span>兑奖说明:</label>
+							<textarea name = "introduction" id="introduction"  ng-model="lotteryActivityInfo.introduction"
+									   message-id="introductionError"
+									   style="width:600px; height: 300px; margin: 0 auto;"></textarea>
+							<span style="color:#F00" class="bid-info" id="introductionError"></span>
+						</div>
+						<br/>
+
+						<div class="form-group">
+							<label class="textright">备注:</label>
+							<input class="form-control ng-pristine ng-touched textstyle" placeholder="备注" name="note" ng-model="lotteryActivityInfo.note" type="text" >
+						</div>
+
+						<div ng-show="isSaveBtn">
+							<button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(lotteryActivityForm)" validator-submit="pointMerchantForm">保存</button>
+							<button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+						</div>
+						<div ng-hide="isSaveBtn">
+							<button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(lotteryActivityForm)" validator-submit="pointMerchantForm">修改</button>
+							<button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+						</div>
+
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

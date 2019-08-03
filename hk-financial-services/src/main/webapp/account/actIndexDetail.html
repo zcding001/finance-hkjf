@@ -1,0 +1,84 @@
+<div class="my_cont clearfix">
+    <ul class="my_cont_name fl">
+        <li>
+            <div class="clearfix nickDiv1">
+                <input value="" class="nickName" type="text" readonly="false">
+                <span class="grade">V<em class="levelNum"></em></span>
+                <a href="javascript:void(0)" class="editBtn">编辑</a>
+            </div>
+            <div class="clearfix hide nickDiv2">
+                <input value="" type="text" maxlength="8" class="inp_keep fl updateNickName">
+                <span class="grade fl">V<em class="levelNum"></em></span>
+                <a href="javascript:void(0)" class="fr saveBtn">保存</a>
+            </div>
+            <span class="erro hide"></span>
+        </li>
+        <li class="li_02 clearfix">
+            <h1 class="fl">可用积分 <span class="colr-org pointsNum"></span> 分</h1>
+            <a href="javascript:void(0)" style="text-decoration: underline;" class="fr colr-org exchangeBtn">兑换好礼</a>
+        </li>
+        <li id="gfb1" class="clearfix hide">
+            <h1 class="fl">我的乾坤宝 <span class="colr-org depositInfoCountNum"></span></h1>
+            <span><a href="javascript:void(0)" style="text-decoration: underline" class="dh_text fr buyHourseBtn">去购买</a></span>
+        </li>
+        <li class="rel li_04">
+            <a href="javascript:void(0)" class="toRealNameBtn" title="实名认证"><i class="iconfont icon-businesscard mr-18"></i><em class="identifyState">未认证</em></a>
+            <a href="javascript:void(0)" class="toUserInfoBtn" title="完善个人信息"><i class="iconfont icon-barrage mr-18"></i><em class="userInfoState">未完善</em></a>
+            <a href="javascript:void(0)" class="toBindEmailBtn" title="绑定邮箱"><i class="iconfont icon-icon03-copy mr-18"></i><em class="emailStateState">未绑定</em></a>
+        </li>
+        <li class="clearfix">
+            <span class="f-weight fl">安全级别</span>
+            <div class="act-jdt fl">
+                <span class="percentView" style="width:60%"><em class="scurityLevel"></em>分</span>
+            </div>
+            <a href="javascript:void(0)" class="dh_text fr enhanceBtn" style="text-decoration: underline;">提升</a>
+        </li>
+        <li>
+            <h1 class="f-weight">我的成长值 <span class="colr-org growValueNum"></span></h1>
+        </li>
+    </ul>
+    <div class="my_cont_rt fr clearfix">
+        <div class="rt_cont_lt fl">
+            <div class="rt_cont_yue">可用余额 ：<span class="useableMoneyNum"></span> 元
+            </div>
+            <div class="mt-15 clearfix">
+                <div class="fl">
+                    <p>冻结余额 （元）
+                        <br>￥<span class="colr-org freezeMoneyNum"></span></p>
+                </div>
+                <div class="fr">
+                    <p>体验金 （元）
+                        <br>￥<span class="colr-org simSumNum"></span></p>
+                </div>
+            </div>
+            <div class="mt-10 mb-9 clearfix coupontCountDiv">
+                <span>投资红包<a href="javascript:void(0)"><font class="colr-org"><em class="couponType1Num"></em></font></a>张</span>
+                <span>加息券<a href="javascript:void(0)"><font  class="colr-org"><em class="couponType0Num"></em></font></a>张</span>
+                <span>提现券<a href="javascript:void(0)"><font class="colr-org"><em class="couponType2Num"></em></font></a>张</span>
+                <span>好友券<a href="javascript:void(0)"><font class="colr-org"><em class="couponType3Num"></em></font></a>张</span>
+            </div>
+        </div>
+        <div class="rt_cont_rt fr">
+            <a href="javascript:void(0)" class="cz_button" id="rechargeBtn">充值</a>
+            <a href="javascript:void(0)" class="cz_button" id="withdrawBtn">提现</a>
+        </div>
+    </div>
+</div>
+<div class="rel">
+    <div class="hcharts_box clearfix" id="container"></div>
+    <ul class="zc_con_fl">
+        <li>账户总额<span>=</span></li>
+        <li>待收本金<span>+</span></li>
+        <li>待收利息<span>+</span></li>
+        <li>账户余额 <span>+</span></li>
+        <li>待加息收益</li>
+    </ul>
+</div>
+<div class="cur" style="margin-top: 70px;">
+    <a href="javascript:void(0)" class="hytjBtn"><img src="${project_base_path}/src/img/account/hytj_add.jpg" alt="邀请好友" width="100%" height="160px"></a>
+</div>
+
+<!-- 柱状图插件 -->
+<script type="text/javascript" src="${project_base_path}/lib/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/account/actIndex.js"></script>
+

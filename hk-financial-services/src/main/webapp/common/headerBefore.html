@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1100,user-scalable=yes">
+    <title>头部信息</title>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+    <header class="bg-white">
+        <div class="topBar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fl">
+                            <i class="glyphicon glyphicon-earphone"></i>
+                            <span>客服：400-900-9630 或 400-606-9610</span>
+                        </div>
+                        <ul class="hd_top_lt fl">
+                            <li class="borderLine fl" style="height: 21px;">
+                                <a href="${project_base_path}/pointmall/index.html">
+                                    <i class="iconfont icon-shangcheng2" style="margin-left:20px;"></i> 积分商城
+                                </a>
+                            </li>
+                            <li class="fl lal">
+                                <a href="${project_base_path}/navBar/DownApp.html">
+                                    <i class="iconfont icon-shouji1" style="margin-left:20px;"></i> 手机APP
+                                </a>
+                                <div class="qkd_ewm" style="left: -100px;">
+                                    <p class="pt-16 colr-org f-16">扫描下方二维码下载手机APP</p>
+                                    <img src="${project_base_path}/src/img/index/app_ewm.png" style="width:247px;height:247px;">
+                                    <p style="padding-bottom:2px;">打开微信，使用微信扫一扫</p>
+                                    <p class="pb-11">即可下载鸿坤金服APP</p>
+                                </div>
+                            </li>
+                            <li class="borderLine fl lal_1">
+                                <a href="javascript:void(0);" class="ewm_a">
+                                    <i class="iconfont icon-weixin" style="margin-left:20px;"></i> 官方微信
+                                </a>
+                                <div class="qkd_ewm">
+                                    <p>关注鸿坤金服官方微信</p>
+                                    <img src="${project_base_path}/src/img/index/hkgw.jpg" style="width:247px;height:247px;">
+                                    <p style="padding-bottom:2px;">打开微信，使用微信扫一扫</p>
+                                    <p class="pb-11">即可关注鸿坤金服官方微信</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="fr pr0 pl-40 hide loginShow">
+                            <a href="javascript:void(0)" id="headInforms" class="rel" style="color:#ed5345;"><i class="iconfont icon-xinfeng totalNum"></i>条未读消息</a>
+                        </div>
+                        <div class="fr pr0 loginHide">
+                            <a href="${project_base_path}/register/login.html">登录</a>
+                            <a href="${project_base_path}/register/register.html">注册</a>
+                        </div>
+                        <div class="fr pr0 hide loginShow">
+                            <span>欢迎您 , <i class="nickName"></i></span>
+                            <a href="#" class="colr-org logoutBtn">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="container clearfix">
+                <div class="logo fl">
+                    <a href="${project_base_path}/index.html" title="鸿坤金服">
+                        <img src="${project_base_path}/src/img/index/hkjf_logo_1027.jpg">
+                    </a>
+                </div>
+                <ul class="nav_c fr">
+                    <li><a class="nav_selected" href="${project_base_path}/index.html">
+            首页</a></li>
+                    <li><a class="" href="${project_base_path}/invest/investList.html">
+            我要投资</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/businessFinance.html">
+            企业理财</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/safeguard.html">
+            安全保障</a></li>
+                    <li><a class="" href="${project_base_path}/navBar/aboutUs.html">
+            关于我们</a></li>
+                    <li><a id="myAccount" class="" href="${project_base_path}/account/actIndex.html">
+            我的账号</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- 头部结束 -->
+</body>
+<script>
+    (function(){
+        commonUtil.isLogin();
+        $('#myAccount').click(function () {
+            if(!commonUtil.isLogin()){commonUtil.sessionTimeOut();return false};
+        });
+        var pathName = document.location.pathname;
+        //重置导航栏焦点
+        $('.nav_c li a').each(function() {
+            $(this).removeClass("nav_selected");
+            if(commonUtil.endWith(pathName, $(this).attr("href").substring($(this).attr("href").lastIndexOf("/")))){
+                $(this).addClass("nav_selected");
+            }
+        });
+
+        //绑定退出操作事件
+        $(".logoutBtn").each(function(){
+            $(this).unbind("click").click(commonUtil.logout);
+        });
+
+        $("#headInforms").click(function(){
+            if(!commonUtil.isLogin()){commonUtil.sessionTimeOut()};
+            var flag = false;
+            $('.nav_c li a').each(function() {
+                if($(this).hasClass("nav_selected")){
+                    if($(this).text() == "我的账户"){
+                        flag = true;
+                    }
+                }
+            });
+            if(flag){
+                commonUtil.jumpAccountMenu("newsRecord.html");
+            }else{
+                commonUtil.jumpToAccount("newsRecord.html");
+            }
+        });
+    })();
+
+</script>
+</html>

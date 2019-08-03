@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>鸿坤金服会员权益活动</title>
+  <style>
+    *{margin:0;padding:0;}
+    body{background: #1f1b1a;}
+    .cxj_box{
+      width: 100%;
+      height: 5.35rem;
+      background: url(../imageLib/company/top-card-new_01.jpg) no-repeat;
+      background-size: 100% 100%;
+    }
+    .cxj_intro{width: 100%;height:6.35rem;background: url(../imageLib/company/top-card_02.png) no-repeat;background-size: 100% 100%;font-size: 0;padding-top: .25rem;}
+    .cxj_intro img{width: 100%;height:4.35rem;display: block;}
+    .cxj_intro  .cxj_tit{width: 5.5rem;height:.8rem;margin:0 auto;}
+    .cxj_cont{width: 100%;height:17.14rem;background: url(../imageLib/company/cxj-bj-2.jpg) no-repeat;background-size: 100% 100%; margin:0 auto;text-align: center;}
+    .cxj_cont img{width: 90%;text-align: center;}
+    .cxj_footer{width: 100%;    margin: 0 auto;text-align: center;height: .66rem;font-size: 0;margin-top:1rem;}
+   .cxj_footer  .footer_img{width: 2.94rem;height:.66rem;}
+  </style>
+  <script>
+    (function(doc, win) { // font-size.js
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = (clientWidth >= 750 ? 100 : clientWidth / 7.5) + 'px';
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+  </script>
+</head>
+<body>
+<div class="cxj_box"></div>
+<div class="cxj_intro"><img src="../imageLib/company/interduce_01.png" alt="介绍">
+<img src="../imageLib/company/little-title.png" alt="标题" class="cxj_tit">
+</div>
+<div class="cxj_cont">
+  <img src="../imageLib/company/content.png" alt="内容">
+  <div class="cxj_footer"><img src="../imageLib/company/footer-font.png" alt="底部文字" class="footer_img"></div>
+</div>
+
+</body>
+</html>

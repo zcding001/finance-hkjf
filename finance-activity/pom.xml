@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>finance-hkjf</artifactId>
+		<groupId>com.hongkun.finance</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>finance-activity</artifactId>
+	<packaging>pom</packaging>
+	<name>finance-activity</name>
+	<description>finance-activity</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<modules>
+		<module>finance-activity-api</module>
+		<module>finance-activity-dao</module>
+		<module>finance-activity-model</module>
+		<module>finance-activity-service</module>
+	</modules>
+</project>

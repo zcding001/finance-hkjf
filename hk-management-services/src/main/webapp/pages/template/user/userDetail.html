@@ -1,0 +1,88 @@
+<style>
+
+	/*主体内容*/
+	.zh_cont_xx {margin: 20px 20px;}
+	.zh_cont_xx_lt {width: 40%;border-right: 1px dashed #c5c5c5;float:left;}
+	.user_img {width: 120px;float:left;}
+	.user_xx {margin-left: 20px;position: relative;width: 60%;float:left;}
+	.user_xx p {font-size: 14px;color: #333;line-height: 32px;}
+	.zh_cont_xx_rt {width: 40%;margin-left: 5%;float:left;}
+	.zzc {font-size: 14px;color: #333;padding-bottom: 10px;}
+	.zzc_cont {border-bottom: 1px dashed #c5c5c5;border-top: 1px dashed #c5c5c5;}
+	.zzc_cont li {float: left;display: inline;width: 40%;border-right: 1px dashed #c5c5c5;padding: 10px 20px;font-size: 12px;line-height: 26px;}
+	.zzc_cont li.bor0 {border-right: 0px;padding-right: 0px;padding-left: 30px;width: 40%;}
+	.mt_10 {margin-top: 10px;}
+	.zzc span {color: #ff5400;}
+	.zh_menu li.hover {border-bottom: 2px solid #ff5400;color: #ff5400;font-weight: bold;}
+	.zh_menu li.hover a {color: #ff5400;text-decoration: none;}
+	.zh_main{margin-top:20px;border-top:1px solid #c5c5c5;}
+	.zh_menu{margin:20px 20px 0 20px;border-bottom:1px solid #c5c5c5;}
+	.zh_menu li{float:left;display:inline;width:120px;font-famliy:"微软雅黑";line-height:35px;font-size:16px; color:#333;text-align:center;}
+	.zh_menu li.hover{border-bottom:2px solid #ff5400;color:#ff5400; font-weight:bold;}
+	.zh_menu li a{display:block;color:#333;}
+	.zh_menu li.hover a{color:#ff5400;}
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              	用户详情
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div class="zh_cont_xx clearfix">
+					<div class="zh_cont_xx_lt">
+						<div class="user_img"><img src="{{headPortrait}}" id="user_image"  width="100%"></div>
+						<div class="user_xx">
+							<p>
+								姓名：{{userVO.realName}}<br/>
+								手机号码：{{userVO.login}}<br/>
+                                邮箱地址:{{userVO.email}}<br/>
+								个人邀请码：{{userVO.inviteNo}}<br/>
+								物业推广码：{{userVO.extenSource}}<br/>
+							</p>
+							<!--			<a href="#" class="xhzl">维护资料</a> -->
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="zh_cont_xx_rt">
+						<div class="zzc">总资产：<span>{{ finAccount.freezeMoney + finAccount.useableMoney + loanVO.capitalAmount + loanVO.interestAmount + qdzAccount.money  + loanVO.increaseAmount + 0}} 元</span></div>
+						<ul class="zzc_cont clearfix">
+							<li>
+                                可用金额： {{finAccount.useableMoney}}元<br/>
+                                冻结金额： {{finAccount.freezeMoney + 0}}元<br/>
+                                待收加息： {{loanVO.increaseAmount + 0}}元
+                            </li>
+							<li class="bor0">
+								定期待收本金： {{loanVO.capitalAmount + 0}}元<br/>
+								钱袋子待收本金：{{qdzAccount.money + 0}} 元<br/>
+								待收利息： {{loanVO.interestAmount + 0}}元<br/>
+								
+							</li>
+							<div class="clear"></div>
+						</ul>
+						<div class="zzc mt_10">累投总额：<span> {{investTotal}} 元</span></div>
+					</div>
+            	</div>
+				<ul class="zh_menu clearfix">
+					<li id="bt1" class="hover"><a href="javascript:;" ng-click="findDetails(1)">投资记录</a></li>
+					<li id="bt2" ><a href="javascript:;" ng-click="findDetails(2)">回款计划</a></li>
+					<li id="bt3" ><a href="javascript:;" ng-click="findDetails(3)">还款计划</a></li>
+					<li id="bt4" ><a href="javascript:;" ng-click="findDetails(4)">交易记录</a></li>
+					<li id="bt5" ><a href="javascript:;" ng-click="findDetails(5)">绑卡信息</a></li>
+					<li id="bt6" ><a href="javascript:;" ng-click="findDetails(6)">邀请信息</a></li>
+					<li id="bt7" ><a href="javascript:;" ng-click="findDetails(7)">物流信息</a></li>
+					<div class="clear"></div>
+				</ul>
+				<div id="details">
+					<!--<div ng-include="'pages/template/payment/tradeRecordList.html'"></div>-->
+				</div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+</script>

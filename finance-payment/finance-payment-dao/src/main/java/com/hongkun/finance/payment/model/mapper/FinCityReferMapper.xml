@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinCityRefer">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinCityRefer" type="com.hongkun.finance.payment.model.FinCityRefer">
+		<result property="id" column="id"/>
+		<result property="thirdName" column="third_name"/>
+		<result property="thirdCode" column="third_code"/>
+		<result property="province" column="province"/>
+		<result property="provinceCode" column="province_code"/>
+		<result property="provinceThirdCode" column="province_third_code"/>
+		<result property="city" column="city"/>
+		<result property="cityCode" column="city_code"/>
+		<result property="cityThirdCode" column="city_third_code"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,third_name,third_code,province,province_code,province_third_code,city,city_code,city_third_code,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_city_refer ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				third_code ,
+			</if>
+			<if test="province != null and province != ''">
+				province ,
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				province_code ,
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode != ''">
+				province_third_code ,
+			</if>
+			<if test="city != null and city != ''">
+				city ,
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				city_code ,
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode != ''">
+				city_third_code ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				#{thirdCode} ,
+			</if>
+			<if test="province != null and province != ''">
+				#{province} ,
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				#{provinceCode} ,
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode != ''">
+				#{provinceThirdCode} ,
+			</if>
+			<if test="city != null and city != ''">
+				#{city} ,
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				#{cityCode} ,
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode != ''">
+				#{cityThirdCode} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+		INSERT INTO fin_city_refer (
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				third_name ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				third_code ,
+			</if>
+			<if test="province != null and province != ''">
+				province ,
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				province_code ,
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode != ''">
+				province_third_code ,
+			</if>
+			<if test="city != null and city != ''">
+				city ,
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				city_code ,
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode != ''">
+				city_third_code ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES 
+		<foreach collection="list" item="item" index="index" separator=",">
+		(
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="thirdName != null and thirdName != ''">
+				#{thirdName} ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				#{thirdCode} ,
+			</if>
+			<if test="province != null and province != ''">
+				#{province} ,
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				#{provinceCode} ,
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode != ''">
+				#{provinceThirdCode} ,
+			</if>
+			<if test="city != null and city != ''">
+				#{city} ,
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				#{cityCode} ,
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode != ''">
+				#{cityThirdCode} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="thirdName != null and thirdName != ''">
+				third_name = #{thirdName} ,
+			</if>
+			<if test="thirdCode != null and thirdCode != ''">
+				third_code = #{thirdCode} ,
+			</if>
+			<if test="province != null and province != ''">
+				province = #{province} ,
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				province_code = #{provinceCode} ,
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode != ''">
+				province_third_code = #{provinceThirdCode} ,
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city} ,
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				city_code = #{cityCode} ,
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode != ''">
+				city_third_code = #{cityThirdCode} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_city_refer
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_city_refer 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinCityRefer">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_city_refer 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="thirdName != null and thirdName !=''">
+			AND third_name = #{thirdName}
+			</if>
+			<if test="thirdCode != null and thirdCode !=''">
+			AND third_code = #{thirdCode}
+			</if>
+			<if test="province != null and province !=''">
+			AND province = #{province}
+			</if>
+			<if test="provinceCode != null and provinceCode !=''">
+			AND province_code = #{provinceCode}
+			</if>
+			<if test="provinceThirdCode != null and provinceThirdCode !=''">
+			AND province_third_code = #{provinceThirdCode}
+			</if>
+			<if test="city != null and city !=''">
+			AND city = #{city}
+			</if>
+			<if test="cityCode != null and cityCode !=''">
+			AND city_code = #{cityCode}
+			</if>
+			<if test="cityThirdCode != null and cityThirdCode !=''">
+			AND city_third_code = #{cityThirdCode}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_city_refer 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinCityRefer">
+		SELECT <include refid="columns" />
+		FROM fin_city_refer 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+</mapper>

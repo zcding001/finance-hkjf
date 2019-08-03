@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.property.model.ProPayRecord">
+
+		<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_ProPayRecord" type="com.hongkun.finance.property.model.ProPayRecord">
+		<result property="id" column="id"/>
+		<result property="addressId" column="address_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="money" column="money"/>
+		<result property="useableMoney" column="useable_money"/>
+		<result property="rechargeMoney" column="recharge_money"/>
+		<result property="rechargeFlowId" column="recharge_flow_id"/>
+		<result property="point" column="point"/>
+		<result property="pointMoney" column="pointMoney"/>
+		<result property="pointRecordId" column="point_record_id"/>
+		<result property="state" column="state"/>
+		<result property="reviewReason" column="review_reason"/>
+		<result property="createdTime" column="created_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="payType" column="pay_type"/>
+		<result property="note" column="note"/>
+		<result property="proId" column="pro_id"/>
+		<result property="proName" column="pro_name"/>
+		<result property="communityId" column="community_id"/>
+		<result property="communityName" column="community_name"/>
+		<result property="address" column="address"/>
+		<result property="userName" column="user_name"/>
+	</resultMap>
+	
+	<!-- <resultMap id="_ProPayRecordVo" type="com.hongkun.finance.property.vo.ProPayRecordVo">
+		<result property="id" column="id"/>
+		<result property="addressId" column="address_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="money" column="money"/>
+		<result property="useableMoney" column="useable_money"/>
+		<result property="rechargeMoney" column="recharge_money"/>
+		<result property="rechargeFlowId" column="recharge_flow_id"/>
+		<result property="point" column="point"/>
+		<result property="pointMoney" column="pointMoney"/>
+		<result property="pointRecordId" column="point_record_id"/>
+		<result property="state" column="state"/>
+		<result property="reviewReason" column="review_reason"/>
+		<result property="createdTime" column="created_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="payType" column="pay_type"/>
+		<result property="note" column="note"/>
+		<result property="proId" column="pro_id"/>
+		<result property="proName" column="pro_name"/>
+		<result property="communityId" column="community_id"/>
+		<result property="communityName" column="community_name"/>
+		<result property="address" column="address"/>
+		<result property="userName" column="user_name"/>
+	</resultMap> -->
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,address_id,reg_user_id,start_time,end_time,money,useable_money,recharge_money,recharge_flow_id,point,pointMoney,point_record_id,state,review_reason,created_time,modify_time,pay_type,note,pro_id,pro_name,community_id,community_name,address,user_name 
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO pro_pay_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="addressId != null">
+				address_id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+				start_time ,
+				end_time ,
+			<if test="money != null">
+				money ,
+			</if>
+			<if test="useableMoney != null">
+				useable_money ,
+			</if>
+			<if test="rechargeMoney != null">
+				recharge_money ,
+			</if>
+			<if test="rechargeFlowId != null and rechargeFlowId != ''">
+				recharge_flow_id ,
+			</if>
+			<if test="point != null">
+				point ,
+			</if>
+			<if test="pointMoney != null">
+				pointMoney ,
+			</if>
+			<if test="pointRecordId != null and pointRecordId != ''">
+				point_record_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="reviewReason != null and reviewReason != ''">
+				review_reason ,
+			</if>
+				created_time ,
+				modify_time ,
+			<if test="payType != null">
+				pay_type ,
+			</if>
+			<if test="note != null and note != ''">
+				note ,
+			</if>
+			<if test="proId != null">
+				pro_id ,
+			</if>
+			<if test="proName != null and proName != ''">
+				pro_name ,
+			</if>
+			<if test="communityId != null">
+				community_id ,
+			</if>
+			<if test="communityName != null and communityName != ''">
+				community_name ,
+			</if>
+			<if test="address != null and address != ''">
+				address ,
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="addressId != null">
+				#{addressId} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<choose>
+				<when test="startTime != null">
+					#{startTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="endTime != null">
+					#{endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="money != null">
+				#{money} ,
+			</if>
+			<if test="useableMoney != null">
+				#{useableMoney} ,
+			</if>
+			<if test="rechargeMoney != null">
+				#{rechargeMoney} ,
+			</if>
+			<if test="rechargeFlowId != null and rechargeFlowId != ''">
+				#{rechargeFlowId} ,
+			</if>
+			<if test="point != null">
+				#{point} ,
+			</if>
+			<if test="pointMoney != null">
+				#{pointMoney} ,
+			</if>
+			<if test="pointRecordId != null and pointRecordId != ''">
+				#{pointRecordId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="reviewReason != null and reviewReason != ''">
+				#{reviewReason} ,
+			</if>
+			<choose>
+				<when test="createdTime != null">
+					#{createdTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="payType != null">
+				#{payType} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<if test="proId != null">
+				#{proId} ,
+			</if>
+			<if test="proName != null and proName != ''">
+				#{proName} ,
+			</if>
+			<if test="communityId != null">
+				#{communityId} ,
+			</if>
+			<if test="communityName != null and communityName != ''">
+				#{communityName} ,
+			</if>
+			<if test="address != null and address != ''">
+				#{address} ,
+			</if>
+			<if test="userName != null and userName != ''">
+				#{userName} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO pro_pay_record (
+	       	id ,
+	       	address_id ,
+	       	reg_user_id ,
+	       	start_time ,
+	       	end_time ,
+	       	money ,
+	       	useable_money ,
+	       	recharge_money ,
+	       	recharge_flow_id ,
+	       	point ,
+	       	pointMoney ,
+	       	point_record_id ,
+	       	state ,
+	       	review_reason ,
+	       	created_time ,
+	       	modify_time ,
+	       	pay_type ,
+	       	note ,
+	       	pro_id ,
+	       	pro_name ,
+	       	community_id ,
+	       	community_name ,
+	       	address ,
+	       	user_name  
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.addressId != null">
+					#{item.addressId} ,
+				</if>
+				<if test="item.addressId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.startTime != null">
+					#{item.startTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">
+					#{item.endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.money != null">
+					#{item.money} ,
+				</if>
+				<if test="item.money == null">
+					DEFAULT ,
+				</if>
+				<if test="item.useableMoney != null">
+					#{item.useableMoney} ,
+				</if>
+				<if test="item.useableMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechargeMoney != null">
+					#{item.rechargeMoney} ,
+				</if>
+				<if test="item.rechargeMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.rechargeFlowId != null and item.rechargeFlowId != ''">
+					#{item.rechargeFlowId} ,
+				</if>
+				<if test="item.rechargeFlowId == null or item.rechargeFlowId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.point != null">
+					#{item.point} ,
+				</if>
+				<if test="item.point == null">
+					DEFAULT ,
+				</if>
+				<if test="item.pointMoney != null">
+					#{item.pointMoney} ,
+				</if>
+				<if test="item.pointMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.pointRecordId != null and item.pointRecordId != ''">
+					#{item.pointRecordId} ,
+				</if>
+				<if test="item.pointRecordId == null or item.pointRecordId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.reviewReason != null and item.reviewReason != ''">
+					#{item.reviewReason} ,
+				</if>
+				<if test="item.reviewReason == null or item.reviewReason == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createdTime != null">
+					#{item.createdTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.payType != null">
+					#{item.payType} ,
+				</if>
+				<if test="item.payType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} ,
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.proId != null">
+					#{item.proId} ,
+				</if>
+				<if test="item.proId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.proName != null and item.proName != ''">
+					#{item.proName} ,
+				</if>
+				<if test="item.proName == null or item.proName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.communityId != null">
+					#{item.communityId} ,
+				</if>
+				<if test="item.communityId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.communityName != null and item.communityName != ''">
+					#{item.communityName} ,
+				</if>
+				<if test="item.communityName == null or item.communityName == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.address != null and item.address != ''">
+					#{item.address} ,
+				</if>
+				<if test="item.address == null or item.address == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.userName != null and item.userName != ''">
+					#{item.userName} 
+				</if>
+				<if test="item.userName == null or item.userName == ''">
+					DEFAULT 
+				</if> 
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="addressId != null">
+			address_id = #{addressId} ,
+		   </if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="startTime != null">
+				start_time = #{startTime} ,
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime} ,
+			</if>
+			<if test="money != null ">
+				money =money + #{money} ,
+			</if>
+			<if test="useableMoney != null ">
+				useable_money =useable_money + #{useableMoney} ,
+			</if>
+			<if test="rechargeMoney != null ">
+				recharge_money =recharge_money + #{rechargeMoney} ,
+			</if>
+			<if test="rechargeFlowId != null and rechargeFlowId != ''">
+				recharge_flow_id = #{rechargeFlowId} ,
+			</if>
+			<if test="point != null">
+			point = #{point} ,
+		   </if>
+			<if test="pointMoney != null ">
+				pointMoney =pointMoney + #{pointMoney} ,
+			</if>
+			<if test="pointRecordId != null and pointRecordId != ''">
+				point_record_id = #{pointRecordId} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="reviewReason != null and reviewReason != ''">
+				review_reason = #{reviewReason} ,
+			</if>
+			<if test="createdTime != null">
+				created_time = #{createdTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="payType != null">
+			pay_type = #{payType} ,
+		   </if>
+			<if test="note != null and note != ''">
+				note = #{note} ,
+			</if>
+			<if test="proId != null">
+			pro_id = #{proId} ,
+		   </if>
+			<if test="proName != null and proName != ''">
+				pro_name = #{proName} ,
+			</if>
+			<if test="communityId != null">
+			community_id = #{communityId} ,
+		   </if>
+			<if test="communityName != null and communityName != ''">
+				community_name = #{communityName} ,
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address} ,
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  pro_pay_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<update id="updateState">
+		UPDATE  pro_pay_record
+		<set>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="pointRecordId != null">
+				point_record_id = #{pointRecordId}
+			</if>
+			<if test="reviewReason != null and reviewReason != '' ">
+				review_reason = #{reviewReason}
+			</if>
+
+		</set>
+		WHERE
+			id = #{proPayRecordId}
+		<if test="oldState != null">
+			AND state = #{oldState}
+		</if>
+	</update>
+
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM pro_pay_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_ProPayRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM pro_pay_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="addressId != null">
+			AND address_id = #{addressId}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="startTimeBegin != null and startTimeBegin !='-999'">
+			AND start_time >= #{startTimeBegin}
+			</if>
+			<if test="startTimeEnd != null and startTimeEnd !='-999'">
+			AND start_time &lt;= #{startTimeEnd}
+			</if>
+			<if test="endTimeBegin != null and endTimeBegin !='-999'">
+			AND end_time >= #{endTimeBegin}
+			</if>
+			<if test="endTimeEnd != null and endTimeEnd !='-999'">
+			AND end_time &lt;= #{endTimeEnd}
+			</if>
+			<if test="money != null">
+			AND money = #{money}
+			</if>
+			<if test="useableMoney != null">
+			AND useable_money = #{useableMoney}
+			</if>
+			<if test="rechargeMoney != null">
+			AND recharge_money = #{rechargeMoney}
+			</if>
+			<if test="rechargeFlowId != null and rechargeFlowId !=''">
+			AND recharge_flow_id = #{rechargeFlowId}
+			</if>
+			<if test="point != null">
+			AND point = #{point}
+			</if>
+			<if test="pointMoney != null">
+			AND pointMoney = #{pointMoney}
+			</if>
+			<if test="pointRecordId != null and pointRecordId !=''">
+			AND point_record_id = #{pointRecordId}
+			</if>
+			<if test="state != null and state !='-999'">
+			AND state = #{state}
+			</if>
+			<if test="reviewReason != null and reviewReason !=''">
+			AND review_reason = #{reviewReason}
+			</if>
+			<if test="createdTimeBegin != null and createdTimeBegin!=''">
+			AND created_time >= #{createdTimeBegin}
+			</if>
+			<if test="createdTimeEnd != null and createdTimeEnd!=''">
+			AND created_time &lt;= #{createdTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="payType != null and payType !='-999'">
+			AND pay_type = #{payType}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+			<if test="proId != null">
+			AND pro_id = #{proId}
+			</if>
+			<if test="proName != null and proName !=''">
+			AND pro_name = #{proName}
+			</if>
+			<if test="communityId != null and communityId !='-999'">
+			AND community_id = #{communityId}
+			</if>
+			<if test="communityName != null and communityName !=''">
+			AND community_name = #{communityName}
+			</if>
+			<if test="address != null and address !=''">
+			AND address = #{address}
+			</if>
+			<if test="userName != null and userName !=''">
+			AND user_name = #{userName}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM pro_pay_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_ProPayRecord">
+		SELECT <include refid="columns" />
+		FROM pro_pay_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+
+	<!-- <select id="findProPayRecordVoList" resultType="com.hongkun.finance.property.vo.ProPayRecordVo">
+		SELECT ppr.id as id,ppr.reg_user_id as regUserId,ppr.address_id as addressId,
+		ppr.pro_id as propertyId,ppr.pro_name as propertyName,ppr.community_id as communityId,ppr.community_name as communityName,
+		ppr.address as address,ppr.pay_type as payType,ppr.money as money,ppr.point as point,ppr.pointMoney as pointMoney,
+		ppr.state as state,ppr.start_time as startTime,ppr.end_time as endTime,ppr.created_time as createdTime,ppr.useable_money as useableMoney,
+		ppr.recharge_money as rechargeMoney,ppr.note as note , ppr.pro_id as proId, ppr.pro_name as proName,ppr.community_id as communityId,ppr.community_name as communityName,
+		ppr.address as address,ppr.user_name as userName  
+		FROM pro_pay_record  ppr 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select> -->
+			
+</mapper>

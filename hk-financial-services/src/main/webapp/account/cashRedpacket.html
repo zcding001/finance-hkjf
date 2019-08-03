@@ -1,0 +1,60 @@
+<!-- 红包兑换 -->
+<div class="act_right fr">
+    <form name="" action="" method="post">
+        <div class="tx_bar">
+            <ul class="clearfix">
+                <li class="fl">
+                    <cite class="fl">红包编码：</cite>
+                    <cite class="jy_inp">
+                        <input type="text" style="width:200px;padding-left:5px;" id="redpageKey" />
+                    </cite>
+                </li>
+                <li class="fl ml-10">
+                    <a href="javascript:void(0);" class="btn-primary" data-toggle="modal"
+                       data-target=".bs-example-modal-sm" id="exchange">兑换</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <div style="overflow-x: auto;width:818px;">
+        <table class="table table-hover ellipsis" id="dataTable"></table>
+    </div>
+    <div class="paging"></div>
+</div>
+<script>
+    var columns = [
+        {title:'红包编码',data:'key',tdClass:'tac',thClass:'tac'},
+        {title:'红包金额',data:'value',tdClass:'tac',thClass:'tac',render:function (value) {
+            return value + "元";
+        }},
+        {title:'兑换时间',data:'modifyTime',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:'到期时间',data:'endTime',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:'状态',data:'state',tdClass:'tac',thClass:'tac',render:function (value) {
+            return dictionaryUtil.getName('vas','redpacket_state',value);
+        }},
+        {title:'红包来源',data:'senderUserName',tdClass:'tac',thClass:'tac'}
+    ];
+    renderUtil.renderList("/redPacketController/getUserRedPacketInfo.do",columns);
+
+    $("#exchange").click(function () {
+        var key = $("#redpageKey").val();
+        if (commonUtil.isEmpty(key)){
+            dialogUtil.alert("提示","请您先输入红包兑换码!");
+            return;
+        };
+        var param = {"key":key};
+        var callBack = function (data) {
+            if (data.resStatus == CONSTANTS.SUCCESS){
+                dialogUtil.msg("恭喜","红包兑换成功，赶紧去投资吧！",true);
+                renderUtil.refresh();
+            }else {
+                dialogUtil.alert("提示",data.resMsg);
+            }
+        };
+        ajaxUtil.post("/redPacketController/exchangeRedPacketInfo.do",param,callBack);
+    });
+</script>

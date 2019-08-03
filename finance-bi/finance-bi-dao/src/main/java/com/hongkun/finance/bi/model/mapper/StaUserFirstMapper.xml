@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaUserFirst">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaUserFirst" type="com.hongkun.finance.bi.model.StaUserFirst">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="regSource" column="reg_source"/>
+		<result property="extenSource" column="exten_source"/>
+		<result property="login" column="login"/>
+		<result property="investTime" column="invest_time"/>
+		<result property="investMoney" column="invest_money"/>
+		<result property="investTimes" column="invest_times"/>
+		<result property="investAmount" column="invest_amount"/>
+		<result property="rechangeTime" column="rechange_time"/>
+		<result property="rechangeMoney" column="rechange_money"/>
+		<result property="realNameTime" column="real_name_time"/>
+		<result property="idCard" column="id_card"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,reg_user_id,reg_source,exten_source,login,invest_time,invest_money,invest_times,invest_amount,rechange_time,rechange_money,real_name_time,id_card
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_user_first ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="regSource != null">
+				reg_source ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+				exten_source ,
+			</if>
+			<if test="login != null">
+				login ,
+			</if>
+				invest_time ,
+			<if test="investMoney != null">
+				invest_money ,
+			</if>
+			<if test="investTimes != null">
+				invest_times ,
+			</if>
+			<if test="investAmount != null">
+				invest_amount ,
+			</if>
+				rechange_time ,
+			<if test="rechangeMoney != null">
+				rechange_money ,
+			</if>
+				real_name_time ,
+			<if test="idCard != null and idCard != ''">
+				id_card 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="regSource != null">
+				#{regSource} ,
+			</if>
+			<if test="extenSource != null and extenSource != ''">
+				#{extenSource} ,
+			</if>
+			<if test="login != null">
+				#{login} ,
+			</if>
+			<choose>
+				<when test="investTime != null">
+					#{investTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="investMoney != null">
+				#{investMoney} ,
+			</if>
+			<if test="investTimes != null">
+				#{investTimes} ,
+			</if>
+			<if test="investAmount != null">
+				#{investAmount} ,
+			</if>
+			<choose>
+				<when test="rechangeTime != null">
+					#{rechangeTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="rechangeMoney != null">
+				#{rechangeMoney} ,
+			</if>
+			<choose>
+				<when test="realNameTime != null">
+					#{realNameTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="idCard != null and idCard != ''">
+				#{idCard} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sta_user_first (
+	       	id ,
+	       	da ,
+	       	reg_user_id ,
+	       	reg_source ,
+	       	exten_source ,
+	       	login ,
+	       	invest_time ,
+	       	invest_money ,
+	       	invest_times ,
+	       	invest_amount ,
+	       	rechange_time ,
+	       	rechange_money ,
+	       	real_name_time ,
+	       	id_card 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regSource != null">
+					#{item.regSource} ,
+				</if>
+				<if test="item.regSource == null">
+					DEFAULT ,
+				</if>
+				<if test="item.extenSource != null and item.extenSource != ''">
+					#{item.extenSource} ,
+				</if>
+				<if test="item.extenSource == null or item.extenSource == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.login != null">
+					#{item.login} ,
+				</if>
+				<if test="item.login == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.investTime != null">
+					#{item.investTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.investMoney != null">
+					#{item.investMoney} ,
+				</if>
+				<if test="item.investMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investTimes != null">
+					#{item.investTimes} ,
+				</if>
+				<if test="item.investTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.investAmount != null">
+					#{item.investAmount} ,
+				</if>
+				<if test="item.investAmount == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.rechangeTime != null">
+					#{item.rechangeTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.rechangeMoney != null">
+					#{item.rechangeMoney} ,
+				</if>
+				<if test="item.rechangeMoney == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.realNameTime != null">
+					#{item.realNameTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.idCard != null and item.idCard != ''">
+					#{item.idCard} 
+				</if>
+				<if test="item.idCard == null or item.idCard == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="regSource != null">
+			reg_source = #{regSource} ,
+		   </if>
+			<if test="extenSource != null and extenSource != ''">
+				exten_source = #{extenSource} ,
+			</if>
+			<if test="login != null">
+			login = #{login} ,
+		   </if>
+			<if test="investTime != null">
+				invest_time = #{investTime} ,
+			</if>
+			<if test="investMoney != null ">
+				invest_money =invest_money + #{investMoney} ,
+			</if>
+			<if test="investTimes != null">
+			invest_times = #{investTimes} ,
+		   </if>
+			<if test="investAmount != null ">
+				invest_amount =invest_amount + #{investAmount} ,
+			</if>
+			<if test="rechangeTime != null">
+				rechange_time = #{rechangeTime} ,
+			</if>
+			<if test="rechangeMoney != null ">
+				rechange_money =rechange_money + #{rechangeMoney} ,
+			</if>
+			<if test="realNameTime != null">
+				real_name_time = #{realNameTime} ,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				id_card = #{idCard} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_user_first
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_user_first 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaUserFirst">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_user_first 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="regSource != null">
+			AND reg_source = #{regSource}
+			</if>
+			<if test="extenSource != null and extenSource !=''">
+			AND exten_source = #{extenSource}
+			</if>
+			<if test="login != null">
+			AND login = #{login}
+			</if>
+			<if test="investTimeBegin != null">
+			AND invest_time >= #{investTimeBegin}
+			</if>
+			<if test="investTimeEnd != null">
+			AND invest_time &lt;= #{investTimeEnd}
+			</if>
+			<if test="investMoney != null">
+			AND invest_money = #{investMoney}
+			</if>
+			<if test="investTimes != null">
+			AND invest_times = #{investTimes}
+			</if>
+			<if test="investAmount != null">
+			AND invest_amount = #{investAmount}
+			</if>
+			<if test="rechangeTimeBegin != null">
+			AND rechange_time >= #{rechangeTimeBegin}
+			</if>
+			<if test="rechangeTimeEnd != null">
+			AND rechange_time &lt;= #{rechangeTimeEnd}
+			</if>
+			<if test="rechangeMoney != null">
+			AND rechange_money = #{rechangeMoney}
+			</if>
+			<if test="realNameTimeBegin != null">
+			AND real_name_time >= #{realNameTimeBegin}
+			</if>
+			<if test="realNameTimeEnd != null">
+			AND real_name_time &lt;= #{realNameTimeEnd}
+			</if>
+			<if test="idCard != null and idCard !=''">
+			AND id_card = #{idCard}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_user_first 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaUserFirst">
+		SELECT <include refid="columns" />
+		FROM sta_user_first 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+    <!-- 用户转化率统计查询 -->
+    <select id="findStaUserFirstByType" resultType="com.hongkun.finance.bi.model.StaUserFirst">
+        SELECT
+            reg_source as regSource,
+            COUNT(id) AS userCount,
+            SUM(CASE WHEN LENGTH(id_card) > 0 THEN 1 ELSE 0 END) AS realNameCount,
+            SUM(CASE WHEN rechange_money > 0 THEN 1 ELSE 0 END) AS rechangeCount,
+            SUM(CASE WHEN invest_amount > 0 THEN 1 ELSE 0 END) AS investCount,
+            IFNULL(SUM(invest_amount),0) AS investAmountSum
+        FROM
+          sta_user_first
+        <include refid="sta_find_where"/>
+        GROUP BY
+          reg_source;
+    </select>
+
+    <!-- 新增用户投资统计查询 -->
+    <select id="findStaUserFirstCount" resultType="com.hongkun.finance.bi.model.StaUserFirst">
+        SELECT
+            COUNT(id) AS userCount,
+            IFNULL(SUM(invest_amount),0) AS investAmountSum
+        FROM
+          sta_user_first
+        <include refid="sta_find_where"/>
+    </select>
+
+    <sql id="sta_find_where">
+        <where>
+            1=1
+            <if test="daBegin != null">
+                AND da >= #{daBegin}
+            </if>
+            <if test="daEnd != null">
+                AND da &lt; #{daEnd}
+            </if>
+        </where>
+    </sql>
+</mapper>

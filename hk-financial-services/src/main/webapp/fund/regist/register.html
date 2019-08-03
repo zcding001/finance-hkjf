@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+    
+    <title>股权注册页</title>
+</head>
+
+<body style="padding-right:0 !important;">
+    <!-- 头部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_header.html"></div>
+    <!-- 头部结束 -->
+
+    <!-- 填写注册信息 开始-->
+    <div class="reg_main">
+	    <img src="${project_base_path}/src/img/guquan/icon_rzc.png" class="reg_img">
+		<form id="dataForm">
+			<input type="hidden" name="login" id="login"/>
+			<input type="hidden" name="passwd" id="passwd"/>
+	    <div class="reg_forma">   
+	        <ul>
+	        	<!--手机号码-->
+	          <li class="q_text">
+	            <input id="loginTmp" class="reg_tel" type="text" value="请输入您的手机号" datatype="m" nullmsg="请输入您的手机号码！">
+	          	<span class="Validform_checktip"></span></li>
+	          <!--计算结果-->
+	          <li class="q_yzm clearfix">
+	            <p class="fl">                
+	              <input id="calcCode" class="reg_smallbtn fl" name="calcCode" type="text" value="请输入问号的计算结果" datatype="n1-3" nullmsg="请输入问号的计算结果" errormsg="请输入合法计算结果！">
+	            </p>
+				<p class="fr"><img id="validCode" title="点击更换" class="reg_jsimg" onclick="javascript:commonUtil.loadValidateCode(this, 2);" width="192" height="80" src=""></p>
+	          </li>
+	          <!--验证码-->
+	          <li class="q_yzm clearfix">
+	            <p class="fl">
+				  <input id="smsCode" class="reg_smallbtn fl" name="smsCode" type="text" value="请输入您的6位验证码" datatype="n6-6" nullmsg="请输入您的6位验证码" errormsg="请输入合法的验证码">
+	            </p>
+				  <p class="fr"><a href="javascript:void(0);" class="reg_getnum" id="smsCodeBtn">获取验证码</a><span id="waitTime"></span></p>
+	            </li>
+	          <!--登录密码-->
+	          <li class="q_text">
+	          	<input id="passwdTmp" name="passwdTmp" type="text" class="reg_password" value="请输入登录密码(6至16位字母数字组合)" isPasswd="true" datatype="psnew6-16" nullmsg="请输入登录密码(6至16位字母数字组合)" errormsg="请输入6至16位字母数字组合!">
+	          	<span class="Validform_checktip"></span>
+	          </li>
+	          <!--确认密码-->
+	          <li class="q_text">
+	          	<input id="repasswd" type="text" name="repasswd" class="reg_password" value="请输入确认密码" isPasswd="true" datatype="*" recheck="passwdTmp" nullmsg="请输入确认密码" errormsg="您两次输入的账号密码不一致！">
+	          </li>
+			  <!--<span id="resErrMsg" class="Validform_checktip"></span>-->
+				<li class="q_text">
+					<cite class="colr-red blh-30" id="resErrMsg"></cite>
+				</li>
+
+	          <li class="tongyixuanz" style="padding-left:10px;text-align:left;">
+				    <input id="agreeOn" type="checkbox" value="" class="neirong neizhuanl" style="width:19px;height:19px;">
+	                <span class="">我已阅读并同意
+	            	<a href="#" class="colr-blue" id="contract">《鸿坤金服网站服务协议》</a>
+	            	<!--<a href="javascript:void(0)" class="colr-blue" id="toFxinvest">《定向及合格投资者认定》</a>-->
+					<a href="#" class="colr-blue" id="riskNotify">《投资风险告知书》</a>
+	            	</span>&nbsp;&nbsp;<span id="err_check" class="Validform_checktip"></span>
+	            </li>
+			  <a id="submitBtn" class="next_step" href="javascript:void(0)">立即注册</a>
+	        </ul>
+	    </div>
+		</form>
+	</div>
+    <!-- 填写注册信息 结束-->
+    
+    <!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+    <!-- 底部结束 -->
+    
+    
+    <!-- 鸿坤金服网站用户注册服务协议弹窗 -->
+	<div class="modal fade bs-example-modal-lg pl0" tabindex="-1" role="dialog3" id="registHkjfAgreement" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+	        <div class="modal-content">
+	            <div class="modal-header border-radius disabled  pt-10 pb-10">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	                <h4 class="modal-title">鸿坤金服网站服务协议</h4>
+	            </div>
+	            <div class="modal-body pb-30 pt-30" style="height:600px;overflow-y:auto;">
+	                <!-- 所要添加的内容start -->
+	                <div class="include" file="${project_base_path}/contract/registHkjfAgreement.html"></div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 鸿坤金服网站用户注册服务协议弹窗 -->
+	<div class="modal fade bs-example-modal-lg pl0" tabindex="-1" role="dialog3" id="registRiskNotify" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+	        <div class="modal-content">
+	            <div class="modal-header border-radius disabled  pt-10 pb-10">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	                <h4 class="modal-title">投资风险告知书</h4>
+	            </div>
+	            <div class="modal-body pb-30 pt-30" style="height:600px;overflow-y:auto;">
+	                <!-- 所要添加的内容start -->
+	                <div class="include" file="${project_base_path}/contract/registRiskNotify.html"></div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- 定向及合格投资者认定弹窗 -->
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog3" id="fxinvest" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;">
+	        <div class="modal-content">
+	            <div class="modal-header border-radius disabled  pt-10 pb-10">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	                <h4 class="modal-title">定向及合格投资者认定</h4>
+	            </div>
+	            <div class="modal-body pb-30 pt-30" style="height:520px;">
+	                <!-- 所要添加的内容start -->
+	                <div class="include" file="${project_base_path}/contract/fxinvest.html"></div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/rsa/rsaUtil.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/rsa/jsencrypt.min.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+	<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js?v=1231"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/utils/smsCodeUtil.js"></script>
+	
+	
+<script>
+	$(function(){
+        fundCommon.reg();
+		
+        //勾选单选框
+        $(".neirong").click(function(){
+        	$(this).toggleClass("neizhuanl");
+        	if($(this).hasClass("neizhuanl")){
+        		$(".dengluodiv").find("button").eq(0).addClass("denglubut");
+        		$(".dengluodiv").find("button").eq(1).addClass("zhucebut");
+        	}else{
+        		$(".dengluodiv").find("button").eq(0).removeClass("denglubut");
+        		$(".dengluodiv").find("button").eq(1).removeClass("zhucebut");
+        	}
+        	
+        })
+        $("#contract").on("click",function(){
+        	$("#registHkjfAgreement").modal('show');
+        })
+        $("#toFxinvest").on("click",function(){
+        	$("#fxinvest").modal('show');
+        })
+        $("#riskNotify").on("click",function(){
+        	$("#registRiskNotify").modal('show');
+        })
+
+        
+	})
+    	
+    		
+    	
+    	
+      
+</script>
+</html>

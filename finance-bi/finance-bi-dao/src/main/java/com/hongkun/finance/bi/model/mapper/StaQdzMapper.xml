@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaQdz">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaQdz" type="com.hongkun.finance.bi.model.StaQdz">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="amount" column="amount"/>
+		<result property="matchingAmount" column="matching_amount"/>
+		<result property="inAmount" column="in_amount"/>
+		<result property="outAmount" column="out_amount"/>
+		<result property="interestAmount" column="interest_amount"/>
+		<result property="increaseAmount" column="increase_amount"/>
+		<result property="inUserCou" column="in_user_cou"/>
+		<result property="outUserCou" column="out_user_cou"/>
+		<result property="intTimes" column="int_times"/>
+		<result property="outTimes" column="out_times"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,amount,matching_amount,in_amount,out_amount,interest_amount,increase_amount,in_user_cou,out_user_cou,int_times,out_times
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_qdz ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="amount != null">
+				amount ,
+			</if>
+			<if test="matchingAmount != null">
+				matching_amount ,
+			</if>
+			<if test="inAmount != null">
+				in_amount ,
+			</if>
+			<if test="outAmount != null">
+				out_amount ,
+			</if>
+			<if test="interestAmount != null">
+				interest_amount ,
+			</if>
+			<if test="increaseAmount != null">
+				increase_amount ,
+			</if>
+			<if test="inUserCou != null">
+				in_user_cou ,
+			</if>
+			<if test="outUserCou != null">
+				out_user_cou ,
+			</if>
+			<if test="intTimes != null">
+				int_times ,
+			</if>
+			<if test="outTimes != null">
+				out_times 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="amount != null">
+				#{amount} ,
+			</if>
+			<if test="matchingAmount != null">
+				#{matchingAmount} ,
+			</if>
+			<if test="inAmount != null">
+				#{inAmount} ,
+			</if>
+			<if test="outAmount != null">
+				#{outAmount} ,
+			</if>
+			<if test="interestAmount != null">
+				#{interestAmount} ,
+			</if>
+			<if test="increaseAmount != null">
+				#{increaseAmount} ,
+			</if>
+			<if test="inUserCou != null">
+				#{inUserCou} ,
+			</if>
+			<if test="outUserCou != null">
+				#{outUserCou} ,
+			</if>
+			<if test="intTimes != null">
+				#{intTimes} ,
+			</if>
+			<if test="outTimes != null">
+				#{outTimes} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO sta_qdz (
+        	id ,
+        	da ,
+        	amount ,
+        	matching_amount ,
+        	in_amount ,
+        	out_amount ,
+        	interest_amount ,
+        	increase_amount ,
+        	in_user_cou ,
+        	out_user_cou ,
+        	int_times ,
+        	out_times 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.amount != null">
+					#{item.amount} ,
+				</if>
+				<if test="item.amount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.matchingAmount != null">
+					#{item.matchingAmount} ,
+				</if>
+				<if test="item.matchingAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.inAmount != null">
+					#{item.inAmount} ,
+				</if>
+				<if test="item.inAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.outAmount != null">
+					#{item.outAmount} ,
+				</if>
+				<if test="item.outAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.interestAmount != null">
+					#{item.interestAmount} ,
+				</if>
+				<if test="item.interestAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.increaseAmount != null">
+					#{item.increaseAmount} ,
+				</if>
+				<if test="item.increaseAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.inUserCou != null">
+					#{item.inUserCou} ,
+				</if>
+				<if test="item.inUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.outUserCou != null">
+					#{item.outUserCou} ,
+				</if>
+				<if test="item.outUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.intTimes != null">
+					#{item.intTimes} ,
+				</if>
+				<if test="item.intTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.outTimes != null">
+					#{item.outTimes} 
+				</if>
+				<if test="item.outTimes == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="amount != null ">
+				amount =amount + #{amount} ,
+			</if>
+			<if test="matchingAmount != null ">
+				matching_amount =matching_amount + #{matchingAmount} ,
+			</if>
+			<if test="inAmount != null ">
+				in_amount =in_amount + #{inAmount} ,
+			</if>
+			<if test="outAmount != null ">
+				out_amount =out_amount + #{outAmount} ,
+			</if>
+			<if test="interestAmount != null ">
+				interest_amount =interest_amount + #{interestAmount} ,
+			</if>
+			<if test="increaseAmount != null ">
+				increase_amount =increase_amount + #{increaseAmount} ,
+			</if>
+			<if test="inUserCou != null">
+			in_user_cou = #{inUserCou} ,
+		   </if>
+			<if test="outUserCou != null">
+			out_user_cou = #{outUserCou} ,
+		   </if>
+			<if test="intTimes != null">
+			int_times = #{intTimes} ,
+		   </if>
+			<if test="outTimes != null">
+			out_times = #{outTimes} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_qdz
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_qdz 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaQdz">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_qdz 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="amount != null">
+			AND amount = #{amount}
+			</if>
+			<if test="matchingAmount != null">
+			AND matching_amount = #{matchingAmount}
+			</if>
+			<if test="inAmount != null">
+			AND in_amount = #{inAmount}
+			</if>
+			<if test="outAmount != null">
+			AND out_amount = #{outAmount}
+			</if>
+			<if test="interestAmount != null">
+			AND interest_amount = #{interestAmount}
+			</if>
+			<if test="increaseAmount != null">
+			AND increase_amount = #{increaseAmount}
+			</if>
+			<if test="inUserCou != null">
+			AND in_user_cou = #{inUserCou}
+			</if>
+			<if test="outUserCou != null">
+			AND out_user_cou = #{outUserCou}
+			</if>
+			<if test="intTimes != null">
+			AND int_times = #{intTimes}
+			</if>
+			<if test="outTimes != null">
+			AND out_times = #{outTimes}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_qdz 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaQdz">
+		SELECT <include refid="columns" />
+		FROM sta_qdz 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<!-- 统计转入转出总金额，总次数 -->
+	 <select id="findStaQdzSum" resultType="com.hongkun.finance.bi.model.vo.StaQdzInOutVo">
+        SELECT
+          IFNULL(SUM(int_times),0) AS inCount,
+          IFNULL(SUM(in_amount),0.00) AS inAmountSum,
+          IFNULL(SUM(out_times),0) AS outCount,
+          IFNULL(SUM(out_amount),0.00) AS outAmountSum
+        FROM
+          sta_qdz
+       <include refid="findPage_where"/>    
+    </select>
+	
+</mapper>

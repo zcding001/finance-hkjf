@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+   <div style="overflow-x: auto;width:818px;">
+   	    <table class="table table-hover ellipsis" id="dataTable"></table>
+   </div>
+</body>
+<script>
+var columns = [
+               {title:'项目名称', data:'bidName', tdClass:'tac', thClass:'tac'},
+               {title:'债权金额', data:'creditorAmount|NUMBER', tdClass:'tac', thClass:'tac'},
+               {title:'认购金额', data:'transferAmount|NUMBER', tdClass:'tac', thClass:'tac'},
+               {title:'年化率', data:'rate|NUMBER', tdClass:'tac', thClass:'tac'},
+               {title:'状态', data:'state', tdClass:'tac', thClass:'tac',
+            		render:function(vaule,row){
+						return "已转让";            			
+            		}   
+               },
+               {title:'预计收益', data:'buyerExpectAmount|NUMBER', tdClass:'tac', thClass:'tac'},
+               {title:'认购时间', data:'transferTime', tdClass:'tac', thClass:'tac',
+            	   render:function(value, row){
+                       return dateUtil.dateTime(value);
+                   }  
+               }
+       ];
+       
+$(function() {
+    renderUtil.renderList("/transferManualController/.do?state=2&userFlag=2", columns);
+})
+</script>
+</html>

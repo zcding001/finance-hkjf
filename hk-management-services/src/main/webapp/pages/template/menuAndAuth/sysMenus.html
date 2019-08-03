@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">系统菜单列表</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="angular.element(this).scope().createAddOrUpdateMenuPanel()"
+                   style="display:inline-block;float:right;">添加一级菜单</a>
+                <a href="javascript:void(0)" class="btn btn-success" onclick="angular.element(this).scope().refreshAuthAndMenu()"
+                   style="display:inline-block;float:right;margin-right:10px;">刷新菜单&权限</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <input type="hidden" id="forChildMenusSearchId" name="forChildMenusSearchId" value="0">
+                        菜单名称：<input name="menuName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        父菜单名称：<input name="parentMenuName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        所属平台：<select id="selectType" name="type" class="form-control"  style="width:120px;display:inline-block;"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        菜单级别：<select name="pid"  class="form-control"  style="width:120px;display:inline-block;">
+                          <option value="">不限</option>
+                          <option value="0">一级</option>
+                          <option value="-999">二级</option>
+                         </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover"
+                       style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<div ng-include="'pages/template/menuAndAuth/childMenusAlert.html'"></div>
+<script>
+    var columns = [
+        {title: "排序号", data: "seqNo", className: "dt-simple"},
+        {title: "菜单名称", data: "menuName", className: "dt-simple"},
+        {title: "菜单描述", data: "menuDesc", className: "dt-simple"},
+        {title: "菜单链接", data: "menuUrl", className: "dt-simple"},
+        {
+            title: "菜单平台", data: "type", className: "dt-simple", render: function (data, type, row, meta) {
+            return DIC_CONSTANT.getName("menu", "platform", data);
+        }
+        },
+        {
+            title: "菜单级别", data: "pid", className: "dt-simple", render: function (data, type, row, meta) {
+            if (data == 0) {
+                return "一级菜单";
+            } else {
+                return "二级菜单";
+            }
+
+        }
+        },
+        {
+            title: "父菜单", data: "parentMenuName", className: "dt-simple", render: function (data, type, row, meta) {
+                if (data == null) {
+                    return "无";
+                } else {
+                    return data;
+                }
+
+            }
+        },
+        {
+            title: "菜单状态", data: "state", className: "dt-simple", render: function (data, type, row, meta) {
+            return DIC_CONSTANT.getName("menu", "state", data);
+        }
+        },
+        {
+            title: "操作", data: null, className: "dt-simple", render: function (data, type, row, meta) {
+            //详情
+            var btn = '';
+            if (row.pid == 0) {
+                //新增二级菜单
+                btn += '<a href="javascript:void(0)"  class="fa fa-plus-square" title="新增二级菜单" onclick="angular.element(this).scope().createAddOrUpdateMenuPanel(' +0+','+ row.id +','+null+','+null+','+null+','+row.type+','+null+')" ></a>&nbsp;&nbsp;'
+                //查看子菜单
+                btn += '<a href="javascript:void(0)" class="fa fa-tree" title="查看子菜单" onclick="angular.element(this).scope().listChildMenus('+ row.id + ')" ></a>&nbsp;&nbsp;'
+            }
+            //修改 pid,menuName,menuDesc,menuUrl,type
+            btn += '<a href="javascript:void(0)" class="fa fa-edit" title="修改" onclick="angular.element(this).scope().createAddOrUpdateMenuPanel(' +row.id+','+row.pid + ',' + '\'' + row.menuName + '\'' + ',' + '\'' + row.menuDesc + '\'' + ',' + '\'' + row.menuUrl + '\'' + ',' + row.type + ',' + row.seqNo + ')" ></a>&nbsp;&nbsp;'
+            //删除
+            btn += commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"menuController/delteMenu"}, "移除菜单", "删除",
+                "确定删除菜单【"+row.menuName+"】信息?", "fa fa-times fa-remove hide-underline")+'&nbsp;&nbsp;';
+            if(row.pid!=0){
+                //给菜单绑定权限
+                btn +=
+                    commonUtil.createDirectRequestBtn({id:row.id, target:'bindPrivigeToMenu'},"菜单绑定权限",'fa fa-magic',1);
+            }
+            return btn;
+
+        }
+        }
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.listAllMenus, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm('');
+</script>

@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.user.model.RegUserInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_RegUserInfo" type="com.hongkun.finance.user.model.RegUserInfo">
+		<result property="id" column="id" />
+		<result property="regUserId" column="reg_user_id" />
+		<result property="code" column="code" />
+		<result property="sex" column="sex" />
+		<result property="age" column="age" />
+		<result property="birthday" column="birthday" />
+		<result property="marryState" column="marry_state" />
+		<result property="degree" column="degree" />
+		<result property="workProvince" column="work_province" />
+		<result property="workCity" column="work_city" />
+		<result property="workCountry" column="work_country" />
+		<result property="birthProvince" column="birth_province" />
+		<result property="birthCity" column="birth_city" />
+		<result property="birthCountry" column="birth_country" />
+		<result property="contactAddress" column="contact_address" />
+		<result property="postCode" column="post_code" />
+		<result property="job" column="job" />
+		<result property="workIncome" column="work_income" />
+		<result property="workIndustry" column="work_industry" />
+		<result property="assetcondition" column="assetcondition" />
+		<result property="email" column="email" />
+		<result property="emailState" column="email_state" />
+		<result property="company" column="company" />
+		<result property="companyTel" column="company_tel" />
+		<result property="companyAddress" column="company_address" />
+		<result property="photoUrl" column="photo_url" />
+		<result property="emergencyContact" column="emergency_contact" />
+		<result property="emergencyTel" column="emergency_tel" />
+		<result property="state" column="state" />
+		<result property="createTime" column="create_time" />
+		<result property="modifyTime" column="modify_time" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,code,sex,age,birthday,marry_state,degree,work_province,work_city,work_country,birth_province,birth_city,birth_country,contact_address,post_code,job,work_income,work_industry,assetcondition,email,email_state,company,company_tel,company_address,photo_url,emergency_contact,emergency_tel,state,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reg_user_info (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="regUserId != null">
+			reg_user_id ,
+		</if>
+		<if test="code != null and code != ''">
+			code ,
+		</if>
+		<if test="sex != null">
+			sex ,
+		</if>
+		<if test="age != null">
+			age ,
+		</if>
+		birthday ,
+		<if test="marryState != null">
+			marry_state ,
+		</if>
+		<if test="degree != null">
+			degree ,
+		</if>
+		<if test="workProvince != null and workProvince != ''">
+			work_province ,
+		</if>
+		<if test="workCity != null and workCity != ''">
+			work_city ,
+		</if>
+		<if test="workCountry != null and workCountry != ''">
+			work_country ,
+		</if>
+		<if test="birthProvince != null and birthProvince != ''">
+			birth_province ,
+		</if>
+		<if test="birthCity != null and birthCity != ''">
+			birth_city ,
+		</if>
+		<if test="birthCountry != null and birthCountry != ''">
+			birth_country ,
+		</if>
+		<if test="contactAddress != null and contactAddress != ''">
+			contact_address ,
+		</if>
+		<if test="postCode != null and postCode != ''">
+			post_code ,
+		</if>
+		<if test="job != null and job != ''">
+			job ,
+		</if>
+		<if test="workIncome != null">
+			work_income ,
+		</if>
+		<if test="workIndustry != null and workIndustry != ''">
+			work_industry ,
+		</if>
+		<if test="assetcondition != null">
+			assetcondition ,
+		</if>
+		<if test="email != null and email != ''">
+			email ,
+		</if>
+		<if test="emailState != null">
+			email_state ,
+		</if>
+		<if test="company != null and company != ''">
+			company ,
+		</if>
+		<if test="companyTel != null and companyTel != ''">
+			company_tel ,
+		</if>
+		<if test="companyAddress != null and companyAddress != ''">
+			company_address ,
+		</if>
+		<if test="photoUrl != null and photoUrl != ''">
+			photo_url ,
+		</if>
+		<if test="emergencyContact != null and emergencyContact != ''">
+			emergency_contact ,
+		</if>
+		<if test="emergencyTel != null and emergencyTel != ''">
+			emergency_tel ,
+		</if>
+		<if test="state != null">
+			state ,
+		</if>
+		create_time ,
+		modify_time
+		) VALUES (
+		<if test="id != null">
+			#{id} ,
+		</if>
+		<if test="regUserId != null">
+			#{regUserId} ,
+		</if>
+		<if test="code != null and code != ''">
+			#{code} ,
+		</if>
+		<if test="sex != null">
+			#{sex} ,
+		</if>
+		<if test="age != null">
+			#{age} ,
+		</if>
+		<choose>
+			<when test="birthday != null">
+				#{birthday} ,
+			</when>
+			<otherwise>
+				NOW() ,
+			</otherwise>
+		</choose>
+		<if test="marryState != null">
+			#{marryState} ,
+		</if>
+		<if test="degree != null">
+			#{degree} ,
+		</if>
+		<if test="workProvince != null and workProvince != ''">
+			#{workProvince} ,
+		</if>
+		<if test="workCity != null and workCity != ''">
+			#{workCity} ,
+		</if>
+		<if test="workCountry != null and workCountry != ''">
+			#{workCountry} ,
+		</if>
+		<if test="birthProvince != null and birthProvince != ''">
+			#{birthProvince} ,
+		</if>
+		<if test="birthCity != null and birthCity != ''">
+			#{birthCity} ,
+		</if>
+		<if test="birthCountry != null and birthCountry != ''">
+			#{birthCountry} ,
+		</if>
+		<if test="contactAddress != null and contactAddress != ''">
+			#{contactAddress} ,
+		</if>
+		<if test="postCode != null and postCode != ''">
+			#{postCode} ,
+		</if>
+		<if test="job != null and job != ''">
+			#{job} ,
+		</if>
+		<if test="workIncome != null">
+			#{workIncome} ,
+		</if>
+		<if test="workIndustry != null and workIndustry != ''">
+			#{workIndustry} ,
+		</if>
+		<if test="assetcondition != null">
+			#{assetcondition} ,
+		</if>
+		<if test="email != null and email != ''">
+			#{email} ,
+		</if>
+		<if test="emailState != null">
+			#{emailState} ,
+		</if>
+		<if test="company != null and company != ''">
+			#{company} ,
+		</if>
+		<if test="companyTel != null and companyTel != ''">
+			#{companyTel} ,
+		</if>
+		<if test="companyAddress != null and companyAddress != ''">
+			#{companyAddress} ,
+		</if>
+		<if test="photoUrl != null and photoUrl != ''">
+			#{photoUrl} ,
+		</if>
+		<if test="emergencyContact != null and emergencyContact != ''">
+			#{emergencyContact} ,
+		</if>
+		<if test="emergencyTel != null and emergencyTel != ''">
+			#{emergencyTel} ,
+		</if>
+		<if test="state != null">
+			#{state} ,
+		</if>
+		<choose>
+			<when test="createTime != null">
+				#{createTime} ,
+			</when>
+			<otherwise>
+				NOW() ,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="modifyTime != null">
+				#{modifyTime}
+			</when>
+			<otherwise>
+				NOW()
+			</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+		INSERT INTO reg_user_info (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="regUserId != null">
+			reg_user_id ,
+		</if>
+		<if test="code != null and code != ''">
+			code ,
+		</if>
+		<if test="sex != null">
+			sex ,
+		</if>
+		<if test="age != null">
+			age ,
+		</if>
+		birthday ,
+		<if test="marryState != null">
+			marry_state ,
+		</if>
+		<if test="degree != null">
+			degree ,
+		</if>
+		<if test="workProvince != null and workProvince != ''">
+			work_province ,
+		</if>
+		<if test="workCity != null and workCity != ''">
+			work_city ,
+		</if>
+		<if test="workCountry != null and workCountry != ''">
+			work_country ,
+		</if>
+		<if test="birthProvince != null and birthProvince != ''">
+			birth_province ,
+		</if>
+		<if test="birthCity != null and birthCity != ''">
+			birth_city ,
+		</if>
+		<if test="birthCountry != null and birthCountry != ''">
+			birth_country ,
+		</if>
+		<if test="contactAddress != null and contactAddress != ''">
+			contact_address ,
+		</if>
+		<if test="postCode != null and postCode != ''">
+			post_code ,
+		</if>
+		<if test="job != null and job != ''">
+			job ,
+		</if>
+		<if test="workIncome != null">
+			work_income ,
+		</if>
+		<if test="workIndustry != null and workIndustry != ''">
+			work_industry ,
+		</if>
+		<if test="assetcondition != null">
+			assetcondition ,
+		</if>
+		<if test="email != null and email != ''">
+			email ,
+		</if>
+		<if test="emailState != null">
+			email_state ,
+		</if>
+		<if test="company != null and company != ''">
+			company ,
+		</if>
+		<if test="companyTel != null and companyTel != ''">
+			company_tel ,
+		</if>
+		<if test="companyAddress != null and companyAddress != ''">
+			company_address ,
+		</if>
+		<if test="photoUrl != null and photoUrl != ''">
+			photo_url ,
+		</if>
+		<if test="emergencyContact != null and emergencyContact != ''">
+			emergency_contact ,
+		</if>
+		<if test="emergencyTel != null and emergencyTel != ''">
+			emergency_tel ,
+		</if>
+		<if test="state != null">
+			state ,
+		</if>
+		create_time ,
+		modify_time
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="code != null and code != ''">
+				#{code} ,
+			</if>
+			<if test="sex != null">
+				#{sex} ,
+			</if>
+			<if test="age != null">
+				#{age} ,
+			</if>
+			<choose>
+				<when test="birthday != null">
+					#{birthday} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="marryState != null">
+				#{marryState} ,
+			</if>
+			<if test="degree != null">
+				#{degree} ,
+			</if>
+			<if test="workProvince != null and workProvince != ''">
+				#{workProvince} ,
+			</if>
+			<if test="workCity != null and workCity != ''">
+				#{workCity} ,
+			</if>
+			<if test="workCountry != null and workCountry != ''">
+				#{workCountry} ,
+			</if>
+			<if test="birthProvince != null and birthProvince != ''">
+				#{birthProvince} ,
+			</if>
+			<if test="birthCity != null and birthCity != ''">
+				#{birthCity} ,
+			</if>
+			<if test="birthCountry != null and birthCountry != ''">
+				#{birthCountry} ,
+			</if>
+			<if test="contactAddress != null and contactAddress != ''">
+				#{contactAddress} ,
+			</if>
+			<if test="postCode != null and postCode != ''">
+				#{postCode} ,
+			</if>
+			<if test="job != null and job != ''">
+				#{job} ,
+			</if>
+			<if test="workIncome != null">
+				#{workIncome} ,
+			</if>
+			<if test="workIndustry != null and workIndustry != ''">
+				#{workIndustry} ,
+			</if>
+			<if test="assetcondition != null">
+				#{assetcondition} ,
+			</if>
+			<if test="email != null and email != ''">
+				#{email} ,
+			</if>
+			<if test="emailState != null">
+				#{emailState} ,
+			</if>
+			<if test="company != null and company != ''">
+				#{company} ,
+			</if>
+			<if test="companyTel != null and companyTel != ''">
+				#{companyTel} ,
+			</if>
+			<if test="companyAddress != null and companyAddress != ''">
+				#{companyAddress} ,
+			</if>
+			<if test="photoUrl != null and photoUrl != ''">
+				#{photoUrl} ,
+			</if>
+			<if test="emergencyContact != null and emergencyContact != ''">
+				#{emergencyContact} ,
+			</if>
+			<if test="emergencyTel != null and emergencyTel != ''">
+				#{emergencyTel} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+			</if>
+			<if test="code != null and code != ''">
+				code = #{code} ,
+			</if>
+			<if test="sex != null">
+				sex = #{sex} ,
+			</if>
+			<if test="age != null">
+				age = #{age} ,
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday} ,
+			</if>
+			<if test="marryState != null">
+				marry_state = #{marryState} ,
+			</if>
+			<if test="degree != null">
+				degree = #{degree} ,
+			</if>
+			<if test="workProvince != null and workProvince != ''">
+				work_province = #{workProvince} ,
+			</if>
+			<if test="workCity != null and workCity != ''">
+				work_city = #{workCity} ,
+			</if>
+			<if test="workCountry != null and workCountry != ''">
+				work_country = #{workCountry} ,
+			</if>
+			<if test="birthProvince != null and birthProvince != '' and birthProvince != '-999'">
+				birth_province = #{birthProvince} ,
+			</if>
+			<if test="birthCity != null and birthCity != '' and birthCity != '-999'">
+				birth_city = #{birthCity} ,
+			</if>
+			<if test="birthCountry != null and birthCountry != '' and birthCountry != '-999'">
+				birth_country = #{birthCountry} ,
+			</if>
+			<if test="contactAddress != null and contactAddress != ''">
+				contact_address = #{contactAddress} ,
+			</if>
+			<if test="postCode != null and postCode != ''">
+				post_code = #{postCode} ,
+			</if>
+			<if test="job != null and job != ''">
+				job = #{job} ,
+			</if>
+			<if test="workIncome != null">
+				work_income = #{workIncome} ,
+			</if>
+			<if test="workIndustry != null and workIndustry != ''">
+				work_industry = #{workIndustry} ,
+			</if>
+			<if test="assetcondition != null">
+				assetcondition = #{assetcondition} ,
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email} ,
+			</if>
+			<if test="emailState != null">
+				email_state = #{emailState} ,
+			</if>
+			<if test="company != null and company != ''">
+				company = #{company} ,
+			</if>
+			<if test="companyTel != null and companyTel != ''">
+				company_tel = #{companyTel} ,
+			</if>
+			<if test="companyAddress != null and companyAddress != ''">
+				company_address = #{companyAddress} ,
+			</if>
+			<if test="photoUrl != null and photoUrl != ''">
+				photo_url = #{photoUrl} ,
+			</if>
+			<if test="emergencyContact != null and emergencyContact != ''">
+				emergency_contact = #{emergencyContact} ,
+			</if>
+			<if test="emergencyTel != null and emergencyTel != ''">
+				emergency_tel = #{emergencyTel} ,
+			</if>
+			<if test="state != null">
+				state = #{state} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE reg_user_info
+		<include refid="update_sql" />
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+
+	<!-- 根据userid更新 -->
+	<update id="updateByRegUserId">
+		UPDATE reg_user_info
+		<include refid="update_sql" />
+		<![CDATA[
+		WHERE
+			reg_user_id = #{regUserId}
+		]]>
+	</update>
+	<update id="deleteUserInfoByUserId">
+		UPDATE reg_user_info
+		 SET state=0
+		<![CDATA[
+		WHERE
+			reg_user_id = #{userId}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM reg_user_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_RegUserInfo">
+		SELECT
+		<include refid="columns" />
+		<![CDATA[
+		FROM reg_user_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="code != null and code !=''">
+				AND code = #{code}
+			</if>
+			<if test="sex != null">
+				AND sex = #{sex}
+			</if>
+			<if test="age != null">
+				AND age = #{age}
+			</if>
+			<if test="birthdayBegin != null">
+				AND birthday >= #{birthdayBegin}
+			</if>
+			<if test="birthdayEnd != null">
+				AND birthday &lt;= #{birthdayEnd}
+			</if>
+			<if test="marryState != null">
+				AND marry_state = #{marryState}
+			</if>
+			<if test="degree != null">
+				AND degree = #{degree}
+			</if>
+			<if test="workProvince != null and workProvince !=''">
+				AND work_province = #{workProvince}
+			</if>
+			<if test="workCity != null and workCity !=''">
+				AND work_city = #{workCity}
+			</if>
+			<if test="workCountry != null and workCountry !=''">
+				AND work_country = #{workCountry}
+			</if>
+			<if test="birthProvince != null and birthProvince !=''">
+				AND birth_province = #{birthProvince}
+			</if>
+			<if test="birthCity != null and birthCity !=''">
+				AND birth_city = #{birthCity}
+			</if>
+			<if test="birthCountry != null and birthCountry !=''">
+				AND birth_country = #{birthCountry}
+			</if>
+			<if test="contactAddress != null and contactAddress !=''">
+				AND contact_address = #{contactAddress}
+			</if>
+			<if test="postCode != null and postCode !=''">
+				AND post_code = #{postCode}
+			</if>
+			<if test="job != null and job !=''">
+				AND job = #{job}
+			</if>
+			<if test="workIncome != null">
+				AND work_income = #{workIncome}
+			</if>
+			<if test="workIndustry != null and workIndustry !=''">
+				AND work_industry = #{workIndustry}
+			</if>
+			<if test="assetcondition != null">
+				AND assetcondition = #{assetcondition}
+			</if>
+			<if test="email != null and email !=''">
+				AND email = #{email}
+			</if>
+			<if test="emailState != null">
+				AND email_state = #{emailState}
+			</if>
+			<if test="company != null and company !=''">
+				AND company = #{company}
+			</if>
+			<if test="companyTel != null and companyTel !=''">
+				AND company_tel = #{companyTel}
+			</if>
+			<if test="companyAddress != null and companyAddress !=''">
+				AND company_address = #{companyAddress}
+			</if>
+			<if test="photoUrl != null and photoUrl !=''">
+				AND photo_url = #{photoUrl}
+			</if>
+			<if test="emergencyContact != null and emergencyContact !=''">
+				AND emergency_contact = #{emergencyContact}
+			</if>
+			<if test="emergencyTel != null and emergencyTel !=''">
+				AND emergency_tel = #{emergencyTel}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+            <if test="userIds != null and userIds.size > 0">
+                AND reg_user_id IN
+                <foreach collection="userIds" open="(" separator="," close=")" item="val">
+                    ${val}
+                </foreach>
+            </if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM reg_user_info
+		<include refid="findPage_where" />
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_RegUserInfo">
+		SELECT
+		<include refid="columns" />
+		FROM reg_user_info
+		<include refid="findPage_where" />
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<select id="getByRegUserId" resultMap="_RegUserInfo" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="columns" />
+		<![CDATA[
+		FROM reg_user_info 
+		WHERE reg_user_id = #{regUserId}
+		]]>
+	</select>
+</mapper>

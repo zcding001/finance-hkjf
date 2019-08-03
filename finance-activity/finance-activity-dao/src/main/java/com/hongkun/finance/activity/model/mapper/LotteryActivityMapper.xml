@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.activity.model.LotteryActivity">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_LotteryActivity" type="com.hongkun.finance.activity.model.LotteryActivity">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="state" column="state"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="itemsUrl" column="items_url"/>
+		<result property="backgroundUrl" column="background_url"/>
+		<result property="pointerUrl" column="pointer_url"/>
+		<result property="limitUserTimes" column="limit_user_times"/>
+		<result property="limitDayTimes" column="limit_day_times"/>
+		<result property="activityRule" column="activity_rule"/>
+		<result property="introduction" column="introduction"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="note" column="note"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,name,state,start_time,end_time,items_url,background_url,pointer_url,limit_user_times,limit_day_times,activity_rule,introduction,create_time,modify_time,reg_user_id,note
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO lottery_activity ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+				start_time ,
+				end_time ,
+			<if test="itemsUrl != null and itemsUrl != ''">
+				items_url ,
+			</if>
+			<if test="backgroundUrl != null and backgroundUrl != ''">
+				background_url ,
+			</if>
+			<if test="pointerUrl != null and pointerUrl != ''">
+				pointer_url ,
+			</if>
+			<if test="limitUserTimes != null">
+				limit_user_times ,
+			</if>
+			<if test="limitDayTimes != null">
+				limit_day_times ,
+			</if>
+			<if test="activityRule != null and activityRule != ''">
+				activity_rule ,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				introduction ,
+			</if>
+				create_time ,
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="note != null and note != ''">
+				note ,
+			</if>
+			   modify_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<choose>
+				<when test="startTime != null">
+					#{startTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="endTime != null">
+					#{endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="itemsUrl != null and itemsUrl != ''">
+				#{itemsUrl} ,
+			</if>
+			<if test="backgroundUrl != null and backgroundUrl != ''">
+				#{backgroundUrl} ,
+			</if>
+			<if test="pointerUrl != null and pointerUrl != ''">
+				#{pointerUrl} ,
+			</if>
+			<if test="limitUserTimes != null">
+				#{limitUserTimes} ,
+			</if>
+			<if test="limitDayTimes != null">
+				#{limitDayTimes} ,
+			</if>
+			<if test="activityRule != null and activityRule != ''">
+				#{activityRule} ,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				#{introduction} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="note != null and note != ''">
+				#{note} ,
+			</if>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO lottery_activity (
+	       	id ,
+	       	name ,
+	       	state ,
+	       	start_time ,
+	       	end_time ,
+	       	items_url ,
+	       	background_url ,
+	       	pointer_url ,
+	       	limit_user_times ,
+	       	limit_day_times ,
+	       	activity_rule ,
+	       	introduction ,
+	       	create_time ,
+	       	modify_time ,
+	       	reg_user_id ,
+	       	note 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.startTime != null">
+					#{item.startTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">
+					#{item.endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.itemsUrl != null and item.itemsUrl != ''">
+					#{item.itemsUrl} ,
+				</if>
+				<if test="item.itemsUrl == null or item.itemsUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.backgroundUrl != null and item.backgroundUrl != ''">
+					#{item.backgroundUrl} ,
+				</if>
+				<if test="item.backgroundUrl == null or item.backgroundUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.pointerUrl != null and item.pointerUrl != ''">
+					#{item.pointerUrl} ,
+				</if>
+				<if test="item.pointerUrl == null or item.pointerUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.limitUserTimes != null">
+					#{item.limitUserTimes} ,
+				</if>
+				<if test="item.limitUserTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.limitDayTimes != null">
+					#{item.limitDayTimes} ,
+				</if>
+				<if test="item.limitDayTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.activityRule != null and item.activityRule != ''">
+					#{item.activityRule} ,
+				</if>
+				<if test="item.activityRule == null or item.activityRule == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.introduction != null and item.introduction != ''">
+					#{item.introduction} ,
+				</if>
+				<if test="item.introduction == null or item.introduction == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.note != null and item.note != ''">
+					#{item.note} 
+				</if>
+				<if test="item.note == null or item.note == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="startTime != null">
+				start_time = #{startTime} ,
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime} ,
+			</if>
+			<if test="itemsUrl != null and itemsUrl != ''">
+				items_url = #{itemsUrl} ,
+			</if>
+			<if test="backgroundUrl != null and backgroundUrl != ''">
+				background_url = #{backgroundUrl} ,
+			</if>
+			<if test="pointerUrl != null and pointerUrl != ''">
+				pointer_url = #{pointerUrl} ,
+			</if>
+			<if test="limitUserTimes != null">
+			limit_user_times = #{limitUserTimes} ,
+		   </if>
+			<if test="limitDayTimes != null">
+			limit_day_times = #{limitDayTimes} ,
+		   </if>
+			<if test="activityRule != null and activityRule != ''">
+				activity_rule = #{activityRule} ,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				introduction = #{introduction} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} ,
+			</if>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="note != null and note != ''">
+				note = #{note}
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  lottery_activity
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM lottery_activity 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_LotteryActivity">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM lottery_activity 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+			AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="startTimeBegin != null">
+			AND start_time >= #{startTimeBegin}
+			</if>
+			<if test="startTimeEnd != null">
+			AND start_time &lt;= #{startTimeEnd}
+			</if>
+			<if test="endTimeBegin != null">
+			AND end_time >= #{endTimeBegin}
+			</if>
+			<if test="endTimeEnd != null">
+			AND end_time &lt;= #{endTimeEnd}
+			</if>
+			<if test="itemsUrl != null and itemsUrl !=''">
+			AND items_url = #{itemsUrl}
+			</if>
+			<if test="backgroundUrl != null and backgroundUrl !=''">
+			AND background_url = #{backgroundUrl}
+			</if>
+			<if test="pointerUrl != null and pointerUrl !=''">
+			AND pointer_url = #{pointerUrl}
+			</if>
+			<if test="limitUserTimes != null">
+			AND limit_user_times = #{limitUserTimes}
+			</if>
+			<if test="limitDayTimes != null">
+			AND limit_day_times = #{limitDayTimes}
+			</if>
+			<if test="activityRule != null and activityRule !=''">
+			AND activity_rule = #{activityRule}
+			</if>
+			<if test="introduction != null and introduction !=''">
+			AND introduction = #{introduction}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="note != null and note !=''">
+			AND note = #{note}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM lottery_activity 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_LotteryActivity">
+		SELECT <include refid="columns" />
+		FROM lottery_activity 
+		<include refid="findPage_where"/>
+		ORDER BY start_time DESC
+	</select>
+
+	<!--获取用户抽奖活动列表-->
+	<select id="findLotteryActivityByTel" resultType="com.hongkun.finance.activity.model.LotteryActivity" parameterType="java.lang.Long">
+		SELECT
+			DISTINCT (la.id) as id,
+			la.name as name,
+			la.state as state,
+			la.start_time as startTime,
+			la.end_time as endTime,
+			la.items_url as itemsUrl,
+			la.background_url as backgroundUrl,
+			la.pointer_url as pointerUrl,
+			la.activity_rule as activityRule,
+			la.introduction as introduction,
+			la.create_time as createTime
+		FROM lottery_activity la
+		INNER JOIN lottery_record lr
+		ON la.id = lr.lottery_activity_id
+		WHERE 1 = 1
+		AND lr.tel = #{tel}
+		ORDER BY la.create_time desc
+	</select>
+
+
+
+</mapper>

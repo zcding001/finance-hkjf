@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!--  account css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/account.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+   <div class="autoinvest_main mb-50">
+       <div class="autoinvest_one">
+           <div class="autoinvest_one_title">
+               <div class="auto_invest_1">项目名称：<span class="bidNameString"></span></div>
+               <ul class="auto_condition_1 clearfix">
+                   <li>状态：<span class="stateString"></span></li>
+                   <li>到期时间：<span class="endDateDate"></span></li>
+               </ul>
+           </div>
+           <div class="autovest_one_content clearfix">
+               <ul>
+                   <li>
+                       <span>已收收益：<i class="receivedIncomeNum"></i>元</span>
+                       <span>预年化率：<i class="rateNum"></i>%</span>
+                       <span>持有金额：<i class="investAmountNum"></i>元</span>
+                   </li>
+                   <li>
+                       <span>未收收益：<i class="notReceivedIncomeNum"></i>元</span>
+                       <span>项目期限：<i class="termValueNum"></i><i class="termUnitStrString"></i></span>
+                       <span>可转本金：<i class="useAbleCapitalNum"></i>元</span>
+                       <span>起息日期：<i class="lendingTimeDate"></i></span>
+                   </li>
+               </ul>
+           </div>
+           <form id="transferForm" action="${project_base_path}/transferManualController/saveTransferManual.do">
+			<input type="hidden" name="oldInvestId" class="investIdNum"/>
+			<input type="hidden" name="transferRate" value="100" />
+           <div class="zqzr_list clearfix">
+               <ul class="zqzr_list_box fl">
+                   <li><span>转让金额：</span>
+                   <input id="creditorAmount" name="creditorAmount" type="text"  class='inp_txt creditorAmountNum' readonly="readonly"/>元</li>
+                   <span id="creditorAmount_errorMsg" style="color:red;margin-left: 106px;"></span>
+                   <li><span>筹集天数：</span>
+                       <input id="transferDays" name="transferDays" type="text" class="inp_txt transferDaysNum" />&nbsp;&nbsp;天</li>
+                       <span id="transferDays_errorMsg" style="color:red;margin-left: 106px;"></span>
+                   <li class="myzq_li clearfix">
+                       <span class="fl mt-13">转让方式：</span>
+                       <ul class="fl">
+                           <li class="zqzr_mode">
+                               <cite class="fl pt-12" title="当您选择折价时，您需要放弃一部分已获取的收益来实现快速变现，提高折价金额能提高转让成功的机会！">
+                                   <input name="transType" type="radio" value="1" checked="checked">
+                               </cite>&nbsp;&nbsp;平价转让</li>
+                           <li class="zqzr_mode">
+                               <cite class="fl pt-12" title="当您选择溢价时，您将获得更多的收益，但会影响转让成功几率！">
+                                   <input name="transType"  type="radio" value="2">
+                               </cite>
+                               <cite>&nbsp;&nbsp;溢价转让</cite>
+                               <cite>
+                                   <input id="transferRateHigher" type="text" class="inp_txt_1" disabled="disabled" >
+                               </cite>
+                               <cite>&nbsp;&nbsp;%</cite>
+                           </li>
+                           <li> <div id="transferRate_error_2" style="color:red;margin-left: 106px;"></div></li>
+                           <li class="zqzr_mode">
+                               <cite class="fl pt-12">
+                                   <input name="transType"  type="radio" value="3">
+                               </cite>
+                               <cite class="">&nbsp;&nbsp;折价转让</cite>
+                               <input id="transferRateLower" type="text" class="inp_txt_1" disabled="disabled" >
+                               <cite>&nbsp;&nbsp;%</cite>
+                           </li>
+                           <li><div id="transferRate_error_3" style="color:red;margin-left: 106px;"></div></li>
+                           <li class="zqzr_mode2">
+                               <cite class=""><span></span></cite>
+                           </li>
+                       </ul>
+                   </li>
+               </ul>
+               <div class="myzq_er fr">
+                   <ul class="">
+                       <li class="pt-20 f-weight">转让价格&nbsp;&nbsp;
+                           <cite  id="transferAmount" class="yellow f20 fb transferPriceNum"></cite>&nbsp;&nbsp;元
+                       </li>
+                       <li class="pt-20 f-weight">转让后年化率&nbsp;&nbsp;
+                           <cite  class="transferedRateNum" id="afterRate">0.00</cite>&nbsp;&nbsp;%
+                       </li>
+                   </ul>
+               </div>
+           </div>
+           </form>
+       </div>
+   </div>
+</body>
+<script type="text/javascript">
+var TRANSFER_DETAIL;
+	$(function(){
+		var request = containerUtil.getTransient();
+		ajaxUtil.post("/transferManualController/showTransferManualDetail.do",request,function(result){
+            if (result.resStatus == CONSTANTS.SUCCESS){
+            	if(request.transferId!=0&&request.transferId!=null){
+        			TRANSFER_DETAIL = result.params.transferDetail;
+        			if(TRANSFER_DETAIL.state==null){
+        				TRANSFER_DETAIL.state = 0;
+        			}
+        			TRANSFER_DETAIL.state = dictionaryUtil.getName("invest", "transfer_manual_state", 
+        					TRANSFER_DETAIL.state);
+        			TRANSFER_DETAIL.termUnitStr = dictionaryUtil.getName("invest", "bid_term_unit",
+                        TRANSFER_DETAIL.state);
+        			renderUtil.renderElement(TRANSFER_DETAIL);
+        		}
+            }
+        });
+	});
+</script>
+
+</html>

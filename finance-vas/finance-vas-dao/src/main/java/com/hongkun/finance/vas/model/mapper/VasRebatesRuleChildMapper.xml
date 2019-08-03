@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasRebatesRuleChild">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_VasRebatesRuleChild" type="com.hongkun.finance.vas.model.VasRebatesRuleChild">
+		<result property="id" column="id"/>
+		<result property="vasRebatesRuleId" column="vas_rebates_rule_id"/>
+		<result property="content" column="content"/>
+		<result property="switchCycle" column="switch_cycle"/>
+		<result property="userType" column="user_type"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,vas_rebates_rule_id,content,switch_cycle,user_type,create_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO vas_rebates_rule_child ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="vasRebatesRuleId != null">
+				vas_rebates_rule_id ,
+			</if>
+			<if test="content != null and content != ''">
+				content ,
+			</if>
+			<if test="switchCycle != null">
+				switch_cycle ,
+			</if>
+			<if test="userType != null">
+				user_type ,
+			</if>
+				create_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="vasRebatesRuleId != null">
+				#{vasRebatesRuleId} ,
+			</if>
+			<if test="content != null and content != ''">
+				#{content} ,
+			</if>
+			<if test="switchCycle != null">
+				#{switchCycle} ,
+			</if>
+			<if test="userType != null">
+				#{userType} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO vas_rebates_rule_child (
+        	id ,
+        	vas_rebates_rule_id ,
+        	content ,
+        	switch_cycle ,
+        	user_type ,
+        	create_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.vasRebatesRuleId != null">
+					#{item.vasRebatesRuleId} ,
+				</if>
+				<if test="item.vasRebatesRuleId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.content != null and item.content != ''">
+					#{item.content} ,
+				</if>
+				<if test="item.content == null or item.content == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.switchCycle != null">
+					#{item.switchCycle} ,
+				</if>
+				<if test="item.switchCycle == null">
+					DEFAULT ,
+				</if>
+				<if test="item.userType != null">
+					#{item.userType} ,
+				</if>
+				<if test="item.userType == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="vasRebatesRuleId != null">
+			vas_rebates_rule_id = #{vasRebatesRuleId} ,
+		   </if>
+			<if test="content != null and content != ''">
+				content = #{content} ,
+			</if>
+			<if test="switchCycle != null">
+			switch_cycle = #{switchCycle} ,
+		   </if>
+			<if test="userType != null">
+			user_type = #{userType} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  vas_rebates_rule_child
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM vas_rebates_rule_child 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_VasRebatesRuleChild">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM vas_rebates_rule_child 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="vasRebatesRuleId != null">
+			AND vas_rebates_rule_id = #{vasRebatesRuleId}
+			</if>
+			<if test="content != null and content !=''">
+			AND content = #{content}
+			</if>
+			<if test="switchCycle != null">
+			AND switch_cycle = #{switchCycle}
+			</if>
+			<if test="userType != null">
+			AND user_type = #{userType}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM vas_rebates_rule_child 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_VasRebatesRuleChild">
+		SELECT <include refid="columns" />
+		FROM vas_rebates_rule_child 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 根据规则id,查询子规则信息 -->
+	<select id="findVasRebatesRuleChildByRuleId" resultMap="_VasRebatesRuleChild">
+		SELECT <include refid="columns" />
+		FROM vas_rebates_rule_child 
+		Where vas_rebates_rule_id = #{vasRebatesRuleId} 
+	</select>
+   <!-- 根据规则id，用户类型,查询子规则信息 -->
+	<select id="findRuleChildByUserTypeAndRuleId" resultMap="_VasRebatesRuleChild">
+		SELECT <include refid="columns" />
+		FROM vas_rebates_rule_child 
+		where vas_rebates_rule_id = #{vasRebatesRuleId} AND user_type = #{userType}# 
+	</select>
+	<update id="updateRuleChildByUserTypeAndRuleId">
+		UPDATE  vas_rebates_rule_child
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			vasRebatesRuleId = #{vasRebatesRuleId}  AND user_type = #{userType}# 
+		]]>
+	</update>
+	
+</mapper>

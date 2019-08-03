@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">角色列表</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="angular.element(this).scope().createAddOrUpdateRolePanel()"
+                   style="display:inline-block;float:right;">添加角色</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        角色名称：<input name="roleName" class="form-control" style="width: 120px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover"
+                       style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title: "角色名称", data: "roleName", className: "dt-simple"},
+        {title: "角色描述", data: "roleDesc", className: "dt-simple"},
+        {
+            title: "角色状态", data: "state", className: "dt-simple", render: function (data, type, row, meta) {
+            return DIC_CONSTANT.getName("role", "state", data);
+        }
+        },
+        {
+            title: "操作", data: null, className: "dt-simple", render: function (data, type, row, meta) {
+            //详情
+            var btn = '';
+            //给菜单绑定权限
+            btn +=commonUtil.createDirectRequestBtn({id:row.id, target:'bindPrivigeToRole'},"角色授权",'fa fa-magic',1)+'&nbsp;&nbsp;';
+            //修改
+            btn += '<a href="javascript:void(0)" class="fa fa-edit" onclick="angular.element(this).scope().createAddOrUpdateRolePanel(' +row.id+','+'\''+row.roleName+'\'' + ',' +'\''+ row.roleDesc+'\'' + ')" ></a>&nbsp;&nbsp;'
+            btn+=commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"roleController/deleteRole",fn:void(0)}, "移除角色", "删除", "确定删除角色【"+row.roleName+"】信息?", "fa fa-times fa-remove hide-underline")+'&nbsp;&nbsp;';
+            return btn;
+        }
+        }
+    ]
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.findAllRoles, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+</script>

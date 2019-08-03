@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.hongkunjinfu.com/schema/auth" targetNamespace="http://www.hongkunjinfu.com/schema/auth">
+
+    <xsd:element name="enableControl">
+        <xsd:complexType>
+            <xsd:attribute name="url" type="xsd:string" default="/**/*"></xsd:attribute>
+            <xsd:attribute name="defalutLevel" type="xsd:string" default="DISCRIMINATE_AUTHORITY"></xsd:attribute>
+            <xsd:attribute name="workInConsole" type="xsd:boolean" default="true"></xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

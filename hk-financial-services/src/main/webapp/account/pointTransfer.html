@@ -1,0 +1,233 @@
+<!-- 积分转赠 -->
+<div class="act_right fr">
+    <div class="fhb_main">
+        <div class="fhb_tips">
+            <span class="rel"><i class="iconfont icon-iconfontlaba1 icon_laba2 mr-40"></i>转赠规则：</span>
+            <p>
+                1、积分转赠的接收对象必须是鸿坤金服注册用户。
+                <br> 2、积分转赠会收取一定手续费：手续费=转出积分的<i id="rate"></i>%。
+                <br> 3、郑重提醒：积分一旦转赠，将无法追回！
+            </p>
+        </div>
+        <div class="fhb_list clearfix">
+            <p class="zd_name">您的鸿坤金服账户积分：</p>
+            <div class="zd_cont zd_lh">
+                <span id="userPoint"></span>
+            </div>
+        </div>
+        <div class="fhb_list clearfix">
+            <p class="zd_name">积分数额：</p>
+            <div class="zd_cont">
+                <input type="text" class="fhb_input" id="sendPoint">&nbsp;
+                <span id="err_pointsValue" style="color:red"></span>
+                <p class="zd_tips">输入积分数为大于0整数</p>
+            </div>
+        </div>
+        <div class="fhb_list clearfix">
+            <p class="zd_name">添加接收对象： </p>
+            <div class="zd_cont">
+                <p class="zd_lh"><span>手动输入鸿坤金服账号/手机号， 最多可添加5个。</span></p>
+                <div class="add_tle">
+                    <div class="tle_c clearfix">
+                        <input type="text" class="fhb_input fl" id="userTel">
+                        <button type="button" class="add_button fl btn-primary" id="addUser">添加</button>
+                    </div>
+                    <div id="userList">
+                    </div>
+                </div>
+                <p class="zd_tips mt-10">实扣积分：<span class="f-18 colr-red" id="actualPoint">0
+                </span>&nbsp;&nbsp;实际扣除积分=（转赠积分
+                    +转赠手续费）*人数</p>
+                <button type="button" id="pointTransfer" class="w_240 btn-primary add_button">转赠积分</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var userTelData = new Map();
+    $(function () {
+       //获取用户的积分并赋值
+        _gerUserPointAndRate();
+        //赠送积分输入框失去焦点事件
+        $("#sendPoint").blur(function () {
+            _validateSendPoint();
+        });
+        $("#userTel").blur(function () {
+            _validateUserTel();
+        });
+        //赠送积分按钮点击事件
+        $("#pointTransfer").click(function () {
+            //1.判断积分值是否正确，大于0的正整数
+            var flag = _validateSendPoint();
+            if (!flag){
+                return;
+            }
+            //2.判断是否有积分接收人，数量小于等于5个人
+            if (userTelData.size == 0){
+                dialogUtil.alert("提示","请您添加要赠送积分的用户！");
+                return;
+            }
+            if (userTelData.size >= 5){
+                dialogUtil.alert("提示","最多添加5个用户！");
+                return;
+            }
+            //3.判断积分值是否足够赠送
+            var sumPoint = $("#actualPoint").val() - 0;
+            var userPoint = $("#userPoint").val() - 0;
+            if (sumPoint > userPoint){
+                dialogUtil.alert("提示","积分不足，所消耗积分："+sumPoint+",现有积分："+userPoint+"");
+                return;
+            }
+            //4.发起积分转赠
+            dialogUtil.confirm("信息提示","转赠积分将会扣除部分手续费，是否继续？",confirmBtn);
+        });
+        //添加用户按钮点击事件
+        $("#addUser").click(function () {
+            if (_validateUserTel()){
+                if (userTelData.has($("#userTel").val())){
+                    dialogUtil.alert("提示","该用户已添加，请勿重复添加！");
+                    return false;
+                }
+                var callBack = function (result) {
+                    if (result.resStatus == CONSTANTS.SUCCESS){
+                        if (userTelData.has(result.resMsg.tel)){
+                            dialogUtil.alert("提示","该用户已添加，请勿重复添加！");
+                            return;
+                        }
+                        if (userTelData.size >= 5){
+                            dialogUtil.alert("提示","最多添加5个用户！");
+                            return;
+                        }
+                        //用户信息查询成功，添加到map中
+                        userTelData.set(result.resMsg.tel,result.resMsg.id);
+                        //将用户数据渲染出来
+                        var userHtml = '<dl class="tle_list">' +
+                            '<dd>'+result.resMsg.name+'</dd>' +
+                            '<dd class="tel">'+result.resMsg.tel+'</dd>' +
+                            '<dd> <div class="dd_close" tel="'+result.resMsg.tel+'" style="cursor: pointer" onclick="delUser(this)">×</div> </dd> </dl>';
+                        $("#userList").append(userHtml);
+                        //重新计算消耗的积分数量
+                        _calculateActualPoint();
+                    }else {
+                        dialogUtil.alert("提示",result.resMsg);
+                    }
+                }
+                //将手机号请求后台，获取用户信息
+                var param = {"tel":$("#userTel").val()};
+                ajaxUtil.post("/userController/findPointReceiveUserByTel.do",param,callBack);
+            };
+        });
+        var confirmBtn = function () {
+            var callBack = function (result) {
+                if (result.resStatus == CONSTANTS.SUCCESS){
+                    var callBack = function () {
+                        commonUtil.jumpAccountMenu("pointTransfer.html");
+                    };
+                    dialogUtil.alert("提示","积分转赠成功",callBack);
+                }else {
+                    //若用户未实名，跳转至实名页面
+                    if (result.resStatus == CONSTANTS.NO_IDENTIFY){
+                        dialogUtil.msg("提示",result.resMsg);
+                        commonUtil.jumpAccountMenu("securityCenter.html");
+                        return;
+                    }
+                    dialogUtil.alert("提示",result.resMsg);
+                }
+            };
+            var acceptUsers = "";
+            userTelData.forEach(function (data) {
+                acceptUsers = data + "," +  acceptUsers ;
+            });
+            acceptUsers = acceptUsers.substring(0,acceptUsers.length-1);//去除最后一个逗号
+            var param = {"point":$("#sendPoint").val(),"acceptUsers":acceptUsers};
+            ajaxUtil.post("/pointController/userPointTransfer.do",param,callBack);
+        };
+    });
+
+    /**
+     * 获取用户的积分和积分转赠手续费率
+     * @private
+     */
+    function _gerUserPointAndRate() {
+        var callBack = function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS){
+                //用户积分赋值
+                $("#userPoint").val(result.resMsg.point);
+                $("#userPoint").text(result.resMsg.point);
+                //积分转赠利率赋值
+                $("#rate").val(result.resMsg.rate);
+                $("#rate").text(result.resMsg.rate);
+            }else {
+                dialogUtil.alert("提示",result.resMsg);
+            }
+        };
+        ajaxUtil.post("/pointController/getUserPointAndRate.do",null,callBack);
+    };
+
+    /**
+     * 验证发送积分数量是否正确
+     * @return {boolean}
+     * @private
+     */
+    function _validateSendPoint() {
+        var sendPoint = $("#sendPoint").val();
+        if (commonUtil.isEmpty(sendPoint)){
+            $("#err_pointsValue").text("请输入积分数量");
+            return false;
+        }
+        if(!validUtil.validNumber(sendPoint)){
+            $("#err_pointsValue").text("请输入正确的积分数量");
+            return false;
+        }
+        if (sendPoint == 0){
+            $("#err_pointsValue").text("请输入大于0的积分数量");
+            return false;
+        }
+        $("#err_pointsValue").text("");
+        _calculateActualPoint();
+        return true;
+    };
+
+    /**
+     * 验证添加用户的手机号是否正确
+     * @return {boolean}
+     * @private
+     */
+    function _validateUserTel() {
+        var userTel = $("#userTel").val();
+        if (commonUtil.isEmpty(userTel)){
+            dialogUtil.alert("提示","请输入用户手机号！");
+            return false;
+        }
+        if (!validUtil.validTel(userTel)){
+            dialogUtil.alert("提示","请输入正确的手机号！");
+            return false;
+        }
+        if (userTelData.size >= 5){
+            dialogUtil.alert("提示","最多添加5个用户！");
+            return false;
+        }
+        return true;
+    };
+
+    function delUser(obj) {
+        var tel = $(obj).attr("tel");
+        userTelData.delete(tel);
+        $(obj).parent().parent().remove();
+        _calculateActualPoint();
+    };
+    function _calculateActualPoint() {
+        var sumPoint = 0;
+        //转赠的积分
+        var sendPoint = $("#sendPoint").val();
+        //转赠利率
+        var rate = $("#rate").val();
+        if (validUtil.validNumber(sendPoint) && !isNaN(rate)){
+            //计算积分转赠消耗的积分并赋值
+            var sumPoint = ((sendPoint-0) + Math.ceil(sendPoint*rate*0.01))*userTelData.size;
+        }
+        $("#actualPoint").text(sumPoint);
+        $("#actualPoint").val(sumPoint);
+    };
+</script>

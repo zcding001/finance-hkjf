@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.fund.model.FundProject">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FundProject" type="com.hongkun.finance.fund.model.FundProject">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="type" column="type"/>
+		<result property="parentType" column="parent_type"/>
+		<result property="introduction" column="introduction"/>
+		<result property="remark" column="remark"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,name,type,parent_type,introduction,remark
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fund_project ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="parentType != null">
+				parent_type ,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				introduction ,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="parentType != null">
+				#{parentType} ,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				#{introduction} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				#{remark} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO fund_project (
+	       	id ,
+	       	name ,
+	       	type ,
+	       	parent_type ,
+	       	introduction ,
+	       	remark 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.parentType != null">
+					#{item.parentType} ,
+				</if>
+				<if test="item.parentType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.introduction != null and item.introduction != ''">
+					#{item.introduction} ,
+				</if>
+				<if test="item.introduction == null or item.introduction == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.remark != null and item.remark != ''">
+					#{item.remark} 
+				</if>
+				<if test="item.remark == null or item.remark == ''">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="parentType != null">
+			parent_type = #{parentType} ,
+		   </if>
+			<if test="introduction != null and introduction != ''">
+				introduction = #{introduction} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fund_project
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fund_project 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FundProject">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fund_project 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+			AND name = #{name}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="parentType != null">
+			AND parent_type = #{parentType}
+			</if>
+			<if test="introduction != null and introduction !=''">
+			AND introduction = #{introduction}
+			</if>
+			<if test="remark != null and remark !=''">
+			AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where_fuzzy">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+				AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="type != null">
+				AND type = #{type}
+			</if>
+			<if test="parentType != null">
+				AND parent_type = #{parentType}
+			</if>
+			<if test="introduction != null and introduction !=''">
+				AND introduction = #{introduction}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND remark = #{remark}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fund_project 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FundProject">
+		SELECT <include refid="columns" />
+		FROM fund_project 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 根据股权类型名称进行分页查询数量 -->
+	<select id="findFundTypeListWithConditionCount" resultType="long">
+		SELECT COUNT(ID) FROM fund_project
+		<include refid="findPage_where_fuzzy"/>
+	</select>
+	<!--条件检索股权类型信息-->
+	<select id="findFundTypeListWithCondition" resultMap="_FundProject">
+		SELECT <include refid="columns" />
+		FROM fund_project
+		<include refid="findPage_where_fuzzy"/>
+	</select>
+</mapper>

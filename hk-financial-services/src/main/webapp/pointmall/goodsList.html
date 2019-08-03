@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/jfsc.css"/>
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+
+    <style>
+        .s-titie {
+            width: 64px;
+            height: 26px;
+            line-height: 26px;
+            overflow: hidden;
+            background-color: white;
+            border: 1px solid #cccccc;
+            color: #666666;
+            font-size: 14px;
+            text-align: center;
+            float: right;
+            cursor: pointer;
+        }
+
+        .s-titie i {
+            display: inline-block;
+            width: 10px;
+            border-left: 1px solid #666;
+            border-bottom: 1px solid #666;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            margin-bottom: 3px;
+            margin-left: 5px;
+            height: 10px;
+        }
+
+        .s-titiefan i {
+            display: inline-block;
+            width: 10px;
+            border-left: 1px solid #666;
+            border-bottom: 1px solid #666;
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+            -moz-transform: rotate(135deg);
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            margin-bottom: -3px;
+        . ml-5;
+        . blk-10;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+
+<div style="border-bottom: 1px solid #f39200;">
+    <div class="s-banertop">
+        <div class="allbtn">
+            <h2>全部商品分类<i class="shangpinjtou"></i></h2>
+            <ul class="jspopbox" id="menu"></ul>
+        </div>
+        <div class="icandx" ><a href="#"  onclick="pointProductCommons.toICanPay()" id="iCanPayHref">我能兑换</a></div>
+        <div class="icandx" ><a href="${project_base_path}/pointmall/goodsList.html?enginSource=flashSell" id="flashPayHref">限时兑换</a></div>
+    </div>
+</div>
+<div class="tongyong">
+    <div class="sousuojieguo hide" id="keyShow"></div>
+    <ul class="duihuanjifnr hide" id="userPointInfo">
+        <li class="shoujihaotel"><span>当前用户：</span><em id="pointMallUser"></em></li>
+        <li class="shoujihaotel"><span>可用积分：</span><em class="colr-org" id="userPointValue">77</em></li>
+    </ul>
+    <!-- 商品筛选 start -->
+    <div class="border hide" id="filterProductDiv">
+        <h3 class="titleh3">商品筛选</h3>
+        <div class="shaixuanrongqi">
+            <h2>商品分类：</h2>
+            <!--商品分类筛选框-->
+            <ul class="divjtnr"   id="menuDiv"></ul>
+        </div>
+        <div class="jifenfaw">
+            <h2>积分范围：</h2>
+            <ul class="divjtnr cutoumro show"><span class='spanxuanzhong9 pointRange' onclick="pointProductGoodList.startSearchEngine()" >不限</span><span class="pointRange" pointStart="0" pointEnd="500">0-500</span>
+                <span  class="pointRange" pointStart="500" pointEnd="1000">500-1000</span><span class="pointRange" pointStart="1000" pointEnd="2000">1000-2000</span>
+                <span class="pointRange" pointStart="2000" pointEnd="3000">2000-3000</span><span class="pointRange"pointStart="3000" pointEnd="5000">3000-5000</span>
+                <span class="pointRange" pointStart="5000" pointEnd="10000">5000-10000</span><span class="pointRange" pointStart="10000" pointEnd="20000">10000-20000</span>
+                <span class="pointRange"  pointStart="20000">20000以上</span>
+                <div style="float: right;">
+                    <div class="inputdiv0">
+                        <input id="pointStart" type="text"
+                               onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}"/> -
+                        <input id="pointEnd" type="text"
+                               onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}"/>
+                    </div>
+                    <button class="jifenfwyese" onclick="pointProductGoodList.startSearchEngine('fromPointRange')">确定</button>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <!-- 商品筛选 end -->
+    <h3  class="titleh3fan">
+        <span style="float: left;">排序方式&nbsp;&nbsp;:</span>
+        <em class='zhusediao'  sort-type="1">默认</em>
+        <em sort-type="2">兑换排行</em>
+        <div class="topbutjiant">积分值<img src="${project_base_path}/src/img/navBar/doushihse.png" alt=""/></div>
+        <div class="jiandanfy">
+            <div class="shuliang123">
+                <span class="shuliangq" id="currentPageNo">0</span>/<span class="shuliangh" id="totalPageNo">0</span>
+            </div>
+            <div class="xiaofenyeq" id="right_pre">
+                <i></i>
+            </div>
+            <div class="xiaofenyeh" id="right_next">
+                <i></i>
+            </div>
+        </div>
+    </h3>
+    <div style="display: block;" id='yesdata'>
+        <ul class="remdh renhdtj" style="border: none;padding: 0;" id="productShow"></ul>
+        <div class="paging"></div>
+    </div>
+    <img src="${project_base_path}/src/img/point/noProductImg.png" alt="" class="kongbaiye" style="margin: 95px 423px;" id='nodata'/>
+</div>
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script src="${project_base_path}/jslib/pointmall/pointProductCommons.js"></script>
+<script src="${project_base_path}/jslib/pointmall/pointProductGoodsList.js"></script>
+</body>
+</html>

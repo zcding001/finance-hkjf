@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+               <span style="float:left;width:30%;">调查问卷-新增问题</span> 
+            </div>
+            <!-- /.panel-heading -->
+            <form name="QuestionForm" id="questionForm" novalidate>
+              <div class="panel-body" >
+	           <div class="accordion-inner">  
+    				<div class="alert alert-info fade in" >
+    				  <div class="form-group">
+    						 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>调查问题: </label>
+    						<input class="form-control ng-pristine ng-valid ng-touched textstyle"  placeholder="Enter a source..." name="content" ng-model="content"  type="text"  validator="required" valid-method="blur" message-id="contentError">
+    						<span style="color:#F00" class="bid-info" id="contentError"></span>
+    				  </div>
+    				  <div class="form-group">
+    					 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>问题类型: </label>
+    					<select class="form-control ng-pristine ng-valid ng-touched textstyle"  style="margin-bottom: 3px;" name="type" ng-change="changeQuestionType(type)" ng-model="type">  
+    					   <option ng-repeat="ty in types" value="{{ty.value+''}}">{{ty.name}}</option>
+				        </select>    
+				     </div>
+				     
+				      <div class="alert alert-info fade in" ng-show="visible">
+	                   <div class="form-group">
+					      <button class="btn" type="button" style="margin-left:25px;" ng-click="addOption($index)">添加选项</button>  
+	        	       </div>
+	        	       <div class="alert alert-info fade in" ng-repeat="opt in options">
+		    				  <div class="form-group">
+		    						 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>选项名称: </label>
+		    						<input class="form-control ng-pristine ng-valid ng-touched textstyle" class="options" name="optionTitle" placeholder="Enter a source..." ng-model="opt.optionTitle"  type="text">
+		    				  </div>
+		    				 <div class="form-group">
+		    						 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>选项内容: </label>
+		    						<input class="form-control ng-pristine ng-valid ng-touched textstyle" class="options" name="optionContent" placeholder="Enter a source..." ng-model="opt.optionContent"  type="text">
+		    				  </div>
+        	         		<button class="btn" type="button" style="float: right;margin-top: -48px;" ng-click="delOption($index)">删除</button>  
+                 		</div>  
+        	       </div>
+				     
+                  </div>  
+                  
+                 
+           <div> 
+            <span ng-hide="showPage"> 
+        <button class="btn btn-primary" type="button"  ng-click="addProblems(QuestionForm,'saveAdd')" validator-submit="QuestionForm">保存并添加问题</button>  
+    </span>
+    	<span style="color:#F00" class="bid-info" id="error"></span>
+    </div>  
+    <br>  
+    <div>  
+     <span ng-show="showPage">
+         <button class="btn btn-primary" type="button"  ng-click="addProblems(QuestionForm,'updateQuestion')" validator-submit="QuestionForm">修改</button>  
+     </span>
+     <span ng-hide="showPage">
+        <button class="btn btn-primary" type="button" ng-click="addProblems(QuestionForm,'save')" validator-submit="QuestionForm">保存</button>  
+    </span>
+        <button class="btn" type="button" ng-click="back()">返回</button>  
+    </div>  
+</div>  
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

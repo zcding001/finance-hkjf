@@ -1,0 +1,4172 @@
+@charset "utf-8";
+
+
+
+
+
+
+/*引入底层库;common-base.less基于less-base.css*/
+
+@import "common-base.less";
+
+
+
+
+
+
+/*我的账户主页面less开始*/
+
+
+/*我的账户版心1030*/
+
+.containerArea {
+    width: 1030px;
+    margin: 0 auto;
+    >div:first-child {
+        .blk-40;
+        .tar;
+        .f-12;
+        .colr-gray;
+        .blh-40;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+/*左侧菜单*/
+
+.act_left {
+    width: 150px;
+    min-height: 580px;
+    .act_head {
+        .gradient;
+        a {
+            .colr-white;
+            .f-18;
+            .pl-15;
+            width: 150px;
+            height: 58px;
+            .blk-58;
+            .blh-58;
+        }
+    }
+}
+
+.menu-one {
+    >li {
+        width: 150px;
+        height: auto;
+        border-top: 1px solid #fff;
+        .over;
+        cursor: default;
+        margin-bottom:4px;
+        >div {
+            width: 100%;
+            .blk-35;
+            .blh-35;
+            .pl-15;
+            .bgColor(#f1f1f1);
+            >span {
+                .block;
+                width: 100%;
+                .rel;
+            }
+        }
+        .menu-two {
+            height: auto;
+            width: 100%;
+            .bg-white;
+            .hide;
+            li {
+                a {
+                    .block;
+                    .blk-35;
+                    .pl-15;
+                    .blh-35;
+                    width: 100%;
+                    border-top: 1px solid #ccc;
+                    &:focus{
+                    	.colr-org;
+                    }
+                }
+            }
+        }
+    }
+    >li:first-child {
+        border: none;
+    }
+}
+
+
+
+
+
+
+
+/* 右侧内容*/
+
+.act_right {
+    width: 818px;
+    .over;
+}
+
+.my_cont {
+    width: 100%;
+    height: auto;
+    .my_cont_name {
+        width: 228px;
+        .bgColor(#f4f4f4);
+        height: auto;
+        .pad(10px);
+        .pb-20;
+        .over;
+        .grade {
+            .fl;
+            background: url(../img/account/lv_03.png) no-repeat center center;
+            background-size: 100% 100%;
+            width: 10px;
+            .colr-white;
+            .pad(0 30px);
+            .f-12;
+            margin-top: 2px;
+            .ml-15;
+        }
+        li {
+            .mt-10;
+        }
+        li:first-child {
+            .mt0;
+            >div {
+                input {
+                    width: 65px;
+                    .f-12;
+                    .blk-20;
+                    .ellipsis;
+                    .blh-20;
+                    .fl;
+                    .pl-5;
+                }
+                .inp_keep {
+                    .bg-white;
+                }
+                a {
+                    .fr;
+                    .colr-blue;
+                    text-decoration: underline;
+                    &:hover {
+                        .colr-org;
+                        text-decoration: none;
+                    }
+                }
+            }
+            .erro {
+                .f-12;
+                .colr-red;
+            }
+        }
+        .li_02 {
+            h1 {
+                .blk-20;
+                .f-weight;
+                .blh-20;
+                .colr-gray;
+            }
+        }
+        .li_04{
+        	.f-12;
+        }
+        .rz_cont {
+            .colr-org;
+        }
+    }
+}
+
+.act-jdt {
+    .rel;
+    .bgColor(#e5e5e5);
+    .border-radius(15px);
+    .over;
+    .blk-18;
+    .ml-5;
+    .blh-18;
+    width: 82px;
+    border: 1px solid #cbcbcb;
+    span {
+        .block;
+        .abs;
+        left: 0px;
+        top: -1px;
+        width: 75%;
+        .blk-18;
+        .tac;
+        .colr-white;
+        .f-12;
+        .border-radius(15px);
+        .over;
+        .gradient;
+        .blh-18;
+        border: 1px solid #ce6f00;
+    }
+}
+
+.dh_text {
+    text-decoration: underline;
+    .colr-org;
+}
+
+.my_cont_rt {
+    width: 576px;
+    min-height: 160px;
+    height: auto;
+    .over;
+    border: 1px solid #f4f4f4;
+    .rt_cont_lt {
+        width: 360px;
+        .margin(15px 0 0 40px);
+        .rt_cont_yue {
+            .colr-gray;
+            .blk-24;
+            .blh-24;
+            span {
+                .colr-org;
+                .f-24;
+            }
+        }
+        .mt-15 {
+            div {
+                width: 170px;
+                background: #f5f5f5 url(../img/account/my_ico5.jpg) no-repeat 140px 45px;
+                p {
+                    .colr-gray;
+                    .margin(13px 0 15px 15px);
+                }
+            }
+            div:last-child {
+                background: #f5f5f5 url(../img/account/my_ico6.jpg) no-repeat 140px 45px;
+            }
+        }
+    }
+    .rt_cont_rt {
+        width: 100px;
+        .margin(28px 40px 0 0px);
+        a {
+            .block;
+            .blk-32;
+            .f-18;
+            .colr-org;
+            .bg-white;
+            .tac;
+            .mt-15;
+            border: 1px solid #f7931e;
+            width: 100px;
+            .blh-30;
+            &:hover {
+                .gradient;
+                .colr-white;
+                border: none;
+            }
+        }
+        a:first-child {
+            .gradient;
+            .colr-white;
+            border: none;
+            &:hover{
+            	background:#f08300;
+            }
+        }
+    }
+}
+
+.hcharts_box {
+    .pt-30;
+    height: 326px;
+}
+
+.zc_con_fl {
+    width: 818px;
+    border: 1px solid #f5f5f5;
+    .bor_t0;
+    .blk-60;
+    .blh-60;
+    .abs;
+    bottom: -45px;
+    left: 0;
+    li {
+        .fl;
+        .tac;
+        .blk-24;
+        width: 20%;
+        span {
+            .fr;
+            margin-left: 5%;
+        }
+    }
+}
+
+
+
+
+
+
+
+/*我的账户主页面less结束*/
+
+
+/*我的投资less开始*/
+
+.tx_bar {
+    .mb-30;
+    li {
+        .f-16;
+        .blk-40;
+        .blh-40;
+        select {
+            .blk-40;
+            .mr-10;
+            .blh-40;
+            width: 93px;
+            border: Solid #ccc 1px;
+        }
+        input {
+            width: 120px;
+            .mt0;
+            .blk-40;
+            .blh-40;
+            border: Solid #ccc 1px;
+            padding-left: 2px;
+            cursor: initial;
+        }
+    }
+    li:last-child {
+        a {
+            .border-radius(5px);
+            .mt0;
+            .bg-org;
+            .blk-40;
+            .colr-white;
+            .tac;
+            .blh-40;
+            width: 73px;
+            display: inline-block;
+            border: none;
+            .cur;
+            &:active,&:hover {
+                .bgColor(#f08300);
+                border: none;
+            }
+            &:focus {
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
+
+.iv_t {
+    .mb-20;
+    span {
+        display: inline-block;
+        width: 20%;
+    }
+}
+.tab_title {
+	width:100%;
+	background:#f6f6f6;
+	tbody{
+		.block;
+		tr>td{
+			padding:15px 20px;
+			.cur;
+		}
+		.td_active{
+			.colr-org;
+		}
+	}
+}
+
+.table>thead {
+    .bgColor(#f6f6f6);
+    .border;
+}
+
+table.table tbody>tr>td {
+    .pad(15px 5px);
+}
+
+/*table.table tbody>tr {
+    .bor_b;
+}*/
+#dataTable.table{border-collapse:separate}
+
+/*.table>thead>tr>th {
+    .blh-30;
+}*/
+
+.table_blh td {
+    line-height: 45px !important;
+}
+
+.inv_plan {
+    display: inline-block;
+}
+
+.ui-progressbar-mid {
+    .block;
+    .blk-44;
+    .blh-44;
+    .f-12;
+    .tac;
+    width: 44px;
+    color: #333;
+    background: url(../img/account/progressbar_mid.png);
+}
+
+
+
+
+
+
+/*充值页面*/
+
+.cz_ts {
+    .blk-48;
+    .f-14;
+    .blh-48;
+    .bgColor(#fbdfdc);
+    color: #ed5345;
+    width: 100%;
+    padding: 0 5%;
+    img {
+        .margin(17px 0);
+    }
+}
+
+.n_txbox {
+    .border;
+}
+
+.tx_bt {
+    .bor_b;
+    .pt0;
+    .f-18;
+    .pl-26;
+    .colr-gray;
+    .blk-60;
+    .blh-60;
+    width: auto;
+    img {
+        width: 90%;
+        .mt-6;
+    }
+}
+
+.method_title {
+    width: 100%;
+    .blk-90;
+    .blh-90;
+    .pl-26;
+    li {
+        .pad(26px);
+        .pb0;
+        .blk-90;
+        input[type="radio"] {
+            vertical-align: top;
+            width: 16px;
+            .blk-16;
+            .mt-10;
+            .mr-15;
+        }
+        img {
+            .bor_das;
+        }
+        .lisolid {
+            .border;
+            border-color: #f7931e;
+        }
+    }
+}
+
+.payBox {
+    width: 100%;
+    margin: 0 auto;
+    .zffs_tab {
+        width: 100%;
+        .bor_t;
+        .bor_b;
+        .blk-45;
+        .blh-45;
+        .bgColor(#fafafa);
+        .mt-15;
+        li {
+            width: 100px;
+            .ml-20;
+            .f-16;
+            .f-weight;
+            .tac;
+            color: #333;
+            .blk-44;
+            .blh-44;
+            .cur;
+        }
+        .zf_hover {
+            border-bottom: 2px solid #f7931e;
+        }
+    }
+}
+
+.pay_ul1 {
+    width: 100%;
+    .pad(20px 0);
+    border: #ff5600 1px solid;
+    .bgColor(#fffff5);
+    input.mt0 {
+        .mr-10;
+    }
+}
+
+ul.pay_ul2 {
+    .bg-white;
+    .pad(20px 0);
+    li {
+        .blh-40;
+        .pl-25;
+        .pb-5;
+        input[type=text] {
+            width: 180px;
+            .blk-40;
+            .border;
+            .pl-5;
+        }
+    }
+}
+
+.inm_bd ul:first-child li {
+    .blh-40;
+    .pl-25;
+    .pb-5;
+}
+
+.dopost_bankcardlimit {
+    .blk-40;
+    .border;
+    .bg-white;
+    .ml-10;
+}
+
+.dopost_bankcard_name {
+    display: inline-block;
+    width: 90px;
+    .blk-40;
+    .blh-17;
+    .pad(2px 10px);
+    .f-12;
+    .bgColor(#5da9ff);
+    .colr-white;
+}
+
+.dopost_bankcard_limit_c {
+    width: 280px;
+    color: #333;
+    .blh-40;
+    .ml0;
+}
+
+.bankLength1 {
+    line-height: 20px !important;
+    word-break: break-all;
+}
+
+.bank_card {
+    .pt-10;
+    li {
+        .fl;
+        .mr-18;
+        .mb-10;
+    }
+}
+
+.chl_item {
+    .rel;
+    width: 160px;
+    .blk-40;
+    .ml-15;
+    overflow: hidden;
+    z-index: 100;
+    input {
+        .blk-35;
+        width: 16px;
+    }
+    .card_nse {
+        width: 160px;
+        .abs;
+        left: 0px;
+        top: 2px;
+        .blk-38;
+        .border;
+        z-index: 300;
+        .cur;
+    }
+    .card_select {
+        background: url(../img/account/dg_ico.png) no-repeat right bottom;
+        border: 1px solid #f39200;
+    }
+}
+
+.banklimit {
+    .mt-10;
+    .blk-40;
+    .border;
+    .bg-white;
+    .ml-23;
+    width: 680px;
+    .bank_name {
+        width: 200px;
+        background: #5da9ff;
+        .colr-white;
+        .blk-40;
+        .blh-40;
+        .tac;
+    }
+    .bank_limit_c {
+        color: #333;
+        .blk-40;
+        .blh-40;
+        .pl-20;
+    }
+}
+
+.available_c {
+    .margin(20px 20px 0 20px);
+    .pt-20;
+    li {
+        .blk-35;
+        .blh-35;
+        .c_f54 {
+            .f-20;
+            .f-weight;
+            .colr-org;
+        }
+        input {
+            .pl-5;
+            width: 180px;
+            .blk-40;
+            .blh-40;
+            border: solid #ccc 1px;
+            margin: 0 10px;
+        }
+    }
+}
+
+.bt_cz{
+ 	.ml-20;
+ 	 a {
+	    .border-radius(5px);
+	    .block;
+	    width: 200px;
+	    .blk-40;
+	    .bg-org;
+	    .colr-white;
+	    .tac;
+	    .blh-40;
+	    margin: 20px 0 20px 0px;
+	    &:hover{
+	    	background:#f08300;
+	    }
+	}
+}
+
+.gz_cont {
+    margin: 10px 0;
+    .blh-28;
+}
+
+.zc_gz {
+    width: 100%;
+    color: #4a4a4a;
+    border-top: #d7d7d7 1px solid;
+    .mt-40;
+    .pt-30;
+    .pl-20;
+    .pb-10;
+}
+
+
+
+
+
+
+
+/*充值*/
+
+.bank_tx {
+    width: 100%;
+    .blk-40;
+    .f-16;
+    .blh-40;
+    border-bottom: solid #ccc 1px;
+    .mt-30;
+}
+
+.bank_bd {
+    .margin(40px 0);
+    li {
+        .blk-40;
+        .margin(15px 0);
+        .blh-40;
+        input {
+            .pl-5;
+            width: 240px;
+            .blk-40;
+            .blh-40;
+            border: solid #ccc 1px;
+            .margin(0 10px);
+            .f-16;
+        }
+    }
+    li:last-child {
+        a {
+            .blk-40;
+            .bg-org;
+            .block;
+            .colr-white;
+            .tac;
+            .border-radius(5px);
+            .f-16;
+            .blh-40;
+            .cur;
+            width: 200px;
+            margin-left: 100px;
+        }
+    }
+}
+
+.bank_ts {
+    min-height: 20px;
+    _height: 20px;
+    border: solid #ccc 1px;
+    .pad(15px);
+    .blh-26;
+}
+
+
+
+
+
+
+
+/*体验金记录*/
+
+.jy_inp {
+    input {
+        .pl-5;
+        .mr-10;
+    }
+}
+
+
+
+
+
+
+
+/*安全中心*/
+
+.safe_info {
+    width: 100%;
+    border: solid #ccc 1px;
+    min-height: 100px;
+    _height: 100px;
+    .pb-30;
+    .qz_tx img {
+        width: 78px;
+        border: solid #dedede 1px;
+        .blk-78;
+        .mt-20;
+        .ml-10;
+    }
+    .sf_info {
+        .mt-20;
+        width: 690px;
+        .pr100 {
+            margin-right: 100px;
+            width: 60px;
+            .blk-20;
+            a {
+                .colr-blue;
+                .ml-15;
+            }
+        }
+        .zh_rz {
+            color: #4a4a4a;
+            .mt-15;
+            span {
+                .f-14;
+                a {
+                    .ml-15;
+                }
+            }
+        }
+        li:last-child {
+            img {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.icon_jg:before {
+    left: -20px;
+}
+
+.sf_info_cont {
+    width: 816px;
+    border: solid #ccc 1px;
+    border-top: solid #f7931e 2px;
+    .mt-30;
+    min-height: 100px;
+    _height: 100px;
+    .sf_cont {
+        width: 96%;
+        margin: 0 auto;
+        .sf_info_t {
+            .f-18;
+            .f-weight;
+            .pt-20;
+        }
+        .sf_info_p {
+            height: 80px;
+            line-height: 80px;
+            .sf_btn {
+                a {
+                    width: 120px;
+                    .blk-40;
+                    border: solid #f39200 1px;
+                    .tac;
+                    .f-16;
+                    .colr-org;
+                    .block;
+                    .blh-40;
+                    &:hover {
+                        .bg-org;
+                        .colr-white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sf_name {
+    width: 790px;
+    .f-16;
+    border-top: solid #cccccc 1px;
+    .pt-13;
+    .pb-13;
+}
+
+
+
+
+
+
+
+/*借款申请*/
+
+.borrow_listaa {
+    .blk-50;
+    .pl-30;
+    .f-18;
+    .blh-50;
+    color: #313131;
+    border: #e5e5e5 1px solid;
+    background-color: #f6f6f6;
+}
+
+.list_tableaa,
+.goon_sqaa {
+    border: #e5e5e5 1px solid;
+    height: auto;
+    .over;
+    .mt-10;
+}
+
+.list_table_left {
+    width: 460px;
+    .fl;
+    .pad(10px 0);
+    ul {
+        .blk-30;
+        .blh-30;
+        width: 100%;
+        li {
+            width: 40%;
+            .fl;
+            margin-left: 10%;
+            .blk-30;
+            .blh-30;
+        }
+    }
+}
+
+.list_table_right {
+    .fl;
+    .ml-20;
+}
+
+input[type=button].goon_btn,
+.goon_money {
+    width: 120px;
+    .blk-40;
+    border: #f39200 1px solid;
+    .tac;
+    .colr-white;
+    .blh-35;
+    .bg-org;
+    .cur;
+    .margin(20px 0);
+    .block;
+    .border-radius(10px);
+}
+
+.q_sx {
+    width: 100%;
+    border: solid #ccc 1px;
+    display: inline-block;
+    span {
+        .tac;
+        width: 100px;
+        display: inline-block;
+    }
+    .on {
+        a {
+            display: inline-block;
+            padding:0 10px;
+            .blh-40;
+            .blk-40;
+            .border-radius;
+            .bg-org;
+            .colr-white;
+        }
+    }
+}
+
+// 还款计划
+.repay_mess {
+    .mt-20;
+    span {
+        .ml-40;
+    }
+}
+
+.check_inp {
+    width: 200px !important;
+    input {
+        width: 200px;
+        .blk-35;
+        .blh-35;
+        .border;
+        .margin(20px 0);
+        .pl-5;
+    }
+}
+
+.check_sp {
+    a {
+        display: inline-block;
+        width: 73px;
+        .blk-40;
+        .blh-40;
+        .bg-org;
+        .colr-white;
+        .f-16;
+        .tac;
+        .border-radius(5px);
+        &:hover{
+        	background:#f08300;
+        }
+    }
+}
+
+
+
+
+
+
+
+/*银行卡管理*/
+
+.bankCardStyle {
+    width: 100%;
+    min-height: 346px;
+    _height: 346px;
+    .border;
+    .bc_t {
+        .blk-40;
+        .bgColor(#f6f6f6);
+        .blh-40;
+        .pad(0 8px);
+        span {
+            display: inline-block;
+            .tac;
+        }
+    }
+    .bc_ts{
+    	.mt-20;
+    	.mb-20;
+    }
+}
+
+.bc_list {
+    width: 800px;
+    margin: 0 auto;
+    .pad(0 8px);
+    .bc_li2 {
+        .blh-20;
+        .pb-20;
+        .mt-10;
+    }
+    span {
+        display: inline-block;
+        .tac;
+    }
+}
+
+.w_150 {
+    width: 150px;
+}
+
+.w_180 {
+    width: 180px;
+}
+
+.w_120 {
+    width: 120px !important;
+}
+
+.bc_btn {
+    width: 100%;
+    .tac;
+    a {
+        width: 120px;
+        .blk-40;
+        border: solid #f39200 1px;
+        .colr-org;
+        .blh-38;
+        .tac;
+        display: inline-block;
+        .margin(40px 0);
+        .cur;
+        &:hover {
+            .bg-org;
+            .colr-white;
+        }
+    }
+}
+
+
+
+
+
+
+
+/*维护开户行信息*/
+
+.tx_bt {
+    width: auto;
+    .bor_b;
+    .blk-60;
+    .blh-60;
+    .pt0;
+    .f-18;
+    .pl-26;
+}
+
+.bank_bd {
+    .margin(40px 0);
+    .tx_bd {
+        .blk-40;
+        .margin(15px 0);
+        .blh-40;
+        display: inline-block;
+        padding-left: 200px;
+        input {
+            width: 330px;
+            .blk-40;
+            .border;
+            .blh-40;
+            .margin(0 10px);
+            .f-16;
+            .pl-10;
+        }
+    }
+    .tx_bd .qr_btn a,
+    .tx_bd .qx_btn a {
+        width: 120px;
+        .blk-40;
+        .bg-org;
+        display: inline-block;
+        .ml-40;
+        .colr-white;
+        .tac;
+        .blh-40;
+    }
+    .tx_bd .qr_btn a:hover{
+        background:#f08300;
+        .colr-white;
+    }
+     
+    .tx_bd .qx_btn {
+        a {
+            .bgColor(#999);
+        }
+    }
+}
+
+.tx_bd {
+    span.f-18 {
+        width: 120px;
+        display: inline-block;
+    }
+    .disabled {
+        .bgColor(#ebebe4);
+    }
+}
+
+.select_input {
+    width: 114px;
+    .blk-40;
+    .border;
+    .blh-40;
+    .margin(0 10px);
+    .f-16;
+    color: #555;
+}
+
+.bank_ts2 {
+    .bor_t;
+    .pad(15px);
+    .blh-30;
+}
+
+
+
+
+
+
+
+/*用户个人信息*/
+
+.info_con1 {
+    min-height: 100px;
+    _height: 100px;
+    border: solid #dedede 1px;
+    border-top: solid #f39200 2px;
+    .mb-40;
+    .info_yl {
+        margin: 0 auto;
+        .bor_b;
+        .pb-20;
+        .pt-15;
+        .pl-20;
+        .pr-20;
+        .info_t {
+            .pt-20;
+        }
+    }
+    .info_cz {
+        a {
+            display: inline-block;
+            width: 120px;
+            .blk-40;
+            .border;
+            border-color: #f7931e;
+            .tac;
+            .blh-40;
+            .colr-org;
+            .f-16;
+            &:hover {
+                .colr-white;
+                .bg-org;
+            }
+        }
+        .info_cancel {
+            border-color: #999;
+            color: #999;
+            .ml-10;
+            &:hover {
+                .bgColor(#999);
+                .colr-white;
+            }
+        }
+    }
+}
+
+.info_p,
+.info_xg {
+    margin: 0 auto;
+    .margin(20px);
+    color: #777;
+    min-height: 100px;
+    _height: 100px;
+    li {
+        width: 320px;
+        .blk-40;
+        .blh-40;
+        display: inline-block;
+        .fb {
+            .f-weight;
+        }
+
+    }
+    li:nth-child(odd){
+    	width:450px;
+    }
+}
+
+.info_xg {
+    input[type=text] {
+        width: 198px;
+        .blk-30;
+        .blh-30;
+        .border;
+        .pl-5;
+    }
+    input[type=password] {
+        width: 198px;
+        .blk-30;
+        .blh-30;
+        .border;
+        .pl-5;
+    }
+    ul{
+    	li {
+	        .mt-15;
+	        input[type=radio] {
+	            width: 16px;
+	            .blk-16;
+	            display: inline-block;
+	            margin: 10px auto;
+	        }
+	        .acc_t {
+	            .blk-40;
+	            .blh-40;
+	            width: 60px;
+	            .tar;
+	            .mr-15;
+	            display: inline-block;
+	        }
+	        .acc_time {
+	            input {
+	                width: 100px;
+	                .blk-30;
+	                .blh-30;
+	                .border;
+	            }
+	        }
+	        
+    	} 
+    	
+  }
+}
+
+.acc_select>select {
+     width: 198px;
+    .blk-30;
+    .border;
+    margin-top: 3px;
+}
+
+.acc_t+span {
+    select {
+        .border;
+        .blk-30;
+        .blh-30;
+    }
+}
+
+
+
+
+
+
+
+/*券卡查询*/
+
+.zzfw {
+    width: 100%;
+    border: 1px solid #e8e3e3;
+    .pb-30;
+    min-height: 520px;
+    .tx_bar {
+        .margin(25px 0 30px 15px);
+        select.zz_select {
+            width: 190px;
+            .blk-36;
+            border: 1px solid #e8e3e3;
+            .border-radius(5px);
+            .over;
+            .pl-5;
+        }
+        ul>li {
+            .wd73_jf {
+                .bgColor(#bdbdbd);
+                .colr-white;
+                .ml-10;
+            }
+        }
+    }
+}
+.tx_bar .in_time{
+	.mr-10;
+	input{
+		background: url(../img/account/data_img.jpg) 99px 11px no-repeat;
+	}
+}
+.zzfw_list {
+    border-bottom: 1px solid #e3e3e3;
+    .blk-40;
+    .blh-40;
+    li {
+        width: 106px;
+        .blk-40;
+        display: inline-block;
+        border-right: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+        .tac;
+        .f-16;
+        color: #333;
+        .blh-40;
+        .cur;
+    }
+    .zzfw_active {
+        border-top: 2px solid #f7931e;
+        a{
+        	.colr-org;
+        }
+    }
+}
+
+.zzfw1_yhq li.txj,
+.zzfw1_yhq li.jxj,
+.zzfw1_yhq li.tzhb {
+    .fl;
+    display: inline;
+    width: 237px;
+    height: 132px;
+    .margin(20px 0 0 25px);
+    .rel;
+    background: url(../img/account/zzfw_txj.png) no-repeat left top;
+    .zzfw_jb {
+        .abs;
+        .blk-62;
+        right: 0px;
+        top: 0px;
+        width: 84px;
+        z-index: 100;
+    }
+    .zzfw_wsy {
+        background: url(../img/account/zzfw_wsy.png) no-repeat right top;
+    }
+    .zzfw_ysy {
+        background: url(../img/account/zzfw_ysy.png) no-repeat right top;
+    }
+    .zzfw_ysx {
+        background: url(../img/account/zzfw_ysx.png) no-repeat right top;
+    }
+    .zzfw_yhq_cont {
+        .mt-8;
+        .ml-20;
+        .colr-white;
+        h1 {
+            color: #f7fa9d;
+            font-weight: normal;
+            span {
+                .f(32px);
+            }
+        }
+        p {
+            .f-12;
+            .blh-18;
+            .mr-15;
+            .mt-5;
+        }
+    }
+}
+
+.zzfw1_yhq li.jxj {
+    background: url(../img/account/zzfw_bgq.png) no-repeat right top;
+}
+
+.zzfw1_yhq li.tzhb {
+    background: url(../img/account/zzfw_bg4.png) no-repeat right top;
+}
+
+
+
+
+
+
+
+/*邀请好友*/
+
+.hytj {
+    width: 100%;
+    border: 1px solid #dedede;
+    .hytj_title {
+        .margin(25px 0 0 22px);
+        background: url(../images/hy_ico.jpg) no-repeat left center;
+        .f-20;
+        .blh-36;
+        color: #333;
+    }
+    .hytj_menu {
+        .mt-24;
+        border-bottom: 1px solid #dedede;
+        li {
+            .fl;
+            width: 114px;
+            border-right: 1px solid #e5e5e5;
+            border-top: 1px solid #e5e5e5;
+            .blk-45;
+            .f-16;
+            .blh-45;
+            .tac;
+            .bgColor(#fafafa);
+        }
+        .hover {
+            border-top: 2px solid #f7931e;
+            a {
+                .colr-org;
+            }
+        }
+    }
+    .hytj_cont1 {
+        .mt-10;
+        .bgColor(#fbfbfb);
+    }
+}
+
+.hytj_a {
+    .mt-20;
+    border-bottom: 1px solid #e6e6e6;
+    .pb-33;
+    .pl-36;
+    .add_text {
+        .f-18;
+        color: #333;
+        .f-weight;
+    }
+    .hytj_t {
+        .f-18;
+        .blh-26;
+        color: #272727;
+        .pl-35;
+        .mt-36;
+        .rel;
+    }
+    .hytj_copy {
+        .margin(10px 0 0 35px);
+        width: 640px;
+        .blk-48;
+        .bgColor(#eee);
+        .border-radius(3px);
+        .over;
+        padding: 4px;
+        .hytj_input {
+            display: inline-block;
+            width: 516px;
+            .blk-40;
+            .bg-white;
+            .pl-20;
+            .blh-40;
+        }
+        .hytj_button {
+            display: inline-block;
+            width: 90px;
+            .blk-40;
+            .tac;
+            .f-16;
+            .blh-40;
+            color: #262626;
+            .bgColor(#eee);
+            .cur;
+            border: none;
+        }
+    }
+}
+
+.hytj_copy2 {
+    .margin(20px 50px 0 35px);
+    .f-16;
+    span {
+        display: inline-block;
+        width: 140px;
+        .colr-gray;
+        .blk-36;
+        .blh-36;
+    }
+    .hytj_input2 {
+        display: inline-block;
+        width: 120px;
+        .blk-37;
+        background: url(../img/account/input_bg.png) no-repeat left center;
+        .colr-org;
+        .blh-37;
+        .pl-20;
+    }
+}
+
+.hy_gz {
+    padding: 30px 50px 30px 36px;
+    h6 {
+        .f-18;
+        .colr-org;
+    }
+    p {
+        .mt-15;
+        .blh-30;
+        color: #262626;
+    }
+}
+
+.hy_table {
+    width: 100%;
+}
+
+.hy_table tr,
+.hy_table th,
+.hy_table td {
+    border: 1px solid #e8e8e8;
+    .pad(10px 0);
+    .tac;
+    .bor_r0;
+}
+
+.hy_table th {
+    background: #f7f7f7;
+    color: #333;
+}
+
+.yyh {
+    background: #fcfcfc;
+    .margin(20px 0);
+    p {
+        color: #585858;
+        .ml-15;
+    }
+    .yyrh_from {
+        margin: 17px 0 0 15px;
+        .from_c {
+            width: 167px;
+            .blk-36;
+            border: 1px solid #dfdfdf;
+            .pl-10;
+            .blh-36;
+            .border-radius(5px);
+            .over;
+        }
+        .from_but {
+            width: 77px;
+            .blk-38;
+            .bg-org;
+            .colr-white;
+            .tac;
+            .blh-38;
+            .border-radius(5px);
+            .over;
+            border: none;
+            .ml-10;
+        }
+    }
+}
+
+
+
+
+
+
+
+/*积分转赠*/
+
+.fhb_main {
+    width: 100%;
+    .rel;
+    .border;
+    .pad(20px);
+    .fhb_tips {
+        .colr-org;
+        .blh-40;
+        p {
+            .pl-40;
+        }
+    }
+}
+
+.zd_name {
+    .fl;
+    width: 160px;
+    .tar;
+    color: #525252;
+    .blk-44;
+    .blh-44;
+}
+
+.zd_cont {
+    .fl;
+    width: 530px;
+    .ml-15;
+    span {
+        .colr-red;
+    }
+    .fhb_input {
+        width: 285px;
+        .blk-42;
+        .border;
+        color: #999;
+        .pl-15;
+        .blh-42;
+        .border-radius(5px);
+        .over;
+    }
+    .zd_tips {
+        .f-12;
+        .blh-26;
+        color: #999;
+    }
+}
+
+.zd_lh {
+    .blk-42;
+    .blh-42;
+}
+
+.add_button {
+    .ml-18;
+    width: 73px;
+    .blk-40;
+    .bg-org;
+    .border-radius(5px);
+    .colr-white;
+    .tac;
+    .blh-40;
+    .cur;
+    .f-16;
+    border: none;
+    &:active {
+        background: #f08300 !important;
+        border: none;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+.tle_list {
+    border-bottom: 1px solid #e5e5e5;
+    .blk-36;
+    .blh-36;
+    color: #525252;
+    dd {
+        width: 110px;
+        .tal;
+        display: inline-block;
+        .pl-10;
+    }
+}
+
+.dd_close {
+    width: 20px;
+    .blk-20;
+    .border-radius(20px);
+    .colr-white;
+    .bg-block;
+    .bg-block;
+    .f-20;
+    .blh-19;
+    padding-left: 2px;
+    .ml-15;
+}
+
+.w_240 {
+    width: 240px;
+    .ml0;
+    .mt-15;
+}
+
+.wangy_c {
+    .mt-20;
+    .ml-20;
+    .mr-35;
+    width: 685px;
+}
+
+.wangy_name {
+    padding: 0px 10px;
+    background: #f8f8f8;
+    .border;
+    .bor_b0;
+}
+
+.wangy_limit {
+    .border;
+    border-collapse: collapse;
+}
+
+.wangy_limit th,
+.wangy_limit td {
+    background: #f8f8f8;
+    .tac;
+    .border;
+    .bor_b0;
+}
+
+.wangy_limit td {
+    .bg-white;
+}
+
+
+
+
+
+
+
+/*借款成功*/
+
+.borrow_time {
+    .blk-38;
+    .tar;
+    .ml-10;
+    .mr-10;
+    .blh-38;
+}
+
+.borrow_turn {
+    .ml-10;
+    .mr-10;
+    color: #484848;
+    .f-18;
+    .borrow_turn_1 {
+        .border;
+        .bgColor(#f8f8f8);
+        .blk-50;
+        .blh-50;
+        .bor_b;
+        .over;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .borrow_notice {
+        .border;
+        .bor_t0;
+        .pb-50;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        p {
+            .f-12;
+            .ml-30;
+            .blk-30;
+            .blh-30;
+        }
+        img {
+            .ml-30;
+        }
+    }
+}
+
+
+
+
+
+
+
+/*借款信息完善*/
+
+.borrwo_notice_tabel {
+    border: #e5e5e5 1px solid;
+    width: 1018px;
+    margin: 0 auto;
+    .bg-white;
+    .over;
+    .pb-30;
+    img {
+        .mt-30;
+        .ml-10;
+        .mb-5;
+    }
+}
+
+.borrow_write {
+    .pad(20px 0 20px 248px);
+    .bgColor(#f9f9f9);
+    height: auto;
+    li {
+        .blk-32;
+        .mb-25;
+        .blh-32;
+        label {
+            width: 90px;
+            .blk-32;
+            .blh-32;
+            .block;
+            .tar;
+            .fl;
+            .f-14;
+            font-weight: normal;
+        }
+    }
+}
+
+.infor_text11,
+.infor_text {
+    width: 405px;
+    .blk-30;
+    .pl-10;
+    .fl;
+    .block;
+    .f-14;
+    .bg-white;
+    .blh-30;
+    border: #a0a0a0 1px solid;
+}
+
+.infor_text {
+    .bgColor(transparent);
+}
+
+.borrow_ctrl {
+    .margin(30px 0px 0 210px);
+    .blk-50;
+    width: 810px;
+    .ctrl_ssl,
+    .ctrl_next {
+        .blk-50;
+        width: 240px;
+        .tac;
+        .colr-white;
+        border: none;
+        outline: none;
+        .cur;
+        .f-18;
+        .bg-org;
+        .border-radius(5px);
+        margin-left: 200px;
+    }
+    .ctrl_s {
+        .ml-40;
+    }
+    .ctrl_next {
+        color: #f39200;
+        .bg-white;
+        .border;
+        .ml-30;
+        border-color: #f7931e;
+    }
+}
+
+.add_grate {
+    height: auto;
+    width: 1018px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-top: #e5e5e5 1px dashed;
+    p {
+        .pl-30;
+        .ml0;
+        .f-14;
+        .bg-white;
+        .f-weight;
+        height: 50px !important;
+        color: #434343;
+        line-height: 50px !important;
+    }
+    ul {
+        height: auto;
+        .pad(10px 0 30px 200px);
+        li {
+            .blk-32;
+            .blh-32;
+            .mb-30;
+            input[type=radio] {
+                margin: 0;
+            }
+        }
+    }
+    label {
+        width: 130px;
+        .blk-30;
+        .f-14;
+        .blh-30;
+        .block;
+        .tar;
+        .fl;
+        font-weight: normal;
+    }
+}
+
+
+/*收货地址*/
+
+.sxz {
+    .blk-40;
+    .blh-40;
+    .f-16;
+    .pl-23;
+    width: 100%;
+    margin-bottom: 2px;
+    color: #333;
+}
+
+.information {
+    width: 100%;
+    height: auto;
+    padding-bottom: 1em;
+    .over;
+    .border;
+}
+
+.j_address {
+    width: 90%;
+    height: auto;
+    margin: 5% 10% 5% 5%;
+    ul>li {
+        width: 100%;
+        .blk-38;
+        .blh-38;
+        .over;
+        .mb-15;
+        font {
+            width: 10px;
+            .colr-red;
+            .fl;
+            .block;
+        }
+        label {
+            .fl;
+            .f-14;
+            .blk-30;
+            .blh-30;
+            .block;
+            width: 90px;
+            font-weight: normal;
+        }
+    }
+}
+
+#shr_name,
+#nc,
+#qq,
+#telphone,
+#userName,
+#addrDetail,
+#phone,
+#addressNick,
+#birthday {
+    margin: 0;
+    .blk-36;
+    .blh-36;
+    .border;
+    .fl;
+    .pl-5;
+    width: 266px;
+}
+
+.select1 {
+    .block;
+    .fl;
+    .blk-36;
+    .blh-28;
+    .border;
+    .mr-10;
+    width: 128px;
+}
+
+#addrDetail {
+    .block;
+    .blk-75;
+    .bg-white;
+    resize: vertical;
+    padding: 5px 7px;
+    line-height: 1.5;
+    color: #1f2d3d;
+    width: 415px;
+    background-image: none;
+    border: 1px solid #bfcbd9;
+    border-radius: 4px;
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+}
+
+#nickName,
+#email,
+#qq,
+#tel {
+    margin: 0;
+    .blk-36;
+    .border;
+    .blh-36;
+    .fl;
+    .pl-5;
+    width: 266px;
+}
+
+.n_news {
+    .blk-30;
+    .blh-30;
+    .ml-10;
+    width: 300px;
+}
+
+.b_radius {
+    padding: 0 10px;
+    .tac;
+    .border;
+    .ml-10;
+    .colr-gray;
+    .cur;
+    .border-radius;
+}
+
+.serv {
+    .bg-org;
+    .f-18;
+    .colr-white;
+    .blk-46;
+    .blh-46;
+    width: 200px;
+    border: none;
+}
+
+.s-toldg {
+    .mt-20;
+    .f-12;
+    color: #999;
+}
+
+.inforaddress {
+    width: 100%;
+    height: auto;
+    .over;
+    .border;
+    .border-radius;
+    .mt-13;
+    .mb-30;
+}
+
+.biaogeli {
+    width: 100%;
+    padding: 0 14px 0 20px;
+    .f-weight;
+    .over;
+    .f-14;
+    .blk-45;
+    .blh-45;
+    border-bottom: 1px solid #dedede;
+    color: #333333;
+    background-color: #f8f8f8;
+    span {
+        .fl;
+        .tac;
+    }
+    span:nth-child(2) {
+        width: 80px;
+        margin-left: 0;
+    }
+    span:nth-child(3) {
+        width: 150px;
+    }
+    span:nth-child(4) {
+        width: 200px;
+    }
+    span:nth-child(5) {
+        width: 120px;
+    }
+    span:nth-child(6) {
+        width: 80px;
+    }
+}
+.biaogeli1 {
+    width: 100%;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333333;
+    height: 45px;
+    background-color: white;   
+    font-weight: normal;
+    min-height: 64px;
+    line-height: 18px;
+    padding: 20px 14px 0 20px;
+    border-bottom:1px solid #ddd;
+    &:hover{
+    	background:#f5f5f5;
+    }
+    span{
+    	float: left;
+    	.tac;
+    	.modify .mr_a,.delete .mr_del{
+    		color:#00a0e9;
+    		&:hover{
+    			.colr-org;
+    		}
+    	}
+    }
+    span:nth-child(2) {
+	    width: 80px;
+	    margin-left: 0;
+	}
+	span:nth-child(3) {
+	    width: 150px;
+	    margin-left: 0;
+	}
+	span:nth-child(4) {
+	    width: 200px;
+	    margin-left: 0;
+	}
+	span:nth-child(5) {
+	    width: 120px;
+	    margin-left: 0;
+	}
+	span:nth-child(6) {
+	    width: 80px;
+	    margin-left: 0;
+	}
+	.default-address{
+		.colr-org;
+		.ml-15;
+		.border;
+		border-color:transparent;
+		.pad(0px 4px);
+		&:hover{
+			border:1px solid #f39200;
+			.cur;
+		}
+	}
+}
+
+.iv_list table td {
+    font-size: 14px;
+    padding: 15px 5px;
+}
+
+
+
+
+/*自动投资*/
+
+.autoinvest_main {
+    height: auto;
+}
+
+.autoinvest_one {
+    height: auto;
+    .over;
+    .border;
+    .autoinvest_one_title {
+        padding: 0 15px;
+        .bor_b;
+        .blk-48;
+        .blh-48;
+    }
+    .auto_invest {
+        width: 70px;
+        .tac;
+        .f-16;
+        .fl;
+    }
+    .auto_condition {
+        width: 260px;
+        .blk-48;
+        .fr;
+        li {
+            .fl;
+            .tac;
+            .f-14;
+            width: 130px;
+            a {
+                .colr-blue;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.autovest_one_content {
+    width: 100%;
+    height: auto;
+    .autovest_one_content_left {
+        .colr-gray;
+        .f-14;
+        .tal;
+        .blh-22;
+        .fl;
+        margin: 30px;
+        .pr-30;
+        width: 64%;
+        height: auto;
+        border-right: #999 1px solid;
+        p {
+            .f-14;
+            .tar;
+            .blk-50;
+            .blh-50;
+            a {
+                .colr-org;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.autovest_one_content_right {
+    width: 28%;
+    height: auto;
+    .over;
+    .fr;
+    padding: 30px 0;
+    .account_balance {
+        .f-14;
+        .blk-60;
+        .blh-60;
+        .tal;
+        color: #333;
+    }
+    .account_num {
+        .colr-org;
+        .f-20;
+        .f-weight;
+        .block;
+        .fl;
+    }
+    .top_ups {
+        .mr-20;
+        .border-radius;
+        .cur;
+        .block;
+        .fr;
+        border: #f39200 1px solid;
+        padding: 5px 15px;
+        color: #f39200;
+        &:hover{
+        	.bg-org;
+        	.colr-white;
+        }
+        
+    }
+}
+
+.accountvest_table {
+    height: auto;
+    .over;
+    .mt-20;
+    .border;
+    .table_list {
+        .blk-48;
+        .blh-48;
+        background: #f5f5f5;
+        ul>li {
+            .fl;
+            .tac;
+            .f-14;
+            width: 12.5%;
+            color: #888;
+        }
+        ul>li:first-child {
+            width: 10%;
+        }
+    }
+}
+
+.set_autovestmentmethod {
+    border: #f39200 1px solid;
+    width: 200px;
+    .blk-42;
+    .blh-42;
+    .tac;
+    .f-14;
+    .colr-org;
+    .cur;
+    .border-radius;
+    margin: 30px auto;
+    img {
+        vertical-align: middle;
+    }
+}
+
+.autovestment_rule {
+    height: auto;
+    margin-bottom: 100px;
+    .mt-20;
+    .border;
+    .autovestment_rule_title {
+        background: #f5f5f5;
+        .blk-40;
+        .blh-40;
+        .f-14;
+        color: #333;
+        .set_help {
+        	.colr-blue;
+        	.mr-15;
+        	&:hover{
+        		.colr-org;
+        		text-decoration:underline;
+        	}
+        }
+    }
+    .autovestment_rule_content {
+        padding: 30px 20px;
+        height: auto;
+        .f-14;
+        .blh-28;
+        .colr-gray;
+        .tal;
+    }
+}
+
+.content_list {
+    width: 100%;
+    height: auto;
+    ul {
+        line-height: 80px;
+        .over;
+        li {
+            .fl;
+            .tac;
+            .f-14;
+            width: 12.5%;
+            color: #333;
+        }
+        li:first-child {
+            width: 10%;
+        }
+        li:last-child {
+            width: 15%;
+        }
+        .del_btn {
+            .colr-red;
+        }
+        .change_btn {
+            .ml-20;
+            .colr-org;
+        }
+    }
+}
+
+.slideunlock-wrapper {
+    width: 100px;
+    position: relative;
+    height: 24px;
+    line-height: 24px;
+    left: 10px;
+}
+
+.slideunlock-slider.success {
+    .bg-org;
+}
+
+.slideunlock-slider {
+    .blk-28;
+    .blh-24;
+    .rel;
+    .over;
+    .colr-white;
+    .f-14;
+    .tac;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: #bbb;
+}
+
+.slideunlock-label {
+    width: 20px;
+    .abs;
+    .blk-20;
+    .bg-white;
+    .cur;
+    left: 4px;
+    top: 4px;
+    z-index: 999;
+    border-radius: 10px;
+}
+
+.autovestment_edit {
+    padding: 30px 44px;
+    ul {
+        height: auto;
+        width: 100%;
+        li {
+            .blk-50;
+            .blh-50;
+            .liabel {
+                .fl;
+                .f-14;
+                width: 20%;
+                font-weight: normal;
+            }
+            .income_input {
+                width: 70px;
+                .blk-30;
+            }
+            .bdeep_line {
+                border: #999 1px solid;
+            }
+            .cun_input {
+                width: 140px;
+                height: 30px;
+            }
+        }
+    }
+}
+
+input[type='checkbox'].checkoutTmp {
+    opacity: 0;
+    display: inline-block;
+    .blk-20;
+}
+
+label.checkoutTmp {
+    background: url(../img/account/icon_checkoutchose.png) no-repeat;
+    background-size: 60% 80%;
+    display: inline;
+    .blk-20;
+    .pl-25;
+}
+
+input[type='checkbox'].checkoutTmp:checked+.checkoutTmp {
+    background: url(../img/account/icon_checkout.png) no-repeat;
+    background-size: 60% 80%;
+    .blk-20;
+    .pl-25;
+}
+
+input[type=checkbox]:checked::before {
+    border-color: #f39200;
+    content: '\2714';
+    font-family: "STSong";
+    border-radius: 2px;
+    .tac;
+    .blh-18;
+    .colr-white;
+    .bg-org;
+}
+
+input[type='radio'].radioTmp {
+    opacity: 0;
+    display: inline-block;
+    height: 20px;
+    width: 16px;
+    margin: 10px auto;
+}
+
+label.radioTmp {
+    background: url(../img/account/icon_radiono.png) no-repeat;
+    background-size: 70% 90%;
+    display: inline;
+    .pl-25;
+    .blk-20;
+}
+
+input[type='radio'].radioTmp:checked+.radioTmp {
+    background: url(../img/account/icon_radioyes.png) no-repeat;
+    background-size: 70% 90%;
+    .pl-25;
+    .blk-20;
+}
+
+.wenhao {
+    .abs;
+    .tac;
+    .cur;
+    left: 95px;
+    top: -16px;
+    .block;
+    border: #f39200 1px solid;
+    .blk-25;
+    .blh-25;
+    .border-radius;
+    width: 30px;
+}
+
+.icon_question {
+    .abs;
+    .cur;
+    left: 98px;
+    top: 8px;
+}
+
+.system {
+    .colr-org;
+    .cur;
+    .abs;
+    .blk-25;
+    .blh-25;
+    .border-radius;
+    display: none;
+    left: 95px;
+    top: -16px;
+    border: #f39200 1px solid;
+    padding: 0 10px;
+}
+
+.kind_select {
+    width: 80%;
+}
+
+.select_chose {
+    width: 100%;
+    height: auto;
+}
+
+.select_chose>ul>li {
+    width: 40%;
+    float:left;
+    >label {
+        font-size: 14px;
+        color: #666;
+        float: left;
+        font-weight: normal;
+    }
+    .select_box {
+        width: 142px;
+        height: 25px;
+        line-height: 25px;
+        float: left;
+        border: solid 1px #999;
+        color: #444;
+        position: relative;
+        cursor: pointer;
+        font-size: 12px;
+        left: 10px;
+        top: 12px;
+        background: #f5f5f5;
+        border-radius: 5px;
+        select {
+            .blk-23;
+            .blh-23;
+            border: none;
+            background: #f5f5f5;
+            width: 100%;
+        }
+    }
+}
+
+.agreement_Protocol {
+    width: 300px;
+    margin: 0 265px 50px 265px;
+    height: auto;
+}
+
+#conformContract {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    .mr-10;
+}
+
+#conformContract:checked::before {
+    .blh-14;
+    .block;
+    width: 14px;
+}
+
+.sever_btn {
+    height: auto;
+    margin: -50px 0 100px 0;
+    a {
+        .block;
+        .blk-46;
+        .blh-46;
+        .colr-white;
+        .f-16;
+        .tac;
+        width: 220px;
+        background: #fba900;
+        margin: 0 auto;
+        .border-radius;
+    }
+}
+
+
+
+/*债权转让*/
+
+.zqzr_bq {
+    .bor_b;
+    .mb-15;
+    li {
+        float: left;
+        display: inline;
+        width: 100px;
+        color: #333;
+        .tac;
+        .f-16;
+        .pad(10px 0px);
+        .blh-24;
+    }
+    .zqzr-hover {
+        border-bottom: 2px solid #f39200;
+        .colr-white;
+        .bg-org;
+        .blh-24;
+        a {
+            .colr-white;
+        }
+    }
+}
+
+.auto_invest_1 {
+    .fl;
+    .f-14;
+    color: #333;
+    .f-weight;
+    span {
+        font-weight: normal;
+    }
+}
+
+.auto_condition_1 li {
+    .fr;
+    .f-14;
+    .pad(0 10px);
+    .f-weight;
+    span {
+        font-weight: normal;
+    }
+}
+
+.autovest_one_content {
+    ul {
+        margin: 10px 0;
+        .bor_b;
+        li {
+            .pad(15px 0 15px 10px);
+            span {
+                .f-weight;
+                display: inline-block;
+                width: 24%;
+                i {
+                    font-weight: normal;
+                    .colr-org;
+                }
+            }
+        }
+    }
+}
+
+.zqzr_list {
+    .mt-15;
+    .pb-20;
+    .bor_b;
+    .zqzr_list_box {
+        width: 487px;
+        .bor_r;
+        li {
+            margin: 13px 0;
+            span {
+                .tar;
+                .f-weight;
+                display: inline-block;
+                width: 100px;
+            }
+            .inp_txt {
+                width: 243px;
+                .blk-56;
+                .border;
+            }
+            .zqzr_mode {
+                width: 300px;
+                .blk-56;
+                .ml-10;
+                .blh-56;
+                input[type=radio] {
+                    width: 15px;
+                    height: 15px;
+                    margin-right: 10px;
+                    margin-top: 10px;
+                }
+                .inp_txt_1 {
+                    width: 133px;
+                    .border;
+                    .f-14;
+                    .pl-5;
+                    margin: 0 5px;
+                }
+            }
+        }
+    }
+}
+.myzq_er{
+    width: 320px;
+    ul{
+        .pt-50;
+        .tac;
+        .f-14;
+        li{
+            cite{
+                .colr-org;
+                .f-20;
+            }
+        }
+    }
+}
+.bc_list {
+    width: 100%;
+    margin: 0 auto;
+    .zqzr_btn {
+        .tac;
+          a {
+            width: 120px;
+            .blk-38;
+            .bg-org;
+            .colr-white;
+            .blh-38;
+            .tac;
+            display: inline-block;
+            margin: 40px 0;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+        }
+    }
+
+}
+
+
+/*联动银行卡logo*/
+
+.chl-icon {
+    .abs;
+    left: 20px;
+    top: 0px;
+    .block;
+    width: 190px;
+    .blk-36;
+    border: 1px solid #ddd;
+    z-index: 200;
+}
+
+.icon-cashier-ABC,
+.icon-cashier-ARCU,
+.icon-cashier-AYCB,
+.icon-cashier-BANKWF,
+.icon-cashier-BGB,
+.icon-cashier-BHB,
+.icon-cashier-BJBANK,
+.icon-cashier-BJRCB,
+.icon-cashier-BOC,
+.icon-cashier-BOCD,
+.icon-cashier-BOCFCB,
+.icon-cashier-BOCY,
+.icon-cashier-BOD,
+.icon-cashier-BODD,
+.icon-cashier-BOHAIB,
+.icon-cashier-BOHB,
+.icon-cashier-BOJZ,
+.icon-cashier-BOL,
+.icon-cashier-BOP,
+.icon-cashier-BOQH,
+.icon-cashier-BOQZ,
+.icon-cashier-BOSH,
+.icon-cashier-BOSZ,
+.icon-cashier-BOYK,
+.icon-cashier-BOZK,
+.icon-cashier-BSB,
+.icon-cashier-BZMD,
+.icon-cashier-CABANK,
+.icon-cashier-CBKF,
+.icon-cashier-CCB,
+.icon-cashier-CCQTGB,
+.icon-cashier-CDCB,
+.icon-cashier-CDRCB,
+.icon-cashier-CEB,
+.icon-cashier-CGNB,
+.icon-cashier-CIB,
+.icon-cashier-CITIC,
+.icon-cashier-CMB,
+.icon-cashier-CMBC,
+.icon-cashier-COMM,
+.icon-cashier-CQBANK,
+.icon-cashier-CRCBANK,
+.icon-cashier-CSRCB,
+.icon-cashier-CZCCB,
+.icon-cashier-CZRCB,
+.icon-cashier-DAQINGB,
+.icon-cashier-DBSCN,
+.icon-cashier-DLB,
+.icon-cashier-DRCBCL,
+.icon-cashier-DYCB,
+.icon-cashier-DYCCB,
+.icon-cashier-DYLSCB,
+.icon-cashier-DZBANK,
+.icon-cashier-EGBANK,
+.icon-cashier-FBBANK,
+.icon-cashier-FDB,
+.icon-cashier-FJHXBC,
+.icon-cashier-FJNX,
+.icon-cashier-FSCB,
+.icon-cashier-FXCB,
+.icon-cashier-GCB,
+.icon-cashier-GDB,
+.icon-cashier-GDRCC,
+.icon-cashier-GHB,
+.icon-cashier-GLBANK,
+.icon-cashier-GRCB,
+.icon-cashier-GSBANK,
+.icon-cashier-GSRCU,
+.icon-cashier-GXRCU,
+.icon-cashier-GYCB,
+.icon-cashier-GZB,
+.icon-cashier-GZRCU,
+.icon-cashier-H3CB,
+.icon-cashier-HANABANK,
+.icon-cashier-HBC,
+.icon-cashier-HBRCU,
+.icon-cashier-HDBANK,
+.icon-cashier-HKB,
+.icon-cashier-HLJRCU,
+.icon-cashier-HNRCC,
+.icon-cashier-HNRCU,
+.icon-cashier-HRBANK,
+.icon-cashier-HRXJB,
+.icon-cashier-HSBANK,
+.icon-cashier-HSBC,
+.icon-cashier-HSBK,
+.icon-cashier-HURCB,
+.icon-cashier-HXBANK,
+.icon-cashier-HZCB,
+.icon-cashier-ICBC,
+.icon-cashier-JHBANK,
+.icon-cashier-JINCHB,
+.icon-cashier-JJBANK,
+.icon-cashier-JLBANK,
+.icon-cashier-JLRCU,
+.icon-cashier-JNBANK,
+.icon-cashier-JRCB,
+.icon-cashier-JSB,
+.icon-cashier-JSBANK,
+.icon-cashier-JSRCU,
+.icon-cashier-JXBANK,
+.icon-cashier-JXRCU,
+.icon-cashier-JZBANK,
+.icon-cashier-JZCBANK,
+.icon-cashier-KLB,
+.icon-cashier-KSRB,
+.icon-cashier-LHBANK,
+.icon-cashier-LNRCC,
+.icon-cashier-LSBANK,
+.icon-cashier-LSBC,
+.icon-cashier-LSCCB,
+.icon-cashier-LZCCB,
+.icon-cashier-LZYH,
+.icon-cashier-MTBANK,
+.icon-cashier-NBBANK,
+.icon-cashier-NBCBANK,
+.icon-cashier-NBYZ,
+.icon-cashier-NCB,
+.icon-cashier-NDHB,
+.icon-cashier-NHB,
+.icon-cashier-NJCB,
+.icon-cashier-NMGNXS,
+.icon-cashier-NXRCU,
+.icon-cashier-NYBANK,
+.icon-cashier-NYCB,
+.icon-cashier-ORBANK,
+.icon-cashier-PSBC,
+.icon-cashier-PZHCCB,
+.icon-cashier-QDCCB,
+.icon-cashier-QJCCB,
+.icon-cashier-QLBANK,
+.icon-cashier-RBOZ,
+.icon-cashier-RXCB,
+.icon-cashier-RZB,
+.icon-cashier-SCB,
+.icon-cashier-SCBBANK,
+.icon-cashier-SCCB,
+.icon-cashier-SCRCU,
+.icon-cashier-SDEB,
+.icon-cashier-SDRCU,
+.icon-cashier-SHBANK,
+.icon-cashier-SHRCB,
+.icon-cashier-SJBANK,
+.icon-cashier-SNCCB,
+.icon-cashier-SPABANK,
+.icon-cashier-SPDB,
+.icon-cashier-SRBANK,
+.icon-cashier-SRCB,
+.icon-cashier-SXCB,
+.icon-cashier-SXRCCU,
+.icon-cashier-SXRCU,
+.icon-cashier-SZSBK,
+.icon-cashier-TACCB,
+.icon-cashier-TCCB,
+.icon-cashier-TCRCB,
+.icon-cashier-TJBHB,
+.icon-cashier-TLBANK,
+.icon-cashier-TRCB,
+.icon-cashier-TSBANK,
+.icon-cashier-TZCB,
+.icon-cashier-UBCHN,
+.icon-cashier-WHBANK,
+.icon-cashier-WHCCB,
+.icon-cashier-WHRCB,
+.icon-cashier-WJRCB,
+.icon-cashier-WOORI,
+.icon-cashier-WRCB,
+.icon-cashier-WZCB,
+.icon-cashier-XABANK,
+.icon-cashier-XCYH,
+.icon-cashier-XJRCU,
+.icon-cashier-XLBANK,
+.icon-cashier-XMBANK,
+.icon-cashier-XTB,
+.icon-cashier-XXBANK,
+.icon-cashier-XYBANK,
+.icon-cashier-XYFRCB,
+.icon-cashier-YBCCB,
+.icon-cashier-YNRCC,
+.icon-cashier-YQCCB,
+.icon-cashier-YXCCB,
+.icon-cashier-YZBANK,
+.icon-cashier-ZBCB,
+.icon-cashier-ZGCCB,
+.icon-cashier-ZJKCCB,
+.icon-cashier-ZJNX,
+.icon-cashier-ZJTLCB,
+.icon-cashier-ZRCBANK,
+.icon-cashier-ZYB,
+.icon-cashier-ZYCBANK,
+.icon-cashier-ZZBANK,
+.icon-cashier-ZZYH,
+.icon-cashier-NJBANK,
+.icon-cashier-CDBANK,
+.icon-cashier-DYBANK {
+    text-indent: -9999px;
+    background: url(../img/account/combo.jpg) no-repeat left top;
+    border: none;
+}
+
+.icon-cashier-ABC {
+    background-position: 0px -0px;
+}
+
+.icon-cashier-ARCU {
+    background-position: 0px -36px;
+}
+
+.icon-cashier-AYCB {
+    background-position: 0px -72px;
+}
+
+.icon-cashier-BANKWF {
+    background-position: 0px -108px;
+}
+
+.icon-cashier-BGB {
+    background-position: 0px -144px;
+}
+
+.icon-cashier-BHB {
+    background-position: 0px -180px;
+}
+
+.icon-cashier-BJBANK {
+    background-position: 0px -216px;
+}
+
+.icon-cashier-BJRCB {
+    background-position: 0px -252px;
+}
+
+.icon-cashier-BOC {
+    background-position: 0px -288px;
+}
+
+.icon-cashier-BOCD {
+    background-position: 0px -324px;
+}
+
+.icon-cashier-BOCFCB {
+    background-position: 0px -360px;
+}
+
+.icon-cashier-BOCY {
+    background-position: 0px -396px;
+}
+
+.icon-cashier-BOD {
+    background-position: 0px -432px;
+}
+
+.icon-cashier-BODD {
+    background-position: 0px -468px;
+}
+
+.icon-cashier-BOHAIB {
+    background-position: 0px -504px;
+}
+
+.icon-cashier-BOHB {
+    background-position: 0px -540px;
+}
+
+.icon-cashier-BOJZ {
+    background-position: 0px -576px;
+}
+
+.icon-cashier-BOL {
+    background-position: 0px -612px;
+}
+
+.icon-cashier-BOP {
+    background-position: 0px -648px;
+}
+
+.icon-cashier-BOQH {
+    background-position: 0px -684px;
+}
+
+.icon-cashier-BOQZ {
+    background-position: 0px -720px;
+}
+
+.icon-cashier-BOSH {
+    background-position: 0px -756px;
+}
+
+.icon-cashier-BOSZ {
+    background-position: 0px -792px;
+}
+
+.icon-cashier-BOYK {
+    background-position: 0px -828px;
+}
+
+.icon-cashier-BOZK {
+    background-position: 0px -864px;
+}
+
+.icon-cashier-BSB {
+    background-position: 0px -900px;
+}
+
+.icon-cashier-BZMD {
+    background-position: 0px -936px;
+}
+
+.icon-cashier-CABANK {
+    background-position: 0px -972px;
+}
+
+.icon-cashier-CBKF {
+    background-position: 0px -1008px;
+}
+
+.icon-cashier-CCB {
+    background-position: 0px -1044px;
+}
+
+.icon-cashier-CCQTGB {
+    background-position: 0px -1080px;
+}
+
+.icon-cashier-CDCB {
+    background-position: 0px -1116px;
+}
+
+.icon-cashier-CDRCB {
+    background-position: 0px -1152px;
+}
+
+.icon-cashier-CEB {
+    background-position: 0px -1188px;
+}
+
+.icon-cashier-CGNB {
+    background-position: 0px -1224px;
+}
+
+.icon-cashier-CIB {
+    background-position: 0px -1260px;
+}
+
+.icon-cashier-CITIC {
+    background-position: 0px -1296px;
+}
+
+.icon-cashier-CMB {
+    background-position: 0px -1332px;
+}
+
+.icon-cashier-CMBC {
+    background-position: 0px -1368px;
+}
+
+.icon-cashier-COMM {
+    background-position: 0px -1404px;
+}
+
+.icon-cashier-CQBANK {
+    background-position: 0px -1440px;
+}
+
+.icon-cashier-CRCBANK {
+    background-position: 0px -1476px;
+}
+
+.icon-cashier-CSRCB {
+    background-position: 0px -1512px;
+}
+
+.icon-cashier-CZCCB {
+    background-position: 0px -1548px;
+}
+
+.icon-cashier-CZRCB {
+    background-position: 0px -1584px;
+}
+
+.icon-cashier-DAQINGB {
+    background-position: 0px -1620px;
+}
+
+.icon-cashier-DBSCN {
+    background-position: 0px -1656px;
+}
+
+.icon-cashier-DLB {
+    background-position: 0px -1692px;
+}
+
+.icon-cashier-DRCBCL {
+    background-position: 0px -1728px;
+}
+
+.icon-cashier-DYCB {
+    background-position: 0px -1764px;
+}
+
+.icon-cashier-DYCCB {
+    background-position: 0px -1800px;
+}
+
+.icon-cashier-DYLSCB {
+    background-position: 0px -1836px;
+}
+
+.icon-cashier-DZBANK {
+    background-position: 0px -1872px;
+}
+
+.icon-cashier-EGBANK {
+    background-position: 0px -1908px;
+}
+
+.icon-cashier-FBBANK {
+    background-position: 0px -1944px;
+}
+
+.icon-cashier-FDB {
+    background-position: 0px -1980px;
+}
+
+.icon-cashier-FJHXBC {
+    background-position: 0px -2016px;
+}
+
+.icon-cashier-FJNX {
+    background-position: 0px -2052px;
+}
+
+.icon-cashier-FSCB {
+    background-position: 0px -2088px;
+}
+
+.icon-cashier-FXCB {
+    background-position: 0px -2124px;
+}
+
+.icon-cashier-GCB {
+    background-position: 0px -2160px;
+}
+
+.icon-cashier-GDB {
+    background-position: 0px -2196px;
+}
+
+.icon-cashier-GDRCC {
+    background-position: 0px -2232px;
+}
+
+.icon-cashier-GHB {
+    background-position: 0px -2268px;
+}
+
+.icon-cashier-GLBANK {
+    background-position: 0px -2304px;
+}
+
+.icon-cashier-GRCB {
+    background-position: 0px -2340px;
+}
+
+.icon-cashier-GSBANK {
+    background-position: 0px -2376px;
+}
+
+.icon-cashier-GSRCU {
+    background-position: 0px -2412px;
+}
+
+.icon-cashier-GXRCU {
+    background-position: 0px -2448px;
+}
+
+.icon-cashier-GYCB {
+    background-position: 0px -2484px;
+}
+
+.icon-cashier-GZB {
+    background-position: 0px -2520px;
+}
+
+.icon-cashier-GZRCU {
+    background-position: 0px -2556px;
+}
+
+.icon-cashier-H3CB {
+    background-position: 0px -2592px;
+}
+
+.icon-cashier-HANABANK {
+    background-position: 0px -2628px;
+}
+
+.icon-cashier-HBC {
+    background-position: 0px -2664px;
+}
+
+.icon-cashier-HBRCU {
+    background-position: 0px -2700px;
+}
+
+.icon-cashier-HDBANK {
+    background-position: 0px -2736px;
+}
+
+.icon-cashier-HKB {
+    background-position: 0px -2772px;
+}
+
+.icon-cashier-HLJRCU {
+    background-position: 0px -2808px;
+}
+
+.icon-cashier-HNRCC {
+    background-position: 0px -2844px;
+}
+
+.icon-cashier-HNRCU {
+    background-position: 0px -2880px;
+}
+
+.icon-cashier-HRBANK {
+    background-position: 0px -2916px;
+}
+
+.icon-cashier-HRXJB {
+    background-position: 0px -2952px;
+}
+
+.icon-cashier-HSBANK {
+    background-position: 0px -2988px;
+}
+
+.icon-cashier-HSBC {
+    background-position: 0px -3024px;
+}
+
+.icon-cashier-HSBK {
+    background-position: 0px -3060px;
+}
+
+.icon-cashier-HURCB {
+    background-position: 0px -3096px;
+}
+
+.icon-cashier-HXBANK {
+    background-position: 0px -3132px;
+}
+
+.icon-cashier-HZCB {
+    background-position: 0px -3168px;
+}
+
+.icon-cashier-ICBC {
+    background-position: 0px -3204px;
+}
+
+.icon-cashier-JHBANK {
+    background-position: 0px -3240px;
+}
+
+.icon-cashier-JINCHB {
+    background-position: 0px -3276px;
+}
+
+.icon-cashier-JJBANK {
+    background-position: 0px -3312px;
+}
+
+.icon-cashier-JLBANK {
+    background-position: 0px -3348px;
+}
+
+.icon-cashier-JLRCU {
+    background-position: 0px -3384px;
+}
+
+.icon-cashier-JNBANK {
+    background-position: 0px -3420px;
+}
+
+.icon-cashier-JRCB {
+    background-position: 0px -3456px;
+}
+
+.icon-cashier-JSB {
+    background-position: 0px -3492px;
+}
+
+.icon-cashier-JSBANK {
+    background-position: 0px -3528px;
+}
+
+.icon-cashier-JSRCU {
+    background-position: 0px -3564px;
+}
+
+.icon-cashier-JXBANK {
+    background-position: 0px -3600px;
+}
+
+.icon-cashier-JXRCU {
+    background-position: 0px -3636px;
+}
+
+.icon-cashier-JZBANK {
+    background-position: 0px -3672px;
+}
+
+.icon-cashier-JZCBANK {
+    background-position: 0px -3708px;
+}
+
+.icon-cashier-KLB {
+    background-position: 0px -3744px;
+}
+
+.icon-cashier-KSRB {
+    background-position: 0px -3780px;
+}
+
+.icon-cashier-LHBANK {
+    background-position: 0px -3816px;
+}
+
+.icon-cashier-LNRCC {
+    background-position: 0px -3852px;
+}
+
+.icon-cashier-LSBANK {
+    background-position: 0px -3888px;
+}
+
+.icon-cashier-LSBC {
+    background-position: 0px -3924px;
+}
+
+.icon-cashier-LSCCB {
+    background-position: 0px -3960px;
+}
+
+.icon-cashier-LZCCB {
+    background-position: 0px -3996px;
+}
+
+.icon-cashier-LZYH {
+    background-position: 0px -4032px;
+}
+
+.icon-cashier-MTBANK {
+    background-position: 0px -4068px;
+}
+
+.icon-cashier-NBBANK {
+    background-position: 0px -4104px;
+}
+
+.icon-cashier-NBCBANK {
+    background-position: 0px -4140px;
+}
+
+.icon-cashier-NBYZ {
+    background-position: 0px -4176px;
+}
+
+.icon-cashier-NCB {
+    background-position: 0px -4212px;
+}
+
+.icon-cashier-NDHB {
+    background-position: 0px -4248px;
+}
+
+.icon-cashier-NHB {
+    background-position: 0px -4284px;
+}
+
+.icon-cashier-NJCB {
+    background-position: 0px -4320px;
+}
+
+.icon-cashier-NMGNXS {
+    background-position: 0px -4356px;
+}
+
+.icon-cashier-NXRCU {
+    background-position: 0px -4392px;
+}
+
+.icon-cashier-NYBANK {
+    background-position: 0px -4428px;
+}
+
+.icon-cashier-NYCB {
+    background-position: 0px -4464px;
+}
+
+.icon-cashier-ORBANK {
+    background-position: 0px -4500px;
+}
+
+.icon-cashier-PSBC {
+    background-position: 0px -4536px;
+}
+
+.icon-cashier-PZHCCB {
+    background-position: 0px -4572px;
+}
+
+.icon-cashier-QDCCB {
+    background-position: 0px -4608px;
+}
+
+.icon-cashier-QJCCB {
+    background-position: 0px -4644px;
+}
+
+.icon-cashier-QLBANK {
+    background-position: 0px -4680px;
+}
+
+.icon-cashier-RBOZ {
+    background-position: 0px -4716px;
+}
+
+.icon-cashier-RXCB {
+    background-position: 0px -4752px;
+}
+
+.icon-cashier-RZB {
+    background-position: 0px -4788px;
+}
+
+.icon-cashier-SCB {
+    background-position: 0px -4824px;
+}
+
+.icon-cashier-SCBBANK {
+    background-position: 0px -4860px;
+}
+
+.icon-cashier-SCCB {
+    background-position: 0px -4896px;
+}
+
+.icon-cashier-SCRCU {
+    background-position: 0px -4932px;
+}
+
+.icon-cashier-SDEB {
+    background-position: 0px -4968px;
+}
+
+.icon-cashier-SDRCU {
+    background-position: 0px -5004px;
+}
+
+.icon-cashier-SHBANK {
+    background-position: 0px -5040px;
+}
+
+.icon-cashier-SHRCB {
+    background-position: 0px -5076px;
+}
+
+.icon-cashier-SJBANK {
+    background-position: 0px -5112px;
+}
+
+.icon-cashier-SNCCB {
+    background-position: 0px -5148px;
+}
+
+.icon-cashier-SPABANK {
+    background-position: 0px -5184px;
+}
+
+.icon-cashier-SPDB {
+    background-position: 0px -5220px;
+}
+
+.icon-cashier-SRBANK {
+    background-position: 0px -5256px;
+}
+
+.icon-cashier-SRCB {
+    background-position: 0px -5292px;
+}
+
+.icon-cashier-SXCB {
+    background-position: 0px -5328px;
+}
+
+.icon-cashier-SXRCCU {
+    background-position: 0px -5364px;
+}
+
+.icon-cashier-SXRCU {
+    background-position: 0px -5400px;
+}
+
+.icon-cashier-SZSBK {
+    background-position: 0px -5436px;
+}
+
+.icon-cashier-TACCB {
+    background-position: 0px -5472px;
+}
+
+.icon-cashier-TCCB {
+    background-position: 0px -5508px;
+}
+
+.icon-cashier-TCRCB {
+    background-position: 0px -5544px;
+}
+
+.icon-cashier-TJBHB {
+    background-position: 0px -5580px;
+}
+
+.icon-cashier-TLBANK {
+    background-position: 0px -5616px;
+}
+
+.icon-cashier-TRCB {
+    background-position: 0px -5652px;
+}
+
+.icon-cashier-TSBANK {
+    background-position: 0px -5688px;
+}
+
+.icon-cashier-TZCB {
+    background-position: 0px -5724px;
+}
+
+.icon-cashier-UBCHN {
+    background-position: 0px -5760px;
+}
+
+.icon-cashier-WHBANK {
+    background-position: 0px -5796px;
+}
+
+.icon-cashier-WHCCB {
+    background-position: 0px -5832px;
+}
+
+.icon-cashier-WHRCB {
+    background-position: 0px -5868px;
+}
+
+.icon-cashier-WJRCB {
+    background-position: 0px -5904px;
+}
+
+.icon-cashier-WOORI {
+    background-position: 0px -5940px;
+}
+
+.icon-cashier-WRCB {
+    background-position: 0px -5976px;
+}
+
+.icon-cashier-WZCB {
+    background-position: 0px -6012px;
+}
+
+.icon-cashier-XABANK {
+    background-position: 0px -6048px;
+}
+
+.icon-cashier-XCYH {
+    background-position: 0px -6084px;
+}
+
+.icon-cashier-XJRCU {
+    background-position: 0px -6120px;
+}
+
+.icon-cashier-XLBANK {
+    background-position: 0px -6156px;
+}
+
+.icon-cashier-XMBANK {
+    background-position: 0px -6192px;
+}
+
+.icon-cashier-XTB {
+    background-position: 0px -6228px;
+}
+
+.icon-cashier-XXBANK {
+    background-position: 0px -6264px;
+}
+
+.icon-cashier-XYBANK {
+    background-position: 0px -6300px;
+}
+
+.icon-cashier-XYFRCB {
+    background-position: 0px -6336px;
+}
+
+.icon-cashier-YBCCB {
+    background-position: 0px -6372px;
+}
+
+.icon-cashier-YNRCC {
+    background-position: 0px -6408px;
+}
+
+.icon-cashier-YQCCB {
+    background-position: 0px -6444px;
+}
+
+.icon-cashier-YXCCB {
+    background-position: 0px -6480px;
+}
+
+.icon-cashier-YZBANK {
+    background-position: 0px -6516px;
+}
+
+.icon-cashier-ZBCB {
+    background-position: 0px -6552px;
+}
+
+.icon-cashier-ZGCCB {
+    background-position: 0px -6588px;
+}
+
+.icon-cashier-ZJKCCB {
+    background-position: 0px -6624px;
+}
+
+.icon-cashier-ZJNX {
+    background-position: 0px -6660px;
+}
+
+.icon-cashier-ZJTLCB {
+    background-position: 0px -6696px;
+}
+
+.icon-cashier-ZRCBANK {
+    background-position: 0px -6732px;
+}
+
+.icon-cashier-ZYB {
+    background-position: 0px -6768px;
+}
+
+.icon-cashier-ZYCBANK {
+    background-position: 0px -6804px;
+}
+
+.icon-cashier-ZZBANK {
+    background-position: 0px -6840px;
+}
+
+.icon-cashier-ZZYH {
+    background-position: 0px -6876px;
+}
+
+.icon-cashier-COMM {
+    background-position: 0px -1404px;
+}
+
+
+
+
+
+
+
+/*交通银行*/
+
+.icon-cashier-BJBANK {
+    background-position: 0px -216px;
+}
+
+
+
+
+
+
+
+/*北京银行*/
+
+.icon-cashier-SHBANK {
+    background-position: 0px -5040px;
+}
+
+
+
+
+
+
+
+/*上海银行*/
+
+.icon-cashier-NBBANK {
+    background-position: 0px -4104px;
+}
+
+
+
+
+
+
+
+/*宁波银行*/
+
+.icon-cashier-BOHAIB {
+    background-position: 0px -504px;
+}
+
+
+
+
+
+
+
+/*渤海银行*/
+
+.icon-cashier-NJBANK {
+    background-position: 0px -4320px;
+}
+
+
+
+
+
+
+
+/*南京银行*/
+
+.icon-cashier-CDBANK {
+    background-position: 0px -1115px;
+}
+
+
+
+
+
+
+
+/*成都银行*/
+
+.icon-cashier-DYBANK {
+    background-position: 5px -6918px;
+}
+
+
+
+
+/*东亚银行*/
+
+.bangka-img {
+    width: 192px;
+    .blk-40;
+    object-fit: none;
+}
+.zf-yhkh {
+    .over;
+    .blk-36;
+    .blh-36;
+    .mb-24;
+    span {
+	    .fl;
+	    .mr-33;
+	}
+	input {
+	    .fl;
+	    width: 426px;
+	    .blk-36;
+	    border: 1px solid #ccc;
+	    .pl-10;
+	}
+	.otshixx {
+	  .ml-10;
+	}
+}
+.zf_yinhangzs {
+    width: 202px;
+    background-color: #3a97fa;
+    .fl;
+    .colr-white;
+    .blh-48;
+    .blk-48;
+    .tac;
+}
+.zf_yinhangxe {
+    width: 470px;
+    background-color: #fafafa;
+    .blh-48;
+    .blk-48;
+    color: #333333;
+    .pl-18;
+    .fl;
+}
+
+
+
+.zf-xzyhk {
+    .over;
+    height: 192px;
+    span {
+	    .fl;
+	    margin: 6px 14px 0 0;
+	}
+	.zf-yhlist {
+	    .fl;
+	    width: 690px;
+	    -webkit-transition: all 0.2s;
+	    .over;
+	    label {
+		    .fl;
+		    margin: 0 15px 26px 0;
+		    position:relative;
+		    .zf-yinhicon {
+			    .mr-6;
+			    .fl;
+			    .mt-13;
+			}
+			.yinhangbank {
+			    width: 195px;
+			    .blk-38;
+			    .border;
+			    .fl;
+			}
+			.yinhangbank-on {
+			    border: 1px solid #f39200;
+			}
+		}
+	}
+}
+
+.zf-kjzf,.zf-qywyzf,.zf-wyzf {
+	.pl-20;
+    .pt-26;
+}
+.zhankaicz {
+    margin: 8px 0 14px 85px;
+    cursor: pointer;
+}
+.wangy_c {
+    width: 670px;
+    .f-16;
+    margin-left: 85px;
+    .wangy_name {
+	    .blk-40;
+	    .blh-40;
+	    color: #555555;
+	    background-color: #f8f8f8;
+	    padding: 0 10px;
+	    .border;
+	    border-bottom: none;
+	    background: #f8f8f8;
+	    p {
+		    .f-14;
+		    color: #333;
+		    width: 130px;
+		}
+	    .wang-jets {
+		    float: left;
+		}
+		.wang-rexian {
+		    .fr;
+		    width: auto;
+		    font-size: inherit;
+		    color: #555555;
+		}
+	}
+}
+.wangy_limit {
+    .tac;
+    border-collapse: collapse;
+    th,td{
+    	.pt-10;
+    	.pb-10;
+    	.tac;
+    }
+    th{
+    .f-weight;
+    }
+}
+
+.yinhangbank-on + .yhxzbg {
+    display: block;
+}
+ .yhxzbg {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9;
+}
+.form-group-1{
+	background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin:0 15px;
+    .mb-15;
+    position:relative;
+    label{
+    	background: url(../img/account/searchpsdok_03.png) no-repeat center center;
+		.abs;
+		width: 30px;
+		.blk-34;
+		.cur;        
+    }
+    
+}
+.name_list {
+    background-color: #eee;
+    .blk-40;
+    width: 100%;
+    .border;
+    .over;
+     ul li {
+	    float: left;
+	    .blh-40;
+	    .tac;
+	    .f-16;
+	    width: 50%;
+	    color: #666;
+	}
+}
+.card-people {
+    width: 100%;
+    height: 234px;
+    overflow-y: scroll;
+    ul li {
+	    height: 36px;
+	    line-height: 36px;
+	     ul{
+		     li {
+			    width: 40%;
+			    float: left;
+			}
+	     
+	     	li:first-child {
+			    width: 20%;
+			    text-align: center;
+			    input[type=radio] {
+				    width: 16px;
+				    height: 16px;
+				    display: inline-block;
+				    margin: 10px auto;
+				}
+			}
+	     } 
+		.third-child {
+		    text-align: center;
+		    width: 40%;
+		}
+	}
+
+}
+/*修改密码*/
+.act_password{
+	ul>li{
+		width:100%;
+	}
+}
+/*实名认证*/
+.realname_yz{
+	li{
+		.mt-20;
+		.mb-20;
+		margin-left:218px;
+		span:last-child{
+			.ml-10;
+		}
+		input{
+			.blk-40;
+			.blh-40;
+			.border;
+			.pl-10;
+			width:300px;
+			.f-14;
+		}
+		a{
+			.block;
+			.blk-45;
+			.blh-45;
+			.colr-white;
+			.bgColor(#f39200);
+			.mt-50;
+		    margin: 0 auto;
+		    margin-top: 50px;
+		    width:250px;
+		    .border-radius;
+		    &:hover{
+		    	.bgColor(#f08300);
+		    }
+		}
+	}
+}
+/*物业管理*/
+.wy-banner{
+	width:100%;
+	height:180px;
+	img{
+		width:100%;
+	}
+}
+.wy-check{
+	.mt-15;
+	.check-line{
+		width:100%;
+		.blk-45;
+		.blh-45;
+		.bg-org;
+		.colr-white;
+		.tac;
+		.f-16;
+	}
+	.wy-info{
+		background:#ddd;
+		span{
+			.ml-15;
+		}
+		.yg-info{
+			.pt-20;
+			input{
+				width:150px;
+				.blk-34;
+				.blh-34;
+				.pl-10;
+				.ml-10;
+				.bg-white;
+				border:1px solid #ccc;
+			}
+		}
+		.info-date{
+			.pt-20;
+			.pb-20;
+			input{
+				width:150px;
+				.blk-34;
+				.blh-34;
+				border:1px solid #ccc;
+				.bg-white;
+				.ml-10;
+				.pl-10;
+			}
+			.info-check{
+				.pad(6px 20px);
+				.bg-org;
+				.colr-white;
+				.ml-15;
+				border-radius:5px;
+				&:hover{
+					.bgColor(#f7931e);
+				}
+			}
+		}
+	}
+	.wy-touzi{
+		width:100%;
+		.blk-40;
+		.blh-40;
+		.pl-40;
+		span{
+			.colr-org;
+		}
+	}
+}
+.tb-expired{
+	tbody>tr.tr-color{
+		color:#ccc !important;
+		a{
+    		color:#ccc;
+    	}
+	}
+}
+/*消息记录*/
+.tab-inp-text{
+	input[type=checkbox]{
+		width:15px;
+		height:15px;
+	}
+	input[type=checkbox]:checked::before {
+		display:block;
+		width:14px;
+		.blk-14;
+		.blh-14;
+	}
+	tbody > tr:hover{
+		background:#fff;
+	}
+}
+/*自动投资协议*/
+.little_title {
+    .blh-24;
+    .blk-24;
+    .bg-white;
+    .pad(5px 0);
+    .f-16;
+    text-indent:2em;
+}
+.title_content {
+    text-indent: 28px;
+    font-size: 14px;
+    line-height: 28px;
+}
+#dataTable1,#dataTable2,#dataTable3{
+	tbody tr td{width:280px;}
+}
+
+
+
+
+
+
+
+
+
+

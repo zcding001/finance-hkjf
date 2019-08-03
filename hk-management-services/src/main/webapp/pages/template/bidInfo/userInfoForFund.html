@@ -1,0 +1,69 @@
+<div class="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="userInfoHeader" aria-hidden="true">
+    <input type="hidden" id="advisoryId">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="userInfoHeader"></h4>
+            </div>
+
+            <div class="modal-body" id="matchBody">
+                <div>
+                    <span id="showErroSpan" style="color: red"></span>
+                </div>
+                <form id="usersTable-searchForm">
+                    姓名：<input name="realName" class="form-control" style="width: 130px;display:inline-block;">&nbsp;&nbsp;
+                    手机号：<input name="login"  class="form-control" validate="tel" style="width: 130px;display:inline-block;">&nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="btn btn-info" id="usersTable-searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                    <a href="javascript:void(0)" class="btn btn-danger" id="usersTable-searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                </form>
+                <hr>
+                <font color="red" id="errorMsg"></font>
+                <table id="usersTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+    var userColumns = [
+        {title:"手机号", data: "login",className:"dt-simple"},
+        { title:"姓名", data: "realName" ,className:"dt-simple"},
+        { title:"员工类型", data: "type" ,className:"dt-simple",
+            render: function (value, type, row) {
+                //return DIC_CONSTANT.getName("ros", "type", value);
+                return DIC_CONSTANT.getName("ros", "staff_type", value);
+            }
+        },
+        {
+            title:"操作",
+            data: null,
+            className:"dt-operate",
+            render: function (data, type, row, meta) {
+                //选择按钮
+                var btn = '<a href="javascript:void(0)"  onclick="assignUserId(\'' + row.regUserId + '\', \'' + row.realName + '\');" class="fa ' +'' + 'hide-underline" style="padding-left: 3px;padding-right: 3px;">选择</a>';
+                return btn;
+            }
+        }
+    ];
+    //创建dataTable列表
+    //dataTableUtil.createDT(CONFIG.interface.rosInfoList+'?searchTable=usersTable&type=16&flag=1', userColumns,'usersTable');
+    dataTableUtil.createDT(CONFIG.interface.rosStaffInfoList+'?searchTable=usersTable&type=2&state=1', userColumns,'usersTable');
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm(null,'usersTable','usersTable-searchForm');
+
+    // 分配
+    function assignUserId(userId,realName) {
+        $("#userInfoModal").modal('hide');
+        var $advisoryId = $('#advisoryId').val();
+        var $data = {id:$advisoryId,
+                    assignUserId:userId,
+                    assignUserName:realName,
+                    state:2,
+                    ajaxUrl:"fundAdvisoryController/assignSales"};
+        commonUtil.confirmRequest(encryptAndDecryptUtil.encrypt(JSON.stringify($data)), "指派销售人员", "是否确认指派给【"+ realName +"】,并发送短信?");
+    }
+
+
+</script>

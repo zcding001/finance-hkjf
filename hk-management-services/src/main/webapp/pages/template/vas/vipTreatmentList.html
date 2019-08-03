@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">会员待遇维护</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addVipTreatment')"
+                   style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="panel-body" >
+                <div>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title:"待遇\\\等级",data:"type",width:"80px",render:function (data,type,row,meta) {
+            return DIC_CONSTANT.getName("vas","vip_treatment_type",data);
+        }}
+    ]
+    //动态生成列头，获取等级
+    var levelDic = DIC_CONSTANT.getValueAndName("vas","vip_grade");
+    for (var i in levelDic){
+        var level = levelDic[i].value;
+        var column = {title:levelDic[i].name,data:"ruleContents",render:function
+            (data,type,row,meta) {
+            var level = DIC_CONSTANT.getValue("vas","vip_grade",$("#mDataTable thead th").eq(meta.col).html());
+            var ruleContents = JSON.parse(data);
+            if (level > 4) ruleContents.reverse();//提高遍历效率
+            for (var i in ruleContents){
+                if(ruleContents[i].grade == level){
+                    if(ruleContents[i].code === "-1"){
+                        if (row.type === 6){return "报名参加"};
+                        return "无";
+                    }else {
+                        var message = "";
+                        switch (row.type){
+                            case 1:{message = "赠送"+ruleContents[i].rulem+"%投资加息券"+ruleContents[i].rulen+"张";break;}//投资加息
+                            case 2:{message = "签到额外"+ruleContents[i].rulem+"积分/天";break;}//签到升级
+                            case 3:{message = "赠送"+ruleContents[i].rulem+"%投资加息券"+ruleContents[i].rulen+"张";break}//生日礼券
+                            case 4:{message = "赠送免费提现券"+ruleContents[i].rulen+"张";break;}//提现优惠
+                            case 5:{message = "QQ专属服务";break;}//专属客服
+                            case 6:{message = "专人通知";break;}//线下活动
+                            case 7:{message = "赠送"+ruleContents[i].rulem+"元投资红包"+ruleContents[i].rulen+"张";break;}//投资红包
+                            case 8:{message = "赠送"+ruleContents[i].rulem+"%好友券"+ruleContents[i].rulen+"张";break;}//好友券
+                        }
+                        return message;
+                    }
+                }
+            }
+            return "无";
+        }};
+        columns.push(column);
+    }
+    var registTimeColumn = {title:"适用用户注册时间范围",data:"registBeginTime",render:function (data,type,row) {
+        return dateUtil.date(data) + "至" + dateUtil.date(row.registEndTime);
+    }};
+    var operateColumn = {title:"操作",data:null,width:"80px",className:"dt-operate",render:function (data,type,row,meta) {
+        var btn = "";
+        //禁用状态0时-可启用和修改；启用状态1时-可禁用和修改；
+        var state = 1;
+        var text = "启用";
+        var icon = "fa-check-square";
+        if (row.state === 1){
+            state = 0;
+            text = "禁用";
+            icon = "fa-ban";
+        }
+        //启用按钮
+        btn = btn +
+            commonUtil.createConfirmRequestBtn({id:row.id,state:state,ajaxUrl:CONFIG.interface.updateVipTreatment},text,text +
+                "会员待遇","确定"+text+"该会员待遇么!",icon);
+        //修改按钮
+        btn = btn +
+            commonUtil.createDirectRequestBtn({param:JSON.stringify(row),target:"addVipTreatment"},"修改","fa-edit");
+        return btn;
+    }};
+    columns.push(registTimeColumn);
+    columns.push(operateColumn);
+    dataTableUtil.createDTNoPageByList(CONFIG.interface.vipTreatmentList,columns);
+</script>

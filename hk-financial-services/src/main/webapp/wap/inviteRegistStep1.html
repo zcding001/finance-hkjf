@@ -1,0 +1,145 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<!-- Sets initial viewport load and disables zooming  -->
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>鸿坤金服网站_注册页</title>
+
+		<!-- Include the compiled Ratchet CSS -->
+		<link href="../src/css/wap/share.css" rel="stylesheet">
+		<!-- Include the compiled Ratchet JS -->
+		<script src="../lib/jquery/jquery-1.12.1.min.js"></script>
+		<script src="../src/js/ratchet.min.js"></script>
+		<script src="../src/js/radius.js"></script>
+		<script type="text/javascript" src="../src/js/Validform_v5.3.2_min.js"></script>
+		<script type="text/javascript" src="../src/js/Validform_Datatype.js"></script>
+
+		<script type="text/javascript" src="../lib/utils/commonUtil.js"></script>
+		<script type="text/javascript" src="../lib/utils/cookieUtil.js"></script>
+		<script type="text/javascript" src="../lib/utils/extendUtil.js"></script>
+		<script type="text/javascript" src="../lib/utils/ajaxUtil.js"></script>
+		<script type="text/javascript" src="../lib/utils/validUtil.js"></script>
+		<script type="text/javascript" src="../lib/constants.js"></script>
+
+	</head>
+	<body>
+		<!-- 表单内容开始 -->
+		<div class="zc_main">
+		  <img src="../src/img/wap/app_banner.png" width="100%">
+		<form name="registForm" id="registForm">
+		<p class="zc_text">您的好友<span class="c_red" id="commendTel"></span>邀请您与TA一起理财，输入手机号码即可领取
+			<span class="c_red">0.1%-1%加息券，1元-200元投资红包；</span></p>
+		<div class="zc_from">
+		<div class="zc_phone fl"></div>
+		<input type="text" id="login" name="login"  class="zc_input fr" value="请输入手机号" style="padding-left: 10px;"/>
+		<input type="hidden" id="invitNo" name="invitNo" value="${invitNo}" />
+		<div class="clear" id="loginMsg" style="color:red;padding-left: 16%;"></div>
+		</div>
+		<a href="javascript:void(0)" id="btn_sub" class="zc_button" style="background:#bc1b21;color:#fff;">马上领取</a>
+		</form>
+		</div>
+		<!-- 表单内容结束 -->
+		<!-- 遮罩层 -->
+
+		<div class="jd_win" style="display:none;">
+			<div class="jd_win_box">
+			  <img src="../src/img/wap/img_jiazai_1.gif" alt="加载小圆圈">
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+//手机号校验是否通过 0:通过校验 1:未输入 2:格式错误 3:已经注册
+var phoneCheckFlg = 1;
+//推荐用户的邀请码
+var inviteNo;
+//提交表单
+$(function(){
+	//获取url上的参数
+	var param = commonUtil.getRequestParamByUrl();
+	//获取url中用户的推荐码
+    inviteNo = param.inviteNo;
+	if(commonUtil.isEmpty(inviteNo)){
+        commendUserInfoError();
+	}else {
+        //判断推荐人邀请码是否正确回调函数
+        var callBack = function (result) {
+            if (result.resStatus == CONSTANTS.SUCCESS){
+                $("#commendTel").append(result.resMsg);
+            }else {
+                commendUserInfoError();
+			}
+        };
+        //判断推荐人邀请码是否正确
+        ajaxUtil.post("/indexController/getUserInfoByInviteNo.do",param,callBack);
+	}
+
+	$('.zc_input').bind({
+		focus:function(){
+			$(this).css("color","#000000");
+			if (this.value == this.defaultValue){
+				this.value="";
+			}
+		},
+		blur:function(){
+			$(this).css("color","#999");
+			if (this.value == ""){
+				this.value = this.defaultValue;
+			}
+		}
+	});
+	// 手机号
+	$("#login").blur(function(){
+		loginBlur();
+	});
+
+	$("#btn_sub").click(function(){
+		loginBlur();
+		if (phoneCheckFlg != 0){
+		    return;
+		}
+		//校验成功跳转至step2注册页面
+		window.location.href = "inviteRegistStep2.html?tel=" + $("#login").val() + "&inviteNo=" + inviteNo;
+    });
+});
+
+function commendUserInfoError() {
+    $("#login").removeClass("success");
+    $("#loginMsg").show().html("邀请人信息错误!");
+    phoneCheckFlg = 3;
+}
+
+function loginBlur() {
+	var login = $("#login").val();
+	if(!validUtil.validTelFormat(login)) {
+		phoneCheckFlg = 2;
+		$("#login").removeClass("success");
+		$("#loginMsg").show().html("请输入正确的手机号!");
+		return false;
+	}
+	$(".jd_win").show();
+	//判断当前注册用户手机号是否正确回调含函数
+    var callBack = function (result) {
+        if (result.resStatus == CONSTANTS.SUCCESS){
+            //隐藏错误提示信息
+            $("#login").addClass("success");
+			$("#loginMsg").hide();
+            phoneCheckFlg = 0;
+        }else {
+            $("#login").removeClass("success");
+			$("#loginMsg").show().html(result.resMsg);
+            phoneCheckFlg = 3;
+        }
+        $(".jd_win").hide();
+    };
+    //判断当前注册用户手机号是否正确
+    ajaxUtil.post("/indexController/validLogin.do",{"login":login},callBack,null,false);
+}
+
+</script>

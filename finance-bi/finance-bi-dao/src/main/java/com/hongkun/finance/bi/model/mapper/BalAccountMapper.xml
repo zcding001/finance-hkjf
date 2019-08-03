@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.BalAccount">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_BalAccount" type="com.hongkun.finance.bi.model.BalAccount">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="realName" column="real_name"/>
+		<result property="tel" column="tel"/>
+		<result property="acitveFee" column="acitve_fee"/>
+		<result property="inMoneySum" column="in_money_sum"/>
+		<result property="outMoneySum" column="out_money_sum"/>
+		<result property="inPointSum" column="in_point_sum"/>
+		<result property="outPointSum" column="out_point_sum"/>
+		<result property="state" column="state"/>
+		<result property="createdTime" column="created_time"/>
+		<result property="modifiedTime" column="modified_time"/>
+		<result property="freezeMoney" column="freeze_money"/>
+		<result property="useableMoney" column="useable_money"/>
+		<result property="point" column="point"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,real_name,tel,acitve_fee,in_money_sum,out_money_sum,in_point_sum,out_point_sum,state,created_time,modified_time,freeze_money,useable_money,point
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bal_account (
+		<if test="id != null">
+			id ,
+		</if>
+		<if test="regUserId != null">
+			reg_user_id ,
+		</if>
+		<if test="realName != null and realName != ''">
+			real_name ,
+		</if>
+		<if test="tel != null and tel != ''">
+			tel ,
+		</if>
+		<if test="acitveFee != null">
+			acitve_fee ,
+		</if>
+		<if test="inMoneySum != null">
+			in_money_sum ,
+		</if>
+		<if test="outMoneySum != null">
+			out_money_sum ,
+		</if>
+		<if test="inPointSum != null">
+			in_point_sum ,
+		</if>
+		<if test="outPointSum != null">
+			out_point_sum ,
+		</if>
+
+		<if test="freezeMoney != null">
+			freeze_money ,
+		</if>
+		<if test="useableMoney != null">
+			useable_money ,
+		</if>
+		<if test="point != null">
+			point,
+		</if>
+		state,
+		created_time ,
+		modified_time
+		) VALUES (
+		<if test="id != null">
+			#{id} ,
+		</if>
+		<if test="regUserId != null">
+			#{regUserId} ,
+		</if>
+		<if test="realName != null and realName != ''">
+			#{realName} ,
+		</if>
+		<if test="tel != null and tel != ''">
+			#{tel} ,
+		</if>
+		<if test="acitveFee != null">
+			#{acitveFee} ,
+		</if>
+		<if test="inMoneySum != null">
+			#{inMoneySum} ,
+		</if>
+		<if test="outMoneySum != null">
+			#{outMoneySum} ,
+		</if>
+		<if test="inPointSum != null">
+			#{inPointSum} ,
+		</if>
+		<if test="outPointSum != null">
+			#{outPointSum} ,
+		</if>
+
+		<if test="freezeMoney != null">
+			#{freezeMoney} ,
+		</if>
+		<if test="useableMoney != null">
+			#{useableMoney} ,
+		</if>
+		<if test="point != null">
+			#{point},
+		</if>
+		<if test="state != null">
+			#{state},
+		</if>
+		<if test="state == null">
+			DEFAULT ,
+		</if>
+		<choose>
+			<when test="createdTime != null">
+				#{createdTime} ,
+			</when>
+			<otherwise>
+				NOW() ,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="modifiedTime != null">
+				#{modifiedTime}
+			</when>
+			<otherwise>
+				NOW()
+			</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO bal_account (
+	       	id ,
+	       	reg_user_id ,
+	       	real_name ,
+	       	tel ,
+	       	acitve_fee ,
+	       	in_money_sum ,
+	       	out_money_sum ,
+	       	in_point_sum ,
+	       	out_point_sum ,
+	       	state ,
+	       	created_time ,
+	       	modified_time ,
+	       	freeze_money ,
+	       	useable_money ,
+	       	point
+        ) VALUES
+        ]]>
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="item.id != null">
+				#{item.id} ,
+			</if>
+			<if test="item.id == null">
+				DEFAULT ,
+			</if>
+			<if test="item.regUserId != null">
+				#{item.regUserId} ,
+			</if>
+			<if test="item.regUserId == null">
+				DEFAULT ,
+			</if>
+			<if test="item.realName != null and item.realName != ''">
+				#{item.realName} ,
+			</if>
+			<if test="item.realName == null or item.realName == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.tel != null and item.tel != ''">
+				#{item.tel} ,
+			</if>
+			<if test="item.tel == null or item.tel == ''">
+				DEFAULT ,
+			</if>
+			<if test="item.acitveFee != null">
+				#{item.acitveFee} ,
+			</if>
+			<if test="item.acitveFee == null">
+				DEFAULT ,
+			</if>
+			<if test="item.inMoneySum != null">
+				#{item.inMoneySum} ,
+			</if>
+			<if test="item.inMoneySum == null">
+				DEFAULT ,
+			</if>
+			<if test="item.outMoneySum != null">
+				#{item.outMoneySum} ,
+			</if>
+			<if test="item.outMoneySum == null">
+				DEFAULT ,
+			</if>
+			<if test="item.inPointSum != null">
+				#{item.inPointSum} ,
+			</if>
+			<if test="item.inPointSum == null">
+				DEFAULT ,
+			</if>
+			<if test="item.outPointSum != null">
+				#{item.outPointSum} ,
+			</if>
+			<if test="item.outPointSum == null">
+				DEFAULT ,
+			</if>
+			<choose>
+				<when test="item.createdTime != null">
+					#{item.createdTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifiedTime != null">
+					#{item.modifiedTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="item.freezeMoney != null">
+				#{item.freezeMoney} ,
+			</if>
+			<if test="item.freezeMoney == null">
+				DEFAULT ,
+			</if>
+			<if test="item.useableMoney != null">
+				#{item.useableMoney} ,
+			</if>
+			<if test="item.useableMoney == null">
+				DEFAULT ,
+			</if>
+			<if test="item.point != null">
+				#{item.point}
+			</if>
+			<if test="item.point == null">
+				DEFAULT
+			</if>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+			</if>
+			<if test="realName != null and realName != ''">
+				real_name = #{realName} ,
+			</if>
+			<if test="tel != null and tel != ''">
+				tel = #{tel} ,
+			</if>
+			<if test="acitveFee != null ">
+				acitve_fee = #{acitveFee} ,
+			</if>
+			<if test="inMoneySum != null ">
+				in_money_sum =  #{inMoneySum} ,
+			</if>
+			<if test="outMoneySum != null ">
+				out_money_sum =  #{outMoneySum} ,
+			</if>
+			<if test="inPointSum != null">
+				in_point_sum = #{inPointSum} ,
+			</if>
+			<if test="outPointSum != null">
+				out_point_sum = #{outPointSum} ,
+			</if>
+			<if test="createdTime != null">
+				created_time = #{createdTime} ,
+			</if>
+			<if test="freezeMoney != null ">
+				freeze_money =  #{freezeMoney} ,
+			</if>
+			<if test="useableMoney != null ">
+				useable_money = #{useableMoney} ,
+			</if>
+			<if test="point != null">
+				point = #{point},
+			</if>
+			modified_time = now()
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  bal_account
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE
+			id = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM bal_account
+		WHERE
+			id = #{id}
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_BalAccount">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bal_account
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="realName != null and realName !=''">
+				AND real_name = #{realName}
+			</if>
+			<if test="tel != null and tel !=''">
+				AND tel = #{tel}
+			</if>
+			<if test="acitveFee != null">
+				AND acitve_fee = #{acitveFee}
+			</if>
+			<if test="inMoneySum != null">
+				AND in_money_sum = #{inMoneySum}
+			</if>
+			<if test="outMoneySum != null">
+				AND out_money_sum = #{outMoneySum}
+			</if>
+			<if test="inPointSum != null">
+				AND in_point_sum = #{inPointSum}
+			</if>
+			<if test="outPointSum != null">
+				AND out_point_sum = #{outPointSum}
+			</if>
+			<if test="createdTimeBegin != null">
+				AND created_time >= #{createdTimeBegin}
+			</if>
+			<if test="createdTimeEnd != null">
+				AND created_time &lt;= #{createdTimeEnd}
+			</if>
+			<if test="modifiedTimeBegin != null">
+				AND modified_time >= #{modifiedTimeBegin}
+			</if>
+			<if test="modifiedTimeEnd != null">
+				AND modified_time &lt;= #{modifiedTimeEnd}
+			</if>
+			<if test="freezeMoney != null">
+				AND freeze_money = #{freezeMoney}
+			</if>
+			<if test="useableMoney != null">
+				AND useable_money = #{useableMoney}
+			</if>
+			<if test="point != null">
+				AND point = #{point}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM bal_account
+		<include refid="findPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_BalAccount">
+		SELECT <include refid="columns" />
+		FROM bal_account
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="findBalAccountByRegUserId" resultMap="_BalAccount">
+		SELECT <include refid="columns" />
+		FROM bal_account
+		WHERE  reg_user_id = #{regUserId}
+	</select>
+</mapper>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="${project_base_path}/logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/footPage.css" />
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+    <!-- 账户注册 -->
+    <div class="ques_top">
+        <div class="container">
+            <p>常见问题</p>
+        </div>
+    </div>
+    <div class="container clearfix">
+         <!-- 左侧菜单 -->
+        <div class="include" file="${project_base_path}/common/footLeftMenu.html"></div>
+        <!-- 右侧页面 -->
+        <div class="ask_rt fr">
+            <div class="ask_cont">
+                <h1>账户注册</h1>
+            </div>
+            <div class="hongbao_list">
+                <div class="ask_active">
+                    <div class="hb_c clearfix">
+                        <h1 class="fl">如何进行账户注册？</h1>
+                        <p class="fr"></p>
+                    </div>
+                    <div class="hb_show" style="display: none;">
+                        <p>
+                            1. 登录网址hongkunjinfu.com鸿坤金服首页，点击右上角“快速注册”。根据提示信息，填写您的用户名、手机号码、验证码、密码及推荐人的手机后八位等信息，点击“下一步”。
+                            <br>
+                            <img src="${project_base_path}/src/img/footPage/zhuce_img1.jpg" width="730" class="mt-20 mb-10">
+                            <br>
+                            <br> 2. 实名验证。
+                            <br>
+                            <img src="${project_base_path}/src/img/footPage/zhuce_img2.jpg" width="730" class="mt-20 mb-10">
+                            <br>
+                            <br> 3. 前两步注册成功,就可以开启投资之旅了。
+                            <img src="${project_base_path}/src/img/footPage/zhuce_img3_1.jpg" width="730" class="mt-20 mb-10">
+                            <br>
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="ask_active bor_b">
+                    <div class="hb_c clearfix">
+                        <h1 class="fl">如何进行密码找回？</h1>
+                        <p class="fr"></p>
+                    </div>
+                    <div class="hb_show" style="display: none;">
+                        <p>
+                            1. 点击首页“登录”-点击“忘记密码”。
+                            <br> 2. 填写注册时的手机号码。
+                            <br> 3. 输入发送给您的验证码。
+                            <br> 4. 根据提示，输入新密码，点击确认后，重置密码成功，可使用新密码登录鸿坤金服。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot_top">
+        <div class="container">
+            <div class="">选择鸿坤金服，安心享受高收益</div>
+            <div class=""><a href="${project_base_path}/invest/investList.html">马上去赚钱</a></div>
+        </div>
+    </div>
+<!-- 底部开始 -->
+    <div class="include" file="${project_base_path}/common/footer.html"></div>
+ <!-- 底部结束 -->
+</body>
+<!-- 公共js -->
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script>
+$(function() {
+    $(".hb_c").on("click", function() {
+        $(this).siblings(".hb_show").slideToggle("normal");
+    })
+    $(".ask_active").on("mouseover", function() {
+        $(this).addClass("ask");
+        $(this).find(".hb_c").addClass("hb_c_1").find("h1").css("color", "#f39200");
+        $(this).find(".hb_show").css("border-top", "2px solid #f39200");
+    })
+    $(".ask_active").on("mouseout", function() {
+        $(this).removeClass("ask");
+        $(this).find(".hb_c").removeClass("hb_c_1").find("h1").css("color", "#333");
+        $(this).find(".hb_show").css("border-top", "1px solid #ddd");
+
+    })
+})
+</script>
+</html>

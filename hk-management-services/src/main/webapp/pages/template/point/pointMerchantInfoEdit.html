@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               积分商户
+            </div>
+            <!-- /.panel-heading -->
+            <form name="pointMerchantForm" id="pointMerchantForm" enctype="multipart/form-data" novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                   <input type="hidden" name="id" id="id" ng-value="pointMerchantInfo.id"/>
+		                <br/>
+		                 <div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>商户名称:</label>
+		       			     <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="请填写商户名称" name="merchantName" ng-model="pointMerchantInfo.merchantName" type="text"  validator="required" valid-method="blur" message-id="merchantNameError">
+						 <span style="color:#F00;display:inline-block;" class="bid-info" id="merchantNameError"></span>
+						</div>
+						<div class="form-group" id="orginAddress" hidden="hidden">
+							<label class="textright">原地址:</label>
+							<span >{{pointMerchantInfo.address}}</span>
+						</div>
+						<div class="form-group">
+							<label class="textright">商户地址:</label>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle"  ng-model="selectedProvince" ng-change="provincesChange()" style="width: 11.5%;" ng-options="p.areaName as p.areaName for p in registerProvinces">
+								<option  value="">请选择省</option>
+								<!--<option ng-repeat="tmp in registerProvinces" value="{{tmp.areaName}}">{{tmp.areaName}}</option>-->
+							</select>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle"  ng-model="selectedCity" ng-change="citysChange()"  style="width: 16.5%;" ng-options="c.areaName as c.areaName for c in registerCitys">
+								<option  value="">请选择市</option>
+							</select>
+							<select  class="form-control ng-pristine ng-valid ng-touched textstyle"  ng-model="selectedCounty"  style="width: 16.5%;" ng-options="c.areaName as c.areaName for c in registerCountys">
+								<option  value="">请选择县</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="textright">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="详细地址"  ng-model="addressDetail" type="text" >
+						</div>
+						<input type="hidden" name="address" ng-value="selectedProvince+selectedCity+selectedCounty+addressDetail"/>
+
+						<div class="form-group">
+							<input type="hidden" name="regUserId" id="borrowerId"/>
+							<label class="textright"><span class="font-red">*&nbsp;</span>商铺联系人:</label>
+							<a href="javascript:void(0)" ng-click="selectUser('borrowerId');">请选择</a>
+							<span id="borrowName"  style="color:red"></span>
+							<span style="color:#F00" class="bid-info" id="borrowerError"></span>
+						</div>
+						<div class="form-group">
+		       			  <label class="textright"><span class="font-red">*&nbsp;</span>营业执照:</label>
+		       			    <input  file-model="businessLicenseUrl"  id="Pic_businessLicenseUrl" type="file" onchange="angular.element(this).scope().upload('Pic_businessLicenseUrl')"  style="display:inline-block;">
+	      			       <span style="color:#F00" class="bid-info" id="businessLicenseUrlError"></span>
+						 </div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>开户许可证:</label>
+							<input  file-model="permitUrl"  id="Pic_permitUrl" type="file" onchange="angular.element(this).scope().upload('Pic_permitUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="permitUrlError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>身份证正面:</label>
+							<input file-model="idcardFrontUrl"  id="Pic_idcardFrontUrl" type="file" onchange="angular.element(this).scope().upload('Pic_idcardFrontUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="idcardFrontUrlError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>身份证反面:</label>
+							<input file-model="idcardBackUrl"  id="Pic_idcardBackUrl" type="file" onchange="angular.element(this).scope().upload('Pic_idcardBackUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="idcardBackUrlError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright"><span class="font-red">*&nbsp;</span>是否餐饮行业:</label>
+							<input type="radio" name="businessType"  value="0" ng-model="pointMerchantInfo.businessType" ng-value="false"/>否
+							<input type="radio" name="businessType" value="1" ng-model="pointMerchantInfo.businessType"  ng-value="true"/>是
+						</div>
+						<div class="form-group" ng-show="pointMerchantInfo.businessType">
+							<label class="textright"><span class="font-red">*&nbsp;</span>卫生许可证:</label>
+							<input  file-model="hygieneLicenseUrl"  id="Pic_hygieneLicenseUrl" type="file" onchange="angular.element(this).scope().upload('Pic_hygieneLicenseUrl')" style="display:inline-block;">
+							<span style="color:#F00" class="bid-info" id="hygieneLicenseUrlError"></span>
+						</div>
+						<div class="form-group">
+							<label class="textright">备注:</label>
+							<input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="备注" name="note" ng-model="pointMerchantInfo.note" type="text" >
+						</div>
+
+		     		 <div ng-show="isSaveBtn">
+			     		 <button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(pointMerchantForm)" validator-submit="pointMerchantForm">保存</button>
+	                     <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+	                 </div>
+	                  <div ng-hide="isSaveBtn">
+			     		 <button type="button" ng-model="showPage" class="btn btn-outline btn-success"  ng-click="submit(pointMerchantForm)" validator-submit="pointMerchantForm">修改</button>
+	                     <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+	                 </div>
+
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<div ng-include="'pages/template/bidInfo/userInfo.html'"></div>

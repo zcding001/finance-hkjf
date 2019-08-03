@@ -1,0 +1,192 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+            	<span style="float:left;">体验金发放</span>
+              	<a href="javascript:void(0)" class="btn btn-danger" onclick="goSimGrant()" style="display:inline-block;float:right;">发放体验金</a>
+            </div>
+            <div class="panel-heading clearfix" >
+               <table  class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                            <tr>
+									<td>
+									  		 共发放：<span id="sumTotalPerson"></span>人
+									</td>
+									<td>
+										共发放体验金总额：<span id="sumSimGrantToTalMoney"></span>元
+									</td>
+							</tr>
+                          <tr>
+								<td>
+								   完成投资金额：<span id="sumInvestSimTotalMoney"></span>元
+								</td>
+								<td>
+								未完成投资金额：<span id="sumNoInvestSimMoney"></span>元
+								</td>
+							</tr>
+							<tr>
+								<td>
+								  平台待回收体验金总额：<span id="sumWaitSimTotalMoney"></span>元
+								</td>
+								<td>
+								平台待支付利息总金额：<span id="sumInterestTotalMoney">0.00</span>元
+								</td>
+							</tr>
+			</table>   				
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           			    <input name="userId" type="hidden" id="userId"/>
+           				<div>
+           				姓名：<input name="realName" class="form-control" style="width: 120px;display:inline-block;">
+           				身份证号：<input name="idCard" class="form-control" style="width: 180px;display:inline-block;">
+           				手机号：<input name="login" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           				状态：<select name="state" class="form-control" style="width: 120px;display:inline-block;">
+            					<option value="-999">全部</option>
+            					<option value="1">启用</option>
+            					<option value="0">禁用</option>
+            			</select>
+            			用户类型：
+           				<select id="type" name="type" class="form-control" style="width: 120px;display:inline-block;"></select>
+           				</div>
+						<div style="margin-top: 15px;">
+           				注册时间：<input type="text" id="start" name="createTimeStart" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="createTimeEnd" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+						<a href="javascript:void(0)" class="btn btn-success" id="searchForm-importBtn" style="display:inline-block;">批量导入</a>
+						</div>           				
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+var columns = [
+    dataTableUtil.createCheckBox("userId"),
+{title:"手机号", data: "login",className:"dt-simple"},
+{ title:"姓名/企业名称", data: "realName" ,className:"dt-simple"},
+{ title:"身份证号/执照编号", data: "idCard" ,className:"dt-simple"},
+{ 
+	title:"用户类型", 
+	data: "type", 
+	className:"dt-simple",
+	render:function(value, type, row, meta){
+		return DIC_CONSTANT.getName("user", "type", value);
+	}
+},
+{ 
+	title:"状态",
+	data: "state",className:"dt-simple",
+	render:function(value, type, row, meta){
+		return value == 1 ? "启用" : "禁用";
+	}
+},
+{ 
+	title:"注册时间", 
+	data: "createTime",
+	className:"dt-simple",
+	render:function(value, type, row, meta){
+		return dateUtil.date(value);
+	}
+}
+];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.userList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+$("#type").append(DIC_CONSTANT.getOption("user", "type", "", "1,2,3,4,5"));
+findSimGoldInfo();
+function findSimGoldInfo(){
+	$.ajax({
+	    url : CONFIG.interface.findSimGoldCountInfo,
+	    type : 'post',
+	    dataType : 'json',
+	    async : false,
+	    success : function(resultData) {
+	    	console.log(resultData);
+	    	$("#sumWaitSimTotalMoney").html(resultData.resMsg.sumInvestSimTotalMoney);
+	    	$("#sumTotalPerson").html(resultData.resMsg.sumTotalPerson);
+	    	$("#sumSimGrantToTalMoney").html(resultData.resMsg.sumSimGrantToTalMoney);
+	    	$("#sumInvestSimTotalMoney").html(resultData.resMsg.sumInvestSimTotalMoney);
+	    	$("#sumNoInvestSimMoney").html(resultData.resMsg.sumNoInvestSimMoney);
+	    	$("#sumInterestTotalMoney").html(resultData.resMsg.sumInterestTotalMoney);
+	    },
+	    error : function(msg) {
+            commonUtil.createSimpleNotify("数据加载失败",ALERT_ERR);
+	    }
+	});
+}
+
+
+//发放体验金判断逻缉及跳转
+function goSimGrant(){
+    //获取选中的用户id集合并赋值
+	if (dataTableUtil.setCheckedValToObject("ids")){
+        $("#ids").attr("name", "userIds");
+	}else {
+        commonUtil.createSimpleNotify("请至少选择一个用户!", ALERT_WARN);
+        return;
+	}
+	var select='事件类型：<select id="ruleType" name="ruleType">'+DIC_CONSTANT.getOption("vas", "gold_rule_type","empty")+'</select>';
+	var contents = '&nbsp;&nbsp;体验金金额：<input name="money" type="text" class="confirmChildren"/> 元';
+	contents=select+contents;
+    commonUtil.createCustomConfirmBox("发放体验金",contents,CONFIG.interface.saveSimGrant,validateMoney,commonUtil.customConfirmStandardAfterExecuteFn);
+}
+
+/**
+ * 验证体验金金额准确性
+ * @returns {boolean}
+ */
+function validateMoney(){
+	 if(commonUtil.isEmpty($("select[name=ruleType]").val())){
+			$("#_confirmError").text("请选择事件类型！");
+			return false;
+	 }
+	if(!commonUtil.isDivideByValue($("input[name=money]").val(),100)){
+		$("#_confirmError").text("请输入100的整数倍金额！");
+		return false;
+	}
+	var returnFlag=false;
+	$.ajax({
+	    url : CONFIG.interface.findSimGoldRuleState,
+	    type : 'post',
+	    dataType : 'json',
+	    data:{'type':$("select[name=ruleType]").val()},
+	    async : false,
+	    success : function(resultData) {
+	    	console.log(resultData.resStatus);
+	    	if(parseInt(resultData.resStatus)!=CONFIG.CONSTANTS.SUCCESS_STATE){
+	    		$("#_confirmError").text("请设置该事件类型的规则为启用！");
+	    		return false;
+	    	}else{
+	    		returnFlag=true;
+	    	}
+	    },
+	    error : function(msg) {
+            commonUtil.createSimpleNotify("数据加载失败",ALERT_ERR);
+	    }
+	});
+	if(returnFlag){
+		return true;
+	}
+	
+}
+var importUrl = {target: 'simGoldImport'};
+$("#searchForm-importBtn").click(goSimGoldImport);
+function goSimGoldImport() {
+	commonUtil.directRequest(encryptAndDecryptUtil.encrypt(JSON.stringify(importUrl)));
+}
+</script>

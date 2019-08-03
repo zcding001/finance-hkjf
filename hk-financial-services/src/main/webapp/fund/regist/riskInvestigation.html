@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/index-main.css?v=11115">
+   	<link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/guquan.css?v=11115">
+
+    <title>投资者风险问卷调查</title>
+</head>
+
+<body>
+    <!-- 头部开始 -->
+	<div class="include" file="${project_base_path}/fund/common/fund_header.html"></div>
+    <!-- 头部结束 -->
+
+    <!-- 风险调查问卷 开始-->
+    <div class="reg_main">
+         <div class="rz_main_ain">
+             <img src="${project_base_path}/src/img/guquan/icon_fxwjdcf.png" class="reg_img">
+             <img style="display: none" src="${project_base_path}/src/img/guquan/icon_fxwjdc.png" class="reg_img">
+
+
+             <h3 class="sm_title">投资者风险问卷调查(个人投资者)</h3>
+             <div class="container deal_content">
+                <ul>
+                   <li>
+                      <ul>
+                        <li>投资者姓名: <span id="name"></span></li>
+                        <li>填写日期: <span id="nowDate"></span></li>
+                      </ul>
+                      <ul>
+                        <li>证件类型: 身份证</li>
+                        <li>证件号码: <span id="idCard"></span></li>
+                      </ul>
+                       <ul>
+                        <li>联系方式: <span class="tel"></span></li>
+                      </ul>
+                   </li>
+                </ul>
+                <div class="fx_content mt-30">
+                  	本问卷旨在了解您可承受的风险程度等情况，借此协助您选择合适的金融产品或金融服务类别，以符合您的风险承受能力。
+                </div>
+                <div class="fx_content">
+                  	风险承受能力评估是本公司向客户履行适当性职责的一个环节，其目的是使本公司所提供的金融产品或金融服务与您的风险承受能力等级相匹配。
+                </div>
+                <div class="fx_content">
+                  	本公司特别提醒您：本公司向客户履行风险承受能力评估等适当性职责，并不能取代您自己的投资判断，也不会降低金融产品或金融服务的固有风险。同时，与金融产品或金融服务相关的投资风险、履约责任以及费用等将由您自行承担。
+                </div>
+                <div class="fx_content">
+                  	本公司提示您：本公司根据您提供的信息对贵单位进行风险承受能力评估，开展适当性工作。您应当如实提供相关信息及证明材料，并对所提供的信息和证明材料的真实性、准确性、完整性负责。
+                </div>
+                <div class="fx_content">
+                  	本公司建议：当您的各项状况发生重大变化时，需对您所投资的金融产品及时进行重新审视，以确保您的投资决定与您可承受的投资风险程度等实际情况一致。
+                </div>
+                <h3 class="fxts">风险提示</h3>
+                <div class="fx_content">
+                    	基金投资需承担各类风险，本金可能遭受失。同时，还要考虑市场风险、信用风险、流动风险、操作风险等各类投资风险。您在基金认购过程中应当注意核对自己的风险识别和风险承受能力，选择与自己风险识别能力和风险承受能力相匹配的私募基金。</div>
+                <div class="fx_content">
+                    	以下问题可在您选择合适的私募基金前，协助评估您的风险承受能力、理财方式及投资目标。
+                    	请确认您符合以下何种合格投资者财务条件（以下任一即可）：
+                </div>
+                <div class="fa_content">
+					<p><input id="before1" type="checkbox"> 1、符合家庭金融净资产不低于300万元，家庭金融资产不低于500万元（金融资产包括银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等）</p>
+					<p><input id="before2" type="checkbox"> 2、符合最近3年个人年均收入不低于40万元               </p>
+                </div>
+                <div class="choselist">
+					<div class="radio_box" id="radio01" style="height:auto;overflow:hidden;padding:0 36px;">
+						<!--隐藏表单 radioVal 的值即为选中项li的id值-->
+						<input type="hidden" value="r1" class="radioVal" name="">
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">1. 您的年龄介于以下哪个范围？</p>
+						 <ul id="answer1" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.18-30岁</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.31-50岁</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.高于51岁</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">2. 您的学历是？</p>
+						 <ul id="answer2" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.高中及以下</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.中专或大专</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.本科</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.硕士及以上</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">3. 您的职业为？</p>
+						 <ul id="answer3" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.无固定职业者</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.专业技术人员</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.一般企事业单位员工</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.金融行业一般从业人员</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">4．您的主要收入来源是？</p>
+						 <ul id="answer4" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.工资、劳务报酬</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.生产经营所得</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.利息、股息、转让等金融性资产收入</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.出租、出售房地产等非金融性资产收入 </li>
+						   <li id="r5" name="E:0" class="radio_box_li">E. 无固定收入 </li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">5．您的家庭可支配年收入为（折合人民币）？</p>
+						 <ul id="answer5" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.50万元以下</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.50—300万元</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.300万元以上</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">6．在您每年的家庭可支配收入中，可用于金融投资（储蓄存款除外）的比例为？</p>
+						 <ul id="answer6" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.小于10%</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.10%至25%</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.25%至50%</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.大于50%</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">7．您是否有尚未清偿的数额较大的债务，如有，其性质是？</p>
+						 <ul id="answer7" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.有，亲戚朋友借款</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.有，信用卡欠款、消费信贷等短期信用债务</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.有，住房抵押贷款等长期定额债务</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D没有</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">8．您的投资知识可描述为？</p>
+						 <ul id="answer8" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.有限：基本没有金融产品方面的知识</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.一般：对金融产品及其相关风险具有基本的知识和理解</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.丰富：对金融产品及其相关风险具有丰富的知识和理解</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">9．您的投资经验可描述为？</p>
+						 <ul id="answer9" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.除银行储蓄外，基本没有其他投资经验</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.购买过债券、保险等理财产品</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.参与过股票、基金等产品的交易</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.参与过权证、期货、期权等产品的交易</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">10．您有多少年投资基金、股票、信托、私募证券或金融衍生产品等风险投资品的经验？</p>
+						 <ul id="answer10" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.少于2年</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.2至5年</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.5至10年</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.10年以上</li>
+						   <li id="r5" name="E:0" class="radio_box_li">E.没有经验</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">11．您计划的投资期限是多久？</p>
+						 <ul id="answer11" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.1年以下</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.1至3年</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.3年以上</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">12．您的投资目的是？</p>
+						 <ul id="answer12" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.资产保值</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.资产稳健增长</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.资产迅速增长</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">13．您打算重点投资于哪些种类的投资品种？</p>
+						 <ul id="answer13" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.债券、货币市场基金、债券基金等固定收益类投资品种</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.股票、混合型基金、股票型基金等权益类投资品种</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.期货、期权等金融衍生品或其他产品和服务</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">14．以下哪项描述最符合您的投资态度？</p>
+						 <ul id="answer14" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.厌恶风险，不希望本金损失，希望获得稳定回报</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.保守投资，不希望本金损失，愿意承担一定幅度的收益波动</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.寻求资金的较高收益和成长性，愿意为此承担有限本金损失</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.希望赚取高回报，愿意为此承担较大本金损失</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">15．假设有两种投资：投资A预期获得10%的收益，可能承担的损失非常小；投资B预期获得30%的收益，但可能承担较大亏损。您会怎么支配您的投资？</p>
+						 <ul id="answer15" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1" class="radio_box_li">A.全部投资于收益较小且风险较小的A</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.同时投资于A和B，但大部分资金投资于收益较小且风险较小的A</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.同时投资于A和B，但大部分资金投资于收益较大且风险较大的B</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.全部投资于收益较大且风险较大的B</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">16．您认为自己能承受的最大投资损失是多少？</p>
+						 <ul id="answer16" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:1"  class="radio_box_li">A.10%以内</li>
+						   <li id="r2" name="B:3" class="radio_box_li">B.10%-30%</li>
+						   <li id="r3" name="C:5" class="radio_box_li">C.30%-50%</li>
+						   <li id="r4" name="D:7" class="radio_box_li">D.超过50%</li>
+						 </ul>
+						<p class="qs_title mt" style="color:#333;margin-top:25px;font-size:14px;font-weight:normal;line-height:28px;">17．您是否为鸿坤业主？</p>
+						 <ul id="answer17" class="dxcss" style="padding:0;margin-left:-10px;">
+						   <li id="r1" name="A:0"  class="radio_box_li">A.是</li>
+						   <li id="r2" name="B:-100" class="radio_box_li">B.否</li>
+						 </ul>
+					</div>
+                </div>
+         </div>
+         <div style="width:1100px;margin:0 auto">
+          	<div class="tongyixuanz tal">
+	                <span class="neirong neizhuanl ml-20"></span><a href="#" class="colr-blue" id="investAgree">《合格投资同意书》</a>
+	        </div>
+         </div>
+          <a href="javascript:void(0);" class="reg_tjbtn" style="text-decoration:none;color:white !important;">提交</a>
+         </div>
+
+     </div>
+    <!--风险调查问卷 结束-->
+
+    <!-- 底部开始
+    <div class="include" file="${project_base_path}/common/footer.html"></div> -->
+    <!-- 底部结束 -->
+
+
+    <!-- 合格投资者承诺书弹窗 -->
+	<div class="modal fade bs-example-modal-lg pl0" tabindex="-1" role="dialog3" id="investAgreement" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;width:660px;">
+	        <div class="modal-content">
+	            <div class="modal-header border-radius disabled  pt-10 pb-10">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	            </div>
+	            <div class="modal-body pb-30 pt-30">
+	                <!-- 所要添加的内容start -->
+	                <div class="hgs_content">
+	                  <h4 class="tac f-20 mt-30 mb-20">合格投资者承诺书</h4>
+		              <div class="hgs_contentin">
+		              	本人/本单位作为符合中国证券监督管理委员会规定的私募投资基金的合格投资者（即个人投资者的金融资产不低于300万元或者最近三年个人
+		              	年均收入不低于50 万元，机构投资者的净资产不低于1000万元，或为监管机构认可的其他合格投资者），具有相应的风险识别能力和风险承
+		              	受能力，投资资金来源合法，没有非法汇集他人资金投资私募基金。本人/本单位在参与贵公司发起设立的私募基金的投资过程中，如果因存在
+		              	欺诈、隐瞒或其他不符合实际情况的陈述所产生的一切责任，由本人/本单位自行承担，与贵公司无关。
+		              </div>
+		              <p>特此承诺。</p>
+		              <div class="tzzqz">
+		                     	<p>投资者签章： <span id="signName"></span></p>
+		                   <p>签署日期： <span id="nowDate2"></span></p>
+		              </div>
+		           </div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+	<!-- 测评结果弹窗 -->
+	<div class="modal fade bs-example-modal-lg pl0" tabindex="-1" role="dialog3" id="investResult" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-lg" role="document" style="margin: 2% auto;width:750px;">
+	        <div class="modal-content">
+	            <div class="modal-header border-radius disabled blk-50">
+	            </div>
+	            <div class="modal-body pb-50 pt-50">
+	                <!-- 所要添加的内容start -->
+	                <div class="layerone clearfix">
+						<img src="${project_base_path}/src/img/guquan/icon_rightimg.png" class="fl" style="width:42px;margin:5px 0 15px 0;">
+						<span class="telphonenum fl"><span class="tel"></span>，您好！</span>
+					</div>
+					<p class="textresult">根据测试结果，您是一位 <span id="investType" class="resultType">积极型</span> 投资者</p>
+					<p class="textresult" id="contactCopy">我们的工作人员会尽快和您联系</p>
+					<div id="investTypeName" class="typeinvest"><span class="resultType">积极性</span>投资者：</div>
+					<div class="fxtsy">无与您类型相匹配的产品，请重新测评！</div>
+					<div class="fxtsy" style="display: none">您可以购买所有风险等级的基金产品，<br>
+						若您的信息发生重大变化，请及时更新风险测评信息。</div>
+					<div class="btn_space clearfix">
+			              <ul>
+			                 <li class="fl mr-23"><a id="goIndex" href="javascript:void(0);" class="goindex">去首页</a></li>
+			                 <li class="fl"><a href="javascript:void(0);" class="receping">重新测评</a></li>
+			              </ul>
+			         </div>
+	                <!-- 所要添加的内容end-->
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+
+
+</body>
+<!-- 公共js -->
+	<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+	<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js"></script>
+
+<script>
+	$(function(){
+
+        //勾选单选框
+        $(".neirong").click(function(){
+        	$(this).toggleClass("neizhuanl");
+        	if($(this).hasClass("neizhuanl")){
+        		//$(".dengluodiv").find("button").eq(0).addClass("denglubut");
+        		//$(".dengluodiv").find("button").eq(1).addClass("zhucebut");
+				//绑定提交事件 置红#faa929
+				$(".reg_tjbtn").css('background-color','#faa929').click(function () {
+					//alert("尝试提交");
+					saveRisk();
+				});
+        	}else{
+        		//$(".dengluodiv").find("button").eq(0).removeClass("denglubut");
+        		//$(".dengluodiv").find("button").eq(1).removeClass("zhucebut");
+				//解绑提交事件 置灰
+				$(".reg_tjbtn").unbind("click").css('background-color','#999');
+        	}
+
+        })
+
+        $("#investAgree").on("click",function(){
+        	$("#investAgreement").modal('show');
+        })
+        $(".reg_tjbtn").on("click",function(){
+        	//$("#investResult").modal('show');
+			saveRisk();
+        })
+        $(".dxcss li").on("click",function(){
+        	$this= $(this);
+        	$this.addClass("selected").siblings("li").removeClass("selected");
+        })
+
+		$(".receping").click(function () {
+			$("#investResult").modal('hide');
+            window.location.reload();
+		});
+
+		//设置分步图片
+		var entrance = commonUtil.getUrlParam("entrance");
+		fundCommon.setStepPic(entrance , "reg_img");
+		//首先获取utype
+		utype = commonUtil.getUrlParam("utype");//检查url中是否指定，优先级1
+		utype = fundCommon.initUtype(utype);//检查参数中是否指定，优先级2
+		//获取当前登录信息
+		if(commonUtil.isLogin()){
+			//回显页面信息
+			var user = containerUtil.get(CONSTANTS.LOGIN_REG_USER);
+			console.info(user);
+			$(".tel").html(user.login);
+			$("#nowDate").html(dateUtil.date(new Date()));
+			$("#nowDate2").html(dateUtil.date(new Date()));
+			//获取实名信息
+            ajaxUtil.post("/userController/preUpdateUserInfo.do", {}, function(data){
+                var regUserDetail = data.params.regUserDetail;
+                var realName = regUserDetail.realName;
+                $("#name").html(realName);
+                $("#signName").html(realName);
+                var idCard = regUserDetail.idCard;
+                //加密身份证
+                var start = idCard.substring(0,3);
+                var end = idCard.substring(14);
+                $("#idCard").html(start + "***********" + end);
+            },"json" , false);
+		}else{
+			fundCommon.jumpIndex(utype);
+		}
+
+	})
+
+	function saveRisk() {
+		//两个复选框
+		var boxes = $(".fa_content input:checkbox:checked");
+		if(boxes.length == 0){
+			alert("请选择至少一项投资者财务条件!");
+			return;
+		}
+
+		//校验最后一题是否正确
+        var lastQuestionIsRight = $("#answer17").find("li[id='r2']").hasClass('selected');
+		if(lastQuestionIsRight){
+            alert("您不是我们的定向及合格投资者!");
+            return;
+        }
+		//单选题获取
+		var redios = $(".radio_box_li.selected");
+		if(redios.length < 17){
+			alert("您有未答完的题目!");
+			return;
+		}
+		var score = Number(0);
+		var answers = "";
+		//遍历计算分值提交，拼接答案
+		redios.each(function (i) {
+            var option = $(this).attr("name");
+            //分割处理 A:1 B:3
+            var options = option.split(":");
+            score += Number(options[1]);
+            if(answers == ""){
+                answers = options[0];
+            }else{
+                answers += "|" + options[0];
+            }
+		});
+		//提交请求
+        $.ajax({
+            type : 'POST',
+            url : commonUtil.getRequestUrl("/fundRegistController/saveRiskEvaluation.do"),
+            dataType : "json",
+            data : {score : score , answers : answers},
+            async : false,
+            success : function(data) {
+                if(data.resStatus == CONSTANTS.SUCCESS){
+                    //处理显示文字
+                    var params = data.params;
+                    var passFlag = params.passFlag;  //1通过 0未通过
+                    $(".resultType").html(params.resultType);
+                    var discripe = $(".fxtsy");
+                    if(passFlag == 1){
+                        $(discripe[1]).show();
+                        $(discripe[0]).hide();
+						$("#contactCopy").show();
+                        //去主页
+                        $("#goIndex").css("background","#f19124").click(function () {
+                            fundCommon.jumpIndex(utype);
+                        });
+                    }else{
+                        $(discripe[0]).show();
+                        $(discripe[1]).hide();
+						$("#contactCopy").hide();
+                        $("#goIndex").unbind("click").css("background","#999");
+                    }
+                    //显示测试结果
+                    $("#investResult").modal('show');
+                }else {
+                    alert("系统繁忙，请稍后重试");
+                }
+            },
+            error : function(request) {alert("系统繁忙，请稍后重试");}
+        });
+	}
+
+
+
+</script>
+</html>

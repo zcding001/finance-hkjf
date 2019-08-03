@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.payment.model.FinFundtransfer">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_FinFundtransfer" type="com.hongkun.finance.payment.model.FinFundtransfer">
+		<result property="id" column="id"/>
+		<result property="flowId" column="flow_id"/>
+		<result property="tradeFlowId" column="trade_flow_id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="recRegUserId" column="rec_reg_user_id"/>
+		<result property="transMoney" column="trans_money"/>
+		<result property="subCode" column="sub_code"/>
+		<result property="tradeType" column="trade_type"/>
+		<result property="preMoney" column="pre_money"/>
+		<result property="afterMoney" column="after_money"/>
+		<result property="nowMoney" column="now_money"/>
+		<result property="showFlag" column="show_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,flow_id,trade_flow_id,reg_user_id,rec_reg_user_id,trans_money,sub_code,trade_type,pre_money,after_money,now_money,show_flag,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fin_fundtransfer ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				flow_id ,
+			</if>
+			<if test="tradeFlowId != null and tradeFlowId != ''">
+				trade_flow_id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="recRegUserId != null">
+				rec_reg_user_id ,
+			</if>
+			<if test="transMoney != null">
+				trans_money ,
+			</if>
+			<if test="subCode != null">
+				sub_code ,
+			</if>
+			<if test="tradeType != null">
+				trade_type ,
+			</if>
+			<if test="preMoney != null">
+				pre_money ,
+			</if>
+			<if test="afterMoney != null">
+				after_money ,
+			</if>
+			<if test="nowMoney != null">
+				now_money ,
+			</if>
+			<if test="showFlag != null">
+				show_flag ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="flowId != null and flowId != ''">
+				#{flowId} ,
+			</if>
+			<if test="tradeFlowId != null and tradeFlowId != ''">
+				#{tradeFlowId} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="recRegUserId != null">
+				#{recRegUserId} ,
+			</if>
+			<if test="transMoney != null">
+				#{transMoney} ,
+			</if>
+			<if test="subCode != null">
+				#{subCode} ,
+			</if>
+			<if test="tradeType != null">
+				#{tradeType} ,
+			</if>
+			<if test="preMoney != null">
+				#{preMoney} ,
+			</if>
+			<if test="afterMoney != null">
+				#{afterMoney} ,
+			</if>
+			<if test="nowMoney != null">
+				#{nowMoney} ,
+			</if>
+			<if test="showFlag != null">
+				#{showFlag} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO fin_fundtransfer (
+        	id ,
+        	flow_id ,
+        	trade_flow_id ,
+        	reg_user_id ,
+        	rec_reg_user_id ,
+        	trans_money ,
+        	sub_code ,
+        	trade_type ,
+        	pre_money ,
+        	after_money ,
+        	now_money ,
+        	show_flag ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.flowId != null and item.flowId != ''">
+					#{item.flowId} ,
+				</if>
+				<if test="item.flowId == null or item.flowId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.tradeFlowId != null and item.tradeFlowId != ''">
+					#{item.tradeFlowId} ,
+				</if>
+				<if test="item.tradeFlowId == null or item.tradeFlowId == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.recRegUserId != null">
+					#{item.recRegUserId} ,
+				</if>
+				<if test="item.recRegUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.transMoney != null">
+					#{item.transMoney} ,
+				</if>
+				<if test="item.transMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.subCode != null">
+					#{item.subCode} ,
+				</if>
+				<if test="item.subCode == null">
+					DEFAULT ,
+				</if>
+				<if test="item.tradeType != null">
+					#{item.tradeType} ,
+				</if>
+				<if test="item.tradeType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.preMoney != null">
+					#{item.preMoney} ,
+				</if>
+				<if test="item.preMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.afterMoney != null">
+					#{item.afterMoney} ,
+				</if>
+				<if test="item.afterMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.nowMoney != null">
+					#{item.nowMoney} ,
+				</if>
+				<if test="item.nowMoney == null">
+					DEFAULT ,
+				</if>
+				<if test="item.showFlag != null">
+					#{item.showFlag} ,
+				</if>
+				<if test="item.showFlag == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="flowId != null and flowId != ''">
+				flow_id = #{flowId} ,
+			</if>
+			<if test="tradeFlowId != null and tradeFlowId != ''">
+				trade_flow_id = #{tradeFlowId} ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="recRegUserId != null">
+				rec_reg_user_id = #{recRegUserId} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="subCode != null">
+				sub_code = #{subCode} ,
+		   </if>
+			<if test="tradeType != null">
+				trade_type = #{tradeType} ,
+		   </if>
+			<if test="preMoney != null ">
+				pre_money =pre_money + #{preMoney} ,
+			</if>
+			<if test="afterMoney != null ">
+				after_money =after_money + #{afterMoney} ,
+			</if>
+			<if test="nowMoney != null ">
+				now_money =now_money + #{nowMoney} ,
+			</if>
+			<if test="showFlag != null ">
+				show_flag = #{showFlag} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+    <sql id="update_sql_by_flowId">
+		<set>
+			<if test="tradeFlowId != null and tradeFlowId != ''">
+				trade_flow_id = #{tradeFlowId} ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="recRegUserId != null">
+				rec_reg_user_id = #{recRegUserId} ,
+		   </if>
+			<if test="transMoney != null ">
+				trans_money =trans_money + #{transMoney} ,
+			</if>
+			<if test="subCode != null">
+				sub_code = #{subCode} ,
+		   </if>
+			<if test="tradeType != null">
+				trade_type = #{tradeType} ,
+		   </if>
+			<if test="preMoney != null ">
+				pre_money =pre_money + #{preMoney} ,
+			</if>
+			<if test="afterMoney != null ">
+				after_money =after_money + #{afterMoney} ,
+			</if>
+			<if test="nowMoney != null ">
+				now_money =now_money + #{nowMoney} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  fin_fundtransfer
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM fin_fundtransfer 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_FinFundtransfer">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_fundtransfer 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="flowId != null and flowId !=''">
+			AND flow_id = #{flowId}
+			</if>
+			<if test="tradeFlowId != null and tradeFlowId !=''">
+			AND trade_flow_id = #{tradeFlowId}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="recRegUserId != null">
+			AND rec_reg_user_id = #{recRegUserId}
+			</if>
+			<if test="transMoney != null">
+			AND trans_money = #{transMoney}
+			</if>
+			<if test="subCode != null">
+			AND sub_code like concat(#{subCode},'%')
+			</if>
+			<if test="tradeType != null and tradeType != -999">
+			AND trade_type  like  concat(#{tradeType},'%')
+			</if>
+			<if test="preMoney != null">
+			AND pre_money = #{preMoney}
+			</if>
+			<if test="afterMoney != null">
+			AND after_money = #{afterMoney}
+			</if>
+			<if test="nowMoney != null">
+			AND now_money = #{nowMoney}
+			</if>
+			<if test="showFlag != null">
+			AND show_flag = #{showFlag}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+			<if test="minTransMoney != null">
+			AND trans_money >= #{minTransMoney}
+			</if>
+			<if test="maxTransMoney != null">
+			AND trans_money &lt;= #{maxTransMoney}
+			</if>
+			<if test="subCodeList != null and subCodeList.size > 0">
+				AND sub_code in
+				  <foreach collection="subCodeList" open="(" separator="," close=")" item="subcode">
+		            #{subcode}
+		         </foreach>
+			</if>
+			<if test="tradeTypeList != null and tradeTypeList.size > 0">
+				AND trade_type in
+				  <foreach collection="tradeTypeList" open="(" separator="," close=")" item="tradetype">
+		            #{tradetype}
+		         </foreach>
+			</if>
+			
+			<if test="tradeFlowIds != null and tradeFlowIds.size > 0">
+				AND trade_flow_id in
+				<foreach collection="tradeFlowIds" open="(" separator="," close=")" item="tradeId">
+					#{tradeId}
+				</foreach>
+			</if>
+			<if test="tradeTypeFlag != null and tradeTypeFlag == 1">
+				AND trade_type  like  '10%'
+			</if>
+			<if test="tradeTypeFlag != null and tradeTypeFlag == 2">
+				AND trade_type  like  '11%'
+			</if>
+			<if test="tradeTypeFlag != null and tradeTypeFlag == 3">
+				AND trade_type  like  '14%'
+			</if>
+			<if test="tradeTypeFlag != null and tradeTypeFlag == 4">
+				AND trade_type  not like  '10%'
+				AND trade_type  not like  '11%'
+				AND trade_type  not like  '14%'
+				AND trade_type  not like  '17%'
+			</if>
+			<if test="filterUnFreezeRecord != null and filterUnFreezeRecord == 1 ">
+				/*针对交易记录用户展示字段 手动过滤: subCode[放款(支出冻结)],tradeType[自动债权转让,匹配投资]*/
+				AND trade_type  not in (1902,1105,2201)
+				AND sub_code not in (2020)
+			</if>
+		
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM fin_fundtransfer 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_FinFundtransfer">
+		SELECT <include refid="columns" />
+		FROM fin_fundtransfer 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+    <!-- 根据FLOWID，更新资金划转信息 -->
+    <update id="updateByFlowId">
+		UPDATE  fin_fundtransfer
+		<include refid="update_sql_by_flowId"/>
+		<![CDATA[
+		WHERE 
+			flow_id = #{flowId} 
+		]]>
+	</update>
+    <!-- 通过flowId删除资金划转 -->
+	<delete id="deleteByFlowId">
+		<![CDATA[
+		DELETE FROM fin_fundtransfer 
+		WHERE
+			flow_id = #{flowId}
+		]]>
+	</delete>
+	    <!-- 通过flowId删除资金划转 -->
+	<delete id="deleteByPflowId" parameterType="String">
+		<![CDATA[
+		DELETE FROM fin_fundtransfer 
+		WHERE
+			trade_flow_id = #{PflowId}
+		]]>
+	</delete>
+	<!-- 批量删除资金流水信息 -->
+	<delete id="deleteBatchByFlowId">
+		DELETE FROM fin_fundtransfer 
+		WHERE
+        flow_id IN
+        <foreach collection="list" open="(" separator="," close=")" item="flowid">
+            #{flowid}
+        </foreach>
+	</delete>
+	<!-- 按条件查询资金划转总金额 -->
+	<select id="findFintransferSumMoney" resultType="java.math.BigDecimal">
+		SELECT COALESCE(SUM(trans_money),0) FROM fin_fundtransfer 
+		<include refid="findPage_where"/>    
+	</select>
+	<!-- 根据资金划转flowId,查询资金划转信息 -->
+	<select id="findTransfterByFlowId" resultMap="_FinFundtransfer">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM fin_fundtransfer
+		WHERE 1 = 1
+			AND flow_id = #{flowId}
+		]]>
+	</select>
+
+	<select id="findRegUserIdListYestoday" resultType="java.lang.Integer">
+		SELECT  reg_user_id
+		FROM fin_fundtransfer
+		WHERE 1 = 1
+			AND (sub_code like '10%' or  sub_code like  '20%')
+			AND  DATEDIFF(modify_time,NOW())= -1
+	</select>
+
+</mapper>

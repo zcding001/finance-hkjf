@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">提现放款审核</span>
+				<div>
+					<a href="javascript:void(0)" class="btn btn-primary"  onclick="createCheckPanel()" style="display:inline-block;float:right;">批量审核</a>
+				</div>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+           			<form id="searchForm">
+           				<div>
+
+							姓名：<input type ="text" name="realName" class="form-control" style="width: 150px;display:inline-block;" />
+							手机号：<input type="text" name="login" class="form-control" style="width: 180px;display:inline-block;" />
+							交易流水：<input type="text" name="flowId"  class="form-control" style="width: 180px;display:inline-block;"/>
+						</div>
+						<div style="margin-top: 15px;">
+							支付类型：<select name="payChannel" class="form-control" style="width: 130px;display:inline-block;"/>
+           				交易时间：<input type="text" name="modifyTimeBegin" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" name="modifyTimeEnd" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+						</div>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+	var columns = [
+		dataTableUtil.createNoneCheckBoxByCondition('id','4',"state"),
+		{title: "交易流水", data: "flowId", className: "dt-simple"},
+		{title: "用户姓名", data: "realName", className: "dt-simple"},
+		{title: "手机号", data: "login", className: "dt-simple"},
+		{title: "提现金额", data: "transMoney", className: "dt-simple"},
+		{title: "手续费", data: "commission", className: "dt-simple"},
+		{
+			title: "交易时间",
+			data: "createTime",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return dateUtil.date(value);
+			}
+		}, {
+			title: "支付类型",
+			data: "payChannel",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				if(value==0 ||  value=='0'){
+					return "暂无启用提现渠道";
+				}else{
+					return DIC_CONSTANT.getName("payment", "channel", value);
+				}
+			}
+		},{
+			title: "申请状态",
+			data: "state",
+			className: "dt-simple",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("payment", "trade_state", value);
+			}
+		},
+		{
+			title:"操作",
+			data: null,
+			className:"dt-operate",
+			render: function (data, type, row, meta) {
+				//放款按钮
+				var btn =  commonUtil.createDirectRequestBtn({id:row.id,target:"toWithdrawsLoan"},"放款","fa-user");
+				return btn;
+			}
+		}
+
+	];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.searchWithdrawalsLoan, columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm();
+	DIC_CONSTANT.initSelect("payChannel", "payment", "channel");
+	function validateCheck() {
+		if (commonUtil.isEmpty($("#checkReasonArea").val())){
+            $("#checkPacketError").text("请输入审核原因");
+			return false;
+		}
+		return true;
+    }
+	var createCheckPanel = function() {
+        if (!dataTableUtil.setCheckedValToObject("ids")){
+            commonUtil.createSimpleNotify("请至少选择一条记录!", ALERT_WARN);
+            return;
+        }
+        $("#ids").attr("name", "ids");
+		var contents = '审核结果：<input  name="state" type="radio" value="0" checked="checked"/>通过 <input name="state" value="4" type="radio" />拒绝 <br><br>';
+		contents+='审核原因：<input id="checkReasonArea" name="reason" type="text" class="confirmChildren"/> <br><br>';
+		contents+='<span id="checkPacketError" style="color: red"></span>'
+        commonUtil.createCustomConfirmBox("提现放款审核",contents,CONFIG.interface.loanWithdrawals,validateCheck,commonUtil.customConfirmStandardAfterExecuteFn);
+
+	}
+</script>

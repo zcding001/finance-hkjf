@@ -1,0 +1,210 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+               <span style="float:left;width:30%;">股权信息</span> 
+            </div>
+            <!-- /.panel-heading -->
+            <form name="fundInfoForm" id="fundInfoForm" novalidate>
+            <div class="panel-body" >
+	                <div class="well">
+	                   <input type="hidden" name="fundInfoId" id="fundInfoId"/>
+	                    <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>项目类型:</label>
+		                  <select  class="form-control ng-pristine ng-valid ng-touched textstyle"  name="projectId"  ng-model="fundInfo.projectId" ng-change=
+		                  "changeProjectType(projectId)"  lengtext-error-message="项目类型不能为空！"  validator="required" valid-method="blur" message-id="typeError" 
+		                  ng-options="x.value as x.name for x in projectTypes">
+		                  </select>
+		                  <span style="color:#F00" class="bid-info" id="typeErrorError"></span>
+		                </div>
+		                <div class="form-group">
+ 							 <label class="textright">项目信息:</label>
+                             <input type="radio" name="infoExist" ng-model="fundInfo.infoExist" value="1" ng-click="infoExist(0)" ng-checked="strConvertArrContains(fundInfo.infoExist,1)">有
+                             <input type="radio" name="infoExist" ng-model="fundInfo.infoExist" ng-click="infoExist(0)" value="0" ng-checked="strConvertArrContains(fundInfo.infoExist,0)">无                                  
+                         </div>
+                         <div ng-if="fundInfo.infoExist==1">
+                         <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>项目名称:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="name" ng-model="fundInfo.name"  type="text"  validator="required,lengtext" min="2" max="200" lengtext-error-message="名称至少2个字符,最多200个字符！" lengtext-success-message="" valid-method="blur" message-id="nameError">
+	      			       <span style="color:#F00" class="bid-info" id="nameError"></span>
+		                </div>
+		                <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>借款期限:</label>
+		                 <input class="form-control ng-pristine ng-valid ng-touched textstyle" 
+		                 placeholder="借款期限仅限整数" name="termValue" ng-model="fundInfo.termValue"  
+		                 type="text"  validator="required,range,integertext"
+		                 min="1" max="1000" lengtext-error-message="1到1000整数！" lengtext-success-message="" 
+		                 valid-method="blur" message-id="termValueError" style="width: 20%;">
+		                 <select  class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 20%;" 
+		                 name="termUnit"  ng-model="fundInfo.termUnit" ng-change="changeTermUnit(termUnit)" 
+		                 validator="required" valid-method="blur" message-id="termUnitError"
+		                 ng-options="x.value as x.name for x in termUnits" >
+		                  </select>
+		                  <span style="color:#F00" class="bid-info" id="termValueError"></span>
+		                </div>
+		               <div class="form-group" ng-if="fundInfo.projectId==6">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>收益类型:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="固定收益类" name="revenueType" ng-model="fundInfo.revenueType"  type="text"  validator="required,lengtext" min="2" max="150" lengtext-error-message="名称至少2个字符,最多150个字符！" lengtext-success-message="" valid-method="blur" message-id="revenueTypeError">
+	      			       <span style="color:#F00" class="bid-info" id="revenueTypeError"></span>
+		                </div>
+		                <div class="form-group" ng-if="fundInfo.projectId==6" >
+		       			<label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>成立时间:</label>
+		                <input type="text" id="establishedTime" name = "establishedTime"
+                                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                                           class="Wdate form-control" ng-model="fundInfo.establishedTime" name="establishedTime"
+                                           readonly="readonly" style="width:20%;height:30px;display:inline-block;" 
+                                           validator="required"  message-id="establishedTimeError"
+                                           ng-focus="timeChange('establishedTime')"/>
+                         <span style="color:#F00" class="bid-info" id="establishedTimeError"></span>
+                        </div>
+		                <div class="form-group" ng-if="fundInfo.projectId==5 || fundInfo.projectId==6" >
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>年利率范围（%）:</label>
+	      			       <input placeholder="0.00" name="minRate" ng-model="fundInfo.minRate"  type="text" 
+	      			       error-message="请输入最小年化率!" valid-method="blur"
+                           range-error-message="请输入0到{{fundInfo.maxRate}}范围的值"
+                           validator="required,rateOrInteger,smallint"
+                           class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;"
+	      			       min="0" max="{{fundInfo.maxRate}}" message-id="rateError">
+	      			       ——
+	      			       <input  placeholder="0.00" name="maxRate" ng-model="fundInfo.maxRate"  type="text"  min="0" max="100"
+	      			        range-error-message="上限最低输入{{fundInfo.minRate}}的值" error-message="请输入最大年化率!" valid-method="blur"
+                                   message-id="rateError"  validator="required,rateOrInteger,smallint"
+                                   class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 24.6%;">
+	      			       <span style="color:#F00" class="bid-info" id="rateError"></span>
+		                </div>
+		                <div class="form-group">
+ 							 <label class="textright">起投金额单位:</label>
+                             <input type="radio" name="lowestAmountUnit" ng-model="fundInfo.lowestAmountUnit" value="1" ng-checked="strConvertArrContains(fundInfo.lowestAmountUnit,1)">人民币
+                             <input type="radio" name="lowestAmountUnit" ng-model="fundInfo.lowestAmountUnit" value="2" ng-checked="strConvertArrContains(fundInfo.lowestAmountUnit,2)">美元                                 
+                         </div>	   
+                         <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>起投金额/认购起点:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="100的整数倍" 
+	      			       name="lowestAmount" ng-model="fundInfo.lowestAmount"  type="text"  
+	      			       validator="required,range,integertext,hundredMultiple" min="100" max="100000000" 
+	      			       range-error-message="请输入介于 100至100000000的整数值!" lengtext-success-message="" 
+	      			       valid-method="blur" message-id="lowestAmountError">
+	      			       <span style="color:#F00" class="bid-info" id="lowestAmountError"></span>
+		                </div>
+
+						 <div class="form-group" ng-if="fundInfo.projectId==5" >
+							 <label class="textright" style="width: 100px;">投资步长:</label>
+							 <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="正整数值"
+									name="stepValue" ng-model="fundInfo.stepValue"  type="text"
+									range-error-message="正整数值!" lengtext-success-message=""
+									valid-method="blur" message-id="stepValueError">
+							 <span style="color:#F00" class="bid-info" id="stepValueError"></span>
+						 </div>
+
+						 <div class="form-group" ng-if="fundInfo.projectId==5">
+							 <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>海外基金协议类型:</label>
+							 <select  class="form-control ng-pristine ng-valid ng-touched textstyle" style="width: 20%;"
+									  name="contractType"  ng-model="fundInfo.contractType" ng-change="changeContractType(contractType)"
+									  validator="required" valid-method="blur" message-id="contractTypeError"
+									  ng-options="x.value as x.name for x in contractTypes" >
+							 </select>
+							 <span style="color:#F00" class="bid-info" id="contractTypeError"></span>
+						 </div>
+
+							 <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>管理机构/发行机构:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="" name="management" ng-model="fundInfo.management"  type="text"  validator="required,lengtext" min="2" max="150" lengtext-error-message="名称至少2个字符,最多150个字符！" lengtext-success-message="" valid-method="blur" message-id="managementError">
+	      			       <span style="color:#F00" class="bid-info" id="managementError"></span>
+		                </div>
+                         <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>产品亮点:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="严格风控，加速退出，起投门槛低" name="highlights" ng-model="fundInfo.highlights"  type="text"  validator="required,lengtext" min="2" max="150" lengtext-error-message="名称至少2个字符,最多150个字符！" lengtext-success-message="" valid-method="blur" message-id="highlightsError">
+	      			       <span style="color:#F00" class="bid-info" id="highlightsError"></span>
+		                </div>
+                         <div class="form-group" ng-if="fundInfo.projectId!=6">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>运作方式:</label>
+	      			       <input class="form-control ng-pristine ng-valid ng-touched textstyle" placeholder="契约封闭式" name="operationStyle" ng-model="fundInfo.operationStyle"  type="text"  validator="required,lengtext" min="2" max="150" lengtext-error-message="名称至少2个字符,最多150个字符！" lengtext-success-message="" valid-method="blur" message-id="operationStyleError">
+	      			       <span style="color:#F00" class="bid-info" id="operationStyleError"></span>
+		                </div>
+		                 <div class="form-group" ng-if="fundInfo.projectId==6">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>付息方式:</label>
+		               	  <div ng-repeat="sp in payWays"
+                              style="display: inline-block;padding-top: 5px;margin-right: 5px;">
+                            <input type="radio" value="{{sp.value}}" name="payWay"
+                                    ng-model="fundInfo.payWay"/>{{sp.name}}
+                        </div>
+		                </div>
+                         <div class="form-group">
+		       			  <label class="textright" style="width: 100px;"><span class="font-red pos_r">*&nbsp;</span>开放日:</label>
+	      			      <input type="radio" name="opendayType" ng-model="fundInfo.opendayType" value="1" ng-checked="strConvertArrContains(fundInfo.opendayType,1)">工作日
+                          &nbsp;
+                          <input type="radio" name="opendayType" ng-model="fundInfo.opendayType" value="2" ng-checked="strConvertArrContains(fundInfo.opendayType,2)">自定义文案
+                          &nbsp; 
+                          <span ng-if="fundInfo.opendayType==2" class="form-group">
+		               	  <select ng-model="fundInfo.customizeType"  class="form-control ng-pristine ng-valid"  name="customizeType" style="width:10%;height:30px;display:inline-block;"  
+		               	  ng-options="val.id as val.name for val in customizeTypes" ng-change="changeCustomize(fundInfo.customizeType)">
+                		  </select>
+                		  <select ng-model="fundInfo.customizeValue" class="form-control ng-pristine ng-valid"  name="customizeValue"  style="width:10%;height:30px;display:inline-block;"  
+                		  ng-options="val.id as val.name for val in customizeValues">
+                		  </select>
+		               	  </span>
+                          <input type="radio" name="opendayType" ng-model="fundInfo.opendayType" value="3" ng-checked="strConvertArrContains(fundInfo.opendayType,3)">自定义时间                               
+		               	  &nbsp; 
+		               	  <span ng-if="fundInfo.opendayType==3">
+		               	  <input type="text" id="startTime"
+                                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})"
+                                           class="Wdate form-control" ng-model="fundInfo.startTime" name="startTime" 
+                                           readonly="readonly" valid-method="blur" style="width:20%;height:30px;display:inline-block;"
+                                           validator="required"  message-id="startTimeError"
+                                           ng-focus="timeChange('startTime')"/>
+                                          
+                                           
+                           	至      
+						  <input type="text" id="endTime"
+                                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})"
+                                       class="Wdate form-control" valid-method="blur" ng-model="fundInfo.endTime" name="endTime"
+                                       readonly="readonly" style="width:20%;height:30px;display:inline-block;"
+                                       validator="required"  message-id="endTimeError"
+                                       ng-focus="timeChange('endTime')"/> 
+                         </span>	
+                         <span style="color:#F00" class="bid-info" id="startTimeError"></span>
+                         <span style="color:#F00" class="bid-info" id="endTimeError"></span>	                          	
+		                 </div>	             		               		                		                		            
+                        </div>
+                       <div class="clearfix" ng-show="fundInfo.infoExist==1">
+		                   <input type="hidden" name="investRange"  id="investRange" ng-model="fundInfo.investRange"/>
+		       			   <label class="textright" style="float:left;width: 100px;"><span class="font-red pos_r">*&nbsp;</span>正文内容:</label>
+		       			   <textarea  id="content"   style="width:500px; height: 400px; margin: 0 auto;"></textarea>
+						   <span style="color:#F00" class="bid-info" id="investRangeError"></span>
+						</div>
+						<div class="clearfix" ng-if="fundInfo.infoExist==1" style="margin-top:10px;">
+                            <label class="textright"><span class="font-red">&nbsp;</span>备注:</label>
+                            <textarea id="remark" name="remark" ng-model="fundInfo.remark"
+                                      class="textstyle" style="width:500px; height: 100px;"></textarea>
+                        </div>
+						</br>
+						<div class="clearfix" ng-show="fundInfo.infoExist==0">
+		                   <input type="hidden" name="introduction" id="introduction" ng-model="fundInfo.introduction"/>
+		       			   <label class="textright" style="float:left;width: 100px;"><span class="font-red pos_r">*&nbsp;</span>项目描述:</label>
+		       			   <textarea  id="introductionContent" style="width:500px; height: 400px; margin: 0 auto;"></textarea>
+						   <span style="color:#F00" class="bid-info" id="introductionError"></span>
+						</div>
+						</br>
+		     		<div style="width:70%;padding-left:125px;">
+		     		    <span ng-show="showPage">
+			     		    <button type="button" class="btn btn-outline btn-success" ng-click="submit(fundInfoForm)" validator-submit="fundInfoForm">保存</button>
+			     		</span>
+			     		<span ng-hide="showPage">
+			     		    <button type="button" class="btn btn-outline btn-success" ng-click="submit(fundInfoForm)" validator-submit="fundInfoForm">修改</button>
+			     		</span>
+				     	<button type="button" class="btn btn-outline btn-success" ng-click="reset(fundInfoForm)">重置</button>
+			            <button type="button" class="btn btn-outline btn-success" ng-click="back()">返回</button>
+		           </div>
+		     		 
+		     		 
+	              </div>
+            </div>
+            </form>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>

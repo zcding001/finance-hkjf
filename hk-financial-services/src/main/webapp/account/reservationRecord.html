@@ -1,0 +1,257 @@
+<!-- 预约记录 -->
+<div class="tx_bar">
+	<form id="dataTable1Form" class="gForm">
+        <ul class="clearfix">
+            <li class="fl in_time">
+                <cite class="tx_bar_t fl">预约时间：</cite>
+                <cite class="fl rel">
+                    <input readonly="readonly" id="start" name="createTimeBegin" onclick="WdatePicker()">
+                </cite>
+                
+                <cite class="fl">&nbsp;-&nbsp;</cite>
+                <cite class="fl rel">
+                    <input readonly="readonly" id="end" name="createTimeEnd" onclick="WdatePicker()">
+                </cite>
+            </li>
+            <li class="fl ml-10">
+                <a href="javascript:;" id="dataTable1SearchBtn" class="gBtn">检索</a>
+            </li>
+        </ul>
+	</form>
+</div>
+<div class="iv_list mt-20" style="overflow-x: auto;width:818px;">
+    <table class="tab_title">
+        <tbody class="clearfix">
+        	<tr class="fl">
+        		<td colspan="6">预约类型：</td>
+        	</tr>
+        	<tr class="fl gType">
+        		<td class="td_active">私募基金</td>
+        		<td>海外基金</td>
+        		<td>信托产品</td>
+                <td>房产投资</td>
+        	</tr>
+    	</tbody>
+    </table>
+    <!-- 私募基金 -->
+   <div class="tab_main" id="div1">
+	   	<table class="table table-hover" id="dataTable1">
+	    </table>
+   </div>
+    <!-- 海外基金 -->
+    <div class="tab_main" style="display:none;" id="div2">
+	    <table class="table table-hover" id="dataTable2">
+	    </table>
+	</div>
+    <!-- 信托产品 -->
+   	<div class="tab_main" style="display:none;" id="div3">
+	    <table class="table table-hover" id="dataTable3">
+	    </table>
+	 </div>
+    <!-- 房产投资 -->
+    <div class="tab_main" style="display:none;" id="div4">
+        <table class="table table-hover" id="dataTable4">
+        </table>
+    </div>
+</div>
+<div class="paging"></div>
+
+<script src="${project_base_path}/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/fund/fundCommon.js"></script>
+<script>
+	var utype = 1;
+    $(function(){
+       $(".gType td").on("click",function(){
+    	   $this = $(this);
+    	   $index = $this.index();
+    	   console.log($index);
+    	   $this.addClass("td_active").siblings("td").removeClass("td_active");
+    	   //$(".tab_main").eq($index).show().siblings(".tab_main").hide();
+		   utype = $index + 1;
+		   $("#dataTable1").empty();
+		   $("#dataTable2").empty();
+		   $("#dataTable3").empty();
+           $("#dataTable4").empty();
+		   if(utype == 1 ){
+			   $("#div1").show();
+			   $("#div2").hide();
+			   $("#div3").hide();
+               $("#div4").hide();
+			   $(".gForm").attr("id","dataTable1Form");
+			   $(".gBtn").attr("id","dataTable1SearchBtn");
+			   renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns1, "dataTable1");
+		   }else if(utype == 2){
+			   $("#div1").hide();
+			   $("#div2").show();
+			   $("#div3").hide();
+               $("#div4").hide();
+			   $(".gForm").attr("id","dataTable2Form");
+			   $(".gBtn").attr("id","dataTable2SearchBtn");
+			   renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns2, "dataTable2");
+		   }else if(utype == 3){
+			   $("#div1").hide();
+			   $("#div2").hide();
+               $("#div4").hide();
+			   $("#div3").show();
+			   $(".gForm").attr("id","dataTable3Form");
+			   $(".gBtn").attr("id","dataTable3SearchBtn");
+			   renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns1, "dataTable3");
+		   }else if(utype ==4){
+               $("#div1").hide();
+               $("#div2").hide();
+               $("#div3").hide();
+               $("#div4").show();
+               $(".gForm").attr("id","dataTable4Form");
+               $(".gBtn").attr("id","dataTable4SearchBtn");
+               renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns1, "dataTable4");
+           }
+       })
+    });
+
+	$(function () {
+		//alert(window.location);  //地址不是ReservationRecord.html
+		//utype = commonUtil.getUrlParam("utype");//检查url中是否指定，优先级1
+		//utype = fundCommon.initUtype(utype);//检查参数中是否指定，优先级2
+
+	});
+
+	var columns1 = [
+		{
+			title: '项目名称', data: 'projectNames', tdClass: 'tac', thClass: 'tac'
+		}, {
+			title: '预约姓名', data: 'name', tdClass: 'tac', thClass: 'tac'
+		}, {
+			title: '手机号', data: 'tel', tdClass: 'tac', thClass: 'tac'
+		}, {
+			title: '预约时间', data: 'createTime', tdClass: 'tac', thClass: 'tac',render: function (value,row) {
+				return dateUtil.dateTime(value);
+			}
+		}, {
+			title: '备注', data: 'remark', tdClass: 'tac', thClass: 'tac',render: function (value,row) {
+				var result ="<span title='"+value+"'>";
+				if(value.length > 20){
+					value = value.substring(0,20);
+					result += value + "....</span>";
+					return result;
+				}else{
+					return value;
+				}
+			}
+		}
+	];
+
+	var columns2 = [
+		{
+			title: '项目名称', data: 'projectNames', tdClass: 'tac', thClass: 'tac'
+		}, {
+			title: '预约金额（美元）', data: 'investAmount', tdClass: 'tac', thClass: 'tac'
+		}, {
+			title: '历史年化收益率(%)', data: 'minRate', tdClass: 'tac', thClass: 'tac',
+			render: function (value, row) {
+				var result = "";
+				if(value != null && value != undefined && value != 0){
+					result += value;
+				}else{
+					result = row.maxRate;
+					return result;
+				}
+				if(row.maxRate != null && row.maxRate != undefined && row.maxRate != 0){
+					result += "~"+ row.maxRate;
+				}
+				return result;
+			}
+		}, {
+			title: '期限', data: 'termValue', tdClass: 'tac', thClass: 'tac',
+			render: function (value, row) {
+				value = value + " ";
+				if(row.termUnit == 1){
+					value+="年";
+				}else if(row.termUnit == 2){
+					value+="个月";
+				}else if(row.termUnit == 3){
+					value+="日";
+				}
+				return value;
+			}
+		}, {
+			title: '状态', data: 'auditState', tdClass: 'tac', thClass: 'tac',render: function (value,row) {
+				if(row.auditState == 1){
+					return '<span style="color: orange">预约中</span>';
+				}else if(row.auditState == 2){
+					return  '<span style="color: green">预约成功</span>';
+				}else if(row.auditState == 3){
+					return  '<span style="color: red">预约失败</span>'
+				}else if(row.auditState == 4){
+					return  '<span style="color: green">认购成功</span>'
+				}else if(row.auditState == 5){
+					return  '<span style="color: red">认购失败</span>'
+				}else{
+					return "————";
+				}
+			}
+		}, {
+			title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', data: 'auditState', tdClass: 'tac', thClass: 'tac' ,thstyle : 'width:20%',render: function (value,row) {
+				if(row.auditState == 1 || row.auditState == 2){
+					return "————"
+				}else if(row.auditState == 3 || row.auditState == 5 || row.auditState == 9){
+					return  '<a href="javascript:void(0)" class="hide-underline"  onclick="showReason(\''+row.reason+'\')" >查看原因</a>'
+				}else if(row.auditState == 4){
+					return  '<a href="javascript:void(0)" class="hide-underline"  onclick="showPdf(\''+row.contractUrl+'\')" >查看合同</a>'+
+							'<dl">&nbsp;|&nbsp;</dl>'+
+							'<a href="javascript:void(0)" class="hide-underline"  onclick="downloadPdf(\''+row.contractUrl+'\')" >下载</a>'
+				}else{
+					return "--";
+				}
+			}
+		}
+	];
+
+	$("#start").val(dateUtil.dateByFormat(dateUtil.addMonth(-1), "yyyy-MM-dd"));
+	$("#end").val(dateUtil.currDate("yyyy-MM-dd"));
+
+	renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType=1", columns1, "dataTable1");
+
+	if(utype == 1 || utype == 3){
+		//renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns1, "dataTable1");
+	}else if(utype == 2){
+		//renderUtil.renderList("/fundAdvisoryController/listReservationRecord.do?projectParentType="+utype, columns2, "dataTable");
+	}
+
+	// 查看审核原因
+	function showReason(reason) {
+		//$('#reasonId').html(reason);
+		//$("#btnChoose").modal('show');
+		dialogUtil.msg("失败原因", reason , 1);
+	}
+
+	var urlPix = "${oss.url}";
+	//预览pdf
+	function showPdf(contractUrl){
+		window.open(urlPix + contractUrl);
+	}
+
+	//下载pdf
+	function downloadPdf(contractUrl){
+		//contractUrl
+		if(contractUrl == '' || contractUrl == undefined || contractUrl=='undefined'){
+			alert("协议正在审核中，请耐心等待~");
+			return false;
+		}
+		//alert(urlPix);
+		//console.info('${oss.url}');
+		//var urlPix = "${oss.url}";
+		//下载pdf
+		//https://test-yr-ad-images-pr.oss-cn-beijing.aliyuncs.com/imageUpload/adwordcircle/templateClassA_bak.pdf
+		link = document.createElement('a');
+		link.setAttribute("download", new Date().getTime() + ".pdf");
+		link.setAttribute("target", "_blank");
+		//link.href = urlPix + contractUrl;
+		link.href = commonUtil.getRequestUrl("/fundAdvisoryController/downloadPdf.do?contractUrl="+contractUrl)
+		link.style.display='none';
+		document.body.appendChild(link);
+		//link.href = 'https://test-yr-ad-images-pr.oss-cn-beijing.aliyuncs.com/imageUpload/adwordcircle/templateClassA_bak.pdf';
+		link.click();
+	}
+
+</script>
+</div>

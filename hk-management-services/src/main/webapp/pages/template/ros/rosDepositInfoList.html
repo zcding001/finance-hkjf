@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+			<div class="panel-heading clearfix" style="line-height: 34px;">
+				<span style="float:left;">物业宝-购房宝意向金列表</span>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addRosDepositInfo')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				<div>
+							姓名：<input name="realName" class="form-control" style="width: 150px;display:inline-block;">
+           					手机号：<input name="login" validate="tel" class="form-control" style="width: 120px;display:inline-block;">
+           					项目名称：<input name="bidName" class="form-control" style="width: 120px;display:inline-block;">
+							员工类型：<select name="type" class="form-control" style="width: 150px;display:inline-block;"></select>
+            				<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn"
+							   style="display:inline-block;">搜索</a>
+            				<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn"
+							   style="display:inline-block;">清空</a>
+						</div>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns = [
+{title:"姓名", data: "realName",className:"dt-simple"},
+{ title:"手机号", data: "login" ,className:"dt-simple"},
+{ title:"身份证号", data: "idCard" ,className:"dt-simple"},
+{ title:"项目名称", data: "bidName" ,className:"dt-simple"},
+{ title:"意向金额", data: "money" ,className:"dt-simple"},
+{ title:"类型", data: "type" ,className:"dt-simple",
+	render: function (value, type, row) {
+		return DIC_CONSTANT.getName("ros", "deposit_type", value);
+	}
+},
+{
+	title:"操作",
+	data: null,
+	className:"dt-operate",
+    render: function (data, type, row) {
+		var btn = commonUtil.createConfirmRequestBtn({id:row.id, ajaxUrl:"/rosInfoController/delRosDepositInfo"}, "删除", "删除意向金名单", "确定删除意向金名单?", "fa-times-circle");
+		//修改按钮
+		btn = btn + commonUtil.createDirectRequestBtn({id:row.id, row:row, target:'addRosDepositInfo'},"修改","fa-edit");
+		return btn;
+    }
+}
+];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.rosDepositInfoList, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+DIC_CONSTANT.initSelect("type", "ros", "deposit_type");
+</script>

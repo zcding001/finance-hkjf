@@ -1,0 +1,167 @@
+i{font-style:normal;}
+.textright{
+  width: 130px;
+  text-align: right;
+  vertical-align: top;
+}
+.textstyle{
+	width:45%;
+	display:inline-block;
+}
+
+table.table-bordered tbody th, table.table-bordered tbody td{
+	vertical-align: middle;
+	padding: 4px 8px;
+	/* text-align: center; */
+}
+table.dataTable thead > tr > th {
+    padding-left: 0; 
+    padding-right: 0; 
+    text-align: center;
+}
+
+.btn-group-sm>.btn, .btn-sm{
+	padding: 5px 1px;
+}
+
+.btn-group-sm>.btn, .btn-sm:HOVER{
+	color:#31b0d5;
+	text-decoration: underline;
+}
+.bid-info p{display:inline;}
+.panel-body .font-red{    width: auto; margin-left: 0;color:red;font-size:16px;line-height: 25px;}
+#page-wrapper{
+	border-left:none;
+	padding:0 10px;
+}
+
+/* datatables操作按钮样式  */
+.dt-operate{
+	text-align: center;
+    width: 80px;
+}
+/*datatables 日期样式*/
+.dt-date{
+	text-align: center;
+    width: 90px;
+}
+/* datatables 时间 日期样式*/
+.dt-datetime{
+	text-align: center;
+    width: 150px;
+}
+
+/* datatables 通用样式*/
+.dt-simple{
+	text-align: center;
+    width: 90px;
+}
+.dt-checkbox{
+	text-align: center;
+	width: 25px;
+}
+/* datatables 全局样式*/
+.dt-narrow{
+	text-align: center;
+    width: 55px;}
+.show-span{
+	color:#F00;
+	display: inline-block;
+    line-height: 33px;
+    margin-left: 10px;
+}
+.form-group input[type=radio]{
+	margin-top:4px;
+}
+.form-group input[type=checkbox]{
+	margin-top:2px;
+}
+
+.ke-container{
+	float:left;
+	margin-top:9px;
+	margin-left:5px;
+}
+.pos_r{
+	position:relative;
+	top:5px;
+}
+.font_div{
+	width:100%;
+	text-align: center;
+	line-height: 40px;
+}
+.font-width{
+	word-break:break-all;
+	color: #4a4a4a;
+	padding: 20px 0 150px 0;
+	line-height: 26px;
+	width:1100px;
+	margin:0 auto;	
+}
+.font-width>img{
+	width:100%;
+}
+/*隐藏a标签的下环线*/
+.hide-underline:hover{
+	text-decoration:none;
+}
+#showSelectBid div{
+	padding-left: 9px;
+    float: left;
+}
+.showSelect{
+	height: 22px;
+    line-height: 21px;
+    margin: 0 10px;
+    padding-right: 9px;
+    border-radius: 2px;
+    border: 1px dotted #ff0036;
+}
+.showSelect span{
+	padding-right: 5px;
+}
+.showSelect i{
+	font-style: normal;
+	color:#ff0036;
+}
+
+.confirmChildren{
+	width:200px;
+	height:30px;
+
+}
+.confirmChildrenTextArea{
+	width: 456px;
+ 	height: 100px;
+}
+
+.redBorder{
+	border-color: red;
+}
+
+.column-center{
+	text-align: center;
+}
+/*筹款中的借款标*/
+.panel-body{
+	padding-top:0;
+}
+.panel-body .sp-width{
+	display:inline-block;
+	width:70px;
+	margin-left:15px;
+}
+/*搜索按钮通用样式*/
+.btn-info{
+	margin-left:15px;
+}
+
+/*左侧菜单选中颜色*/
+.left-menu-select{
+    background-color: #eeeeee;
+}
+
+
+
+

@@ -1,0 +1,1887 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.invest.model.BidInfo">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_BidInfo" type="com.hongkun.finance.invest.model.BidInfo">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="bidCode" column="bid_code"/>
+		<result property="bidProductId" column="bid_product_id"/>
+		<result property="totalAmount" column="total_amount"/>
+		<result property="residueAmount" column="residue_amount"/>
+		<result property="interestRate" column="interest_rate"/>
+		<result property="raiseRate" column="raise_rate"/>
+		<result property="termValue" column="term_value"/>
+		<result property="termUnit" column="term_unit"/>
+		<result property="biddRepaymentWay" column="bidd_repayment_way"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="lendingTime" column="lending_time"/>
+		<result property="type" column="type"/>
+		<result property="showPosition" column="show_position"/>
+		<result property="investPosition" column="invest_position"/>
+		<result property="bidSchemeValue" column="bid_scheme_value"/>
+		<result property="bidScheme" column="bid_scheme"/>
+		<result property="sort" column="sort"/>
+		<result property="assureType" column="assureType"/>
+		<result property="creditLevel" column="credit_level"/>
+		<result property="borrowerId" column="borrower_id"/>
+		<result property="repayUserId" column="repay_user_id"/>
+		<result property="receiptUserId" column="receipt_user_id"/>
+		<result property="companyId" column="company_id"/>
+		<result property="commissionRate" column="commission_rate"/>
+		<result property="serviceRate" column="service_rate"/>
+		<result property="advanceServiceRate" column="advance_service_rate"/>
+		<result property="liquidatedDamagesRate" column="liquidated_damages_rate"/>
+		<result property="imgUrl" column="img_url"/>
+		<result property="printImgurl" column="print_imgurl"/>
+		<result property="labelText" column="label_text"/>
+		<result property="labelUrl" column="label_url"/>
+		<result property="loanUse" column="loan_use"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="modifyUserId" column="modify_user_id"/>
+		<result property="state" column="state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="nextMatchDate" column="next_match_date"/>
+		<result property="allowCoupon" column="allow_coupon"/>
+		<result property="stepValue" column="step_value"/>
+		<result property="actionScope" column="action_scope"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,name,bid_code,bid_product_id,total_amount,residue_amount,interest_rate,raise_rate,term_value,term_unit,bidd_repayment_way,start_time,end_time,lending_time,type,show_position,invest_position,bid_scheme_value,bid_scheme,sort,assureType,credit_level,borrower_id,repay_user_id,receipt_user_id,company_id,commission_rate,service_rate,advance_service_rate,liquidated_damages_rate,img_url,print_imgurl,label_text,label_url,loan_use,create_user_id,modify_user_id,state,create_time,modify_time,allow_coupon,step_value,action_scope
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bid_info ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="name != null and name != ''">
+				name ,
+			</if>
+			<if test="bidCode != null and bidCode != ''">
+				bid_code ,
+			</if>
+			<if test="bidProductId != null">
+				bid_product_id ,
+			</if>
+			<if test="totalAmount != null">
+				total_amount ,
+			</if>
+			<if test="residueAmount != null">
+				residue_amount ,
+			</if>
+			<if test="interestRate != null">
+				interest_rate ,
+			</if>
+		   <if test="raiseRate != null">
+			   raise_rate ,
+			</if>
+			<if test="termValue != null">
+				term_value ,
+			</if>
+			<if test="termUnit != null">
+				term_unit ,
+			</if>
+			<if test="biddRepaymentWay != null">
+				bidd_repayment_way ,
+			</if>
+			<if test="startTime != null">
+				start_time ,
+			</if>
+			<if test="endTime != null">
+				end_time ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="showPosition != null and showPosition != ''">
+				show_position ,
+			</if>
+			<if test="investPosition != null and investPosition != ''">
+				invest_position ,
+			</if>
+			<if test="bidSchemeValue != null">
+				bid_scheme_value ,
+			</if>
+			<if test="bidScheme != null">
+				bid_scheme ,
+			</if>
+			<if test="sort != null">
+				sort ,
+			</if>
+			<if test="assureType != null and assureType != ''">
+				assureType ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				credit_level ,
+			</if>
+			<if test="borrowerId != null">
+				borrower_id ,
+			</if>
+			<if test="repayUserId != null">
+				repay_user_id ,
+			</if>
+			<if test="receiptUserId != null">
+				receipt_user_id ,
+			</if>
+			<if test="companyId != null">
+				company_id ,
+			</if>
+			<if test="commissionRate != null">
+				commission_rate ,
+			</if>
+			<if test="serviceRate != null">
+				service_rate ,
+			</if>
+			<if test="advanceServiceRate != null">
+				advance_service_rate ,
+			</if>
+			<if test="liquidatedDamagesRate != null">
+				liquidated_damages_rate ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				img_url ,
+			</if>
+			<if test="printImgurl != null and printImgurl != ''">
+				print_imgurl ,
+			</if>
+			<if test="labelText != null and labelText != ''">
+				label_text ,
+			</if>
+			<if test="labelUrl != null and labelUrl != ''">
+				label_url ,
+			</if>
+			<if test="loanUse != null">
+				loan_use ,
+			</if>
+			<if test="createUserId != null">
+				create_user_id ,
+			</if>
+			<if test="modifyUserId != null">
+				modify_user_id ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+            <if test="allowCoupon != null">
+               allow_coupon ,
+			</if>
+			<if test="stepValue != null">
+				step_value ,
+			</if>
+			<if test="actionScope != null">
+				action_scope ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="name != null and name != ''">
+				#{name} ,
+			</if>
+			<if test="bidCode != null and bidCode != ''">
+				#{bidCode} ,
+			</if>
+			<if test="bidProductId != null">
+				#{bidProductId} ,
+			</if>
+			<if test="totalAmount != null">
+				#{totalAmount} ,
+			</if>
+			<if test="residueAmount != null">
+				#{residueAmount} ,
+			</if>
+			<if test="interestRate != null">
+				#{interestRate} ,
+			</if>
+		    <if test="raiseRate != null">
+				#{raiseRate} ,
+			</if>
+			<if test="termValue != null">
+				#{termValue} ,
+			</if>
+			<if test="termUnit != null">
+				#{termUnit} ,
+			</if>
+			<if test="biddRepaymentWay != null">
+				#{biddRepaymentWay} ,
+			</if>
+			<if test="startTime != null">
+				#{startTime} ,
+			</if>
+			<if test="endTime != null">
+				#{endTime} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="showPosition != null and showPosition != ''">
+				#{showPosition} ,
+			</if>
+			<if test="investPosition != null and investPosition != ''">
+				#{investPosition} ,
+			</if>
+			<if test="bidSchemeValue != null">
+				#{bidSchemeValue} ,
+			</if>
+			<if test="bidScheme != null">
+				#{bidScheme} ,
+			</if>
+			<if test="sort != null">
+				#{sort} ,
+			</if>
+			<if test="assureType != null and assureType != ''">
+				#{assureType} ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				#{creditLevel} ,
+			</if>
+			<if test="borrowerId != null">
+				#{borrowerId} ,
+			</if>
+			<if test="repayUserId != null">
+				#{repayUserId} ,
+			</if>
+			<if test="receiptUserId != null">
+				#{receiptUserId} ,
+			</if>
+			<if test="companyId != null">
+				#{companyId} ,
+			</if>
+			<if test="commissionRate != null">
+				#{commissionRate} ,
+			</if>
+			<if test="serviceRate != null">
+				#{serviceRate} ,
+			</if>
+			<if test="advanceServiceRate != null">
+				#{advanceServiceRate} ,
+			</if>
+			<if test="liquidatedDamagesRate != null">
+				#{liquidatedDamagesRate} ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				#{imgUrl} ,
+			</if>
+			<if test="printImgurl != null and printImgurl != ''">
+				#{printImgurl} ,
+			</if>
+			<if test="labelText != null and labelText != ''">
+				#{labelText} ,
+			</if>
+			<if test="labelUrl != null and labelUrl != ''">
+				#{labelUrl} ,
+			</if>
+			<if test="loanUse != null">
+				#{loanUse} ,
+			</if>
+			<if test="createUserId != null">
+				#{createUserId} ,
+			</if>
+			<if test="modifyUserId != null">
+				#{modifyUserId} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+            <if test="allowCoupon != null">
+				#{allowCoupon} ,
+			</if>
+			<if test="stepValue != null">
+				#{stepValue} ,
+			</if>
+			<if test="actionScope != null">
+				#{actionScope} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO bid_info (
+        	id ,
+        	name ,
+        	bid_code ,
+        	bid_product_id ,
+        	total_amount ,
+        	residue_amount ,
+        	interest_rate ,
+		     raise_rate ,
+        	term_value ,
+        	term_unit ,
+        	bidd_repayment_way ,
+        	start_time ,
+        	end_time ,
+        	lending_time ,
+        	type ,
+        	show_position ,
+        	invest_position ,
+        	bid_scheme_value ,
+        	bid_scheme ,
+        	sort ,
+        	assureType ,
+        	credit_level ,
+        	borrower_id ,
+        	repay_user_id ,
+        	receipt_user_id ,
+        	company_id ,
+        	commission_rate ,
+        	service_rate ,
+        	advance_service_rate ,
+        	liquidated_damages_rate ,
+        	img_url ,
+        	print_imgurl ,
+			label_text,
+			label_url,
+        	loan_use ,
+        	create_user_id ,
+        	modify_user_id ,
+        	state ,
+			action_scope,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.name != null and item.name != ''">
+					#{item.name} ,
+				</if>
+				<if test="item.name == null or item.name == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bidCode != null and item.bidCode != ''">
+					#{item.bidCode} ,
+				</if>
+				<if test="item.bidCode == null or item.bidCode == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bidProductId != null">
+					#{item.bidProductId} ,
+				</if>
+				<if test="item.bidProductId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.totalAmount != null">
+					#{item.totalAmount} ,
+				</if>
+				<if test="item.totalAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.residueAmount != null">
+					#{item.residueAmount} ,
+				</if>
+				<if test="item.residueAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.interestRate != null">
+					#{item.interestRate} ,
+				</if>
+			    <if test="item.raiseRate != null">
+					#{item.raiseRate} ,
+				</if>
+				<if test="item.interestRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.termValue != null">
+					#{item.termValue} ,
+				</if>
+				<if test="item.termValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.termUnit != null">
+					#{item.termUnit} ,
+				</if>
+				<if test="item.termUnit == null">
+					DEFAULT ,
+				</if>
+				<if test="item.biddRepaymentWay != null">
+					#{item.biddRepaymentWay} ,
+				</if>
+				<if test="item.biddRepaymentWay == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.startTime != null">
+					#{item.startTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">
+					#{item.endTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.lendingTime != null">
+					#{item.lendingTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.showPosition != null and item.showPosition != ''">
+					#{item.showPosition} ,
+				</if>
+				<if test="item.showPosition == null or item.showPosition == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.investPosition != null and item.investPosition != ''">
+					#{item.investPosition} ,
+				</if>
+				<if test="item.investPosition == null or item.investPosition == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.bidSchemeValue != null">
+					#{item.bidSchemeValue} ,
+				</if>
+				<if test="item.bidSchemeValue == null">
+					DEFAULT ,
+				</if>
+				<if test="item.bidScheme != null">
+					#{item.bidScheme} ,
+				</if>
+				<if test="item.bidScheme == null">
+					DEFAULT ,
+				</if>
+				<if test="item.sort != null">
+					#{item.sort} ,
+				</if>
+				<if test="item.sort == null">
+					DEFAULT ,
+				</if>
+				<if test="item.assureType != null and item.assureType != ''">
+					#{item.assureType} ,
+				</if>
+				<if test="item.assureType == null or item.assureType == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.creditLevel != null and item.creditLevel != ''">
+					#{item.creditLevel} ,
+				</if>
+				<if test="item.creditLevel == null or item.creditLevel == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.borrowerId != null">
+					#{item.borrowerId} ,
+				</if>
+				<if test="item.borrowerId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.repayUserId != null">
+					#{item.repayUserId} ,
+				</if>
+				<if test="item.repayUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptUserId != null">
+					#{item.receiptUserId} ,
+				</if>
+				<if test="item.receiptUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.companyId != null">
+					#{item.companyId} ,
+				</if>
+				<if test="item.companyId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.commissionRate != null">
+					#{item.commissionRate} ,
+				</if>
+				<if test="item.commissionRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.serviceRate != null">
+					#{item.serviceRate} ,
+				</if>
+				<if test="item.serviceRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.advanceServiceRate != null">
+					#{item.advanceServiceRate} ,
+				</if>
+				<if test="item.advanceServiceRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.liquidatedDamagesRate != null">
+					#{item.liquidatedDamagesRate} ,
+				</if>
+				<if test="item.liquidatedDamagesRate == null">
+					DEFAULT ,
+				</if>
+				<if test="item.imgUrl != null and item.imgUrl != ''">
+					#{item.imgUrl} ,
+				</if>
+				<if test="item.imgUrl == null or item.imgUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.printImgurl != null and item.printImgurl != ''">
+					#{item.printImgurl} ,
+				</if>
+				<if test="item.printImgurl == null or item.printImgurl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.labelText != null and item.labelText != ''">
+					#{item.labelText} ,
+				</if>
+				<if test="item.labelText == null or item.labelText == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.labelUrl != null and item.labelUrl != ''">
+					#{item.labelUrl} ,
+				</if>
+				<if test="item.labelUrl == null or item.labelUrl == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.loanUse != null">
+					#{item.loanUse} ,
+				</if>
+				<if test="item.loanUse == null">
+					DEFAULT ,
+				</if>
+				<if test="item.createUserId != null">
+					#{item.createUserId} ,
+				</if>
+				<if test="item.createUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.modifyUserId != null">
+					#{item.modifyUserId} ,
+				</if>
+				<if test="item.modifyUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.actionScope == null">
+					#{item.actionScope} ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name} ,
+			</if>
+			<if test="bidCode != null and bidCode != ''">
+				bid_code = #{bidCode} ,
+			</if>
+			<if test="bidProductId != null">
+				bid_product_id = #{bidProductId} ,
+		    </if>
+			<if test="totalAmount != null ">
+				total_amount =total_amount + #{totalAmount} ,
+			</if>
+			<if test="residueAmount != null ">
+				residue_amount =residue_amount + #{residueAmount} ,
+			</if>
+			<if test="raiseRate != null ">
+				raise_rate =raise_rate + #{raiseRate} ,
+			</if>
+			<if test="interestRate != null ">
+				interest_rate =interest_rate + #{interestRate} ,
+			</if>
+			<if test="termValue != null">
+			term_value = #{termValue} ,
+		   </if>
+			<if test="termUnit != null">
+			term_unit = #{termUnit} ,
+		   </if>
+			<if test="biddRepaymentWay != null">
+			bidd_repayment_way = #{biddRepaymentWay} ,
+		   </if>
+			<if test="startTime != null">
+				start_time = #{startTime} ,
+			</if>
+			<if test="startTime == null">
+				start_time = DEFAULT ,
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime} ,
+			</if>
+			<if test="endTime == null">
+				end_time =  DEFAULT ,
+			</if>
+			<if test="lendingTime != null">
+				lending_time = #{lendingTime} ,
+			</if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="showPosition != null and showPosition != ''">
+				show_position = #{showPosition} ,
+			</if>
+			<if test="investPosition != null and investPosition != ''">
+				invest_position = #{investPosition} ,
+			</if>
+			<if test="bidSchemeValue != null">
+			bid_scheme_value = #{bidSchemeValue} ,
+		   </if>
+			<if test="bidScheme != null">
+			bid_scheme = #{bidScheme} ,
+		   </if>
+			<if test="sort != null">
+			sort = #{sort} ,
+		   </if>
+			<if test="assureType != null and assureType != ''">
+				assureType = #{assureType} ,
+			</if>
+			<if test="creditLevel != null and creditLevel != ''">
+				credit_level = #{creditLevel} ,
+			</if>
+			<if test="borrowerId != null">
+			borrower_id = #{borrowerId} ,
+		   </if>
+			<if test="repayUserId != null">
+			repay_user_id = #{repayUserId} ,
+		   </if>
+			<if test="receiptUserId != null">
+			receipt_user_id = #{receiptUserId} ,
+		   </if>
+			<if test="companyId != null">
+			company_id = #{companyId} ,
+		   </if>
+			<if test="commissionRate != null ">
+				commission_rate =commission_rate + #{commissionRate} ,
+			</if>
+			<if test="serviceRate != null ">
+				service_rate =service_rate + #{serviceRate} ,
+			</if>
+			<if test="advanceServiceRate != null ">
+				advance_service_rate =advance_service_rate + #{advanceServiceRate} ,
+			</if>
+			<if test="liquidatedDamagesRate != null ">
+				liquidated_damages_rate =liquidated_damages_rate + #{liquidatedDamagesRate} ,
+			</if>
+			<if test="imgUrl != null and imgUrl != ''">
+				img_url = #{imgUrl} ,
+			</if>
+			<if test="printImgurl != null and printImgurl != ''">
+				print_imgurl = #{printImgurl} ,
+			</if>
+			<if test="labelText != null and labelText != ''">
+				label_text = #{labelText} ,
+			</if>
+			<if test="labelUrl != null and labelUrl != ''">
+				label_url = #{labelUrl} ,
+			</if>
+			<if test="loanUse != null">
+			loan_use = #{loanUse} ,
+		   </if>
+		   <if test="allowCoupon != null">
+			allow_coupon = #{allowCoupon} ,
+		   </if>
+			<if test="stepValue != null">
+				step_value = #{stepValue} ,
+			</if>
+			<if test="createUserId != null">
+			create_user_id = #{createUserId} ,
+		   </if>
+			<if test="modifyUserId != null">
+			modify_user_id = #{modifyUserId} ,
+		   </if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="actionScope != null">
+				action_scope = #{actionScope} ,
+		   </if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<choose>
+				<when test="modifyTime != null">
+					modify_time = #{modifyTime} ,
+				</when>
+				<otherwise>
+					modify_time = NOW() ,
+				</otherwise>
+			</choose>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  bid_info
+		<include refid="update_sql"/>
+		WHERE 
+			id = #{id} 
+			<if test="preResidueAmount != null">
+			AND residue_amount = #{preResidueAmount}
+			</if>
+	</update>
+
+	<update id="updateBidInfoForMakeLoan">
+		UPDATE  bid_info
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} and state = 4 
+		]]>
+	</update>
+	
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM bid_info 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_BidInfo">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM bid_info 
+		WHERE state != 9
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<where>
+			state != 9
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="ids != null and ids.size != 0">
+				AND id IN
+				<foreach collection="ids" open="(" separator="," close=")" item="val">
+					${val}
+				</foreach>
+			</if>
+			<if test="stateList != null and stateList.size != 0">
+				AND state IN
+				<foreach collection="stateList" open="(" separator="," close=")" item="val">
+					${val}
+				</foreach>
+			</if>
+			<if test="name != null and name !=''">
+			AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="bidCode != null and bidCode !=''">
+			AND bid_code = #{bidCode}
+			</if>
+			<if test="bidProductId != null">
+			AND bid_product_id = #{bidProductId}
+			</if>
+			<if test="totalAmount != null">
+			AND total_amount = #{totalAmount}
+			</if>
+			<if test="residueAmount != null">
+			AND residue_amount = #{residueAmount}
+			</if>
+			<if test="interestRate != null">
+			AND interest_rate = #{interestRate}
+			</if>
+			<if test="raiseRate != null">
+			AND raise_rate = #{raiseRate}
+			</if>
+			<if test="termValue != null">
+			AND term_value = #{termValue}
+			</if>
+			<if test="termUnit != null">
+			AND term_unit = #{termUnit}
+			</if>
+			<if test="stepValue != null">
+				AND step_value = #{stepValue}
+			</if>
+			<if test="biddRepaymentWay != null">
+			AND bidd_repayment_way = #{biddRepaymentWay}
+			</if>
+			<if test="startTimeBegin != null">
+			AND start_time >= #{startTimeBegin}
+			</if>
+			<if test="startTimeEnd != null">
+			AND start_time &lt;= #{startTimeEnd}
+			</if>
+			<if test="endTimeBegin != null">
+			AND end_time >= #{endTimeBegin}
+			</if>
+			<if test="endTimeEnd != null">
+			AND end_time &lt;= #{endTimeEnd}
+			</if>
+			<if test="lendingTimeBegin != null">
+			AND lending_time >= #{lendingTimeBegin}
+			</if>
+			<if test="lendingTimeEnd != null">
+			AND lending_time &lt;= #{lendingTimeEnd}
+			</if>
+			<if test="type != null">
+			AND type = #{type}
+			</if>
+			<if test="showPosition != null and showPosition !=''">
+			AND show_position = #{showPosition}
+			</if>
+			<if test="investPosition != null and investPosition !=''">
+			AND invest_position = #{investPosition}
+			</if>
+			<if test="bidSchemeValue != null">
+			AND bid_scheme_value = #{bidSchemeValue}
+			</if>
+			<if test="bidScheme != null">
+			AND bid_scheme = #{bidScheme}
+			</if>
+			<if test="sort != null">
+			AND sort = #{sort}
+			</if>
+			<if test="assureType != null and assureType !=''">
+			AND assureType = #{assureType}
+			</if>
+			<if test="creditLevel != null and creditLevel !=''">
+			AND credit_level = #{creditLevel}
+			</if>
+			<if test="borrowerId != null">
+			AND borrower_id = #{borrowerId}
+			</if>
+			<if test="repayUserId != null">
+			AND repay_user_id = #{repayUserId}
+			</if>
+			<if test="receiptUserId != null">
+			AND receipt_user_id = #{receiptUserId}
+			</if>
+			<if test="companyId != null">
+			AND company_id = #{companyId}
+			</if>
+			<if test="commissionRate != null">
+			AND commission_rate = #{commissionRate}
+			</if>
+			<if test="serviceRate != null">
+			AND service_rate = #{serviceRate}
+			</if>
+			<if test="advanceServiceRate != null">
+			AND advance_service_rate = #{advanceServiceRate}
+			</if>
+			<if test="liquidatedDamagesRate != null">
+			AND liquidated_damages_rate = #{liquidatedDamagesRate}
+			</if>
+			<if test="imgUrl != null and imgUrl !=''">
+			AND img_url = #{imgUrl}
+			</if>
+			<if test="printImgurl != null and printImgurl !=''">
+			AND print_imgurl = #{printImgurl}
+			</if>
+			<if test="labelText != null and labelText !=''">
+				AND label_text = #{labelText}
+			</if>
+			<if test="labelUrl != null and labelUrl !=''">
+				AND label_url = #{labelUrl}
+			</if>
+			<if test="loanUse != null">
+			AND loan_use = #{loanUse}
+			</if>
+			<if test="createUserId != null">
+			AND create_user_id = #{createUserId}
+			</if>
+			<if test="modifyUserId != null">
+			AND modify_user_id = #{modifyUserId}
+			</if>
+			<if test="state != null and state!=-999">
+			AND state = #{state}
+			</if>
+			<if test="state == null or state==-999">
+				AND state != 0
+			</if>
+			<if test="actionScope != null">
+				AND action_scope = #{actionScope}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 后台标的信息模糊查询条件 -->
+	<sql id="findPage_where_condition">
+		<where>
+			state != 9
+			<if test="name != null and name !=''">
+				AND name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="state == null">
+				AND state != 0
+			</if>
+			<if test="actionScope != null">
+				AND action_scope = #{actionScope}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM bid_info 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_BidInfo">
+		SELECT <include refid="columns" />
+		FROM bid_info 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 查询条件分页 -->
+	<select id="findConditionPageCount" resultType="long">
+		SELECT COUNT(ID) FROM bid_info
+		<include refid="findPage_where_condition"/>
+	</select>
+	<!-- 查询条件分页 -->
+	<select id="findConditionPage" resultMap="_BidInfo">
+		SELECT <include refid="columns" />
+		FROM bid_info
+		<include refid="findPage_where_condition"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 根据产品类型和标的状态查询 -->
+	<select id="findBidInfoList" resultMap="_BidInfo" parameterType="java.util.Map">
+		SELECT 
+		    b.id ,
+        	b.name ,
+        	b.bid_code ,
+        	b.bid_product_id ,
+        	b.total_amount ,
+        	b.residue_amount ,
+        	b.interest_rate ,
+        	b.raise_rate ,
+        	b.term_value ,
+        	b.term_unit ,
+        	b.bidd_repayment_way ,
+        	b.start_time ,
+        	b.end_time ,
+        	b.lending_time ,
+        	b.type ,
+        	b.show_position ,
+        	b.invest_position ,
+        	b.bid_scheme_value ,
+        	b.bid_scheme ,
+        	b.sort ,
+        	b.assureType ,
+        	b.credit_level ,
+        	b.borrower_id ,
+        	b.repay_user_id ,
+        	b.receipt_user_id ,
+        	b.company_id ,
+        	b.commission_rate ,
+        	b.service_rate ,
+        	b.advance_service_rate ,
+        	b.liquidated_damages_rate ,
+        	b.img_url ,
+        	b.print_imgurl ,
+			b.label_text ,
+			b.label_url ,
+        	b.loan_use ,
+        	b.create_user_id ,
+        	b.modify_user_id ,
+        	b.state ,
+        	b.action_scope ,
+        	b.create_time ,
+        	b.modify_time 
+		FROM bid_info b INNER JOIN bid_product p ON b.bid_product_id = p.id 
+		where  p.type=#{productType}  AND b.state != 9
+		<if test="bidState != null">
+				AND b.state = #{bidState}
+		</if>
+		<if test="bidName != null and bidName !=''">
+				AND b.name LIKE CONCAT('%',#{bidName},'%')
+		</if>
+		ORDER BY b.id desc
+	</select>
+	
+	<!-- 根据产品类型和标的状态及标的名称分页查询数量 -->
+	<select id="findBidInfoListByConditionCount" resultType="long">
+		SELECT COUNT(b.id)
+		FROM bid_info b INNER JOIN bid_product p ON b.bid_product_id = p.id 
+		where  p.type=#{productType} AND b.state != 9
+		<if test="bidStateList != null">
+		  AND b.state in
+		    <foreach collection="bidStateList" item="bidstate"  open="(" separator="," close=")">
+				${bidstate}
+			</foreach>
+		</if>
+		<if test="bidName != null and bidName !=''">
+				AND b.name LIKE CONCAT('%',#{bidName},'%')
+		</if>
+		ORDER BY b.id 
+	</select>
+	<!-- 根据产品类型和标的状态及标的名称分页查询 -->
+	<select id="findBidInfoListByCondition" resultMap="_BidInfo" parameterType="java.util.Map">
+		SELECT 
+		    b.id ,
+        	b.name ,
+        	b.bid_code ,
+        	b.bid_product_id ,
+        	b.total_amount ,
+        	b.residue_amount ,
+        	b.interest_rate ,
+        	b.raise_rate ,
+        	b.term_value ,
+        	b.term_unit ,
+        	b.bidd_repayment_way ,
+        	b.start_time ,
+        	b.end_time ,
+        	b.lending_time ,
+        	b.type ,
+        	b.show_position ,
+        	b.invest_position ,
+        	b.bid_scheme_value ,
+        	b.bid_scheme ,
+        	b.sort ,
+        	b.assureType ,
+        	b.credit_level ,
+        	b.borrower_id ,
+        	b.repay_user_id ,
+        	b.receipt_user_id ,
+        	b.company_id ,
+        	b.commission_rate ,
+        	b.service_rate ,
+        	b.advance_service_rate ,
+        	b.liquidated_damages_rate ,
+        	b.img_url ,
+        	b.print_imgurl ,
+			b.label_text ,
+			b.label_url ,
+        	b.loan_use ,
+        	b.create_user_id ,
+        	b.modify_user_id ,
+        	b.state ,
+        	b.action_scope ,
+        	b.create_time ,
+        	b.modify_time 
+		FROM bid_info b INNER JOIN bid_product p ON b.bid_product_id = p.id 
+		where  p.type=#{productType}  AND b.state != 9
+		<if test="bidStateList != null">
+		  AND b.state in
+		    <foreach collection="bidStateList" item="bidstate"  open="(" separator="," close=")">
+				${bidstate}
+			</foreach>
+		</if>
+		<if test="bidName != null and bidName !=''">
+				AND b.name LIKE CONCAT('%',#{bidName},'%')
+		</if> 
+		ORDER BY b.id 
+	</select>
+	
+	<select id="findMatchBidInfoListCount" resultType="long">
+		SELECT COUNT(b1.id) 
+		FROM bid_info b1 
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		<include refid="find_where_MatchBidInfoList"/>
+	</select>
+	
+	<select id="findMatchBidInfoList" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT b1.id as id ,
+			   b1.name as title,
+			   b1.total_amount as totalAmount,
+			   b1.interest_rate as interestRate,
+			   b1.raise_rate as raiseRate,
+			   b1.term_value as termValue,
+			   b1.term_unit as termUnit,
+			   b1.lending_time as lendingTime,
+			   b1.create_time as createTime,
+			   b1.state as state,
+				b1.print_imgurl as printImgurl,
+				b1.img_url as imgUrl,
+			   b2.return_cap_amount as returnCapAmount,
+			   b2.next_match_date as nextMatchDate,
+			   b3.type as productType,
+				b3.action_scope as actionScope
+		FROM bid_info b1
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		<include refid="find_where_MatchBidInfoList"/>
+		order  by  b2.next_match_date asc
+	</select>
+	
+	<select id="findBidInfoDetailVoById" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT b1.id as id ,
+			   b1.name as title,
+			   b1.total_amount as totalAmount,
+			   b1.residue_amount as residueAmount,
+			   b1.interest_rate as interestRate,
+			   b1.raise_rate as raiseRate,
+			   b1.term_value as termValue,
+			   b1.term_unit as termUnit,
+			   b1.lending_time as lendingTime,
+			   b1.create_time as createTime,
+			   b1.state as state,
+			   b1.borrower_id as borrowerId,
+			   b1.receipt_user_id as receiptUserId,
+			   b1.show_position as showPosition,
+			   b1.invest_position as investPosition,
+			   b1.start_time as startTime,
+			   b1.end_time as endTime,
+			   b1.commission_rate as commissionRate,
+			   b1.service_rate as serviceRate,
+			   b1.assureType as assureType,
+			   b1.bidd_repayment_way as biddRepaymentWay,
+			   b1.loan_use as loanUse,
+			   b1.credit_level as creditLevel,
+			   b1.type as `type`,
+			   b1.company_id as companyId,
+			   b1.img_url as imgUrl,
+			   b1.print_imgurl as printImgurl,
+			   b1.label_text as labelText,
+			   b1.label_url as labelUrl,
+			   b1.bid_code as bidCode,
+			   b1.allow_coupon as allowCoupon,
+			   b1.step_value as stepValue,
+			   b1.advance_service_rate as advanceServiceRate,
+			   b1.liquidated_damages_rate as liquidatedDamagesRate,
+			   b2.return_cap_amount as returnCapAmount,
+			   b2.next_match_date as nextMatchDate,
+			   b2.match_type as matchType,
+			   b2.punish_state as punishState,
+			   b2.reserve_interest as reserveInterest,
+			   b2.bill_no as billNo,
+			   b2.creditor_state as creditorState,
+			   b2.withhold_state as withholdState,
+			   b2.repayment_source as repaymentSource,
+			   b2.assure_description as assureDescription,
+			   b2.project_description as projectDescription,
+			   b2.fund_use as fundUse,
+			   b2.recommend_state as recommendState,
+			   b2.giving_point_state as givingPointState,
+			   b2.bourse_flg as bourseFlg,
+			   b2.legal_files as legalFiles,
+			   b2.creditor_days as creditorDays,
+			   b2.deal_repay_days as dealRepayDays,
+			   b2.convert_rate_start as convertRateStart,
+			   b2.convert_rate_end as convertRateEnd,
+			   b2.overflow_rate_start as overflowRateStart,
+			   b2.overflow_rate_end as overflowRateEnd,
+			   b2.maturity_remind as maturityRemind,
+			   b2.most_transfer_count as mostTransferCount,
+			   b2.transfer_rate as transferRate,
+			   b2.transfer_days as transferDays,
+			   b2.advance_repay_state as advanceRepayState,
+			   b2.return_cap_way as returnCapWay,
+			   b2.return_cap_days as returnCapDays,
+			   b2.rule_id as ruleId,
+			   b3.id as bidProductId,
+			   b3.type as productType,
+			   b3.name as productName,
+			   b3.bid_deadline as bidDeadline,
+			   b3.amount_min as amountMin,
+			   b3.term_value_min as termValueMin,
+			   b3.term_value_max as termValueMax,
+			   b1.bid_scheme_value as bidSchemeValue,
+			   b1.bid_scheme as bidScheme,
+			   b3.rate_min as rateMin,
+			   b3.rate_max as rateMax,
+			   b3.description as description,
+			   b3.amount_max as amountMax,
+			   b3.contract as contract,
+			   b3.action_scope as actionScope
+		FROM bid_info b1
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		WHERE b1.id = #{bidInfoId} AND b1.state != 9
+	</select>
+	
+	
+	
+	<!-- 后台标的信息模糊查询条件 -->
+	<sql id="find_where_MatchBidInfoList">
+		<where>
+			b1.bidd_repayment_way in (2,3,6,7)
+		    AND  b2.match_state in (0,2)
+			<if test="resiDays != null and resiDays != '' ">
+				AND datediff(b2.next_match_date,#{serverSysDate}) &lt;= #{resiDays}
+			</if>
+			<if test="title != null and title !=''">
+				AND b1.name LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="actionScope != null and actionScope !=''">
+				AND b3.action_scope = #{actionScope}
+			</if>
+			<if test="bidType == 2">
+				AND b1.state in(1,5)
+				AND b3.type = 0 
+				AND b2.match_type = 1 
+			</if>
+			<if test="bidType == 1">
+				AND b1.state = 5 
+				AND b3.type in(2,3,4,6,9)
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findAllMatchBidInfoListCount" resultType="long">
+		SELECT COUNT(b1.id) 
+		FROM bid_info b1
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		<include refid="find_where_AllMatchBidInfoList"/>
+	</select>
+	
+		<select id="findAllMatchBidInfoList" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT b1.id as id ,
+			   b1.name as title,
+			   b1.type as type,
+			   b1.allow_coupon as allowCoupon,
+			   b1.total_amount as totalAmount,
+			   b1.bid_scheme_value as bidSchemeValue,
+			   b1.interest_rate as interestRate,
+			   b1.raise_rate as raiseRate,
+			   b1.term_value as termValue,
+			   b1.term_unit as termUnit,
+			   b1.lending_time as lendingTime,
+			   b1.create_time as createTime,
+			   b1.start_time as startTime,
+			   b1.state as state,
+			   b1.residue_amount as residueAmount,
+			   b1.borrower_id as borrowerId,
+			   b1.bidd_repayment_way as biddRepaymentWay,
+			   b1.show_position as showPosition,
+			   b1.label_text as labelText,
+			   b1.label_url as labelUrl,
+			   b1.print_imgurl as printImgurl,
+			   b1.img_url as imgUrl,
+			   b2.match_type as matchType,
+			   b3.type as productType,
+			   b3.id as bidProductId,
+			   b3.action_scope as actionScope
+		FROM bid_info b1 
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		<include refid="find_where_AllMatchBidInfoList"/>
+		order by b1.create_time
+	</select>
+	
+	<sql id="find_where_AllMatchBidInfoList">
+		<where>
+			1=1
+			<if test="title != null and title !=''">
+				AND b1.name LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="state != null">
+				AND b1.state = #{state}
+			</if>
+			<if test="productType != null">
+				AND b3.type = #{productType}
+			</if>
+			<if test="type != null">
+				AND b1.type =  #{type}
+			</if>
+			<if test="biddRepaymentWay != null">
+				AND b1.bidd_repayment_way = #{biddRepaymentWay}
+			</if>
+			<if test="productState != null">
+				AND b3.state = #{productState}
+			</if>
+
+			<if test="productTypeLimitIds != null and productTypeLimitIds.size != 0">
+				AND b3.type IN
+				<foreach collection="productTypeLimitIds" open="(" separator="," close=")" item="ptype">
+					#{ptype}
+				</foreach>
+			</if>
+			<if test="bidTypeLimitIds != null and bidTypeLimitIds.size != 0">
+				AND b1.type IN
+				<foreach collection="bidTypeLimitIds" open="(" separator="," close=")" item="btype">
+					#{btype}
+				</foreach>
+			</if>
+
+			<if test="repayWayLimitIds != null and repayWayLimitIds.size != 0">
+				AND b1.bidd_repayment_way IN
+				<foreach collection="repayWayLimitIds" open="(" separator="," close=")" item="repId">
+					${repId}
+				</foreach>
+			</if>
+			<if test="bidLimitIds != null and bidLimitIds.size != 0">
+				AND b1.id IN
+				<foreach collection="bidLimitIds" open="(" separator="," close=")" item="bid">
+					${bid}
+				</foreach>
+			</if>
+			<if test="states != null and states.size != 0">
+				AND b1.state IN
+				<foreach collection="states" open="(" separator="," close=")" item="stateItem">
+					${stateItem}
+				</foreach>
+			</if>
+			<if test="showPosition != null and showPosition != ''">
+				AND b1.show_position LIKE CONCAT('%',#{showPosition},'%')
+			</if>
+			<if test="title != null and title != ''">
+				AND b1.name LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="matchType != null and matchType != ''">
+				AND b2.match_type = #{matchType}
+			</if>
+			<if test="actionScope != null and actionScope != ''">
+				AND b3.action_scope = #{actionScope}
+			</if>
+
+		</where>
+	</sql>
+
+
+	<select id="findGoodOrCommonList" resultMap="_BidInfo">
+		SELECT b1.id ,
+			   b1.name ,
+			   b1.total_amount ,
+			   b1.interest_rate ,
+			   b1.raise_rate ,
+			   b1.term_value ,
+			   b1.term_unit ,
+			   b1.lending_time ,
+			   b1.create_time ,
+			   b1.state ,
+			   b1.residue_amount ,
+                b1.print_imgurl as printImgurl,
+                b1.img_url as imgUrl,
+			   b1.residue_amount ,
+			   b1.borrower_id,
+			   b3.action_scope,
+			   b2.next_match_date
+		FROM bid_info b1 
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id 
+		WHERE 1=1
+		<if test="state != null ">
+			  AND b1.state in 
+			 <foreach collection="list" item="item" index="index" separator=",">
+			(#{item})
+			</foreach>
+		</if>
+		<if test="matchType != null ">
+			  AND b2.match_type = matchType
+		</if>
+		<if test="actionScope != null ">
+			  AND b3.action_scope = actionScope
+		</if>
+		<if test="productTypes != null">
+			AND b3.type in 
+			<foreach collection="list" item="item" index="index" separator=",">
+			(#{item})
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="findBidInfoDetailsByEndDate" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT b1.id as id ,
+			   b1.name as title,
+			   b1.total_amount as totalAmount,
+			   b1.interest_rate as interestRate,
+			   b1.raise_rate as raiseRate,
+			   b1.term_value as termValue,
+			   b1.term_unit as termUnit,
+			   b1.lending_time as lendingTime,
+			   b1.create_time as createTime,
+			   b1.state as state,
+			   b1.print_imgurl as printImgurl,
+			   b1.img_url as imgUrl,
+			   b1.step_value as stepValue,
+			   b1.residue_amount as residueAmount,
+			   b1.borrower_id as borrowerId,
+			   b2.match_type as matchType,
+			   b2.next_match_date as nextMatchDate,
+			   b3.type as productType,
+			   b3.action_scope as actionScope
+		FROM bid_info b1
+		INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id 
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id 
+		WHERE datediff(b2.next_match_date,#{endDate}) &lt;= 0 and  b1.bidd_repayment_way in (2,3,6,7) and  b1.state in (1,5) AND b2.match_state in (0,2)
+	</select>
+	
+	
+	<select id="findBidInfoDetailVoListCount" resultType="long">
+		SELECT
+			count(a.id)
+		FROM
+			bid_info AS a
+		INNER JOIN bid_product AS c ON a.bid_product_id = c.id
+		<include refid="find_where_findBidInfoDetailVoList"/>
+	</select>
+	<select id="findBidInfoDetailVoList" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT
+			a.id,
+			a.`name` AS title,
+			a.bid_code AS bidCode,
+			a.borrower_id AS borrowerId,
+			a.total_amount AS totalAmount,
+			a.residue_amount AS residueAmount,
+			a.interest_rate AS interestRate,
+			a.raise_rate AS raiseRate,
+			a.term_unit AS termUnit,
+			a.term_value AS termValue,
+			a.state AS state,
+            a.print_imgurl as printImgurl,
+            a.img_url as imgUrl,
+			a.create_time AS createTime,
+			a.lending_time AS lendingTime,
+			a.bidd_repayment_way as biddRepaymentWay,
+			a.advance_service_rate as advanceServiceRate,
+			a.liquidated_damages_rate as liquidatedDamagesRate,
+			b.creditor_state as creditorState,
+			b.transfer_rate as transferRate,
+			b.advance_repay_state as advanceRepayState,
+			b.return_cap_days as returnCapDays,
+			b.return_cap_amount as returnCapAmount,
+			b.withhold_state as withholdState,
+			b.punish_state as punishState,
+			c.id AS productId,
+		   (CASE c.state WHEN 1 THEN  TRUE ELSE FALSE  END )  AS modifyAble,
+			c.`name` AS productName,
+			c.type AS productType,
+			c.action_scope AS actionScope,
+			c.contract
+		FROM
+			bid_info  a 
+		INNER JOIN bid_info_detail b on a.id = b.bidd_info_id 
+		INNER JOIN bid_product  c ON a.bid_product_id = c.id
+		<include refid="find_where_findBidInfoDetailVoList"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+	</select>
+	<sql id="find_where_findBidInfoDetailVoList">
+		<where>
+			a.state!=9
+			<if test="title != null ">
+				  AND a.name LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="bidId != null ">
+				  AND a.id = #{bidId}
+			</if>
+			<if test="createTimeBegin != null and createTimeBegin != ''">
+				  AND a.create_time &gt;= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd != ''">
+				  AND a.create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="state != null and state != '' and state !=-999">
+				  AND a.state = #{state}
+			</if>
+			<if test="raiseFlag != null and  raiseFlag ==1">
+				  AND a.raise_rate >0
+			</if>
+			<if test="raiseFlag != null and  raiseFlag ==0">
+				AND a.raise_rate =0
+			</if>
+			<if test="actionScope != null and actionScope != ''">
+				AND c.action_scope = #{actionScope}
+			</if>
+			<if test="states != null and states.size != 0">
+				AND a.state IN
+				<foreach collection="states" open="(" separator="," close=")" item="stateItem">
+					${stateItem}
+				</foreach>
+			</if>
+			<if test="borrowerIds != null and borrowerIds.size != 0">
+				AND a.borrower_id IN
+				<foreach collection="borrowerIds" open="(" separator="," close=")" item="userId">
+					${userId}
+				</foreach>
+			</if>
+			<if test="productTypes != null and productTypes.size > 0">
+				AND c.type IN
+				<foreach collection="productTypes" open="(" separator="," close=")" item="val">
+					${val}
+				</foreach>
+			</if>
+			<if test="bidLimitIds != null and bidLimitIds.size > 0">
+				AND a.id IN
+				<foreach collection="bidLimitIds" open="(" separator="," close=")" item="val">
+					${val}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findAutoInvestBidList" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT
+			a.id,
+			a.term_value AS termValue,
+			a.term_unit AS termUnit,
+			a.allow_coupon AS allowCoupon,
+			a.residue_amount as residueAmount,
+			a.type AS type,
+			a.bidd_repayment_way AS biddRepaymentWay,
+			c.type AS productType,
+			a.name as title,
+			a.interest_rate AS interestRate,
+			a.create_time as createTime,
+			c.action_scope as actionScope
+
+		 FROM
+            bid_info AS a
+        	INNER JOIN bid_info_detail AS b ON a.id = b.bidd_info_id
+			INNER JOIN bid_product AS c ON a.bid_product_id = c.id
+		<where>
+			a.state = 2
+            AND a.action_scope = 1
+			AND a.start_time &lt;= NOW()
+			AND a.end_time >= NOW()
+			AND a.interest_rate >= #{minRate}
+			<choose>
+	            <when test="repayType == 0 ">  
+	                AND a.bidd_repayment_way IN (2, 3)
+	            </when >
+	            <otherwise> 
+	            	AND a.bidd_repayment_way = #{repayType}
+	            </otherwise>  
+	        </choose>
+			<if test="actionScope != null and actionScope != ''">
+				AND c.action_scope = #{actionScope}
+			</if>
+		</where>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<select id="findBidInfoSimpleVoList" resultType="com.hongkun.finance.invest.model.vo.BidInfoSimpleVo">
+		SELECT
+			a.id,
+			a.term_value AS termValue,
+			a.term_unit AS termUnit,
+			a.lending_time AS lendingTime,
+			a.state AS state,
+			a.name as name,
+            a.print_imgurl as printImgurl,
+            a.img_url as imgUrl,
+			a.total_amount as totalAmount,
+			a.interest_rate as interestRate,
+			a.raise_rate as raiseRate,
+			a.bidd_repayment_way as biddRepaymentWay,
+			a.bid_product_id as bidProductId,
+			a.borrower_id as borrowerId,
+			c.type AS productType,
+			c.action_scope AS actionScope
+		FROM
+			bid_info a
+		INNER JOIN bid_product  c ON a.bid_product_id = c.id
+		<where>
+			1=1
+		   <if test="borrowerId != null">
+				AND a.borrower_id = #{borrowerId} 
+		   </if>
+		   <if test="state != null and state != -999">
+				AND a.state = #{state} 
+		   </if>
+		   <if test="state == null or state == -999">
+				AND a.state in (2,3,4,5,6) 
+		   </if>
+			<if test="actionScope != null and actionScope != ''">
+				AND c.action_scope = #{actionScope}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findBidInfoSimpleVoListCount" resultType="java.lang.Integer">
+		SELECT count(1) 
+		FROM
+			bid_info a
+		INNER JOIN bid_product  c ON a.bid_product_id = c.id
+		<where>
+			1=1
+		   <if test="borrowerId != null">
+				AND a.borrower_id = #{borrowerId} 
+		   </if>
+		    <if test="state != null and state != -999">
+				AND a.state = #{state} 
+		   </if>
+		   <if test="state == null or state == -999">
+				AND a.state in (2,3,4,5,6) 
+		   </if>
+			<if test="actionScope != null and actionScope != ''">
+				AND c.action_scope = #{actionScope}
+			</if>
+		</where>
+	</select>
+	<!--根据标地id集合获取标地信息-->
+	<select id="findBidInfoDetailVoByIdList" resultType="com.hongkun.finance.invest.model.vo.BidInfoVO">
+		SELECT
+			a.id,
+			a.borrower_id as borrowerId,
+			a.receipt_user_id as receiptUserId,
+			a.lending_time as lendingTime,
+			a.term_unit as termUnit,
+			a.term_value as termValue,
+			a.`name` as title,
+            a.print_imgurl as printImgurl,
+            a.img_url as imgUrl,
+			a.interest_rate as interestRate,
+			a.total_amount as totalAmount,
+			a.loan_use as loanUse,
+			a.bidd_repayment_way as biddRepaymentWay,
+			a.bid_code as bidCode,
+			b.bill_no as billNo,
+			b.match_type as matchType,
+			c.action_scope as actionScope,
+			c.contract
+		FROM
+			bid_info a
+			LEFT JOIN bid_info_detail b ON a.id = b.bidd_info_id
+			LEFT JOIN bid_product c ON a.bid_product_id = c.id
+			WHERE
+			a.id IN
+			<foreach collection="collection" open="(" separator="," close=")" item="val">
+				${val}
+			</foreach>
+	</select>
+	<!-- 查询购房宝，物业宝的标的信息 -->
+	<select id="findPurchaseBidInfoList" resultMap="_BidInfo" parameterType="java.util.Map">
+		SELECT 
+		    b.id ,
+        	b.name ,
+        	b.bid_code        	
+		FROM bid_info b INNER JOIN bid_product p ON b.bid_product_id = p.id 
+		where  1=1
+		<if test="productTypeList != null and productTypeList.size > 0">
+				AND p.type IN
+				<foreach collection="productTypeList" open="(" separator="," close=")" item="val">
+					${val}
+				</foreach>
+		</if>
+		<if test="bidState != null">
+				AND b.state = #{bidState}
+		</if>
+		<if test="bidName != null and bidName !=''">
+				AND b.name LIKE CONCAT('%',#{bidName},'%')
+		</if>
+		ORDER BY b.id desc
+	</select>
+
+    <!-- 标的统计查询 -->
+    <select id="findStaFunBidCount" resultType="long">
+        SELECT 
+          COUNT(b1.id)
+        FROM 
+          bid_info b1
+        INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id
+        INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+        <include refid="find_where_findStaFunBid"/>
+    </select>
+    <!-- 标的统计查询 -->
+    <select id="findStaFunBid" resultType="com.hongkun.finance.invest.model.vo.StaFunBidVO">
+      SELECT
+        b1.id AS id,
+        b1.`name` AS name,
+        b1.borrower_id AS borrowerId,
+        b1.show_position AS showPosition,
+        b1.invest_position AS investPosition,
+        b1.label_text AS labelText,
+        b1.total_amount AS totalAmount,
+        b1.loan_use AS loanUse,
+        b1.interest_rate AS interestRate,
+        b1.term_value AS termValue,
+        b1.term_unit AS termUnit,
+        b1.bidd_repayment_way AS biddRepaymentWay,
+        b1.state AS state,
+        b1.lending_time AS lendingTime,
+        b1.create_time AS createTime,
+        b1.end_time AS endTime,
+        b1.commission_rate AS commissionRate,
+        b1.service_rate AS serviceRate,
+        b2.reserve_interest AS reserveInterest,
+        b2.advance_repay_state AS advanceRepayState,
+        b2.giving_point_state AS givingPointState,
+        b2.recommend_state AS recommendState,
+        b3.`name` AS bidProductName,
+        b3.action_scope AS actionScope,
+        b3.type AS productType
+      FROM
+        bid_info b1
+      INNER JOIN bid_info_detail b2 on b1.id = b2.bidd_info_id
+      INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+      <include refid="find_where_findStaFunBid"/>
+        ORDER BY b1.create_time DESC
+    </select>
+
+    <sql id="find_where_findStaFunBid">
+        <where>
+            1=1
+            <if test="name != null and name !=''">
+                AND b1.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="productType == 0">
+                AND b3.type = 0
+            </if>
+            <if test="productType == 1">
+                AND b3.type IN (2, 3, 4)
+            </if>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                AND b1.create_time &gt;= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                AND b1.create_time &lt;= #{createTimeEnd}
+            </if>
+			<if test="actionScope != null and actionScope != ''">
+				AND b3.action_scope = #{actionScope}
+			</if>
+            AND b1.state != 9
+        </where>
+    </sql>
+
+    <!-- 标的总金额&标的数量&借款人数统计 -->
+    <select id="findStaBidUserAmountCount" resultType="java.util.Map">
+        SELECT
+            IFNULL(SUM(b1.total_amount), 0) AS totalAmount,
+            COUNT(b1.`id`) AS bidCount,
+            COUNT(DISTINCT b1.borrower_id) AS borrowerUserCount
+        FROM
+            bid_info AS b1
+        INNER JOIN bid_product AS b2 ON b1.bid_product_id = b2.id
+        INNER JOIN bid_info_detail AS b3 ON b1.id = b3.bidd_info_id
+        WHERE
+            b1.state IN (1, 2, 3, 4, 5, 6)
+        AND b2.type NOT IN (5, 7)
+        AND b3.match_type = 0
+        <if test="startTime != null">
+            AND b1.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND b1.create_time &lt;= #{endTime}
+        </if>
+		<if test="actionScope != null and actionScope != ''">
+			AND b2.action_scope = #{actionScope}
+		</if>
+
+	</select>
+
+
+
+	<select id="findExchangeBidListCount" resultType="long">
+		SELECT
+		COUNT(b1.id)
+		FROM
+		bid_info b1
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		where  b3.type = 11
+		<if test="name != null">
+			AND b1.name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="actionScope != null and actionScope != ''">
+			AND b3.action_scope = #{actionScope}
+		</if>
+	</select>
+
+	<select id="findExchangeBidList" resultType="com.hongkun.finance.invest.model.vo.BidInfoExchangeVo">
+		SELECT
+			b1.id as id,b1.name as bidName ,b1.borrower_id as borrowerId,b1.total_amount as totalAmount,
+			b1.interest_rate as interestRate,b1.term_unit as termUnit,b1.term_value as termValue,b1.state as state,
+            b1.print_imgurl as printImgurl,b1.img_url as imgUrl,
+			b1.create_time as createTime,b3.name as productName,b3.repaymentway as biddRepaymentWay,
+			b3.action_scope
+		FROM
+			bid_info b1
+				INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		where  b3.type = 11
+		<if test="name != null">
+			AND b1.name like CONCAT('%',#{name},'%')
+		</if>
+	</select>
+
+	<select id="findBidInfoExchangeListForApp" resultType="com.hongkun.finance.invest.model.vo.BidInfoExchangeForAppVo">
+		SELECT
+		b1.id as id,b1.name as name ,b1.borrower_id as borrowerId,b1.total_amount as totalAmount,
+		b1.allow_coupon as allowCoupon,b1.bid_scheme_value as bidSchemeValue,b1.bidd_repayment_way as biddRepaymentWay,
+		b1.interest_rate as interestRate,b1.label_text as labelText,b1.label_url as labelUrl,b1.raise_rate as raiseRate,
+		b1.print_imgurl as printImgurl,b1.img_url as imgUrl,
+		b1.residue_amount as residueAmount,b1.start_time as startTime, b1.term_unit as termUnit,b1.term_value as termValue,
+		b1.state as state,b3.type as productType,b3.action_scope as actionScope
+		FROM
+		bid_info b1
+		INNER JOIN bid_product b3 on b1.bid_product_id = b3.id
+		where  b3.type = 11 and b1.state = 5
+	</select>
+</mapper>

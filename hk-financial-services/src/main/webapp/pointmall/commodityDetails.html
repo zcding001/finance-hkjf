@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="keywords" content="互联网金融,鸿坤金服-一站式资产配置平台,网络借贷,投资理财,企业融资,个人理财,固定收益,高收益理财,鸿坤金服">
+    <meta name="description" content="鸿坤金服，投资您熟悉的人和事，信用等级AA级的互联网金融平台，中国互联网协会互联网金融专委会成员单位，获得2015年度中国互联网金融创新奖。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+    <link href="logo.ico" rel="shortcut icon" type="image/x-icon">
+    <title>鸿坤金服——鸿坤控股成员企业，一站式资产配置平台</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/lib/bootstrap/css/bootstrap.min.css">
+    <!-- invest css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/css/jfsc.css"/>
+    <!-- iconfont css -->
+    <link rel="stylesheet" type="text/css" href="${project_base_path}/src/fonts/iconfont.css">
+    <link rel="stylesheet" href="${project_base_path}/src/css/point_product.css">
+    <style>
+        .shop-details-right ul li:nth-child(2):after {
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 头部开始 -->
+<div class="include" file="${project_base_path}/common/header.html"></div>
+<!-- 头部结束 -->
+<div>
+    <div class="container">
+        <div class="kfservice-header">
+            <i class="glyphicon glyphicon-home"></i>
+            <span>积分商城>商品详情页</span>
+        </div>
+        <!-- 商品的详情 -->
+        <div class="shop-details clearfix">
+            <!--产品参数开始-->
+            <div class="fl">
+                <div id="preview" class="spec-preview">
+                        <span class="jqzoom" style="overflow:hidden;">
+                            <img id="preview2" jqimg="" src="" style="width:100%;"/>
+                        </span>
+                </div>
+                <!--缩图开始-->
+                <div class="spec-scroll"><a class="prev" style='left: auto;top: auto;position: initial;text-indent: 0;'>&lt;</a>
+                    <a class="next" style='left: auto;top: auto;position: initial;text-indent: 0;'>&gt;</a>
+                    <div class="items">
+                        <ul id="imgList"></ul>
+                    </div>
+                </div>
+                <!--缩图结束-->
+            </div>
+            <div class="shop-details-right fl">
+                <h3><span id="productTitle"></span></h3>
+                <span id="commonProduct" style="display:none">
+                        <ul>
+                        <li></li>
+                        <li>
+                            <span style="color:#888;">所需积分：</span>
+                            <input id="needPoint" name="needPoint" type="text" readonly="read">
+                            <input id="point" type="hidden" readonly="read">
+                        </li>
+                        <li class="clearfix">
+                            <div class="fl" style="color:#888;">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：</div>
+                            <!-- 选择数量 -->
+                            <div class="change_box fl">
+                                <span class="change_box_left" onclick="changeNum(0)" style="cursor:pointer;">-</span>
+                                <input id="number" name="number" class="change_box_tel" value="1" onBlur="checkNum()"/>
+                                <span class="change_box_right" onclick="changeNum(1)" style="cursor:pointer;">+</span>
+                            </div>
+                        </li>
+                        <li><i style="color:#888;">剩余数量：</i><span id="productNumber"></span></li>
+                        <li><a href="#" onclick="pointProductDetail.exchange()"
+                               class="btn btn-warning btn-duihuan">立即兑换</a></li>
+                        <li></li>
+                    </ul>
+                    </span>
+
+
+                <span id="flashSale" style="display:none">
+                        <!-- 限时兑换 -->
+                    <ul style="margin-top:0;background-color:#fbfbfb;">
+                        <img src="${project_base_path}/src/img/navBar/icon_limit.png" style="margin:0 0 0 480px;">
+                        <li></li>
+                        <li style="padding:0 20px;">
+                            <span style="color:#888;">兑换价：</span>
+                            <span class="a_color"><font id="discountPoint" class="sale_num"></font>积分</span>
+                            <a href="javascript:void(0);" id="orginPoint" class="all_jf"></a>
+                        </li>
+                        <li class="a_color" id="flashNumber"
+                            style="padding:0 20px;font-size:14px;line-height:30px;padding-bottom:20px;"></li>
+                        <li style="margin:0 20px 20px 20px;font-size:14px;border:#f7931e 1px solid;border-radius:15px;height:32px;line-height:32px;">
+                            <img src="${project_base_path}/src/img/navBar/icon_time.png" style="margin:5px 5px 0 10px;">
+                            <i style="color:#888;">距离活动结束紧剩：</i>
+                            <span id="t_d" style="color: rgb(247, 147, 30);"></span>天
+                            <span id="t_h" style="color: rgb(247, 147, 30);"></span>时
+                            <span id="t_m" style="color: rgb(247, 147, 30);"></span>分
+                            <span id="t_s" style="color: rgb(247, 147, 30);"></span>秒
+                            <cite class="f_r d_b sale" style="padding-left:100px;"><font id="sellsCount" class="sale_num" style="color:#f7931e;"> </font>件已售</cite>
+                        </li>
+                        <li style="background:white;" id="flashSellBtn">
+
+                        </li>
+                        <li></li>
+                    </ul>
+                    </span>
+
+
+            </div>
+        </div>
+        <!-- 商品的简介 -->
+        <div class="jifenShop-detail-box">
+            <div class="jifenShop-nav">
+                <li type="button" class="Shop-nav-active">商品详情</li>
+                <li type="button" class="">产品信息</li>
+            </div>
+            <div class="hot-products clearfix">
+                <div id="productDetail" class="hot-main hot-selected">
+                </div>
+                <div id="productInfo" class="hot-main">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*数量加减*/
+    function changeNum(type) {
+        var number = $("#number").val();
+        var point = $("#point").val();
+        if (0 == type) {
+            number = parseInt(number) - parseInt(1);
+            if (number == 0) {
+                $("#number").val(1);
+
+            } else {
+                $("#number").val(number);
+                var needPoint = parseInt(number) * parseInt(point)
+                $("#needPoint").val(needPoint);
+
+            }
+
+        } else {
+            var productNumber = $("#productNumber").html();
+            if (parseInt(productNumber) > parseInt(number)) {
+                number = parseInt(number) + parseInt(1);
+                $("#number").val(number);
+                var needPoint = parseInt(number) * parseInt(point)
+                $("#needPoint").val(needPoint);
+
+            } else {
+                $("#showDiv").css("display", "block"); //显示提示框
+                $("#showMessage").html("库存剩余数量不足！");
+                return;
+            }
+
+        }
+    }
+
+    function checkNum() {
+        var number = $.trim($("#number").val());
+        var productNumber = $("#productNumber").html();
+        var point = $("#point").val();
+        if (isNaN(number) || "" == number || number == 0) {
+            $("#number").val(1);
+            $("#needPoint").val(point);
+
+        } else {
+            if (parseInt(productNumber) >= parseInt(number)) {
+                var needPoint = parseInt(number) * parseInt(point)
+                $("#needPoint").val(needPoint);
+                //赋值
+
+            } else {
+                $("#number").val(1);
+                $("#needPoint").val(point);
+                $("#showDiv").css("display", "block"); //显示提示框
+                $("#showMessage").html("库存剩余数量不足！");
+                return;
+
+            }
+        }
+
+
+    }
+
+</script>
+<script type="text/javascript" src="${project_base_path}/lib/collectionJs.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/jqueryzoom/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/jqueryzoom/base.js"></script>
+
+<script type="text/javascript" src="${project_base_path}/jslib/pointmall/pointProductCommons.js"></script>
+<script type="text/javascript" src="${project_base_path}/jslib/pointmall/pointProductDetail.js"></script>
+<!-- 底部开始 -->
+<div class="include" file="${project_base_path}/common/footer.html"></div>
+<!-- 底部结束 -->
+<!-- 弹窗 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-radius disabled  pt-10 pb-10">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel">信息提示</h4>
+            </div>
+            <div class="modal-body tac pb-30 pt-30">
+                <!-- 所要添加的内容start -->
+                <div class="fhb_tc">
+                    <h1 class="fhb_text">我是内容</h1>
+                    <div class="fhb_button">
+                        <button class="fs_button">确认</button>
+                        <button class="fs_button bor_33" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+                <!-- 所要添加的内容end-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

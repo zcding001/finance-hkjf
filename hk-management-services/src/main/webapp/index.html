@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1200,user-scalable=yes">
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1">
+ -->    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>鸿坤金服</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="csslib/startbootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="csslib/startbootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="csslib/startbootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="jslib/kindeditor/themes/default/default.css" rel="stylesheet">
+
+
+    <!-- Morris Charts CSS -->
+    <!-- <link href="csslib/startbootstrap/vendor/morrisjs/morris.css" rel="stylesheet"> -->
+    <!-- Custom Fonts -->
+    <link href="csslib/startbootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- DataTables CSS -->
+    <link href="csslib/startbootstrap/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="csslib/startbootstrap/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="csslib/common.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-right: 0 !important;
+        }
+
+        #side-menu li a .text {
+            position: absolute;
+        }
+
+        #page-wrapper {
+            margin: 0;
+        }
+    </style>
+</head>
+<body ng-app="appModule">
+
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">&nbsp;&nbsp;鸿坤金服</a>
+        </div>
+        <span class="fa fa-toggle-off fa-2x"
+              style="margin-left: 90px;position: absolute;margin-top: 20px;cursor: pointer;display: none" id="leftMenuArrows">
+        </span>
+        <!-- /.navbar-header -->
+        <!--登录用户信息展示  -->
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>&nbsp;<span id="infoShow"></span>&nbsp;<i
+                        class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> lxh</a></li>-->
+                    <!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> 管理员</a></li>-->
+                    <li><a href="#" onclick="logout()"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+                    <li><a href="#" onclick="changePasswd()"><i class="fa fas fa-key"></i> 修改密码</a>
+                    <li><a href="#" onclick="jumpBi()"><i class="fa fa-hand-o-right"></i> 跳转bi</a>
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#" onclick="logout()"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>-->
+                        <!--</li>-->
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation" id="leftMenu" style="display:none">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu"></ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+
+    </nav>
+    <!-- content -->
+    <div id="page-wrapper">
+        <div ng-view>
+        </div>
+    </div>
+</div>
+
+<!-- 带文本框的模态框（Modal） -->
+<div class="modal fade" id="modalText" tabindex="-1" role="dialog" aria-labelledby="textHeader" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="textHeader"></h4>
+            </div>
+            <form id="_confirmForm">
+                <input type="hidden" name="ids" id="ids">
+                <div class="modal-body" id="textBody"></div>
+            </form>
+            <div class="modal-footer">
+                <span id="_confirmError" style="text-align: left; display: inline-block;  width: 447px; color: red"></span>
+                <span style="display: inline">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="textOkBtn">确认</button>
+				</span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- alert模态框（Modal） -->
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="alertHeader" aria-hidden="true">
+    <input type="hidden" id="modalUri">
+    <input type="hidden" id="modalData">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alertHeader">提示</h4>
+            </div>
+            <div class="modal-body" id="alertBody">操作成功</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="alertOkBtn">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+</body>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="jslib/jquery-3.2.1.min.js"></script>
+
+<script src="jslib/common/containerUtil.js"></script>
+<script src="jslib/common/extendUtil.js"></script>
+<script src="jslib/common/encryptAndDecryptUtil.js"></script>
+<script src="jslib/common/cookieUtil.js"></script>
+<script src="jslib/common/dateUtil.js"></script>
+<script src="jslib/common/commonUtil.js"></script>
+<script src="jslib/common/elementOperateUtil.js"></script>
+<script src="jslib/common/calculator.js"></script>
+<script src="jslib/common/dataTableUtil.js"></script>
+<script src="jslib/common/config.js"></script>
+<script src="jslib/common/lazyLoadConfig.js"></script>
+<script src="jslib/common/initExecuteUtil.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="csslib/startbootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="csslib/startbootstrap/vendor/metisMenu/metisMenu.min.js"></script>
+
+<script src="csslib/startbootstrap/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<!--<script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>-->
+
+<script src="csslib/startbootstrap/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="csslib/startbootstrap/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- Morris Charts JavaScript -->
+<!-- Custom Theme JavaScript -->
+<script src="csslib/startbootstrap/dist/js/sb-admin-2.js"></script>
+<!--angularjs  -->
+<script src="jslib/angularjs/angular.min.js"></script>
+<script src="jslib/angularjs/angular-route.min.js"></script>
+<script src="jslib/angularjs/angular-validation.js"></script>
+<script src="jslib/angularjs/angular-validation-rule.js"></script>
+<script src="jslib/angularjs/ocLazyLoad.js"></script>
+<script src="jslib/photoView.js"></script>
+<!--加载树形依赖-->
+<script src="jslib/ui-tree/angular-ui-tree.js"></script>
+<!-- 文本编辑器依赖 -->
+<script charset="utf-8" src="jslib/kindeditor/jquery.kindeditor.js"></script>
+<script charset="utf-8" src="jslib/kindeditor/kindeditor.js"></script>
+<!-- 左右移动选择框插件 -->
+<script charset="utf-8" src="jslib/multselect/multiselect.js"></script>
+
+
+<!-- 前端controller -->
+<script src="pages/controller/startController.js"></script>
+<!--引入上传图片插件-->
+<script src="jslib/uploadjs/dropzone.js"></script>
+<!-- 时间控件 -->
+<script src="jslib/My97DatePicker/WdatePicker.js"></script>
+<!-- 公共方法组件 -->
+<script src="jslib/common/commonFactory.js"></script>
+<!-- 表单验证-->
+<script src="jslib/common/formValidationProvider.js"></script>
+
+<script src="jslib/common/exportExcel.js"></script>
+<script src="jslib/rsa/rsaUtil.js"></script>
+<script src="jslib/rsa/jsencrypt.min.js"></script>
+<!-- 引入确认对话框  -->
+<script>
+    $(function () {
+        var url = window.document.location.href;
+        if (url.indexOf(commonUtil.HIDE_LEFT_MENU) < 0) {
+            $("#leftMenu").show();
+            $("#leftMenuArrows").show();
+            $("#page-wrapper").css("margin", "0px 0px 0px 230px");
+//            collapse();
+//            $("#leftMenu").hover(expand, collapse);
+            //如果已有请求的链接，处理左侧菜单样式
+            var menu = $("#leftMenu").find(".active");
+            if (menu.length > 0){
+                menu.removeClass("active");
+                menu.parent().parent().removeClass("in");
+                menu.parent().parent().siblings()[0].click();
+            }
+        }
+
+        $("#leftMenuArrows").click(function () {
+            let a = $(this);
+            if (a.attr("class").includes("off")){
+                collapse();
+                $("#leftMenu").hover(expand, collapse);
+                a.attr("class", "fa fa-toggle-on fa-2x");
+            }else {
+                expand();
+                $("#leftMenu").off("mouseenter").off("mouseleave");
+                a.attr("class", "fa fa-toggle-off fa-2x");
+            }
+        });
+    });
+
+    function expand() {
+        $("#leftMenu").stop();
+        $("#page-wrapper").stop();
+        $("#side-menu li a .text").stop();
+        $("#side-menu li a .arrow").show(1000);
+        $("#leftMenu").animate({
+            width: "230px"
+        }, 1000);
+        $(".fa-caret-down").hide(1000);
+        $("#page-wrapper").animate({
+            margin: "0 0 0 230px"
+        }, 1000);
+        $("#side-menu li a .first").animate({
+            left: 40
+        }, 1000)
+        $("#side-menu li a .second").animate({
+            left: 60
+        }, 1000)
+    }
+
+    function collapse() {
+        $("#leftMenu").stop();
+        $("#page-wrapper").stop();
+        $("#side-menu li a .text").stop();
+        $("#side-menu li a .arrow").hide(1000);
+        $("#leftMenu").animate({
+            width: "60px"
+        }, 1000);
+        $("#page-wrapper").animate({
+            margin: "0 0 0 60px"
+        }, 1000);
+        $("#side-menu li a .text").animate({
+            left: -300
+        }, 1000)
+        $(".fa-caret-down").show(1000);
+    }
+
+    // 加载菜单操作
+    $.ajax({
+        url: commonUtil.getUrl() + "managementLoginController/loadUserMenu",
+        data: {},
+        type: 'POST',
+        dataType: 'JSON',
+        async: false,
+        success: function (msg) {
+            //姓名显示
+            $("#infoShow").html(msg.params.userName);
+            //菜单显示
+            var menus = ''
+            if (msg.resStatus == CONFIG.CONSTANTS.SUCCESS_STATE) {
+                var levelOneMenu = msg.resMsg
+                for (var i = 0; i < levelOneMenu.length; i++) {
+                    var singMenu =
+                        '<li><a href="#"><i class="fa fa-tasks fa-fw"></i><i class="fa fa-caret-down" style="margin-left:3px;display: none"></i><span class="text first">' + levelOneMenu[i].levelOneName + '</span><span class="fa arrow"></span></a>';
+                    var levelTwos = levelOneMenu[i].childNode;
+                    for (var k = 0; k < levelTwos.length; k++) {
+                        singMenu += '<ul class="nav nav-second-level">' +
+                            '<li>' +
+                            '<a href="#' + levelTwos[k].menuUrl + '" onclick="addColor(this)"><i class="glyphicon glyphicon-cog"></i><span class="text second">' + levelTwos[k].menuName + '</span></a>' +
+                            '</li>' +
+                            '</ul>';
+                    }
+                    singMenu += '</li>'
+                    menus += singMenu;
+                }
+
+
+            }
+            //拼接菜单
+            $("#side-menu").append(menus)
+        },
+        error: function (msg) {
+            //do nothing...
+        }
+    });
+
+    /**
+     * 退出方法
+     */
+    function logout() {
+
+        $.ajax({
+            url: commonUtil.getUrl() + "managementLoginController/logout",
+            data: {},
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            success: function (msg) {
+                var menus = ''
+                if (msg.resStatus == CONFIG.CONSTANTS.SUCCESS_STATE) {
+                    window.location.href = 'login.html';
+                }
+            },
+            error: function (msg) {
+                //do nothing...
+            }
+        });
+    }
+
+    /**
+     * 修改密码操作
+     */
+    function changePasswd() {
+        var contents = '请输入新密码：<input id="passwd" name="passwd" type="password" class="confirmChildren"/>&nbsp;提示:6至16位字母数字组合<br><br>';
+        contents+='再次输入密码：<input id="passwdAgain"  type="password" class="confirmChildren"/><br><br>';
+        contents+=' <font color="red"><span id="alertMsg"></span></font><br><br>';
+        commonUtil.createCustomConfirmBox("修改密码", contents, CONFIG.interface.changePasswd, function () {
+            //验证两次输入是否相同
+            if($("#passwd").val()!=$("#passwdAgain").val()){
+                $("#alertMsg").html("两次输入密码不一致");
+                return false;
+            }
+
+            //验证是否符合规则
+            var regPasswd = '^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$';
+            if(!$.trim($("#passwd").val().match(regPasswd))){
+                $("#alertMsg").html("请输入6至16位字母数字组合");
+                return false;
+            }
+
+            //加密
+            $("#passwd").val(rsaUtil.encryptData($("#passwd").val().trim()));
+
+            return true;
+        },function (data) {
+            $("#modalText").modal('hide');
+            if(data.resStatus==CONFIG.CONSTANTS.SUCCESS_STATE){
+                commonUtil.createSimpleNotify("密码修改成功！", ALERT_SUC);
+            }else{
+                commonUtil.createSimpleNotify(data.resMsg, ALERT_ERR);
+            }
+
+        });
+
+    }
+
+    /**
+     * 跳转到bi后台
+     */
+    function jumpBi() {
+        window.open(commonUtil.getUrl(1) + "hk-bi-services/login.html", "鸿坤金服BI");
+    }
+    
+    function addColor(obj){
+        $(".left-menu-select").each(function(){
+            $(this).removeClass("left-menu-select");
+        });
+        obj.className = "left-menu-select";
+    }
+
+</script>
+</html>

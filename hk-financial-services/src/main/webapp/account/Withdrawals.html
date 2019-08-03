@@ -1,0 +1,40 @@
+
+               <div id="wshow" style="display: none">
+                <div class="bank_tx">
+                    可提现金额：<span class="useableMoneyNum">0.75</span> 元
+                </div>
+                <div class="bank_bd">
+                    <ul>
+                        <li>
+                            <span class="f-18">提现金额：</span>
+                            <input name="tranAmt" type="text" id="tranAmt">元&nbsp;
+                            <span id="err_tranAmt" style="color:red">请输入提现金额</span>
+                        </li>
+                        <li>
+                            <span class="f-18">实扣金额：</span> &nbsp;&nbsp;
+                            <span id="kce"></span>
+                            <span class="colr-red">【*提现手续费由第三方支付平台按照每笔 1元收取，自动扣除】</span>
+                        </li>
+                        <li>
+                            <span class="f-18">免费提现券：</span>
+                            <span style="color:gray" id="usedCoupon"></span><span class="colr-red">【提示：使用免费提现券可抵扣手续费，系统默认会帮您选中使用提现券】</span>
+                        </li>
+                        <li class="bank_button f16"><a id="btn_sub">提现</a></li>
+                    </ul>
+                </div>
+                <div class="bank_ts">温馨提示
+                    <br> 1.为保障您的账户资金安全，申请提现时，您选择的银行卡（不能选择信用卡）开户名必须与您鸿坤金服账户实名认证一致，否则提现申请将不予受理。
+                    <br> 2.收到您的提现请求后，鸿坤金服将在1-3个工作日（双休日或法定节假日顺延）内处理您的提现申请，结果会以站内信的形式告知，请注意查收。
+                    <br> 3.严禁利用鸿坤金服进行套现、洗钱、匿名转账，对于频繁的非正常以投资为目的的资金充提行为，一经发现，鸿坤金服将通过原充值渠道进行资金清退。
+                    <br> 4.个人单笔最大提现金额100万，每天提现次数无限制。
+                    <br> 5.如果提现时遇到问题，请联系客服 400-900-9630/400-099-0229。
+                </div>
+	
+               </div>
+                <script type="text/javascript" src="${project_base_path}/jslib/payment/withdrawls.js"></script>
+
+                <script>
+                    $(function(){
+                        withdrawlsController.initData();
+                    });
+                </script>

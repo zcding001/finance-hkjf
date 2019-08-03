@@ -1,0 +1,137 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px">
+                <span style="float: left;">卡券产品管理</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addCouponProduct')"
+                   style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                	<hr>
+                    <form id="searchForm">
+                        <span class="sp-width" style="width:100px;">作用范围：</span><select id="actionScope" name="actionScope" class="form-control"
+                                                                                    style="width: 100px;display:inline-block;"></select>
+                       <span class="sp-width">卡券名称:</span><input type="text" name="name" class="form-control" style="width: 120px;display:inline-block;">
+                       <span class="sp-width" style="width:100px;">卡券产品类型：</span><select id="type" name="type" class="form-control"
+                                       style="width: 100px;display:inline-block;"></select>
+                        <span class="sp-width">使用场景：</span><select id="couponScenes" name="couponScenes" class="form-control"
+                                     style="width: 120px;display:inline-block;"></select>
+                        <span class="sp-width" style="width:50px;">状态：</span><select id="state" name="state" class="form-control"
+                                   style="width: 80px;display:inline-block;"></select>
+                        
+                        <span class="sp-width"style="width:130px;">适用标的产品类型：</span> <select id="bidProductTypeRange" name="bidProductTypeRange" class="form-control"
+                                        style="width: 120px;display:inline-block;"></select>
+                                        <br><br>
+                        <span class="sp-width" style="width:90px;">使用有效期：</span> <input type="text" id="beginTimeEnd" name="beginTimeEnd"
+                                     onclick="WdatePicker({maxDate:'#F{$dp.$D(\'endTimeBegin\')}'})"
+                                     class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="endTimeBegin" name="endTimeBegin"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'beginTimeEnd\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <span style="color: red">*开始日期、截止日期包含该时间段</span>
+                     <span class="sp-width">创建时间：</span><input type="text" id="createTimeBegin" name="createTimeBegin"
+                                    onclick="WdatePicker({maxDate:'#F{$dp.$D(\'createTimeEnd\')}'})"
+                                    class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="createTimeEnd" name="createTimeEnd"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'createTimeBegin\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" id="excelBtn"
+                           style="display:inline-block;" onClick="exportExcel('卡券产品记录信息')">导出</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var  columns = [
+        {title:"标题",data:"name",class:"column-center"},
+        {title:"使用场景",data:"couponScenes",class:"column-center",render:function (value) {
+            return DIC_CONSTANT.getName("vas","coupon_use_scene",value)
+        }},
+        {title:"作用范围",data:"actionScope",class:"column-center",render:function (value) {
+                return DIC_CONSTANT.getName("invest","action_scope",value)
+            }},
+        {title:"产品类型",data:"type",class:"column-center",render:function (value) {
+            return DIC_CONSTANT.getName("vas","coupon_product_type",value);
+        }},
+        {title:"加息率/价值",data:"worth",class:"column-center",render:function (value,type,row) {
+            return returnValueOrNothing(value) + commonUtil.getCouponDetailUnit(row.type);
+        }},
+        {title:"为截止日期",data:"deadlineType",class:"column-center",render:function (value) {
+            return value == 1 ? "是" : "否";
+        }},
+        {title:"有效开始日期",data:"beginTime",class:"column-center",render:function (value) {
+            return value > 0 ? dateUtil.date(value) : "--";
+        }},
+        {title:"有效截止日期",data:"endTime",class:"column-center",render:function (value) {
+            return value > 0 ? dateUtil.date(value) : "--";
+        }},
+        {title:"有效天数",data:"validDay",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"最小额度",data:"amountMin",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"最大额度",data:"amountMax",class:"column-center",render:function (value) {
+            return returnValueOrNothing(value);
+        }},
+        {title:"创建时间",data:"createTime",class:"column-center",render:function (value) {
+            return dateUtil.date(value);
+        }},
+        {title:"适用标的产品类型",data:"bidProductTypeRange",class:"column-center",render:function (value) {
+            return commonUtil.isEmpty(value) ? "--" : DIC_CONSTANT.getNames("vas","coupon_bid_product_type",value);
+        }},
+        {title:"状态",data:"state",class:"column-center",render:function (value) {
+            return value == 1 ? "启用" : "禁用";
+        }},
+        {title:"操作",data:null,class:"column-center",render:function (data,type,row,meta) {
+            var btn = "";
+            //启用的卡券产品可以操作禁用，禁用的产品可以操作修改和启用
+            var state = 1;
+            var text = "启用";
+            var icon = "fa-check-square";
+            if (row.state === 1){
+                state = 0;
+                text = "禁用";
+                icon = "fa-ban";
+            }
+            if (row.state == 1){
+                //禁用按钮
+                btn = btn +
+                    commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:CONFIG.interface.disableCouponProduct},text,text +
+                        "卡券产品","确定"+text+"该卡券产品么!",icon);
+            }else {
+                //修改按钮
+                btn = btn +
+                    commonUtil.createDirectRequestBtn({param:JSON.stringify(row),target:"addCouponProduct"},"修改","fa-edit");
+                //启用按钮
+                btn = btn +
+                    commonUtil.createConfirmRequestBtn({id:row.id,state:state,ajaxUrl:CONFIG.interface.updateCouponProduct},text,text +
+                        "卡券产品","确定"+text+"该卡券产品么!",icon);
+            }
+            return btn;
+        }}
+    ];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.couponProductList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+
+    function returnValueOrNothing(value) {
+        return value > 0 ? value : "--";
+    }
+    $("#actionScope").append(DIC_CONSTANT.getOption("invest","action_scope","empty"));
+    $("#couponScenes").append(DIC_CONSTANT.getOption("vas","coupon_use_scene","empty"));
+    $("#type").append(DIC_CONSTANT.getOption("vas","coupon_product_type","empty"));
+    $("#state").append(DIC_CONSTANT.getOption("vas","coupon_product_state","empty"));
+    $("#bidProductTypeRange").append(DIC_CONSTANT.getOption("vas","coupon_bid_product_type","empty"));
+</script>

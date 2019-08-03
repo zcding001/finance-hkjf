@@ -1,0 +1,177 @@
+<body>
+<div class="infoDiv-1" style="display: none">
+    <div class="safe_info">
+        <ul class="clearfix">
+            <li class="qz_tx fl ml-10"><img src="${project_base_path}/src/img/account/tx_img.png" width="78" height="78" /></li>
+            <li class="sf_info fr">
+                <ul>
+                    <li class="zh_sf f-16 infoDiv">昵称：<em class="nickNameView"></em><span class="fr f-14 pr100"><a href="javascript:void(0);" id="preUpdateBtn0">编辑</a></span></li>
+
+                    <li class="zh_sf f-16 infoDiv0" style="display: none">
+                        <form id="updateNickForm">
+                            <input type="hidden" id="nickNameTmp" class="nickNameView">
+                            昵称：<input type="text" style="border:2px inset" name="nickName" datatype="*2-8" maxlength="8" nullmsg="请输入一个昵称">
+                            <span class="colr-red f-12 Validform_checktip"></span>
+                            <span class="fr f-14 pr100"><a href="javascript:void(0);" id="saveBtn0">保存</a></span>
+                        </form>
+                    </li>
+                    <li class="zh_rz f-16">姓名：<em class="realName"></em>
+                        <span class="fr pr100"></span>
+                        <span class="fr colr-org rel"><i class="iconfont icon-zhengque"></i><em class="identifyView">已认证</em></span>
+                    </li>
+                    <li class="zh_rz f-16">手机：<em class="login"></em>
+                        <span class="fr pr100"></span>
+                        <span class="fr colr-org rel"><i class="iconfont icon-zhengque"></i>已绑定</span></li>
+                    <li class="zh_rz f-16">邮箱：<em class="email"></em>
+                        <span class="fr pr100"><a href="javascript:void(0);" id="bindEmailBtn" style="display: none;">绑定</a></span>
+                        <span class="fr colr-org rel emailStateSpan"><i class="iconfont icon-zhengque emailStateLi"></i><em class="emailStateView">未绑定</em></span>
+                    </li>
+                    <li class="zh_rz f-16 mt-15">
+                        登录密码：
+                        <!-- 另外两种密码强度 -->
+                        <img src="${project_base_path}/src/img/account/sf_img_r.jpg" width="118" height="15" id="safetyFactor1" style="display: none">
+                        <img src="${project_base_path}/src/img/account/sf_img.jpg" width="118" height="15" id="safetyFactor2">
+                        <img src="${project_base_path}/src/img/account/sf_img_q.jpg" width="118" height="15" id="safetyFactor3" style="display: none">
+                        <span class="fr pr100"><a href="javascript:void(0);" id="updatePwdBtn">修改</a></span>
+                        <span class="fr colr-org rel"><i class="iconfont icon-zhengque"></i>已设置</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="sf_info_cont">
+        <div class="sf_cont">
+            <form id="emergencyForm">
+                <div class="sf_info_t">紧急联系人信息</div>
+                <div class="sf_info_p">
+                    <span class="fl">紧急联系人是在紧急情况下能联系到与当事人相关的人</span>
+                    <span class="sf_btn fr"><a href="javascript:void(0);" style="display: none" id="saveBtn1">保存</a></span>
+                    <span class="sf_btn fr"><a href="javascript:void(0);" id="preUpdateBtn1">新增</a></span>
+                </div>
+                <div class="sf_name infoDiv1" style="display: none;">
+                    <span class="fl">紧急联系人姓名：
+                        <input type="text" style="width:110px;border:1px inset;padding-left:5px;" name="emergencyContact"/>
+                    </span>
+                    <span class="fr" style="width:400px">紧急联系人手机号：
+                        <input type="text" style="width:110px;border:1px inset;padding-left:5px;" name="emergencyTel" datatype="m" nullmsg="请输入您的手机号" errormsg="请填写正确的手机号码！">
+                        <span class="f-12 colr-red Validform_checktip"></span>
+                    </span>
+                </div>
+                <div class="sf_name clearfix infoDiv2">
+                    <span class="fl">紧急联系人姓名：<em class="emergencyContact"></em></span>
+                    <span class="fr jj_tel" style="width:400px">紧急联系人手机号：<em class="emergencyTel"></em></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="sf_info_cont">
+        <form id="updateInfoForm">
+            <div class="sf_cont">
+                <div class="sf_info_t">联系地址</div>
+                <div class="sf_info_p">
+                    <span class="fl">用于邮寄资料和礼品</span>
+                    <span class="sf_btn fr"><a href="javascript:void(0);" style="display: none" id="saveBtn2">保存</a></span>
+                    <span class="sf_btn fr"><a href="javascript:void(0);" id="preUpdateBtn2">新增</a></span>
+                </div>
+                <div class="sf_name infoDiv3" style="display: none">
+                    <span class="fl">联系地址：
+                        <input type="text" style="width:290px;height:30px;border:1px inset;padding-left:5px;" name="contactAddress" value="">
+                        <span  class="colr-red f-12"></span>
+                    </span>
+                    <span class="fr" style="width:400px">邮编：
+                        <input type="text" style="width:100px;border:1px inset;padding-left:5px;" name="postCode" datatype="p" errormsg="请输入正确的邮编!">
+                        <span class="colr-red Validform_checktip"></span>
+                    </span>
+                </div>
+                <div class="sf_name infoDiv4" style="height: 50px;">
+                    <span class="fl">联系地址：<em class="contactAddress"></em></span>
+                    <span class="fr" style="width:400px">邮编：<em class="postCode"></em></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="info_con1 infoDiv5" style="display: none">
+    <form id="validInfoForm">
+        <input type="hidden" name="oldPasswd" id="oldPasswd">
+        <input type="hidden" name="passwd" id="passwd">
+        <input type="hidden" name="rePasswd" id="rePasswd">
+        <div class="info_yl clearfix">
+            <ul class="fl">
+                <li class="f-18">为了更好的为您服务，请填写以下详细信息</li>
+                <li class="info_t">以下信息仅作为投资分析数据使用，我们在任何情况下都不会泄露您的个人隐私。</li>
+            </ul>
+            <div class="info_cz fr">
+                <a href="javascript:void(0)" id="saveBtn3">保存</a>
+                <a href="javascript:void(0)" class="info_cancel" id="cancelUpdate3">返回</a>
+            </div>
+        </div>
+        <div class="info_xg clearfix">
+            <!-- 更改邮箱 -->
+            <div class="act_email infoDiv6" style="display: none">
+                <span class="acc_t">邮箱</span>
+                <span><input type="text" name="email" id="emailId" datatype="e" nullmsg="请输入您的常用邮箱" errormsg="邮箱地址不正确！"></span>
+            </div>
+            <!-- 更改密码 -->
+            <div class="act_password infoDiv7" style="display: none">
+                <ul>
+                    <li>
+                        <span class="acc_t">原密码</span>
+                        <span>
+                            <input id="oldPasswd1" type="text" isPasswd="true" value="请输入密码" datatype="ns6-16" nullmsg="请输入密码" errormsg="请输入6至16位英文字母或数字！" >
+                        </span>
+                    </li>
+                    <li>
+                        <span class="acc_t">新密码</span>
+                        <span>
+                            <input id="pwd1" name="pwd1" type="text" isPasswd="true" value="请输入密码" datatype="ns6-16" nullmsg="请输入密码" errormsg="请输入6至16位英文字母或数字！" >
+                        </span>
+                    </li>
+                    <li>
+                        <span class="acc_t">确认密码</span>
+                        <span>
+                            <input class="regist" id="pwd2" type="text" value="请输入确认密码" isPasswd="true" datatype="ns6-16" recheck="pwd1" nullmsg="请输入确认密码" errormsg="密码不一致" >
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- 实名认证 -->
+<div class="borrow_turn ml0 mr0 infoDiv8" style="display: none">
+    <form id="realNameForm">
+        <div class="borrow_listaa">实名认证</div>
+        <ul class="realname_yz">
+            <li>
+                <span class="acc_t">真实姓名</span>
+                <span><input type="text" name="realName" placeholder="请填写您的真实姓名" datatype="s2-6,zh" nullmsg="请输入您的真实姓名" errormsg="姓名不正确！" ></span>
+            </li>
+            <li>
+                <span class="acc_t">身份证号</span>
+                <span><input type="text" name="idCard" placeholder="请填写您的身份证号" maxlength="19" datatype="idcard" nullmsg="请输入您的身份证号" errormsg="身份证号不正确！" ></span>
+            </li>
+            <li>
+                <span class="acc_t">常用邮箱</span>
+                <span><input type="text" name="email" placeholder="请填写您的常用邮箱" datatype="e" nullmsg="请输入您的邮箱" errormsg="邮箱不正确！" ></span>
+            </li>
+            <li class="tac" style="margin-left:0;">
+                <a href="javascript:void(0);" id="realNameBtn">立即进行实名认证</a>
+            </li>
+        </ul>
+    </form>
+</div>
+
+</body>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/rsaUtil.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/rsa/jsencrypt.min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/validform/js/Validform_Datatype.js"></script>
+<script type="text/javascript" src="${project_base_path}/lib/utils/validFormUtil.js"></script>
+<script src="${project_base_path}/jslib/account/userInfo.js"></script>
+<script>
+    $(function(){
+        userInfoController.loadSecurityInfo();
+    });
+</script>
+</html>

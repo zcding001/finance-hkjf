@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.point.model.PointRecord">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_PointRecord" type="com.hongkun.finance.point.model.PointRecord">
+		<result property="id" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="businessId" column="business_id"/>
+		<result property="point" column="point"/>
+		<result property="type" column="type"/>
+		<result property="fee" column="fee"/>
+		<result property="feeWorth" column="fee_worth"/>
+		<result property="worth" column="worth"/>
+		<result property="realWorth" column="real_worth"/>
+		<result property="comments" column="comments"/>
+		<result property="state" column="state"/>
+		<result property="refuseCause" column="refuse_cause"/>
+		<result property="platform" column="platform"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="modifyTime" column="modify_time"/>
+		<result property="modifyUserId" column="modify_user_id"/>
+	</resultMap>
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_PointVO" type="com.hongkun.finance.point.model.vo.PointVO">
+		<result property="recordId" column="id"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="businessId" column="business_id"/>
+		<result property="point" column="point"/>
+		<result property="type" column="type"/>
+		<result property="fee" column="fee"/>
+		<result property="feeWorth" column="fee_worth"/>
+		<result property="worth" column="worth"/>
+		<result property="realWorth" column="real_worth"/>
+		<result property="comments" column="comments"/>
+		<result property="recordState" column="state"/>
+		<result property="refuseCause" column="refuse_cause"/>
+		<result property="platform" column="platform"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,reg_user_id,business_id,point,type,fee,fee_worth,worth,real_worth,comments,state,refuse_cause,platform,create_time,create_user_id,modify_time,modify_user_id
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO point_record ( 
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="businessId != null">
+				business_id ,
+			</if>
+			<if test="point != null">
+				point ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="fee != null">
+				fee ,
+			</if>
+			<if test="feeWorth != null">
+				fee_worth ,
+			</if>
+			<if test="worth != null">
+				worth ,
+			</if>
+			<if test="realWorth != null">
+				real_worth ,
+			</if>
+			<if test="comments != null and comments != ''">
+				comments ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="refuseCause != null and refuseCause != ''">
+				refuse_cause ,
+			</if>
+			<if test="platform != null">
+				platform ,
+			</if>
+			<if test=" createUserId != null">
+				create_user_id ,
+			</if>
+			<if test=" modifyUserId != null">
+				modify_user_id ,
+			</if>
+				create_time ,
+				modify_time 
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="businessId != null">
+				#{businessId} ,
+			</if>
+			<if test="point != null">
+				#{point} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="fee != null">
+				#{fee} ,
+			</if>
+			<if test="feeWorth != null">
+				#{feeWorth} ,
+			</if>
+			<if test="worth != null">
+				#{worth} ,
+			</if>
+			<if test="realWorth != null">
+				#{realWorth} ,
+			</if>
+			<if test="comments != null and comments != ''">
+				#{comments} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="refuseCause != null and refuseCause != ''">
+				#{refuseCause} ,
+			</if>
+			<if test="platform != null">
+				#{platform} ,
+			</if>
+			<if test=" createUserId != null">
+				#{createUserId} ,
+			</if>
+			<if test=" modifyUserId != null">
+				#{modifyUserId} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO point_record (
+        	id ,
+        	reg_user_id ,
+        	business_id ,
+        	point ,
+        	type ,
+        	fee ,
+        	fee_worth ,
+        	worth ,
+        	real_worth ,
+        	comments ,
+        	state ,
+        	refuse_cause ,
+        	platform ,
+        	create_time ,
+        	modify_time 
+        ) VALUES 
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					${item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.businessId != null">
+					#{item.businessId} ,
+				</if>
+				<if test="item.businessId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.point != null">
+					#{item.point} ,
+				</if>
+				<if test="item.point == null">
+					DEFAULT ,
+				</if>
+				<if test="item.type != null">
+					#{item.type} ,
+				</if>
+				<if test="item.type == null">
+					DEFAULT ,
+				</if>
+				<if test="item.fee != null">
+					#{item.fee} ,
+				</if>
+				<if test="item.fee == null">
+					DEFAULT ,
+				</if>
+				<if test="item.feeWorth != null">
+					#{item.feeWorth} ,
+				</if>
+				<if test="item.feeWorth == null">
+					DEFAULT ,
+				</if>
+				<if test="item.worth != null">
+					#{item.worth} ,
+				</if>
+				<if test="item.worth == null">
+					DEFAULT ,
+				</if>
+				<if test="item.realWorth != null">
+					#{item.realWorth} ,
+				</if>
+				<if test="item.realWorth == null">
+					DEFAULT ,
+				</if>
+				<if test="item.comments != null and item.comments != ''">
+					#{item.comments} ,
+				</if>
+				<if test="item.comments == null or item.comments == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.refuseCause != null and item.refuseCause != ''">
+					#{item.refuseCause} ,
+				</if>
+				<if test="item.refuseCause == null or item.refuseCause == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.platform != null">
+					#{item.platform} ,
+				</if>
+				<if test="item.platform == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime} 
+				</when>
+				<otherwise>
+					NOW() 
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="regUserId != null">
+			reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="businessId != null">
+			business_id = #{businessId} ,
+		   </if>
+			<if test="point != null">
+			point = #{point} ,
+		   </if>
+			<if test="type != null">
+			type = #{type} ,
+		   </if>
+			<if test="fee != null">
+			fee = #{fee} ,
+		   </if>
+			<if test="feeWorth != null ">
+				fee_worth =fee_worth + #{feeWorth} ,
+			</if>
+			<if test="worth != null ">
+				worth =worth + #{worth} ,
+			</if>
+			<if test="realWorth != null ">
+				real_worth =real_worth + #{realWorth} ,
+			</if>
+			<if test="comments != null and comments != ''">
+				comments = #{comments} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="refuseCause != null and refuseCause != ''">
+				refuse_cause = #{refuseCause} ,
+			</if>
+			<if test="platform != null">
+			platform = #{platform} ,
+		   </if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId} ,
+			</if>
+			<if test="modifyUserId != null">
+				modify_user_id = #{modifyUserId} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime} 
+			</if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  point_record
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM point_record 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+	
+	<delete id="deleteByContidion">
+		DELETE FROM point_record 
+		<include refid="findPage_where" />
+	</delete>
+	<!-- 根据ID查询 -->
+	<select id="userSignCount" resultType="long">
+		SELECT count(*) FROM point_record
+		WHERE  reg_user_id=#{regUserId}
+			   AND type=7
+			   AND DATE_FORMAT(create_time, '%Y%m%d') = DATE_FORMAT(now(), '%Y%m%d')
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_PointRecord">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM point_record 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	<sql id="_commonSql">
+		    1 = 1
+			<if test="regUserId != null">
+				AND reg_user_id = #{regUserId}
+			</if>
+			<if test="businessId != null">
+				AND business_id = #{businessId}
+			</if>
+			<if test="point != null">
+				AND point = #{point}
+			</if>
+			<if test="type != null and type!=-999 and type != 98 and type != 99">
+				AND type = #{type}
+			</if>
+			<!-- 98查询用户积分收入 -->
+			<if test="type != null and type == 98">
+				AND point &gt; 0
+			</if>
+			<!-- 99查询用户积分支出 -->
+			<if test="type != null and type == 99">
+				AND point &lt; 0
+			</if>
+			<if test="fee != null">
+				AND fee = #{fee}
+			</if>
+			<if test="feeWorth != null">
+				AND fee_worth = #{feeWorth}
+			</if>
+			<if test="worth != null">
+				AND worth = #{worth}
+			</if>
+			<if test="realWorth != null">
+				AND real_worth = #{realWorth}
+			</if>
+			<if test="comments != null and comments !=''">
+				AND comments = #{comments}
+			</if>
+			<if test="refuseCause != null and refuseCause !=''">
+				AND refuse_cause = #{refuseCause}
+			</if>
+			<if test="platform != null">
+				AND platform = #{platform}
+			</if>
+			<if test="createTimeBegin != null">
+				AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+				AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+				AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+				AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<where>
+		<include refid="_commonSql"/>
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="state != null">
+			AND state = #{state}
+		</if>
+		<if test="stateList != null and stateList.size>0">
+				AND state IN
+				<foreach collection="stateList" item="states" open="(" separator="," close=")">
+					${states}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="findPage_where_pointVO">
+		<where>
+		<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+		</if>
+		<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+		</if>
+		<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+		</if>
+		<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+		</if>
+		<if test="type != null and type!=-999">
+			AND type = #{type}
+		</if>
+		<if test="recordState != null and recordState != -999 and recordState != -3">
+			AND state = #{recordState}
+		</if>
+		<if test="recordState == -3">
+			AND state IN (1,2)
+		</if>
+		<if test="limitUserIds != null and limitUserIds.size>0">
+			AND reg_user_id IN
+			<foreach collection="limitUserIds" item="limitId" open="(" separator="," close=")">
+				${limitId}
+			</foreach>
+		</if>
+			<if test="limitBusinessIds != null and limitBusinessIds.size>0">
+				AND business_id IN
+				<foreach collection="limitBusinessIds" item="limitId" open="(" separator="," close=")">
+					${limitId}
+				</foreach>
+			</if>
+			<if test="typeList != null and typeList.size>0">
+				AND type IN
+				<foreach collection="typeList" item="types" open="(" separator="," close=")">
+					${types}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM point_record 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_PointRecord">
+		SELECT <include refid="columns" />
+		FROM point_record 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	<!-- 查询带userId限制的积分的记录数量 -->
+	<select id="listPointRecordCount" resultType="long">
+		SELECT COUNT(ID) FROM point_record
+		<include refid="findPage_where_pointVO"/>
+	</select>
+
+	<!-- 查询带userId限制的积分的记录 -->
+	<select id="listPointRecord" resultMap="_PointVO">
+		SELECT
+		<include refid="columns"/>
+		FROM point_record
+		<include refid="findPage_where_pointVO"/>
+		<if test="sortColumns != null and sortColumns !=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

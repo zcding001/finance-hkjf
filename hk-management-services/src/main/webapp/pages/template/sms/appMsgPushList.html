@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">app消息推送</span>
+                <a href="javascript:void(0)" class="btn btn-success" onclick="commonUtil.goPage('addAppMsgPush')" style="display:inline-block;float:right;">创建推送</a>
+            </div>
+            <div class="panel-body" >
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <span class="sp-width">标题:</span><input type="text" name="title" class="form-control"
+                                                                  style="width: 120px;display:inline-block;">
+                        <span class="sp-width" style="width:90px;">推送时间：</span> <input type="text" id="pushTimeBegin"
+                                                                                    name="pushTimeBegin"
+                                                                                        onclick="WdatePicker({maxDate:'#F{$dp.$D(\'pushTimeEnd\')}'})"
+                                                                                        class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="pushTimeEnd" name="pushTimeEnd"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'pushTimeBegin\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+
+                        <span class="sp-width" style="width:80px;">目标用户：</span><select id="targetUser" name="targetUser"
+                                                                                     class="form-control"
+                                                                                     style="width: 110px;display:inline-block;"></select>
+                        <span class="sp-width" style="width:80px;">推送状态：</span><select id="state" name="state"
+                                                                                      class="form-control"
+                                                                                     style="width: 110px;display:inline-block;"></select>
+                        <span class="sp-width" style="width:80px;">后续动作：</span><select id="msgAction" name="msgAction"
+                                                                                     class="form-control"
+                                                                                     style="width: 110px;display:inline-block;"></select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+    var columns = [
+        {title:"标题",data:"title",className: "dt-simple"},
+        {title:"目标平台",data:"targetPlatform",className:"dt-simple",render:function (value) {
+            return DIC_CONSTANT.getNames("sms","app_msg_target_platform",value);
+        }},
+        {title:"目标用户",data:"targetUser",className:"dt-simple",render:function (value,type,row,meta) {
+            //目标用户为全部用户时
+            if (value == 0){
+                return DIC_CONSTANT.getName("sms","app_msg_target_user",value);
+            }else {
+                return DIC_CONSTANT.getName("sms","app_msg_target_user",value) + ":【" +
+                    DIC_CONSTANT.getNames("sms","app_msg_target_user_tag",row.targetUserTag) + "】:"
+                    + DIC_CONSTANT.getName("sms","app_msg_target_user_tag_set",row.targetUserTagSet);
+            }
+        }},
+        {title:"推送方式",data:"pushMode",className:"dt-simple",render:function (value) {
+            return DIC_CONSTANT.getName("sms","app_msg_push_mode",value);
+        }},
+        {title:"推送时间",data:"pushTime",className: "dt-simple",render:function (value,type,row,meta) {
+            return dateUtil.dateTime(value);
+        }},
+        {title:"消息有效期(小时)",data:"msgExpireTime",className:"dt-simple",render:function (value) {
+            return value == 0 ? "-" : value;
+        }},
+        {title:"查看消息动作",data:"msgAction",className:"dt-simple",render:function (value,type,row) {
+            return value ==2 ? DIC_CONSTANT.getName("sms","app_msg_action",value) + "：[" + row.msgActionLink + "]"
+                : DIC_CONSTANT.getName("sms","app_msg_action",value);
+        }},
+        {title:"推送状态",data:"state",className:"dt-simple",render:function (value,type,row) {
+            return DIC_CONSTANT.getName("sms","app_msg_state",value);
+        }},
+        {title:"创建时间",data:"createTime",className:"dt-simple",render:function (value,type,row) {
+            return dateUtil.dateTime(value);
+        }},
+        {title:"操作",data:null,className:"dt-simple",render:function (value,type,row) {
+            //详情按钮
+            var btn =
+                commonUtil.createGetDetailByUrlOnWindowBtn({id:row.id},"详情",CONFIG.interface.appMsgPushDetail,fitContent,"详情", "fa-search");
+            //待发送记录可以删除
+            if (row.state == 1){
+                btn = btn +
+                    commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:CONFIG.interface.deleteAppMsgPush},"删除","删除该推送记录","确定删除该推送记录么！","fa fa-trash-o fa-lg");
+            }
+            //发送成功的记录可以进行停止
+            if (row.state == 2){
+                btn = btn +
+                    commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:CONFIG.interface.stopAppMsgPush},"停止","停止该推送记录","确定停止该推送记录么！","fa fa-stop-circle");
+            }
+            return btn;
+        }}
+    ];
+
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.appMsgPushList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+
+    $("#targetUser").append(DIC_CONSTANT.getOption("sms","app_msg_target_user","empty"));
+    $("#state").append(DIC_CONSTANT.getOption("sms","app_msg_state","empty",5,false));
+    $("#msgAction").append(DIC_CONSTANT.getOption("sms","app_msg_action","empty"));
+    /**
+     * 处理回显数据
+     * @param params
+     * @param result
+     * @returns {string}
+     */
+    function fitContent(params, result){
+        var content = '标题：' +result.resMsg.title+ '<br/>';
+        content += '内容：' + result.resMsg.content+ '<br/>';
+        if (result.resMsg.msgAction == 2){
+            content += '链接地址：' + result.resMsg.msgActionLink;
+        }
+        $('#detailBody').html(content);
+        $('#modalDetail').modal('show');
+    }
+</script>

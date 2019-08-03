@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">钱袋子规则管理</span>
+				<a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addQdzRule')" style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				创建时间：<input type="text" id="start" name="startTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="end" name="endTime" onclick="WdatePicker()" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+
+<script>
+var columns =  [
+ 		{ title:"规则内容",data: "content",
+ 			render: function (value, type, row, meta) {
+ 			    return _parseJsonContentForQdz(value);
+ 		    }	
+ 		},
+ 		{ title:"创建时间",className:"dt-simple",data: "createTime",
+			render: function (value, type, row, meta) {
+				return dateUtil.date(value);
+			}
+		},
+ 		{ title:"可用状态",className:"dt-simple",data: "state",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName("vas", "qdz_rule_state", value);
+			}
+		},
+	    {
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row, meta) {
+
+				if(row.state == 0){
+					var btn = commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"qdzController/enableRule"},
+						"启用", "规则操作", "确定启用?", "fa fa-play");
+					 btn +=  commonUtil.createDirectRequestBtn({id:row.id, target : "addQdzRule"},
+						 "修改","fa-edit");
+					return btn;
+				}
+				if(row.state == 1){
+					var btn = '<span class="fa fa fa-circle-o-notch fa-fw hide-underline" title="使用中" style="padding-left: 3px;padding-right: 3px;"></span>'
+					return btn;
+				}
+				return '';
+ 		    }
+ 		}
+ 	];
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.searchQdzRule, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm();
+function _parseJsonContentForQdz(jsonStr){
+	var obj =angular.fromJson(jsonStr);
+	var buffer ='免费转入 <i class="font-red">'+obj.inOPPPerMonth+'</i>笔/月，'
+			+ '超出收取 <i class="font-red">'+obj.inPayRate+'%</i>的手续费；'
+			+ '最大转入金额<i class="font-red">'+obj.inMaxMoneyPPPD+'</i>￥/天 ；</br>'
+			+ '免费转出 <i class="font-red">'+obj.outOPPPerMonth+'</i>笔/月，'
+			+ '超出收取 <i class="font-red">'+obj.outPayRate+'%</i>的手续费；'
+			+ '最大转出金额<i class="font-red">'+obj.outMaxMoneyPPPD+'</i>￥/天 ；</br>'
+			+ '最低起投金额 <i class="font-red">'+obj.investLowest+'</i>￥；'
+			+ '当前收益率<i class="font-red">'+obj.currInterestRate+'%</i>；</br>'
+			+ '客户最大持有金额<i class="font-red">'+obj.holdInvestMax+'￥/人</i>；</br>'
+			+ '禁止转入/转出开始时间：<i class="font-red">'+obj.noInOutStartTimes+'</i>；'
+			+ '结束时间：<i class="font-red">'+obj.noInOutEndTimes+'</i></br>';
+	if(obj.activityRate!=null){
+		buffer +='加息收益率样式:<i class="font-red">'+obj.baseRate+'%' +" + "+ obj.activityRate+'%</i>；</br>';
+	}
+
+	return buffer;
+
+}
+</script>

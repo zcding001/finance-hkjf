@@ -1,0 +1,170 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+              	<span style="float:left;">红包管理</span>
+				<div>
+					<a href="javascript:void(0)" class="btn btn-primary"  onclick="createCheckPanel()" style="display:inline-block;float:right;">批量审核</a>
+				</div>
+            </div>
+
+            <div class="span12" id="div-table-container"></div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+            	<div>
+            		<hr>
+           			<form id="searchForm">
+           				<span class="sp-width" style="width:115px;">红包编码：</span><input name="key" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="sp-width" style="width:115px;">红包状态：</span><select id="packetStateFoCheck" name="state" class="form-control" style="width: 120px;display:inline-block;" ></select>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="sp-width" style="width:115px;">红包类型：</span><select id="packetTypeFoCheck" name="type" class="form-control" style="width: 140px;display:inline-block;" ></select>&nbsp;&nbsp;&nbsp;&nbsp;
+						</br>
+						</br>
+						<span class="sp-width" style="width:115px;">红包金额：</span><input name="valueStart" class="form-control" style="width: 80px;display:inline-block;"> - <input name="valueEnd" class="form-control" style="width: 80px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="sp-width" style="width:115px;">发送人手机号：</span><input name="senderTel" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="sp-width" style="width:115px;">兑换用户姓名：</span><input name="acceptorName" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+						</br></br>
+						<span class="sp-width" style="width:115px;">兑换用户手机号：</span><input name="acceptorTel" class="form-control" style="width: 150px;display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;
+           				<span class="sp-width" style="width:115px;">创建时间：</span><input type="text" id="createTimeBegin" name="createTimeBegin" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+           					-<input type="text" id="createTimeEnd" name="createTimeEnd" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="sp-width">到期时间：</span><input type="text" id="endTimeBegin" name="endTimeBegin" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+						-<input type="text" id="endTimeEnd" name="endTimeEnd" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						</br></br>
+						<span class="sp-width" style="width:115px;">领取/失效时间：</span><input type="text" id="receiveTimeBegin" name="receiveTimeBegin" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+						-<input type="text" id="receiveTimeEnd" name="receiveTimeEnd" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            			<a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+            			<a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+						<a href="javascript:void(0)" class="btn btn-primary" id="excelBtn" onClick="exportExcel('红包列表')" style="display:inline-block;">导出红包列表</a>
+           			</form>
+            		<hr>
+            	</div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+				<input type="hidden" id="extendsValues">
+                </table>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<!--引入红包用户页面-->
+<div ng-include="'pages/template/vas/userInfoForRedpacket.html'"></div>
+
+<script>
+var columns =  [
+    dataTableUtil.createCheckBoxByCondition('id','4',"state"),
+ 		{ title:"红包编码",data: "key", width:140,className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 20);
+ 		    }
+ 		},
+		{ title:"红包类型",data: "type", width:140,className:"dt-simple",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName('vas','redpacket_type',value);
+			}
+		},
+	    { title:"红包金额(元)",className:"dt-simple",data: "value"},
+ 		{ title:"红包发送人/手机号",data: "senderTel", width:140,className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 			    return commonUtil.getTextByLength(value, 20);
+ 		    }	
+ 		},
+		{ title:"兑换用户手机号",data: "acceptorTel", width:140,className:"dt-simple",
+			render: function (value, type, row, meta) {
+				return commonUtil.getTextByLength(value, 20);
+			}
+		},
+	    { title:"兑换用户姓名",data: "acceptorName", width:140,className:"dt-simple",
+        render: function (value, type, row, meta) {
+			if(commonUtil.isNotEmpty(value)){
+                return commonUtil.getTextByLength(value, 20);
+			}
+            return "用户未实名"
+        }
+        },
+		{ title:"派发原因",data: "sendReason", width:140,className:"dt-simple",
+			render: function (value, type, row, meta) {
+				return commonUtil.getTextByLength(value, 100);
+			}
+		},
+		{ title:"审核结果/原因",data: "checkReason", width:140,className:"dt-simple",
+			render: function (value, type, row, meta) {
+				return commonUtil.getTextByLength(value, 100);
+			}
+		},
+ 		{ title:"创建时间",data: "createTime",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 		    	return dateUtil.date(value);
+ 			}
+ 		},
+ 		{ title:"到期时间",data: "endTime",className:"dt-simple",
+ 			render: function (value, type, row, meta) {
+ 		    	return dateUtil.date(value);
+ 			}	
+ 		},
+		{ title:"领取/失效时间",data: "modifyTime",className:"dt-simple",
+			render: function (value, type, row, meta) {
+				if(row.state==1||row.state==9){
+                    return dateUtil.date(value);
+				}
+                return '-------';
+			}
+		},
+		{ title:"状态",data: "state",className:"dt-simple",
+			render: function (value, type, row, meta) {
+				return DIC_CONSTANT.getName('vas','redpacket_state',value);
+			}
+		},
+ 		{
+ 			title:"操作",
+ 			data: null,
+ 			className:"dt-operate",
+ 		    render: function (data, type, row, meta) {
+ 		    	//详情按钮
+ 		    	var btn ='无';
+ 		    	if(row.state == 4){
+ 		    		//创建审核按钮
+                    btn='<a href="javascript:void(0)" title="审核通过或者拒绝" onclick="createCheckPanel('+row.id+')" class="fa fa-th fa-fw hide-underline" style="padding-left: 3px;padding-right: 3px;"></a>';
+ 		    	}
+ 			    return btn;
+ 		    }
+ 		}
+ 	];
+//设置extendsValues的值
+$("#extendsValues").val(encryptAndDecryptUtil.encrypt(JSON.stringify({state:-1})));
+//创建dataTable列表
+dataTableUtil.createDT(CONFIG.interface.redPacketOffLine, columns);
+//初始化查询条件form
+dataTableUtil.initDTSearchForm(-1);
+
+//红包审核
+var validateCheck=function() {
+    if(commonUtil.isEmpty($("#checkReasonArea").val())){
+        $("#checkPacketError").text('请填写审核原因!');
+        return false;
+    }
+    return true;
+}
+
+var createCheckPanel=function(id) {
+    if (id == null){
+		id = dataTableUtil.getCheckedVal();
+	}
+	if (commonUtil.isEmpty(id)){
+        commonUtil.createSimpleNotify("请至少选择一条记录!", ALERT_WARN);
+        return;
+	}
+    $("#ids").attr("name", "checkId");
+    $("#ids").val(id);
+    var contents = '审核结果：<input  name="state" type="radio" value="0" checked="checked"/>通过 <input name="state" value="5" type="radio" />拒绝 <br><br>';
+    contents+='审核原因：<input id="checkReasonArea" name="reason" type="text" class="confirmChildren"/> <br><br>';
+    contents+='<span id="checkPacketError" style="color: red"></span>'
+    commonUtil.createCustomConfirmBox("审核红包", contents, CONFIG.interface.checkRedpacket, validateCheck,commonUtil.customConfirmStandardAfterExecuteFn);
+
+}
+
+</script>

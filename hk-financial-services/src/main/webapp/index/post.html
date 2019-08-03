@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告</title>
+</head>
+<body>
+<!-- 公告 -->
+<div class="info_message">
+    <div class="container" style="border-top:1px solid #eee;">
+        <div class="clearfix">
+            <i class="glyphicon glyphicon-volume-up icon-i fl"></i>
+            <div class="info_gg fl" id="gg_scroll">
+            </div>
+            <a href="common/noticeList.html?type=3&position=1" class="fr pl-20">更多&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+<!-- 平台介绍&公告结束 -->
+</body>
+<!-- 公告-->
+<script type="text/javascript" src="jslib/info/notice.js"></script>
+<script>
+    setTimeout(function() {
+        var scroll = document.getElementById("gg_scroll");
+        var box = scroll.children[0];
+        var lis = box.children;
+        var sum = 0;
+        var timer = null;
+        var num = 0;
+        for (var i = 0; i < lis.length; i++) {
+            sum += lis[i].offsetWidth;
+        }
+        timer = setInterval(fn, 30);
+
+        function fn() {
+            num--;
+            num <= -sum ? num = 0 : num;
+            box.style.left = num + "px ";
+        }
+        scroll.onmouseover = function() {
+            clearInterval(timer);
+        }
+        scroll.onmouseout = function() {
+            timer = setInterval(fn, 30);
+        }
+    }, 3000);
+</script>
+</html>

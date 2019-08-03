@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix" style="line-height: 34px;">
+                <span style="float:left;">房产信息管理</span>
+                <a href="javascript:void(0)" class="btn btn-danger" onclick="commonUtil.goPage('addHouse')"
+                   style="display:inline-block;float:right;">添加</a>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <hr>
+                    <form id="searchForm">
+                        <span class="sp-width">名称：</span><input name="name" class="form-control" style="width: 150px;display:inline-block;">
+                        <span class="sp-width">发布时间：</span><input type="text" id="start" name="createTimeBegin"
+                                                                  onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end\')}'})"
+                                                                  class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        -<input type="text" id="end" name="createTimeEnd"
+                                onclick="WdatePicker({minDate:'#F{$dp.$D(\'start\')}'})"
+                                class="Wdate form-control" readonly="readonly" style="width:120px;height:35px;display:inline-block;"/>
+                        <span class="sp-width">销售状态：</span><select id="saleState" name="saleState"
+                                                                class="form-control" style="width: 120px;display:inline-block;"></select>
+                        <span class="sp-width">发布状态：</span>
+                        <select id="state" name="state" class="form-control" style="width: 120px;display:inline-block;">
+                            <option value="">全部</option>
+                            <option value="1">上架</option>
+                            <option value="0">下架</option>
+                        </select>
+                        <a href="javascript:void(0)" class="btn btn-info" id="searchForm-searchBtn" style="display:inline-block;">搜索</a>
+                        <a href="javascript:void(0)" class="btn btn-danger" id="searchForm-cleanBtn" style="display:inline-block;">清空</a>
+                    </form>
+                    <hr>
+                </div>
+                <table id="mDataTable" class="table table-striped table-bordered table-hover" style="cellspacing:0;width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 引入确认对话框  -->
+<div ng-include="'pages/template/confirm.html'"></div>
+<script>
+    var columns = [
+        {title:"项目名称",className:"dt-simple",data:"name"},
+        {title:"销售状态",className:"dt-simple",data:"saleState",render:function (value) {
+                return DIC_CONSTANT.getName("house","sale_state",value);
+            }},
+        {title:"发布状态",className:"dt-simple",data:"state",render:function (value) {
+                return value == 0 ? "下架" : "上架";
+            }},
+        {title:"发布时间",className:"dt-simple",data:"createTime",render:function (value) {
+                return dateUtil.date(value);
+            }},
+        {title:"操作员",className:"dt-simple",data:"modifiedUser"},
+        {title:"操作",className:"dt-simple",data:null,render:function (value,type,row) {
+            var btn = "";
+            //上架的可以下架,下架的可以上架和编辑
+            if (row.state == 1){
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"houseController/downHouse"},
+                    "下架", "房产信息(下架)", "确定下架该房产信息?", "fa-long-arrow-down");
+            }else {
+                btn = btn + commonUtil.createConfirmRequestBtn({id:row.id,ajaxUrl:"houseController/upHouse"},
+                    "上架", "房产信息(上架)", "确定上架该房产信息?", "fa-long-arrow-up");
+                btn = btn + commonUtil.createDirectRequestBtn({target:"editHouse",param:row.id},"编辑","fa-edit");
+            }
+            return btn;
+        }}
+    ];
+    //创建dataTable列表
+    dataTableUtil.createDT(CONFIG.interface.houseList,columns);
+    //初始化查询条件form
+    dataTableUtil.initDTSearchForm("");
+    //初始化查询条件下拉框
+    $("#saleState").append(DIC_CONSTANT.getOption("house", "sale_state", "empty"));
+</script>

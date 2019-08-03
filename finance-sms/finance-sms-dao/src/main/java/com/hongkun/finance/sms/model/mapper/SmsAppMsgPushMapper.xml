@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.sms.model.SmsAppMsgPush">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_SmsAppMsgPush" type="com.hongkun.finance.sms.model.SmsAppMsgPush">
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="state" column="state"/>
+		<result property="regUserId" column="reg_user_id"/>
+		<result property="targetPlatform" column="target_platform"/>
+		<result property="targetUser" column="target_user"/>
+		<result property="targetUserTag" column="target_user_tag"/>
+		<result property="targetUserTagSet" column="target_user_tag_set"/>
+		<result property="pushMode" column="push_mode"/>
+		<result property="pushTime" column="push_time"/>
+		<result property="msgExpireSet" column="msg_expire_set"/>
+		<result property="msgExpireTime" column="msg_expire_time"/>
+		<result property="msgAction" column="msg_action"/>
+		<result property="msgActionLink" column="msg_action_link"/>
+		<result property="taskId" column="task_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modify_time"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,title,content,state,reg_user_id,target_platform,target_user,target_user_tag,target_user_tag_set,push_mode,push_time,msg_expire_set,msg_expire_time,msg_action,msg_action_link,task_id,create_time,modify_time
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sms_app_msg_push (
+			<if test="id != null">
+				id ,
+			</if>
+			<if test="title != null and title != ''">
+				title ,
+			</if>
+			<if test="content != null and content != ''">
+				content ,
+			</if>
+			<if test="state != null">
+				state ,
+			</if>
+			<if test="regUserId != null">
+				reg_user_id ,
+			</if>
+			<if test="targetPlatform != null and targetPlatform != ''">
+				target_platform ,
+			</if>
+			<if test="targetUser != null">
+				target_user ,
+			</if>
+			<if test="targetUserTag != null and targetUserTag != ''">
+				target_user_tag ,
+			</if>
+			<if test="targetUserTagSet != null">
+				target_user_tag_set ,
+			</if>
+			<if test="pushMode != null">
+				push_mode ,
+			</if>
+				push_time ,
+			<if test="msgExpireSet != null">
+				msg_expire_set ,
+			</if>
+			<if test="msgExpireTime != null">
+				msg_expire_time ,
+			</if>
+			<if test="msgAction != null">
+				msg_action ,
+			</if>
+			<if test="msgActionLink != null and msgActionLink != ''">
+				msg_action_link ,
+			</if>
+			<if test="taskId != null and taskId != ''">
+				task_id ,
+			</if>
+				create_time ,
+				modify_time
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<if test="title != null and title != ''">
+				#{title} ,
+			</if>
+			<if test="content != null and content != ''">
+				#{content} ,
+			</if>
+			<if test="state != null">
+				#{state} ,
+			</if>
+			<if test="regUserId != null">
+				#{regUserId} ,
+			</if>
+			<if test="targetPlatform != null and targetPlatform != ''">
+				#{targetPlatform} ,
+			</if>
+			<if test="targetUser != null">
+				#{targetUser} ,
+			</if>
+			<if test="targetUserTag != null and targetUserTag != ''">
+				#{targetUserTag} ,
+			</if>
+			<if test="targetUserTagSet != null">
+				#{targetUserTagSet} ,
+			</if>
+			<if test="pushMode != null">
+				#{pushMode} ,
+			</if>
+			<choose>
+				<when test="pushTime != null">
+					#{pushTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="msgExpireSet != null">
+				#{msgExpireSet} ,
+			</if>
+			<if test="msgExpireTime != null">
+				#{msgExpireTime} ,
+			</if>
+			<if test="msgAction != null">
+				#{msgAction} ,
+			</if>
+			<if test="msgActionLink != null and msgActionLink != ''">
+				#{msgActionLink} ,
+			</if>
+			<if test="taskId != null and taskId != ''">
+				#{taskId} ,
+			</if>
+			<choose>
+				<when test="createTime != null">
+					#{createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="modifyTime != null">
+					#{modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+		)
+	</insert>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sms_app_msg_push (
+	       	id ,
+	       	title ,
+	       	content ,
+	       	state ,
+	       	reg_user_id ,
+	       	target_platform ,
+	       	target_user ,
+	       	target_user_tag ,
+	       	target_user_tag_set ,
+	       	push_mode ,
+	       	push_time ,
+	       	msg_expire_set ,
+	       	msg_expire_time ,
+	       	msg_action ,
+	       	msg_action_link ,
+	       	task_id ,
+	       	create_time ,
+	       	modify_time
+        ) VALUES
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+				<if test="item.title != null and item.title != ''">
+					#{item.title} ,
+				</if>
+				<if test="item.title == null or item.title == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.content != null and item.content != ''">
+					#{item.content} ,
+				</if>
+				<if test="item.content == null or item.content == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.state != null">
+					#{item.state} ,
+				</if>
+				<if test="item.state == null">
+					DEFAULT ,
+				</if>
+				<if test="item.regUserId != null">
+					#{item.regUserId} ,
+				</if>
+				<if test="item.regUserId == null">
+					DEFAULT ,
+				</if>
+				<if test="item.targetPlatform != null and item.targetPlatform != ''">
+					#{item.targetPlatform} ,
+				</if>
+				<if test="item.targetPlatform == null or item.targetPlatform == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.targetUser != null">
+					#{item.targetUser} ,
+				</if>
+				<if test="item.targetUser == null">
+					DEFAULT ,
+				</if>
+				<if test="item.targetUserTag != null and item.targetUserTag != ''">
+					#{item.targetUserTag} ,
+				</if>
+				<if test="item.targetUserTag == null or item.targetUserTag == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.targetUserTagSet != null">
+					#{item.targetUserTagSet} ,
+				</if>
+				<if test="item.targetUserTagSet == null">
+					DEFAULT ,
+				</if>
+				<if test="item.pushMode != null">
+					#{item.pushMode} ,
+				</if>
+				<if test="item.pushMode == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.pushTime != null">
+					#{item.pushTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.msgExpireSet != null">
+					#{item.msgExpireSet} ,
+				</if>
+				<if test="item.msgExpireSet == null">
+					DEFAULT ,
+				</if>
+				<if test="item.msgExpireTime != null">
+					#{item.msgExpireTime} ,
+				</if>
+				<if test="item.msgExpireTime == null">
+					DEFAULT ,
+				</if>
+				<if test="item.msgAction != null">
+					#{item.msgAction} ,
+				</if>
+				<if test="item.msgAction == null">
+					DEFAULT ,
+				</if>
+				<if test="item.msgActionLink != null and item.msgActionLink != ''">
+					#{item.msgActionLink} ,
+				</if>
+				<if test="item.msgActionLink == null or item.msgActionLink == ''">
+					DEFAULT ,
+				</if>
+				<if test="item.taskId != null and item.taskId != ''">
+					#{item.taskId} ,
+				</if>
+				<if test="item.taskId == null or item.taskId == ''">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.createTime != null">
+					#{item.createTime} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="item.modifyTime != null">
+					#{item.modifyTime}
+				</when>
+				<otherwise>
+					NOW()
+				</otherwise>
+			</choose>
+        )
+        </foreach>
+	</insert>
+
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="title != null and title != ''">
+				title = #{title} ,
+			</if>
+			<if test="content != null and content != ''">
+				content = #{content} ,
+			</if>
+			<if test="state != null">
+			state = #{state} ,
+		   </if>
+			<if test="regUserId != null">
+				reg_user_id = #{regUserId} ,
+		   </if>
+			<if test="targetPlatform != null and targetPlatform != ''">
+				target_platform = #{targetPlatform} ,
+			</if>
+			<if test="targetUser != null">
+			target_user = #{targetUser} ,
+		   </if>
+			<if test="targetUserTag != null and targetUserTag != ''">
+				target_user_tag = #{targetUserTag} ,
+			</if>
+			<if test="targetUserTagSet != null">
+			target_user_tag_set = #{targetUserTagSet} ,
+		   </if>
+			<if test="pushMode != null">
+			push_mode = #{pushMode} ,
+		   </if>
+			<if test="pushTime != null">
+				push_time = #{pushTime} ,
+			</if>
+			<if test="msgExpireSet != null">
+			msg_expire_set = #{msgExpireSet} ,
+		   </if>
+			<if test="msgExpireTime != null">
+			msg_expire_time = #{msgExpireTime} ,
+		   </if>
+			<if test="msgAction != null">
+			msg_action = #{msgAction} ,
+		   </if>
+			<if test="msgActionLink != null and msgActionLink != ''">
+				msg_action_link = #{msgActionLink} ,
+			</if>
+			<if test="taskId != null and taskId != ''">
+				task_id = #{taskId} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime}
+			</if>
+		</set>
+	</sql>
+
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sms_app_msg_push
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE
+			id = #{id}
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sms_app_msg_push
+		WHERE
+			id = #{id}
+		]]>
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_SmsAppMsgPush">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sms_app_msg_push
+		WHERE 1 = 1
+			AND id = #{id} AND state != 5
+		]]>
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			1 = 1
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="title != null and title !=''">
+			AND title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="content != null and content !=''">
+			AND content = #{content}
+			</if>
+			<if test="state != null">
+			AND state = #{state}
+			</if>
+			<if test="regUserId != null">
+			AND reg_user_id = #{regUserId}
+			</if>
+			<if test="state == null">
+				AND state != 5
+			</if>
+			<if test="targetPlatform != null and targetPlatform !=''">
+			AND target_platform = #{targetPlatform}
+			</if>
+			<if test="targetUser != null">
+			AND target_user = #{targetUser}
+			</if>
+			<if test="targetUserTag != null and targetUserTag !=''">
+			AND target_user_tag = #{targetUserTag}
+			</if>
+			<if test="targetUserTagSet != null">
+			AND target_user_tag_set = #{targetUserTagSet}
+			</if>
+			<if test="pushMode != null">
+			AND push_mode = #{pushMode}
+			</if>
+			<if test="pushTimeBegin != null">
+			AND push_time >= #{pushTimeBegin}
+			</if>
+			<if test="pushTimeEnd != null">
+			AND push_time &lt;= #{pushTimeEnd}
+			</if>
+			<if test="pushTime">
+			AND push_time = #{pushTime}
+			</if>
+			<if test="msgExpireSet != null">
+			AND msg_expire_set = #{msgExpireSet}
+			</if>
+			<if test="msgExpireTime != null">
+			AND msg_expire_time = #{msgExpireTime}
+			</if>
+			<if test="msgAction != null">
+			AND msg_action = #{msgAction}
+			</if>
+			<if test="msgActionLink != null and msgActionLink !=''">
+			AND msg_action_link = #{msgActionLink}
+			</if>
+			<if test="taskId != null and taskId !=''">
+				AND task_id = #{taskId}
+			</if>
+			<if test="createTimeBegin != null">
+			AND create_time >= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd != null">
+			AND create_time &lt;= #{createTimeEnd}
+			</if>
+			<if test="modifyTimeBegin != null">
+			AND modify_time >= #{modifyTimeBegin}
+			</if>
+			<if test="modifyTimeEnd != null">
+			AND modify_time &lt;= #{modifyTimeEnd}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sms_app_msg_push
+		<include refid="findPage_where"/>
+	</select>
+
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_SmsAppMsgPush">
+		SELECT <include refid="columns" />
+		FROM sms_app_msg_push
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+</mapper>

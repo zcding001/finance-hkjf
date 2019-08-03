@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.bi.model.StaReceipt">
+
+	<!-- POJO类与数据库字段对应关系 -->
+	<resultMap id="_StaReceipt" type="com.hongkun.finance.bi.model.StaReceipt">
+		<result property="id" column="id"/>
+		<result property="da" column="da"/>
+		<result property="proType" column="pro_type"/>
+		<result property="planReceiptAmount" column="plan_receipt_amount"/>
+		<result property="planReceiptcaptail" column="plan_receipt_captail"/>
+		<result property="planReceiptInterest" column="plan_receipt_interest"/>
+		<result property="planReceiptIncrease" column="plan_receipt_increase"/>
+		<result property="planReceiptUserCou" column="plan_receipt_user_cou"/>
+		<result property="planReceiptTimes" column="plan_receipt_times"/>
+		<result property="receiptedAmount" column="receipted_amount"/>
+		<result property="receiptedCapital" column="receipted_capital"/>
+		<result property="receiptedInterest" column="receipted_interest"/>
+		<result property="receiptedIncrease" column="receipted_increase"/>
+		<result property="receiptedPunish" column="receipted_punish"/>
+		<result property="receiptedUserCou" column="receipted_user_cou"/>
+		<result property="receiptedTimes" column="receipted_times"/>
+		<result property="currReceiptedAmount" column="curr_receipted_amount"/>
+		<result property="currReceiptedCapital" column="curr_receipted_capital"/>
+		<result property="currReceiptedInterest" column="curr_receipted_interest"/>
+		<result property="currReceiptedIncrease" column="curr_receipted_increase"/>
+		<result property="currReceiptedUserCou" column="curr_receipted_user_cou"/>
+		<result property="currReceiptedTimes" column="curr_receipted_times"/>
+		<result property="beforeReceiptedAmount" column="before_receipted_amount"/>
+		<result property="beforeReceiptedcaptail" column="before_receipted_captail"/>
+		<result property="beforeReceiptedInterest" column="before_receipted_interest"/>
+		<result property="beforeReceiptedIncrease" column="before_receipted_increase"/>
+		<result property="beforeReceiptedUserCou" column="before_receipted_user_cou"/>
+		<result property="beforeReceiptedTimes" column="before_receipted_times"/>
+		<result property="receiptingAmount" column="receipting_amount"/>
+		<result property="receiptingCapital" column="receipting_capital"/>
+		<result property="receiptingInterest" column="receipting_interest"/>
+		<result property="receiptingIncrease" column="receipting_increase"/>
+		<result property="receiptingUserCou" column="receipting_user_cou"/>
+		<result property="receiptingTimes" column="receipting_times"/>
+		<result property="receiptingMoney30" column="receipting_money_30"/>
+		<result property="receiptingTimes30" column="receipting_times_30"/>
+		<result property="receiptingMoney60" column="receipting_money_60"/>
+		<result property="receiptingTimes60" column="receipting_times_60"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		<![CDATA[
+		id,da,pro_type,plan_receipt_amount,plan_receipt_captail,plan_receipt_interest,plan_receipt_increase,plan_receipt_user_cou,plan_receipt_times,receipted_amount,receipted_capital,receipted_interest,receipted_increase,receipted_punish,receipted_user_cou,receipted_times,curr_receipted_amount,curr_receipted_capital,curr_receipted_interest,curr_receipted_increase,curr_receipted_user_cou,curr_receipted_times,before_receipted_amount,before_receipted_captail,before_receipted_interest,before_receipted_increase,before_receipted_user_cou,before_receipted_times,receipting_amount,receipting_capital,receipting_interest,receipting_increase,receipting_user_cou,receipting_times,receipting_money_30,receipting_times_30,receipting_money_60,receipting_times_60
+		]]>
+	</sql>
+
+	<!-- 插入 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sta_receipt ( 
+			<if test="id != null">
+				id ,
+			</if>
+				da ,
+			<if test="proType != null">
+				pro_type ,
+			</if>
+			<if test="planReceiptAmount != null">
+				plan_receipt_amount ,
+			</if>
+			<if test="planReceiptcaptail != null">
+				plan_receipt_captail ,
+			</if>
+			<if test="planReceiptInterest != null">
+				plan_receipt_interest ,
+			</if>
+			<if test="planReceiptIncrease != null">
+				plan_receipt_increase ,
+			</if>
+			<if test="planReceiptUserCou != null">
+				plan_receipt_user_cou ,
+			</if>
+			<if test="planReceiptTimes != null">
+				plan_receipt_times ,
+			</if>
+			<if test="receiptedAmount != null">
+				receipted_amount ,
+			</if>
+			<if test="receiptedCapital != null">
+				receipted_capital ,
+			</if>
+			<if test="receiptedInterest != null">
+				receipted_interest ,
+			</if>
+			<if test="receiptedIncrease != null">
+				receipted_increase ,
+			</if>
+			<if test="receiptedPunish != null">
+				receipted_punish ,
+			</if>
+			<if test="receiptedUserCou != null">
+				receipted_user_cou ,
+			</if>
+			<if test="receiptedTimes != null">
+				receipted_times ,
+			</if>
+			<if test="currReceiptedAmount != null">
+				curr_receipted_amount ,
+			</if>
+			<if test="currReceiptedCapital != null">
+				curr_receipted_capital ,
+			</if>
+			<if test="currReceiptedInterest != null">
+				curr_receipted_interest ,
+			</if>
+			<if test="currReceiptedIncrease != null">
+				curr_receipted_increase ,
+			</if>
+			<if test="currReceiptedUserCou != null">
+				curr_receipted_user_cou ,
+			</if>
+			<if test="currReceiptedTimes != null">
+				curr_receipted_times ,
+			</if>
+			<if test="beforeReceiptedAmount != null">
+				before_receipted_amount ,
+			</if>
+			<if test="beforeReceiptedcaptail != null">
+				before_receipted_captail ,
+			</if>
+			<if test="beforeReceiptedInterest != null">
+				before_receipted_interest ,
+			</if>
+			<if test="beforeReceiptedIncrease != null">
+				before_receipted_increase ,
+			</if>
+			<if test="beforeReceiptedUserCou != null">
+				before_receipted_user_cou ,
+			</if>
+			<if test="beforeReceiptedTimes != null">
+				before_receipted_times ,
+			</if>
+			<if test="receiptingAmount != null">
+				receipting_amount ,
+			</if>
+			<if test="receiptingCapital != null">
+				receipting_capital ,
+			</if>
+			<if test="receiptingInterest != null">
+				receipting_interest ,
+			</if>
+			<if test="receiptingIncrease != null">
+				receipting_increase ,
+			</if>
+			<if test="receiptingUserCou != null">
+				receipting_user_cou ,
+			</if>
+			<if test="receiptingTimes != null">
+				receipting_times ,
+			</if>
+			<if test="receiptingMoney30 != null">
+				receipting_money_30 ,
+			</if>
+			<if test="receiptingTimes30 != null">
+				receipting_times_30 ,
+			</if>
+			<if test="receiptingMoney60 != null">
+				receipting_money_60 ,
+			</if>
+			<if test="receiptingTimes60 != null">
+				receipting_times_60 
+			</if>
+		) VALUES (
+			<if test="id != null">
+				#{id} ,
+			</if>
+			<choose>
+				<when test="da != null">
+					#{da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+			<if test="proType != null">
+				#{proType} ,
+			</if>
+			<if test="planReceiptAmount != null">
+				#{planReceiptAmount} ,
+			</if>
+			<if test="planReceiptcaptail != null">
+				#{planReceiptcaptail} ,
+			</if>
+			<if test="planReceiptInterest != null">
+				#{planReceiptInterest} ,
+			</if>
+			<if test="planReceiptIncrease != null">
+				#{planReceiptIncrease} ,
+			</if>
+			<if test="planReceiptUserCou != null">
+				#{planReceiptUserCou} ,
+			</if>
+			<if test="planReceiptTimes != null">
+				#{planReceiptTimes} ,
+			</if>
+			<if test="receiptedAmount != null">
+				#{receiptedAmount} ,
+			</if>
+			<if test="receiptedCapital != null">
+				#{receiptedCapital} ,
+			</if>
+			<if test="receiptedInterest != null">
+				#{receiptedInterest} ,
+			</if>
+			<if test="receiptedIncrease != null">
+				#{receiptedIncrease} ,
+			</if>
+			<if test="receiptedPunish != null">
+				#{receiptedPunish} ,
+			</if>
+			<if test="receiptedUserCou != null">
+				#{receiptedUserCou} ,
+			</if>
+			<if test="receiptedTimes != null">
+				#{receiptedTimes} ,
+			</if>
+			<if test="currReceiptedAmount != null">
+				#{currReceiptedAmount} ,
+			</if>
+			<if test="currReceiptedCapital != null">
+				#{currReceiptedCapital} ,
+			</if>
+			<if test="currReceiptedInterest != null">
+				#{currReceiptedInterest} ,
+			</if>
+			<if test="currReceiptedIncrease != null">
+				#{currReceiptedIncrease} ,
+			</if>
+			<if test="currReceiptedUserCou != null">
+				#{currReceiptedUserCou} ,
+			</if>
+			<if test="currReceiptedTimes != null">
+				#{currReceiptedTimes} ,
+			</if>
+			<if test="beforeReceiptedAmount != null">
+				#{beforeReceiptedAmount} ,
+			</if>
+			<if test="beforeReceiptedcaptail != null">
+				#{beforeReceiptedcaptail} ,
+			</if>
+			<if test="beforeReceiptedInterest != null">
+				#{beforeReceiptedInterest} ,
+			</if>
+			<if test="beforeReceiptedIncrease != null">
+				#{beforeReceiptedIncrease} ,
+			</if>
+			<if test="beforeReceiptedUserCou != null">
+				#{beforeReceiptedUserCou} ,
+			</if>
+			<if test="beforeReceiptedTimes != null">
+				#{beforeReceiptedTimes} ,
+			</if>
+			<if test="receiptingAmount != null">
+				#{receiptingAmount} ,
+			</if>
+			<if test="receiptingCapital != null">
+				#{receiptingCapital} ,
+			</if>
+			<if test="receiptingInterest != null">
+				#{receiptingInterest} ,
+			</if>
+			<if test="receiptingIncrease != null">
+				#{receiptingIncrease} ,
+			</if>
+			<if test="receiptingUserCou != null">
+				#{receiptingUserCou} ,
+			</if>
+			<if test="receiptingTimes != null">
+				#{receiptingTimes} ,
+			</if>
+			<if test="receiptingMoney30 != null">
+				#{receiptingMoney30} ,
+			</if>
+			<if test="receiptintTimes30 != null">
+				#{receiptintTimes30} ,
+			</if>
+			<if test="receiptingMoney60 != null">
+				#{receiptingMoney60} ,
+			</if>
+			<if test="receiptingTimes60 != null">
+				#{receiptingTimes60} 
+			</if>
+		)
+	</insert>
+	
+	<!-- 批量插入 -->
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<![CDATA[
+		INSERT INTO sta_receipt (
+	       	id ,
+	       	da ,
+	       	pro_type ,
+	       	plan_receipt_amount ,
+	       	plan_receipt_captail ,
+	       	plan_receipt_interest ,
+	       	plan_receipt_increase ,
+	       	plan_receipt_user_cou ,
+	       	plan_receipt_times ,
+	       	receipted_amount ,
+	       	receipted_capital ,
+	       	receipted_interest ,
+	       	receipted_increase ,
+	       	receipted_punish ,
+	       	receipted_user_cou ,
+	       	receipted_times ,
+	       	curr_receipted_amount ,
+	       	curr_receipted_capital ,
+	       	curr_receipted_interest ,
+	       	curr_receipted_increase ,
+	       	curr_receipted_user_cou ,
+	       	curr_receipted_times ,
+	       	before_receipted_amount ,
+	       	before_receipted_captail ,
+	       	before_receipted_interest ,
+	       	before_receipted_increase ,
+	       	before_receipted_user_cou ,
+	       	before_receipted_times ,
+	       	receipting_amount ,
+	       	receipting_capital ,
+	       	receipting_interest ,
+	       	receipting_increase ,
+	       	receipting_user_cou ,
+	       	receipting_times ,
+	       	receipting_money_30 ,
+	       	receipting_times_30 ,
+	       	receipting_money_60 ,
+	       	receipting_times_60 
+        ) VALUES 
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+        (
+				<if test="item.id != null">
+					#{item.id} ,
+				</if>
+				<if test="item.id == null">
+					DEFAULT ,
+				</if>
+			<choose>
+				<when test="item.da != null">
+					#{item.da} ,
+				</when>
+				<otherwise>
+					NOW() ,
+				</otherwise>
+			</choose>
+				<if test="item.proType != null">
+					#{item.proType} ,
+				</if>
+				<if test="item.proType == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptAmount != null">
+					#{item.planReceiptAmount} ,
+				</if>
+				<if test="item.planReceiptAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptcaptail != null">
+					#{item.planReceiptcaptail} ,
+				</if>
+				<if test="item.planReceiptcaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptInterest != null">
+					#{item.planReceiptInterest} ,
+				</if>
+				<if test="item.planReceiptInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptIncrease != null">
+					#{item.planReceiptIncrease} ,
+				</if>
+				<if test="item.planReceiptIncrease == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptUserCou != null">
+					#{item.planReceiptUserCou} ,
+				</if>
+				<if test="item.planReceiptUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.planReceiptTimes != null">
+					#{item.planReceiptTimes} ,
+				</if>
+				<if test="item.planReceiptTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedAmount != null">
+					#{item.receiptedAmount} ,
+				</if>
+				<if test="item.receiptedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedCapital != null">
+					#{item.receiptedCapital} ,
+				</if>
+				<if test="item.receiptedCapital == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedInterest != null">
+					#{item.receiptedInterest} ,
+				</if>
+				<if test="item.receiptedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedIncrease != null">
+					#{item.receiptedIncrease} ,
+				</if>
+				<if test="item.receiptedIncrease == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedPunish != null">
+					#{item.receiptedPunish} ,
+				</if>
+				<if test="item.receiptedPunish == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedUserCou != null">
+					#{item.receiptedUserCou} ,
+				</if>
+				<if test="item.receiptedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptedTimes != null">
+					#{item.receiptedTimes} ,
+				</if>
+				<if test="item.receiptedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedAmount != null">
+					#{item.currReceiptedAmount} ,
+				</if>
+				<if test="item.currReceiptedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedCapital != null">
+					#{item.currReceiptedCapital} ,
+				</if>
+				<if test="item.currReceiptedCapital == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedInterest != null">
+					#{item.currReceiptedInterest} ,
+				</if>
+				<if test="item.currReceiptedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedIncrease != null">
+					#{item.currReceiptedIncrease} ,
+				</if>
+				<if test="item.currReceiptedIncrease == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedUserCou != null">
+					#{item.currReceiptedUserCou} ,
+				</if>
+				<if test="item.currReceiptedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.currReceiptedTimes != null">
+					#{item.currReceiptedTimes} ,
+				</if>
+				<if test="item.currReceiptedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedAmount != null">
+					#{item.beforeReceiptedAmount} ,
+				</if>
+				<if test="item.beforeReceiptedAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedcaptail != null">
+					#{item.beforeReceiptedcaptail} ,
+				</if>
+				<if test="item.beforeReceiptedcaptail == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedInterest != null">
+					#{item.beforeReceiptedInterest} ,
+				</if>
+				<if test="item.beforeReceiptedInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedIncrease != null">
+					#{item.beforeReceiptedIncrease} ,
+				</if>
+				<if test="item.beforeReceiptedIncrease == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedUserCou != null">
+					#{item.beforeReceiptedUserCou} ,
+				</if>
+				<if test="item.beforeReceiptedUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.beforeReceiptedTimes != null">
+					#{item.beforeReceiptedTimes} ,
+				</if>
+				<if test="item.beforeReceiptedTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingAmount != null">
+					#{item.receiptingAmount} ,
+				</if>
+				<if test="item.receiptingAmount == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingCapital != null">
+					#{item.receiptingCapital} ,
+				</if>
+				<if test="item.receiptingCapital == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingInterest != null">
+					#{item.receiptingInterest} ,
+				</if>
+				<if test="item.receiptingInterest == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingIncrease != null">
+					#{item.receiptingIncrease} ,
+				</if>
+				<if test="item.receiptingIncrease == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingUserCou != null">
+					#{item.receiptingUserCou} ,
+				</if>
+				<if test="item.receiptingUserCou == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingTimes != null">
+					#{item.receiptingTimes} ,
+				</if>
+				<if test="item.receiptingTimes == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingMoney30 != null">
+					#{item.receiptingMoney30} ,
+				</if>
+				<if test="item.receiptingMoney30 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptintTimes30 != null">
+					#{item.receiptintTimes30} ,
+				</if>
+				<if test="item.receiptintTimes30 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingMoney60 != null">
+					#{item.receiptingMoney60} ,
+				</if>
+				<if test="item.receiptingMoney60 == null">
+					DEFAULT ,
+				</if>
+				<if test="item.receiptingTimes60 != null">
+					#{item.receiptingTimes60} 
+				</if>
+				<if test="item.receiptingTimes60 == null">
+					DEFAULT 
+				</if>
+        )
+        </foreach>
+	</insert>
+	
+	<!-- 更新字段列表 -->
+	<sql id="update_sql">
+		<set>
+			<if test="da != null">
+				da = #{da} ,
+			</if>
+			<if test="proType != null">
+			pro_type = #{proType} ,
+		   </if>
+			<if test="planReceiptAmount != null ">
+				plan_receipt_amount =plan_receipt_amount + #{planReceiptAmount} ,
+			</if>
+			<if test="planReceiptcaptail != null ">
+				plan_receipt_captail =plan_receipt_captail + #{planReceiptcaptail} ,
+			</if>
+			<if test="planReceiptInterest != null ">
+				plan_receipt_interest =plan_receipt_interest + #{planReceiptInterest} ,
+			</if>
+			<if test="planReceiptIncrease != null ">
+				plan_receipt_increase =plan_receipt_increase + #{planReceiptIncrease} ,
+			</if>
+			<if test="planReceiptUserCou != null">
+			plan_receipt_user_cou = #{planReceiptUserCou} ,
+		   </if>
+			<if test="planReceiptTimes != null">
+			plan_receipt_times = #{planReceiptTimes} ,
+		   </if>
+			<if test="receiptedAmount != null ">
+				receipted_amount =receipted_amount + #{receiptedAmount} ,
+			</if>
+			<if test="receiptedCapital != null ">
+				receipted_capital =receipted_capital + #{receiptedCapital} ,
+			</if>
+			<if test="receiptedInterest != null ">
+				receipted_interest =receipted_interest + #{receiptedInterest} ,
+			</if>
+			<if test="receiptedIncrease != null ">
+				receipted_increase =receipted_increase + #{receiptedIncrease} ,
+			</if>
+			<if test="receiptedPunish != null ">
+				receipted_punish =receipted_punish + #{receiptedPunish} ,
+			</if>
+			<if test="receiptedUserCou != null">
+			receipted_user_cou = #{receiptedUserCou} ,
+		   </if>
+			<if test="receiptedTimes != null">
+			receipted_times = #{receiptedTimes} ,
+		   </if>
+			<if test="currReceiptedAmount != null ">
+				curr_receipted_amount =curr_receipted_amount + #{currReceiptedAmount} ,
+			</if>
+			<if test="currReceiptedCapital != null ">
+				curr_receipted_capital =curr_receipted_capital + #{currReceiptedCapital} ,
+			</if>
+			<if test="currReceiptedInterest != null ">
+				curr_receipted_interest =curr_receipted_interest + #{currReceiptedInterest} ,
+			</if>
+			<if test="currReceiptedIncrease != null ">
+				curr_receipted_increase =curr_receipted_increase + #{currReceiptedIncrease} ,
+			</if>
+			<if test="currReceiptedUserCou != null">
+			curr_receipted_user_cou = #{currReceiptedUserCou} ,
+		   </if>
+			<if test="currReceiptedTimes != null">
+			curr_receipted_times = #{currReceiptedTimes} ,
+		   </if>
+			<if test="beforeReceiptedAmount != null ">
+				before_receipted_amount =before_receipted_amount + #{beforeReceiptedAmount} ,
+			</if>
+			<if test="beforeReceiptedcaptail != null ">
+				before_receipted_captail =before_receipted_captail + #{beforeReceiptedcaptail} ,
+			</if>
+			<if test="beforeReceiptedInterest != null ">
+				before_receipted_interest =before_receipted_interest + #{beforeReceiptedInterest} ,
+			</if>
+			<if test="beforeReceiptedIncrease != null ">
+				before_receipted_increase =before_receipted_increase + #{beforeReceiptedIncrease} ,
+			</if>
+			<if test="beforeReceiptedUserCou != null">
+			before_receipted_user_cou = #{beforeReceiptedUserCou} ,
+		   </if>
+			<if test="beforeReceiptedTimes != null">
+			before_receipted_times = #{beforeReceiptedTimes} ,
+		   </if>
+			<if test="receiptingAmount != null ">
+				receipting_amount =receipting_amount + #{receiptingAmount} ,
+			</if>
+			<if test="receiptingCapital != null ">
+				receipting_capital =receipting_capital + #{receiptingCapital} ,
+			</if>
+			<if test="receiptingInterest != null ">
+				receipting_interest =receipting_interest + #{receiptingInterest} ,
+			</if>
+			<if test="receiptingIncrease != null ">
+				receipting_increase =receipting_increase + #{receiptingIncrease} ,
+			</if>
+			<if test="receiptingUserCou != null">
+			receipting_user_cou = #{receiptingUserCou} ,
+		   </if>
+			<if test="receiptingTimes != null">
+			receipting_times = #{receiptingTimes} ,
+		   </if>
+			<if test="receiptingMoney30 != null ">
+				receipting_money_30 =receipting_money_30 + #{receiptingMoney30} ,
+			</if>
+			<if test="receiptingTimes30 != null">
+			receipting_times_30 = #{receiptingTimes30} ,
+		   </if>
+			<if test="receiptingMoney60 != null ">
+				receipting_money_60 =receipting_money_60 + #{receiptingMoney60} ,
+			</if>
+			<if test="receiptingTimes60 != null">
+			receipting_times_60 = #{receiptingTimes60} 
+		   </if>
+		</set>
+	</sql>
+    
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE  sta_receipt
+		<include refid="update_sql"/>
+		<![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+		<![CDATA[
+		DELETE FROM sta_receipt 
+		WHERE
+			id = #{id} 
+		]]>
+	</delete>
+    
+	<!-- 根据ID查询 -->
+	<select id="getById" resultMap="_StaReceipt">
+		SELECT <include refid="columns" />
+		<![CDATA[
+		FROM sta_receipt 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+	</select>
+	
+	<!-- 查询条件 -->
+	<sql id="findPage_where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	  
+			1 = 1    				
+			<if test="id != null">
+			AND id = #{id}
+			</if>
+			<if test="daBegin != null">
+			AND da >= #{daBegin}
+			</if>
+			<if test="daEnd != null">
+			AND da &lt;= #{daEnd}
+			</if>
+			<if test="proType != null">
+			AND pro_type = #{proType}
+			</if>
+			<if test="planReceiptAmount != null">
+			AND plan_receipt_amount = #{planReceiptAmount}
+			</if>
+			<if test="planReceiptcaptail != null">
+			AND plan_receipt_captail = #{planReceiptcaptail}
+			</if>
+			<if test="planReceiptInterest != null">
+			AND plan_receipt_interest = #{planReceiptInterest}
+			</if>
+			<if test="planReceiptIncrease != null">
+			AND plan_receipt_increase = #{planReceiptIncrease}
+			</if>
+			<if test="planReceiptUserCou != null">
+			AND plan_receipt_user_cou = #{planReceiptUserCou}
+			</if>
+			<if test="planReceiptTimes != null">
+			AND plan_receipt_times = #{planReceiptTimes}
+			</if>
+			<if test="receiptedAmount != null">
+			AND receipted_amount = #{receiptedAmount}
+			</if>
+			<if test="receiptedCapital != null">
+			AND receipted_capital = #{receiptedCapital}
+			</if>
+			<if test="receiptedInterest != null">
+			AND receipted_interest = #{receiptedInterest}
+			</if>
+			<if test="receiptedIncrease != null">
+			AND receipted_increase = #{receiptedIncrease}
+			</if>
+			<if test="receiptedPunish != null">
+			AND receipted_punish = #{receiptedPunish}
+			</if>
+			<if test="receiptedUserCou != null">
+			AND receipted_user_cou = #{receiptedUserCou}
+			</if>
+			<if test="receiptedTimes != null">
+			AND receipted_times = #{receiptedTimes}
+			</if>
+			<if test="currReceiptedAmount != null">
+			AND curr_receipted_amount = #{currReceiptedAmount}
+			</if>
+			<if test="currReceiptedCapital != null">
+			AND curr_receipted_capital = #{currReceiptedCapital}
+			</if>
+			<if test="currReceiptedInterest != null">
+			AND curr_receipted_interest = #{currReceiptedInterest}
+			</if>
+			<if test="currReceiptedIncrease != null">
+			AND curr_receipted_increase = #{currReceiptedIncrease}
+			</if>
+			<if test="currReceiptedUserCou != null">
+			AND curr_receipted_user_cou = #{currReceiptedUserCou}
+			</if>
+			<if test="currReceiptedTimes != null">
+			AND curr_receipted_times = #{currReceiptedTimes}
+			</if>
+			<if test="beforeReceiptedAmount != null">
+			AND before_receipted_amount = #{beforeReceiptedAmount}
+			</if>
+			<if test="beforeReceiptedcaptail != null">
+			AND before_receipted_captail = #{beforeReceiptedcaptail}
+			</if>
+			<if test="beforeReceiptedInterest != null">
+			AND before_receipted_interest = #{beforeReceiptedInterest}
+			</if>
+			<if test="beforeReceiptedIncrease != null">
+			AND before_receipted_increase = #{beforeReceiptedIncrease}
+			</if>
+			<if test="beforeReceiptedUserCou != null">
+			AND before_receipted_user_cou = #{beforeReceiptedUserCou}
+			</if>
+			<if test="beforeReceiptedTimes != null">
+			AND before_receipted_times = #{beforeReceiptedTimes}
+			</if>
+			<if test="receiptingAmount != null">
+			AND receipting_amount = #{receiptingAmount}
+			</if>
+			<if test="receiptingCapital != null">
+			AND receipting_capital = #{receiptingCapital}
+			</if>
+			<if test="receiptingInterest != null">
+			AND receipting_interest = #{receiptingInterest}
+			</if>
+			<if test="receiptingIncrease != null">
+			AND receipting_increase = #{receiptingIncrease}
+			</if>
+			<if test="receiptingUserCou != null">
+			AND receipting_user_cou = #{receiptingUserCou}
+			</if>
+			<if test="receiptingTimes != null">
+			AND receipting_times = #{receiptingTimes}
+			</if>
+			<if test="receiptingMoney30 != null">
+			AND receipting_money_30 = #{receiptingMoney30}
+			</if>
+			<if test="receiptingTimes30 != null">
+			AND receipting_times_30 = #{receiptingTimes30}
+			</if>
+			<if test="receiptingMoney60 != null">
+			AND receipting_money_60 = #{receiptingMoney60}
+			</if>
+			<if test="receiptingTimes60 != null">
+			AND receipting_times_60 = #{receiptingTimes60}
+			</if>
+		</where>
+	</sql>
+		
+	<!-- 查询数量 -->
+	<select id="findPage_count" resultType="long">
+		SELECT COUNT(ID) FROM sta_receipt 
+		<include refid="findPage_where"/>    
+	</select>
+    
+	<!-- 查询分页 -->
+	<select id="findPage" resultMap="_StaReceipt">
+		SELECT <include refid="columns" />
+		FROM sta_receipt 
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+    <!-- 检索累计还款金额 -->
+    <select id="findStaReceiptAddup" resultMap="_StaReceipt">
+        SELECT
+            IFNULL(SUM(receipted_amount), 0) AS receipted_amount,
+            IFNULL(SUM(receipted_capital), 0) AS receipted_capital,
+            IFNULL(SUM(receipted_interest), 0) AS receipted_interest,
+            IFNULL(SUM(receipted_punish), 0) AS receipted_punish,
+            IFNULL(SUM(receipted_times), 0) AS receipted_times,
+            IFNULL(SUM(receipting_amount), 0) AS receipting_amount,
+            IFNULL(SUM(receipting_times), 0) AS receipting_times
+        FROM
+          sta_receipt
+        WHERE
+        1=1
+        <if test="daBegin != null">
+            AND da >= #{daBegin}
+        </if>
+        <if test="daEnd != null">
+            AND da &lt;= #{daEnd}
+        </if>
+    </select>
+
+    <select id="findStaReceiptFuture" resultMap="_StaReceipt">
+        SELECT
+            receipting_money_30,
+            receipting_times_30,
+            receipting_money_60,
+            receipting_times_60
+        FROM
+            sta_receipt
+        ORDER BY
+            id DESC
+        LIMIT 1;
+    </select>
+
+</mapper>

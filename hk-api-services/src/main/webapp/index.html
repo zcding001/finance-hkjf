@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鸿坤金服下载</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        *{margin:0;padding:0;}
+        html,body{min-height:100%;font-family:"Microsoft YaHei",sans-serif;box-sizing:border-box;}
+        html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+        body,button,input,select,textarea{outline:0;}
+        img{border:0;vertical-align:middle;}
+        button,input[type=button],input[type=password],input[type=submit],input[type=text],textarea{-webkit-appearance:none}
+        .clearfix::before,.clearfix::after{content:".";display:block;height:0;line-height:0;visibility:hidden;clear:both;}
+        .fl{float:left;}.fr{float:right;}
+        .download_box{width:100%;height:30.75rem;background:#181016;font-size:0;}
+        .download_cont{width:100%;height:30.75rem;background:url(imageLib/index/background.png) no-repeat center center;overflow:hidden;}
+        .download_head{width:100%;text-align:center;}
+        .download_head img{display:block;margin:0 auto;}
+        .download_head .head_img_1{width:1.95rem;height:1.96rem;padding-top:1.43rem;padding-bottom:.48rem;}
+        .download_head .head_img_2{width:5.32rem;height:.42rem;padding-bottom:1rem;}
+        .download_head .head_img_3{width:5.48rem;height:1.35rem;}
+        .download_head .head_img_4{width:6.4rem;height:9.3rem;padding-bottom:1.18rem;}
+        .download_main{width:100%;text-align:center;}
+        .download_main img{display:block;margin:0 auto;}
+        .download_main .main_img_1{width:3.68rem;height:.3rem;}
+        .main_div{width:100%;padding-top:1.02rem;padding-bottom:1.36rem;}
+        .main_div img{width:.85rem;height:.71rem;padding-right:.40rem;display:inline-block;}
+        .main_div span{font-size:.28rem;font-weight:normal;font-style:normal;font-stretch:normal;line-height:.48rem;letter-spacing:0px;color:#dfca91;display:inline-block;}
+        .main_div_1{width:100%;padding-top:.74rem;padding-bottom:1.55rem;}
+        .main_div_1 img{width:.72rem;height:.88rem;padding-right:.40rem;display:inline-block;vertical-align:top;}
+        .main_div_1 span{font-size:.28rem;font-weight:normal;font-style:normal;font-stretch:normal;line-height:.40rem;letter-spacing:0px;color:#dfca91;display:inline-block;text-align:left;}
+        .main_div_2{width:100%;padding-top:.76rem;padding-bottom:1.7rem;}
+        .main_div_2 img{width:.85rem;height:.67rem;padding-right:.40rem;display:inline-block;vertical-align:top;}
+        .main_div_2 span{font-size:.28rem;font-weight:normal;font-style:normal;font-stretch:normal;line-height:.40rem;letter-spacing:0px;color:#dfca91;display:inline-block;text-align:left;}
+    </style>
+    <script>
+        (function(doc, win) { // font-size.js
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = (clientWidth >= 640 ? 100 : clientWidth / 6.4) + 'px';
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+</head>
+<body>
+<div class="download_box">
+    <div class="download_cont">
+        <div class="download_head">
+            <img src="imageLib/index/icon_logo.png" alt="鸿坤金服logo" class="head_img_1">
+            <img src="imageLib/index/img_font.png" alt="鸿坤金服标语" class="head_img_2">
+            <!-- 立即下载按钮 后期替换为鸿坤金服的推广链接 -->
+            <div><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.yrtz.qiankundai"><img src="imageLib/index/icon_btn.png" alt="鸿坤金服立即下载" class="head_img_3"></a></div>
+            <img src="imageLib/index/img_tel.png" alt="鸿坤金服手机" class="head_img_4">
+        </div>
+        <div class="download_main">
+            <img src="imageLib/index/num_1.png" alt="鸿坤金服第一条" class="main_img_1">
+            <div class="main_div">
+                <img src="imageLib/index/icon_1.png" alt="钻石" class="">
+                <span class="">挑选理财，为你提供靠谱的理财产品。</span>
+            </div>
+            <img src="imageLib/index/num_2.png" alt="鸿坤金服第二条" class="main_img_1">
+            <div class="main_div_1">
+                <img src="imageLib/index/icon_2.png" alt="盾牌" class="">
+                <span class="">多重智能风控，采用数字签名技术、安<br/>全套接协议等高科技防控措施。</span>
+            </div>
+            <img src="imageLib/index/num_3.png" alt="鸿坤金服第三条" class="main_img_1">
+            <div class="main_div_2">
+                <img src="imageLib/index/icon_3.png" alt="皇冠" class="">
+                <span class="">专属会员服务，操作便捷，从注册到<br/>投资仅需1分钟，账户收益一目了然。</span>
+            </div>
+            <img src="imageLib/index/footer.png" alt="底部装饰" style="width: 100%;height: 3.22rem;">
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

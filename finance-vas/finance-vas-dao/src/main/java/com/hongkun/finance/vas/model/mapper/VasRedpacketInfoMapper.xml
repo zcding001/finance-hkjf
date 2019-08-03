@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hongkun.finance.vas.model.VasRedpacketInfo">
+
+    <!-- POJO类与数据库字段对应关系 -->
+    <resultMap id="_VasRedpacketInfo" type="com.hongkun.finance.vas.model.VasRedpacketInfo">
+        <result property="id" column="id"/>
+        <result property="acceptorUserId" column="acceptor_user_id"/>
+        <result property="key" column="key"/>
+        <result property="value" column="value"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="redpacketSource" column="redpacket_source"/>
+        <result property="endTime" column="end_time"/>
+        <result property="senderUserId" column="sender_user_id"/>
+        <result property="senderUserName" column="sender_user_name"/>
+        <result property="sendReason" column="send_reason"/>
+        <result property="checkReason" column="check_reason"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="modifiedUserId" column="modified_user_id"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+    </resultMap>
+
+    <!-- POJO类与数据库字段对应关系 -->
+    <resultMap id="_VasRedpacketVOInfo" type="com.hongkun.finance.vas.model.vo.VasRedpacketVO" extends="_VasRedpacketInfo"></resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+		id,acceptor_user_id,`KEY`,value,name,type,redpacket_source,end_time,sender_user_id,sender_user_name,send_reason,check_reason,create_user_id,modified_user_id,state,create_time,modify_time
+	</sql>
+
+    <!-- 插入 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO vas_redpacket_info (
+        <if test="id != null">
+            id ,
+        </if>
+        <if test="acceptorUserId != null">
+            acceptor_user_id ,
+        </if>
+        <if test="key != null and key != ''">
+            `KEY` ,
+        </if>
+        <if test="value != null">
+            value ,
+        </if>
+        <if test="name != null and name != ''">
+            name ,
+        </if>
+        <if test="type != null">
+            type ,
+        </if>
+        <if test="redpacketSource != null">
+            redpacket_source ,
+        </if>
+        end_time ,
+        <if test="senderUserId != null">
+            sender_user_id ,
+        </if>
+        <if test="senderUserName != null and senderUserName != ''">
+            sender_user_name ,
+        </if>
+        <if test="sendReason != null and sendReason != ''">
+            send_reason ,
+        </if>
+        <if test="checkReason != null and checkReason != ''">
+            check_reason ,
+        </if>
+        <if test="createUserId != null">
+            create_user_id ,
+        </if>
+        <if test="modifiedUserId != null">
+            modified_user_id ,
+        </if>
+        <if test="state != null">
+            state ,
+        </if>
+        create_time ,
+        modify_time
+        ) VALUES (
+        <if test="id != null">
+            #{id} ,
+        </if>
+        <if test="acceptorUserId != null">
+            #{acceptorUserId} ,
+        </if>
+        <if test="key != null and key != ''">
+            #{key} ,
+        </if>
+        <if test="value != null">
+            #{value} ,
+        </if>
+        <if test="name != null and name != ''">
+            #{name} ,
+        </if>
+        <if test="type != null">
+            #{type} ,
+        </if>
+        <if test="redpacketSource != null">
+            #{redpacketSource} ,
+        </if>
+        <choose>
+            <when test="endTime != null">
+                #{endTime} ,
+            </when>
+            <otherwise>
+                NOW() ,
+            </otherwise>
+        </choose>
+        <if test="senderUserId != null">
+            #{senderUserId} ,
+        </if>
+        <if test="senderUserName != null and senderUserName != ''">
+            #{senderUserName} ,
+        </if>
+        <if test="sendReason != null and sendReason != ''">
+            #{sendReason} ,
+        </if>
+        <if test="checkReason != null and checkReason != ''">
+            #{checkReason} ,
+        </if>
+        <if test="createUserId != null">
+            #{createUserId} ,
+        </if>
+        <if test="modifiedUserId != null">
+            #{modifiedUserId} ,
+        </if>
+        <if test="state != null">
+            #{state} ,
+        </if>
+        <choose>
+            <when test="createTime != null">
+                #{createTime} ,
+            </when>
+            <otherwise>
+                NOW() ,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="modifyTime != null">
+                #{modifyTime}
+            </when>
+            <otherwise>
+                NOW()
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" useGeneratedKeys="true"  keyProperty="id" parameterType="java.util.List">
+        INSERT INTO vas_redpacket_info (
+        id ,
+        acceptor_user_id ,
+        `KEY` ,
+        value ,
+        name ,
+        type ,
+        redpacket_source ,
+        end_time ,
+        sender_user_id ,
+        sender_user_name ,
+        send_reason ,
+        check_reason ,
+        create_user_id ,
+        modified_user_id ,
+        state ,
+        create_time ,
+        modify_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            <if test="item.id != null">
+                #{item.id} ,
+            </if>
+            <if test="item.id == null">
+                DEFAULT ,
+            </if>
+            <if test="item.acceptorUserId != null">
+                #{item.acceptorUserId} ,
+            </if>
+            <if test="item.acceptorUserId == null">
+                DEFAULT ,
+            </if>
+            <if test="item.key != null and item.key != ''">
+                #{item.key} ,
+            </if>
+            <if test="item.key == null or item.key == ''">
+                DEFAULT ,
+            </if>
+            <if test="item.value != null">
+                #{item.value} ,
+            </if>
+            <if test="item.value == null">
+                DEFAULT ,
+            </if>
+            <if test="item.name != null and item.name != ''">
+                #{item.name} ,
+            </if>
+            <if test="item.name == null or item.name == ''">
+                DEFAULT ,
+            </if>
+            <if test="item.type != null">
+                #{item.type} ,
+            </if>
+            <if test="item.type == null">
+                DEFAULT ,
+            </if>
+            <if test="item.redpacketSource != null">
+                #{item.redpacketSource} ,
+            </if>
+            <if test="item.redpacketSource == null">
+                DEFAULT ,
+            </if>
+            <choose>
+                <when test="item.endTime != null">
+                    #{item.endTime} ,
+                </when>
+                <otherwise>
+                    NOW() ,
+                </otherwise>
+            </choose>
+            <if test="item.senderUserId != null">
+                #{item.senderUserId} ,
+            </if>
+            <if test="item.senderUserId == null">
+                DEFAULT ,
+            </if>
+            <if test="item.senderUserName != null and item.senderUserName != ''">
+                #{item.senderUserName} ,
+            </if>
+            <if test="item.senderUserName == null or item.senderUserName == ''">
+                DEFAULT ,
+            </if>
+            <if test="item.sendReason != null and item.sendReason != ''">
+                #{item.sendReason} ,
+            </if>
+            <if test="item.sendReason == null or item.sendReason == ''">
+                DEFAULT ,
+            </if>
+            <if test="item.checkReason != null and item.checkReason != ''">
+                #{item.checkReason} ,
+            </if>
+            <if test="item.checkReason == null or item.checkReason == ''">
+                DEFAULT ,
+            </if>
+            <if test="item.createUserId != null">
+                #{item.createUserId} ,
+            </if>
+            <if test="item.createUserId == null">
+                DEFAULT ,
+            </if>
+            <if test="item.modifiedUserId != null">
+                #{item.modifiedUserId} ,
+            </if>
+            <if test="item.modifiedUserId == null">
+                DEFAULT ,
+            </if>
+            <if test="item.state != null">
+                #{item.state} ,
+            </if>
+            <if test="item.state == null">
+                DEFAULT ,
+            </if>
+            <choose>
+                <when test="item.createTime != null">
+                    #{item.createTime} ,
+                </when>
+                <otherwise>
+                    NOW() ,
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="item.modifyTime != null">
+                    #{item.modifyTime}
+                </when>
+                <otherwise>
+                    NOW()
+                </otherwise>
+            </choose>
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新字段列表 -->
+    <sql id="update_sql">
+        <set>
+            <if test="acceptorUserId != null">
+                acceptor_user_id = #{acceptorUserId} ,
+            </if>
+            <if test="key != null and key != ''">
+                `KEY` = #{key} ,
+            </if>
+            <if test="value != null ">
+                value =value + #{value} ,
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name} ,
+            </if>
+            <if test="type != null">
+                type = #{type} ,
+            </if>
+            <if test="redpacketSource != null">
+                redpacket_source = #{redpacketSource} ,
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime} ,
+            </if>
+            <if test="senderUserId != null">
+                sender_user_id = #{senderUserId} ,
+            </if>
+            <if test="senderUserName != null and senderUserName != ''">
+                sender_user_name = #{senderUserName} ,
+            </if>
+            <if test="sendReason != null and sendReason != ''">
+                send_reason = #{sendReason} ,
+            </if>
+            <if test="checkReason != null and checkReason != ''">
+                check_reason = #{checkReason} ,
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId} ,
+            </if>
+            <if test="modifiedUserId != null">
+                modified_user_id = #{modifiedUserId} ,
+            </if>
+            <if test="state != null">
+                state = #{state} ,
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime} ,
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime}
+            </if>
+        </set>
+    </sql>
+
+    <!-- 更新 -->
+    <update id="update">
+        UPDATE vas_redpacket_info
+        <include refid="update_sql"/>
+        <![CDATA[
+		WHERE 
+			id = #{id} 
+		]]>
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete">
+		<![CDATA[
+
+
+		DELETE FROM vas_redpacket_info 
+		WHERE
+			id = #{id} 
+
+
+        ]]>
+	</delete>
+
+    <!-- 根据ID查询 -->
+    <select id="getById" resultMap="_VasRedpacketInfo">
+        SELECT
+        <include refid="columns"/>
+        <![CDATA[
+		FROM vas_redpacket_info 
+		WHERE 1 = 1
+			AND id = #{id}
+		]]>
+    </select>
+
+    <!-- 查询条件 -->
+    <sql id="findPage_where">
+        <where>
+            1 = 1
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="acceptorUserId != null">
+                AND acceptor_user_id = #{acceptorUserId}
+            </if>
+            <if test="key != null and key !=''">
+                AND `KEY` = #{key}
+            </if>
+            <if test="value != null">
+                AND value = #{value}
+            </if>
+            <if test="name != null and name !=''">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="redpacketSource != null">
+                AND redpacket_source = #{redpacketSource}
+            </if>
+            <if test="endTimeBegin != null">
+                AND end_time >= #{endTimeBegin}
+            </if>
+            <if test="endTimeEnd != null">
+                AND end_time &lt;= #{endTimeEnd}
+            </if>
+            <if test="senderUserId != null">
+                AND sender_user_id = #{senderUserId}
+            </if>
+            <if test="senderUserName != null and senderUserName !=''">
+                AND sender_user_name LIKE CONCAT('%',#{senderUserName},'%')
+            </if>
+            <if test="sendReason != null and sendReason !=''">
+                AND send_reason LIKE CONCAT('%',#{sendReason},'%')
+            </if>
+            <if test="checkReason != null and checkReason !=''">
+                AND check_reason LIKE CONCAT('%',#{checkReason},'%')
+            </if>
+            <if test="createUserId != null">
+                AND create_user_id = #{createUserId}
+            </if>
+            <if test="modifiedUserId != null">
+                AND modified_user_id = #{modifiedUserId}
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+            <if test="createTimeBegin != null">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND create_time &lt;= #{createTimeEnd}
+            </if>
+            <if test="modifyTimeBegin != null">
+                AND modify_time >= #{modifyTimeBegin}
+            </if>
+            <if test="modifyTimeEnd != null">
+                AND modify_time &lt;= #{modifyTimeEnd}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 根据条件查询的条件 -->
+    <sql id="findPage_where_search_map">
+        <where>
+            state != 10
+            <if test="vasRedpacketVO.id != null">
+                AND id = #{vasRedpacketVO.id}
+            </if>
+            <if test="vasRedpacketVO.acceptorUserId != null">
+                AND acceptor_user_id = #{vasRedpacketVO.acceptorUserId}
+            </if>
+            <if test="vasRedpacketVO.key != null and vasRedpacketVO.key !=''">
+                AND `KEY`  LIKE CONCAT('%',#{vasRedpacketVO.key},'%')
+            </if>
+            <if test="vasRedpacketVO.value != null">
+                AND value >= #{vasRedpacketVO.value}
+            </if>
+            <if test="vasRedpacketVO.valueStart != null">
+                AND value >= #{vasRedpacketVO.valueStart}
+            </if>
+            <if test="vasRedpacketVO.valueEnd != null">
+                AND value &lt;= #{vasRedpacketVO.valueEnd}
+            </if>
+            <if test="vasRedpacketVO.name != null and vasRedpacketVO.name !=''">
+                AND name LIKE CONCAT('%',#{vasRedpacketVO.name},'%')
+            </if>
+            <if test="vasRedpacketVO.type != null">
+                AND type = #{vasRedpacketVO.type}
+            </if>
+            <if test="vasRedpacketVO.redpacketSource != null">
+                AND redpacket_source = #{vasRedpacketVO.redpacketSource}
+            </if>
+            <if test="vasRedpacketVO.receiveTimeBegin != null">
+                AND modify_time >= #{vasRedpacketVO.receiveTimeBegin}
+            </if>
+            <if test="vasRedpacketVO.receiveTimeEnd != null">
+                AND modify_time &lt;= #{vasRedpacketVO.receiveTimeEnd}
+            </if>
+            <if test="vasRedpacketVO.receiveTimeBegin != null or vasRedpacketVO.receiveTimeEnd != null">
+                AND modify_time !=create_time
+            </if>
+            <if test="vasRedpacketVO.receiveTimeBegin != null or vasRedpacketVO.receiveTimeEnd != null">
+                AND state IN (1,9)
+            </if>
+            <if test="vasRedpacketVO.endTimeBegin != null">
+                AND end_time >= #{vasRedpacketVO.endTimeBegin}
+            </if>
+            <if test="vasRedpacketVO.endTimeEnd != null">
+                AND end_time &lt;= #{vasRedpacketVO.endTimeEnd}
+            </if>
+            <if test="vasRedpacketVO.senderUserId != null">
+                AND sender_user_id = #{vasRedpacketVO.senderUserId}
+            </if>
+            <if test="vasRedpacketVO.senderUserName != null and vasRedpacketVO.senderUserName !=''">
+                AND sender_user_name LIKE CONCAT('%',#{vasRedpacketVO.senderUserName},'%')
+            </if>
+            <if test="vasRedpacketVO.sendReason != null and vasRedpacketVO.sendReason !=''">
+                AND send_reason LIKE CONCAT('%',#{vasRedpacketVO.sendReason},'%')
+            </if>
+            <if test="vasRedpacketVO.checkReason != null and vasRedpacketVO.checkReason !=''">
+                AND check_reason LIKE CONCAT('%',#{vasRedpacketVO.checkReason},'%')
+            </if>
+            <if test="vasRedpacketVO.createUserId != null">
+                AND create_user_id = #{vasRedpacketVO.createUserId}
+            </if>
+            <if test="vasRedpacketVO.modifiedUserId != null">
+                AND modified_user_id = #{vasRedpacketVO.modifiedUserId}
+            </if>
+            <if test="vasRedpacketVO.state != null and vasRedpacketVO.state !=-1 and vasRedpacketVO.state !=-2">
+                AND state = #{vasRedpacketVO.state}
+            </if>
+            <if test="vasRedpacketVO.state ==-1">
+                AND state IN (4,5)
+            </if>
+            <if test="vasRedpacketVO.createTimeBegin != null">
+                AND create_time >= #{vasRedpacketVO.createTimeBegin}
+            </if>
+            <if test="vasRedpacketVO.createTimeEnd != null">
+                AND create_time &lt;= #{vasRedpacketVO.createTimeEnd}
+            </if>
+            <if test="vasRedpacketVO.modifyTimeBegin != null">
+                AND modify_time >= #{vasRedpacketVO.modifyTimeBegin}
+            </if>
+            <if test="vasRedpacketVO.modifyTimeEnd != null">
+                AND modify_time &lt;= #{vasRedpacketVO.modifyTimeEnd}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="extraCondition">
+        <if test="sendUserIds != null and sendUserIds.size != 0">
+            AND sender_user_id IN
+            <foreach collection="sendUserIds" open="(" separator="," close=")" item="sid">
+                     ${sid}
+            </foreach>
+        </if>
+
+        <if test="acceptorUserIds != null and acceptorUserIds.size != 0">
+            AND acceptor_user_id IN
+            <foreach collection="acceptorUserIds" open="(" separator="," close=")" item="aid">
+                ${aid}
+            </foreach>
+        </if>
+
+	</sql>
+
+    <!-- 查询数量 -->
+    <select id="findPage_count" resultType="long">
+        SELECT COUNT(ID) FROM vas_redpacket_info
+        <include refid="findPage_where"/>
+    </select>
+
+    <!-- 查询分页 -->
+    <select id="findPage" resultMap="_VasRedpacketInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM vas_redpacket_info
+        <include refid="findPage_where"/>
+        <if test="sortColumns != null and sortColumns !=''">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 查询红包分页数据-count-->
+    <select id="searchRedpacketByConditionCount" resultType="long">
+        SELECT COUNT(ID) FROM vas_redpacket_info
+        <include refid="findPage_where_search_map"/>
+        <include refid="extraCondition"/>
+    </select>
+
+    <!-- 查询红包分页数据  _VasRedpacketInfo-->
+    <select id="searchRedpacketByCondition" resultMap="_VasRedpacketVOInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM vas_redpacket_info
+        <include refid="findPage_where_search_map"/>
+        <include refid="extraCondition"/>
+        <if test="vasRedpacketVO.sortColumns != null and vasRedpacketVO.sortColumns !=''">
+            ORDER BY ${vasRedpacketVO.sortColumns}
+        </if>
+    </select>
+
+    <!-- 查询红包总金额 -->
+    <select id="findVasRedpacketTotalNum" resultType="java.math.BigDecimal">
+        SELECT
+        sum(VALUE)
+        FROM vas_redpacket_info
+        <include refid="findPage_where_search_map"/>
+        <include refid="extraCondition"/>
+    </select>
+
+    <!-- 查询红包状态为待审核的个数 -->
+    <select id="findUnCheckRedpackStatesByIds" resultType="java.lang.Long">
+        SELECT
+        COUNT(id)
+        FROM vas_redpacket_info
+        WHERE state = 4
+        <if test="list != null and list.size !=0">
+            AND id IN
+            <foreach collection="list" open="(" close=")" separator="," item="e">
+                #{e}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 查询红包状态为待审核的个数 -->
+    <select id="findUnCheckRedpacketsByIds" resultMap="_VasRedpacketInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM vas_redpacket_info
+        WHERE state = 4
+        <if test="list != null and list.size !=0">
+            AND id IN
+            <foreach collection="list" open="(" close=")" separator="," item="e">
+                #{e}
+            </foreach>
+        </if>
+    </select>
+
+    <!--批量更新红包的状态-->
+    <update id="udpateRedPacketStateByIds">
+        UPDATE vas_redpacket_info
+        SET
+        state=#{state},
+        check_reason=#{reason},
+        modified_user_id=#{checkUserId},
+        modify_time=NOW()
+        WHERE
+        state=4
+        AND
+        id IN
+        <foreach collection="list" open="(" close=")" separator="," item="e">
+             #{e}
+        </foreach>
+    </update>
+
+
+    <!--批量删除红包-->
+    <update id="deleteRedPacket">
+        UPDATE vas_redpacket_info
+        SET
+        state=10,
+        check_reason=#{reason},
+        modified_user_id=#{checkUserId},
+        modify_time=NOW()
+        WHERE
+        state=1
+        AND
+        id IN
+        <foreach collection="list" open="(" close=")" separator="," item="e">
+            #{e}
+        </foreach>
+    </update>
+
+    <select id="getRedPacketInfoList" resultMap="_VasRedpacketInfo">
+        SELECT
+            value,
+            end_time,
+            state,
+            `KEY`
+        FROM
+            vas_redpacket_info
+        WHERE
+            acceptor_user_id = #{acceptorUserId}
+            <choose>
+                <when test="state == 0">
+                    <![CDATA[AND (state=0 AND end_time >= NOW())]]>
+                </when>
+                <when test="state == 2">
+                    <![CDATA[AND (state=2 or (state =0 AND end_time < NOW()))]]>
+                </when>
+                <otherwise>
+                    AND state = #{state}
+                </otherwise>
+            </choose>
+    </select>
+
+    <select id="getRedPacketInfoListCount" resultType="long">
+        SELECT
+            count(id)
+        FROM
+            vas_redpacket_info
+        WHERE
+            acceptor_user_id = #{acceptorUserId}
+            <choose>
+                <when test="state == 0">
+                    <![CDATA[AND (state=0 AND end_time >= NOW())]]>
+                </when>
+                <when test="state == 2">
+                    <![CDATA[AND (state=2 or (state =0 AND end_time < NOW()))]]>
+                </when>
+                <otherwise>
+                    AND state = #{state}
+                </otherwise>
+            </choose>
+    </select>
+
+    <select id="findVasRedpacketInfoByKey" parameterType="java.lang.String" resultMap="_VasRedpacketInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM vas_redpacket_info
+        where `key` = #{key}
+    </select>
+
+    <select id="findInvalidRedPackets" parameterType="java.util.Date" resultMap="_VasRedpacketInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM vas_redpacket_info
+        where
+        state=0
+        AND
+        end_time&lt;=#{currentDate}
+    </select>
+
+    <!-- 红包兑换 -->
+    <update id="exchangeRedPacketInfo">
+        UPDATE vas_redpacket_info
+        <include refid="update_sql"/>
+        <![CDATA[
+		WHERE
+			id = #{id} AND state = 0
+		]]>
+    </update>
+    <!-- 查询红包领取人数 -->
+	 <select id="findRedPacketUserSum" resultType="com.hongkun.finance.vas.model.vo.RedPacketVO"> 
+		SELECT   
+		IFNULL(count(DISTINCT acceptor_user_id),0) as redPacketUserNum,
+	    IFNULL(count(id),0) AS redPacketTimes,
+         IFNULL(sum(value),0) AS redPacketMoneySum
+          FROM vas_redpacket_info
+		<include refid="findPage_where"/>
+		<if test="sortColumns != null and sortColumns !=''">
+		ORDER BY ${sortColumns}
+		</if>
+	</select>
+</mapper>
