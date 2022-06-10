@@ -13,7 +13,7 @@
 	<!-- properties import -->
 	<properties>
 		<framework.version>0.0.1-SNAPSHOT</framework.version>
-		<dubbo.version>2.5.5-SNAPSHOT</dubbo.version>
+		<dubbo.version>2.6.12</dubbo.version>
 		<zkclient.version>0.1</zkclient.version>
 		<aspect.version>1.8.10</aspect.version>
 		<druid.version>1.1.6</druid.version>
